@@ -4,9 +4,9 @@
  */
 
 /*
- * ContentDisplayPanel.java
+ * DetailsDisplayPanel.java
  *
- * Created on Mar 9, 2013, 3:20:35 AM
+ * Created on Mar 9, 2013, 4:22:42 PM
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel;
 
@@ -14,10 +14,10 @@ package citalyser.ui.visualization.panels.regulardisplaypanel;
  *
  * @author Tanmay Patil
  */
-public class ContentDisplayPanel extends javax.swing.JPanel {
+public class DetailsDisplayPanel extends javax.swing.JPanel {
 
-    /** Creates new form ContentDisplayPanel */
-    public ContentDisplayPanel() {
+    /** Creates new form DetailsDisplayPanel */
+    public DetailsDisplayPanel() {
         initComponents();
     }
 
@@ -31,22 +31,14 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jList1 = new javax.swing.JList();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jTable1.setShowHorizontalLines(false);
-        jTable1.setShowVerticalLines(false);
-        jScrollPane1.setViewportView(jTable1);
+        jList1.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -60,7 +52,7 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
