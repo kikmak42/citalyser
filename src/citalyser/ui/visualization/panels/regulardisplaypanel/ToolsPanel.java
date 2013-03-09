@@ -41,7 +41,7 @@ public class ToolsPanel extends javax.swing.JPanel {
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
 
-        jButton2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Arial", 1, 11));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Button2");
         jButton2.setBorderPainted(false);
@@ -53,10 +53,10 @@ public class ToolsPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(1193, Short.MAX_VALUE))
+                .addContainerGap(1183, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
