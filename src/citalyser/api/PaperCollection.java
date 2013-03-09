@@ -1,11 +1,19 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package citalyser.api;
 
+/**
+ *
+ * @author rohan
+ */
 import java.util.*;
 
 public class PaperCollection{
-	private int h_index;
-	private int i_index;
-	private ArrayList<Paper> papers;
+	protected int h_index;
+	protected int i_index;
+	protected ArrayList<Paper> papers;
 
 	public PaperCollection(){
 		this.h_index = 0;
