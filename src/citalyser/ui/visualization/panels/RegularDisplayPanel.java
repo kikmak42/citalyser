@@ -32,15 +32,43 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
 
         headerPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.HeaderPanel();
         toolsPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.ToolsPanel();
+        sidebarPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.SidebarPanel();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        contentDisplayPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.ContentDisplayPanel();
+        detailsDisplayPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.DetailsDisplayPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+
+        sidebarPanel1.setPreferredSize(new java.awt.Dimension(225, 564));
+
+        javax.swing.GroupLayout sidebarPanel1Layout = new javax.swing.GroupLayout(sidebarPanel1);
+        sidebarPanel1.setLayout(sidebarPanel1Layout);
+        sidebarPanel1Layout.setHorizontalGroup(
+            sidebarPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 225, Short.MAX_VALUE)
+        );
+        sidebarPanel1Layout.setVerticalGroup(
+            sidebarPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 543, Short.MAX_VALUE)
+        );
+
+        jSplitPane1.setDividerLocation(700);
+
+        contentDisplayPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jSplitPane1.setLeftComponent(contentDisplayPanel1);
+        jSplitPane1.setRightComponent(detailsDisplayPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(headerPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(toolsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(headerPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1351, Short.MAX_VALUE)
+            .addComponent(toolsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1351, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(sidebarPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1087, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -48,11 +76,18 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
                 .addComponent(headerPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(toolsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(549, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sidebarPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+                    .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private citalyser.ui.visualization.panels.regulardisplaypanel.ContentDisplayPanel contentDisplayPanel1;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.DetailsDisplayPanel detailsDisplayPanel1;
     private citalyser.ui.visualization.panels.regulardisplaypanel.HeaderPanel headerPanel1;
+    private javax.swing.JSplitPane jSplitPane1;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.SidebarPanel sidebarPanel1;
     private citalyser.ui.visualization.panels.regulardisplaypanel.ToolsPanel toolsPanel1;
     // End of variables declaration//GEN-END:variables
 }
