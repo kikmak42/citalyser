@@ -1,12 +1,19 @@
 package citalyser;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
+    
+    static Logger logger = Logger.getLogger(Main.class.getName());
+    
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("RK Opensoft 2013");
+        
+        /* Set Logger Settings*/
+        PropertyConfigurator.configure("log4j.properties");
+        
+        logger.debug("RK Opensoft 2013");
     }
 }
