@@ -16,26 +16,26 @@ public class Author extends PaperCollection{
         private double no_cites_per_paper;
         private double no_cites_per_year;
 	public Author(String name){
-		super();
-		this.name = new String(name);
+            super();
+            this.name = name;
 	}
 
 	public String getName(){
-		return this.name;
+            return this.name;
 	}
 	public void setName(String s){
-		name = new String(s);
+            name = s;
 	}
         public void showstats(){
-            ArrayList<Paper> papers;
+            ArrayList<Paper> paperList;
             Set<Integer> years = new TreeSet<>();
             int total_cites = 0;
-            papers = super.papers;
-            for (Paper paper : papers) {
+            paperList = super.papers;
+            for (Paper paper : paperList) {
                 total_cites += paper.getCites();
                 years.add(paper.getYear());
             }
-            no_cites_per_paper = total_cites/papers.size();
+            no_cites_per_paper = total_cites/paperList.size();
             no_cites_per_year = total_cites/years.size();
         }
         public double getCitesPerYear(){

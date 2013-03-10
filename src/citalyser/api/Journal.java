@@ -15,27 +15,27 @@ public class Journal extends PaperCollection{
         private double cites_per_author;
         private double papers_per_author;
 	public Journal(String name){
-		super();
-		this.name = new String(name);
+            super();
+            this.name = name;
 	}
 
 	public String getName(){
-		return this.name;
+            return this.name;
 	}
 	public void setName(String s){
-		name = new String(s);
+            name = s;
 	}
         public void showstats(){
-            ArrayList<Paper> papers = super.papers;
+            ArrayList<Paper> paperList = super.papers;
             Set<Author> diff_authors = new TreeSet<>();
             int total_cites = 0;
-            for (Paper paper : papers) {
+            for (Paper paper : paperList) {
                 ArrayList<Author> authors = paper.getAuthors();
                 diff_authors.addAll(authors);
                 total_cites += paper.getCites();
             }
             cites_per_author = total_cites/diff_authors.size();
-            papers_per_author = papers.size()/diff_authors.size();
+            papers_per_author = paperList.size()/diff_authors.size();
         }
         public double get_cites_per_author(){
             showstats();
