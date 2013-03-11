@@ -20,11 +20,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     /** Creates new form MainFrame */
     public MainFrame() {
-        /*try {
-            setIconImage(javax.imageio.ImageIO.read(new java.io.File("/citalyser/src/citalyser/ui/visualization/resources/logo.png")));
+        try {
+            setIconImage(javax.imageio.ImageIO.read(new java.io.File("/citalyser/ui/visualization/resources/logo.png")));
         } catch (IOException ex) {
             ex.printStackTrace();
-        }*/
+        }
         initComponents();
         regularDisplayPanel1.setFrame(this);
     }

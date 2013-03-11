@@ -8,14 +8,17 @@ package citalyser.api;
  *
  * @author rohan
  */
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
 
-public class Journal extends PaperCollection{
+public class Journal{
 	private String name;
         private double cites_per_author;
         private double papers_per_author;
+        private PaperCollection paper_collection;
 	public Journal(String name){
-            super();
+            this.paper_collection = null;
             this.name = name;
 	}
 
@@ -25,24 +28,30 @@ public class Journal extends PaperCollection{
 	public void setName(String s){
             name = s;
 	}
-        public void showstats(){
-            ArrayList<Paper> paperList = super.papers;
+        public double getCitesPerAuthor(){
+            showstats();
+            return cites_per_author;
+        }
+        public double getPapersPerAuthor(){
+            showstats();
+            return papers_per_author;
+        }
+        public PaperCollection getPaperCollection(){
+            return this.paper_collection;
+        }
+        public void setPaperCollection(PaperCollection p){
+            this.paper_collection = p;
+        }
+        private void showstats(){
+            ArrayList<Paper> paperList = this.paper_collection.getPapers();
             Set<Author> diff_authors = new TreeSet<>();
             int total_cites = 0;
             for (Paper paper : paperList) {
                 ArrayList<Author> authors = paper.getAuthors();
                 diff_authors.addAll(authors);
-                total_cites += paper.getCites();
+                total_cites += paper.getNumCites();
             }
             cites_per_author = total_cites/diff_authors.size();
             papers_per_author = paperList.size()/diff_authors.size();
-        }
-        public double get_cites_per_author(){
-            showstats();
-            return cites_per_author;
-        }
-        public double get_papers_per_author(){
-            showstats();
-            return papers_per_author;
         }
 }
