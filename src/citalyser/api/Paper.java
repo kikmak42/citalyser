@@ -17,7 +17,8 @@ public class Paper{
 	private int cites;
 	private ArrayList<Author> authors;
 	private ArrayList<Journal> journals;  
-	
+	private String abstracttext;
+        
 	public String getTitle(){
 		return this.title;
 	}
@@ -48,4 +49,11 @@ public class Paper{
 	public void setJournals(ArrayList<Journal> l){
 		this.journals = new ArrayList<Journal>(l);
 	}
+        public String getAbstract(){
+		return this.abstracttext;
+	}
+	public void setAbstract(String t){
+		this.abstracttext = new String(t);
+	}
+        
 }
