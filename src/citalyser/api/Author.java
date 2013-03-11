@@ -11,7 +11,7 @@ public class Author{
         private PaperCollection paper_collection;
         
         public Author(String name){
-            this.paper_collection = new PaperCollection();
+            this.paper_collection = null;
             this.name = name;
         }
 
@@ -29,13 +29,19 @@ public class Author{
             showstats();
             return no_cites_per_paper;
         }
+        public PaperCollection getPaperCollection(){
+            return this.paper_collection;
+        }
+        public void setPaperCollection(PaperCollection p){
+            this.paper_collection = p;
+        }
         private void showstats(){
             ArrayList<Paper> paperList;
             Set<Integer> years = new TreeSet<>();
             int total_cites = 0;
             paperList = this.paper_collection.getPapers();
             for (Paper paper : paperList) {
-                total_cites += paper.getCites();
+                total_cites += paper.getNumCites();
                 years.add(paper.getYear());
             }
             no_cites_per_paper = (double)total_cites/paperList.size();

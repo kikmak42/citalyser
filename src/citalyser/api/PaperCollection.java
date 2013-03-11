@@ -72,7 +72,7 @@ public class PaperCollection {
         int i, size;
         size = papers.size();
         for (i = 0; i < size; i++) {
-            if (papers.get(i).getCites() >= low && papers.get(i).getCites() <= high) {
+            if (papers.get(i).getNumCites() >= low && papers.get(i).getNumCites() <= high) {
                 retval.add(papers.get(i));
             }
         }
@@ -88,12 +88,12 @@ public class PaperCollection {
      */
     public Paper maximumCitedPaper() {
         int i, size;
-        int max = papers.get(0).getCites();
+        int max = papers.get(0).getNumCites();
         Paper paper = papers.get(0);
         size = papers.size();
         for (i = 0; i < size; i++) {
-            if (papers.get(i).getCites() > max) {
-                max = papers.get(i).getCites();
+            if (papers.get(i).getNumCites() > max) {
+                max = papers.get(i).getNumCites();
                 paper = papers.get(i);
             }
         }
@@ -122,9 +122,9 @@ public class PaperCollection {
             while (j < 10) {
                 i = 0;
                 while (i < size) {
-                    if (max1 < paperOfYear.get(i).getCites() && max2 > paperOfYear.get(i).getCites()) {
+                    if (max1 < paperOfYear.get(i).getNumCites() && max2 > paperOfYear.get(i).getNumCites()) {
                         if (!isThere(i, index)) {
-                            max1 = paperOfYear.get(i).getCites();
+                            max1 = paperOfYear.get(i).getNumCites();
                             curmax = i;
                         }
                     }
@@ -133,7 +133,7 @@ public class PaperCollection {
                 index.add(curmax);
                 retval.add(paperOfYear.get(curmax));
                 max1 = 0;
-                max2 = paperOfYear.get(curmax).getCites();
+                max2 = paperOfYear.get(curmax).getNumCites();
                 j++;
             }
         } else {
@@ -152,7 +152,7 @@ public class PaperCollection {
 
         int i;
         for (i = 0; i < size; i++) {
-            list.add(this.papers.get(i).getCites());
+            list.add(this.papers.get(i).getNumCites());
         }
 
         Collections.sort(list);
@@ -176,7 +176,7 @@ public class PaperCollection {
         int i;
 
         for (i = 0; i < size; i++) {
-            if (papers.get(i).getCites() >= 10) {
+            if (papers.get(i).getNumCites() >= 10) {
                 this.i_index++;
             }
         }
