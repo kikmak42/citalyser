@@ -194,12 +194,41 @@ public class Extractdata {
                 Element section= title_section.get(0);//getting the first element of this array
                 String title = section.text();
                 String href = section.attr("href");   
-                System.out.println(title);
-                System.out.println(href);
+                System.out.println("title is"+title+"\n");
+                System.out.println("link under title is "+href+"\n");
                
             }
             
             //extracting pdf section
+            Elements pdf_section = item.select(".gs_ggs > a");
+            if(!pdf_section.isEmpty()){
+                Element section = pdf_section.get(0);
+                String pdf = section.attr("href");
+                System.out.println("pdf link is"+pdf+"\n");
+                             
+                
+            }
+            
+            //extracting the authors
+            Elements author_section_a = item.select(".gs_a > a");
+            for(Element author : author_section_a){
+                String author_name = author.text();//getting the author name
+                String url = "http://scholar.google.com";
+                String citations_link = url+author.attr("href");               
+                
+            }
+            
+            Elements author_section_b = item.select(".gs_a");
+            if(!author_section_b.isEmpty()){
+                Element section = author_section_b.get(0);
+                String section_text = section.text();
+                String[]list=section_text.split("-");
+                String names = list[0];
+                String conference = list[1];
+                String publisher = list[2];
+                
+                
+            }
             
             
         }
