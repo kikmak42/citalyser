@@ -10,6 +10,8 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel;
 
+import citalyser.ui.visualization.MainFrame;
+
 /**
  *
  * @author Tanmay Patil
@@ -39,14 +41,26 @@ public class HeaderPanel extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_1.png"))); // NOI18N
+        jButton1.setBorder(null);
         jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setFocusPainted(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Settings");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/settingButton.png"))); // NOI18N
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.setFocusPainted(false);
+        jButton2.setFocusable(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
@@ -106,7 +120,7 @@ public class HeaderPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
                 .addContainerGap())
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
         );
@@ -123,6 +137,25 @@ public class HeaderPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        /*javax.swing.JInternalFrame jInternalFrame = new javax.swing.JInternalFrame();
+        jInternalFrame.setLayout(new java.awt.BorderLayout());
+        jInternalFrame.add(new citalyser.ui.visualization.panels.external.SettingsPanel());
+        jInternalFrame.setVisible(true);
+        jInternalFrame.validate();
+        jInternalFrame.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        System.out.println(jInternalFrame.getWidth() + ", " + jInternalFrame.getHeight());*/
+        mainFrame.validate();
+        mainFrame.flip();
+        mainFrame.validate();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    public void setFrame(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
+    }
+    
+    private MainFrame mainFrame;
     private boolean authorSearch = true;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

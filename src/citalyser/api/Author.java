@@ -4,13 +4,14 @@
  */
 package citalyser.api;
 
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
+
 /**
  *
  * @author rohan
  */
-import java.util.*;
-import java.util.Iterator;
-
 public class Author extends PaperCollection{
 	private String name;
         private double no_cites_per_paper;

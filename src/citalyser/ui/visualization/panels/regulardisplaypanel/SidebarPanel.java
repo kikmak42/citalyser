@@ -30,19 +30,41 @@ public class SidebarPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rangeSlider1 = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.RangeSlider();
+
         setBackground(new java.awt.Color(153, 153, 255));
+
+        rangeSlider1.setBackground(new java.awt.Color(153, 153, 255));
+        rangeSlider1.setForeground(new java.awt.Color(255, 255, 255));
+        rangeSlider1.setMajorTickSpacing(2);
+        rangeSlider1.setMaximum(2015);
+        rangeSlider1.setMinimum(1995);
+        rangeSlider1.setOrientation(javax.swing.JSlider.VERTICAL);
+        rangeSlider1.setPaintLabels(true);
+        rangeSlider1.setPaintTicks(true);
+        rangeSlider1.setSnapToTicks(true);
+        rangeSlider1.setValue(2001);
+        rangeSlider1.setFocusable(false);
+        rangeSlider1.setUpperValue(2010);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 225, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(65, 65, 65)
+                .addComponent(rangeSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(112, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 395, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(rangeSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(135, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.RangeSlider rangeSlider1;
     // End of variables declaration//GEN-END:variables
 }

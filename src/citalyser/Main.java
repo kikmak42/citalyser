@@ -1,5 +1,6 @@
 package citalyser;
 
+import citalyser.ui.visualization.MainFrame;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -15,5 +16,8 @@ public class Main {
         PropertyConfigurator.configure("log4j.properties");
         
         logger.debug("RK Opensoft 2013");
+        
+        MainFrame mainFrame = new MainFrame();
+        mainFrame.setVisible(true);
     }
 }

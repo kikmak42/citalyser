@@ -10,6 +10,9 @@
  */
 package citalyser.ui.visualization.panels;
 
+import citalyser.ui.visualization.MainFrame;
+import javax.swing.JFrame;
+
 /**
  *
  * @author Tanmay Patil
@@ -19,6 +22,13 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
     /** Creates new form RegularDisplayPanel */
     public RegularDisplayPanel() {
         initComponents();
+        javax.swing.plaf.basic.BasicSplitPaneDivider divider = (javax.swing.plaf.basic.BasicSplitPaneDivider) jSplitPane1.getComponent(0);
+        divider.setBackground(java.awt.Color.WHITE);
+        divider.setBorder(null);
+    }
+
+    public void setFrame(MainFrame mainFrame) {
+        headerPanel1.setFrame(mainFrame);
     }
 
     /** This method is called from within the constructor to
@@ -32,27 +42,19 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
 
         headerPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.HeaderPanel();
         toolsPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.ToolsPanel();
-        sidebarPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.SidebarPanel();
         jSplitPane1 = new javax.swing.JSplitPane();
         contentDisplayPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.ContentDisplayPanel();
         detailsDisplayPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.DetailsDisplayPanel();
+        sidebarPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.SidebarPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        sidebarPanel1.setPreferredSize(new java.awt.Dimension(225, 564));
-
-        javax.swing.GroupLayout sidebarPanel1Layout = new javax.swing.GroupLayout(sidebarPanel1);
-        sidebarPanel1.setLayout(sidebarPanel1Layout);
-        sidebarPanel1Layout.setHorizontalGroup(
-            sidebarPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 225, Short.MAX_VALUE)
-        );
-        sidebarPanel1Layout.setVerticalGroup(
-            sidebarPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 543, Short.MAX_VALUE)
-        );
-
+        jSplitPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jSplitPane1.setBorder(null);
         jSplitPane1.setDividerLocation(700);
+        jSplitPane1.setDividerSize(20);
+        jSplitPane1.setToolTipText("");
+        jSplitPane1.setOneTouchExpandable(true);
 
         contentDisplayPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jSplitPane1.setLeftComponent(contentDisplayPanel1);
@@ -78,8 +80,8 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
                 .addComponent(toolsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sidebarPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
-                    .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)))
+                    .addComponent(sidebarPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
+                    .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
