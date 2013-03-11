@@ -14,8 +14,9 @@ public class Journal extends PaperCollection{
 	private String name;
         private double cites_per_author;
         private double papers_per_author;
+        private PaperCollection paper_collection;
 	public Journal(String name){
-            super();
+            this.paper_collection = new PaperCollection();
             this.name = name;
 	}
 
@@ -26,7 +27,7 @@ public class Journal extends PaperCollection{
             name = s;
 	}
         public void showstats(){
-            ArrayList<Paper> paperList = super.papers;
+            ArrayList<Paper> paperList = this.paper_collection.getPapers();
             Set<Author> diff_authors = new TreeSet<>();
             int total_cites = 0;
             for (Paper paper : paperList) {
