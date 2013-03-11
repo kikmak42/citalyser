@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.citalyser.parsing;
+package citalyser.parsing;
 import citalyser.api.*;
+import java.util.ArrayList;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,7 +17,7 @@ public class Extractdata {
     public String source;
     public String type;
     static Document doc;
-    
+    private ArrayList<Paper> extractedpapers;
     public Extractdata(String source,String type){
         this.source=source;
         this.type=type;
@@ -24,6 +25,7 @@ public class Extractdata {
     //Author a= new Author("dvc");
     
     public static void main(String args[]){
+         
         String source= "<div class=\"gs_ri\">\n" +
 "        <h3 class=\"gs_rt\">\n" +
 "         <a href=\"http://www.springerlink.com/index/L215116G22366720.pdf\" onmousedown=\"return scife_clk(this.href,'','res','0')\">\n" +
@@ -185,6 +187,7 @@ public class Extractdata {
     
     //this function takes the title of a paper and the source string and returns an arraylist of authors of that paper
     void extractInfo(){
+        Paper insertInextractedpapers = new Paper();
         doc = Jsoup.parse(source,"UTF-8");
         Elements items = doc.select(".gs_r");//select all items 
         for (Element item : items){
