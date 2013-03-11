@@ -21,6 +21,14 @@ public class Author{
         public void setName(String s){
             this.name = s;
         }
+        public double getCitesPerYear(){
+            showstats();
+            return no_cites_per_year;
+        }
+        public double getCitesPerPaper(){
+            showstats();
+            return no_cites_per_paper;
+        }
         private void showstats(){
             ArrayList<Paper> paperList;
             Set<Integer> years = new TreeSet<>();
@@ -32,13 +40,5 @@ public class Author{
             }
             no_cites_per_paper = (double)total_cites/paperList.size();
             no_cites_per_year = (double)total_cites/years.size();
-        }
-        public double getCitesPerYear(){
-            showstats();
-            return no_cites_per_year;
-        }
-        public double getCitesPerPaper(){
-            showstats();
-            return no_cites_per_paper;
         }
 }

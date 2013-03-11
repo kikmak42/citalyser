@@ -10,7 +10,7 @@ package citalyser.api;
  */
 import java.util.*;
 
-public class Journal extends PaperCollection{
+public class Journal{
 	private String name;
         private double cites_per_author;
         private double papers_per_author;
@@ -26,7 +26,15 @@ public class Journal extends PaperCollection{
 	public void setName(String s){
             name = s;
 	}
-        public void showstats(){
+        public double getCitesPerAuthor(){
+            showstats();
+            return cites_per_author;
+        }
+        public double getPapersPerAuthor(){
+            showstats();
+            return papers_per_author;
+        }
+        private void showstats(){
             ArrayList<Paper> paperList = this.paper_collection.getPapers();
             Set<Author> diff_authors = new TreeSet<>();
             int total_cites = 0;
@@ -37,13 +45,5 @@ public class Journal extends PaperCollection{
             }
             cites_per_author = total_cites/diff_authors.size();
             papers_per_author = paperList.size()/diff_authors.size();
-        }
-        public double get_cites_per_author(){
-            showstats();
-            return cites_per_author;
-        }
-        public double get_papers_per_author(){
-            showstats();
-            return papers_per_author;
         }
 }
