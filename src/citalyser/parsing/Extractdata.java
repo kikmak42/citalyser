@@ -117,43 +117,81 @@ public class Extractdata {
                 Element section = author_section_b.get(0);
                 String section_text = section.text();
                 String[] list = section_text.split(" - … ,? | - ");
-                System.out.println("section text :" + section_text);
-                System.out.println(Arrays.toString(list));
-                String names = list[0];
-                System.out.println("list 0 :" + list[0]);
-                System.out.println("list 1 :" + list[1]);
-                String jrnl = list[1].split(", ")[0];
-                journalinpaper.setName(jrnl);
-                journalsinPaper.add(journalinpaper);
-                System.out.println("journal:" + jrnl);
+                int len = list.length;
+                System.out.println("no. of substr(-):" + len);
+                if (len == 3) {
+                    System.out.println("section text :" + section_text);
+                    System.out.println(Arrays.toString(list));
+                    String names = list[0];
+                    System.out.println("list 0 :" + list[0]);
+                    System.out.println("list 1 :" + list[1]);
+                    String jrnl;// = list[1].split(", ")[0];
 
-                insertInextractedpapers.setJournals(journalsinPaper);
-                String year;
-                try {
-                    year = list[1].split("…, ")[1];
-                    System.out.println("year is:" + year + ":");
-                } catch (Exception e) {
                     try {
-                        year = list[1].split(", ")[1];
-                        System.out.println("year is:" + year + ":");
-
-                    } catch (Exception e1) {
-                        year = "0";
-                        System.out.println("year is:" + year + ":");
-
+                        jrnl = list[1].split("…, ")[0] + "…";
+                    } catch (Exception e) {
+                        jrnl = list[1].split(", ")[0];
                     }
+                    journalinpaper.setName(jrnl);
+
+                    System.out.println("journal:" + jrnl);
+
+
+                    String year;
+                    int yearint = 0;
+                    try {
+                        year = list[1].split("…, ")[1];
+                        System.out.println("year is:" + year + ":");
+                        yearint = Integer.parseInt(year);
+                    } catch (Exception e) {
+                        try {
+                            year = list[1].split(", ")[1];
+                            System.out.println("year is:" + year + ":");
+                            yearint = Integer.parseInt(year);
+
+                        } catch (Exception e1) {
+                            year = list[1];
+                            try {
+                                yearint = Integer.parseInt(year);
+                                journalinpaper.setName("");
+                            } catch (Exception e2) {
+                                yearint = 0;
+
+                            }
+                            System.out.println("year is:" + year + ":");
+
+                        }
+                    }
+
+                    journalsinPaper.add(journalinpaper);
+                    insertInextractedpapers.setJournals(journalsinPaper);
+                    insertInextractedpapers.setYear(yearint);
+                    String[] author_names = names.split(",|…");
+                    for (String nameinarray : author_names) {
+
+                        authorinpaper.setName(nameinarray);
+                        authorsinPaper.add(authorinpaper);
+                    }
+                    insertInextractedpapers.setAuthors(authorsinPaper);
+                    System.out.println("Authors:  " + Arrays.toString(author_names));
+
+
                 }
-                insertInextractedpapers.setYear(Integer.parseInt(year));
-                String[] author_names = names.split(",|…");
-                for (String nameinarray : author_names) {
 
-                    authorinpaper.setName(nameinarray);
-                    authorsinPaper.add(authorinpaper);
+                if (len == 2) {
+                    System.out.println("section text :" + section_text);
+                    System.out.println(Arrays.toString(list));
+                    String names = list[0];
+                    System.out.println("list 0 :" + list[0]);
+                    String[] author_names = names.split(",|…");
+                    for (String nameinarray : author_names) {
+
+                        authorinpaper.setName(nameinarray);
+                        authorsinPaper.add(authorinpaper);
+                    }
+                    insertInextractedpapers.setAuthors(authorsinPaper);
+                    System.out.println("Authors:  " + Arrays.toString(author_names));
                 }
-                insertInextractedpapers.setAuthors(authorsinPaper);
-                System.out.println("Authors:  " + Arrays.toString(author_names));
-
-
             }
 
             //extracting the abstract
@@ -223,5 +261,16 @@ public class Extractdata {
 
         }
         return citedbyList;
+    }
+
+    int checkparsednumbermid(String inp) {
+        int ret = 0;
+        try{
+            ret=inp.split("").length;
+        }
+        catch(Exception e){
+            
+        }
+        return ret;
     }
 }
