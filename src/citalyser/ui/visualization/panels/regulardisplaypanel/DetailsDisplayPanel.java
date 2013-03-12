@@ -10,6 +10,8 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel;
 
+import citalyser.ui.control.DisplayMaster;
+
 /**
  *
  * @author Tanmay Patil
@@ -20,6 +22,12 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
     public DetailsDisplayPanel() {
         initComponents();
     }
+    
+    public void setDisplayMaster(DisplayMaster displayMaster) {
+        this.displayMaster = displayMaster;
+    }
+            
+    private DisplayMaster displayMaster;
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -33,6 +41,11 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
 
+        setBackground(new java.awt.Color(153, 153, 255));
+
+        jList1.setBackground(new java.awt.Color(204, 204, 255));
+        jList1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jList1.setForeground(new java.awt.Color(0, 51, 153));
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }

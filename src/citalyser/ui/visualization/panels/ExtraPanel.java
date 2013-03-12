@@ -4,30 +4,41 @@
  */
 
 /*
- * ContentDisplayPanel.java
+ * ExtraPanel.java
  *
- * Created on Mar 9, 2013, 3:20:35 AM
+ * Created on Mar 11, 2013, 10:54:35 PM
  */
-package citalyser.ui.visualization.panels.regulardisplaypanel;
+package citalyser.ui.visualization.panels;
 
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.visualization.panels.external.SettingsPanel;
 
 /**
  *
  * @author Tanmay Patil
  */
-public class ContentDisplayPanel extends javax.swing.JPanel {
+public class ExtraPanel extends javax.swing.JPanel {
 
-    /** Creates new form ContentDisplayPanel */
-    public ContentDisplayPanel() {
+    /** Creates new form ExtraPanel */
+    public ExtraPanel() {
         initComponents();
+        settingsPanel = new SettingsPanel();
+        this.setLayout(new java.awt.GridBagLayout());
+        add(settingsPanel);
+        setBackground(new java.awt.Color(0, 0, 0, 150));
     }
     
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
+        settingsPanel.setDisplayMaster(displayMaster);
+    }
+
+    public SettingsPanel getSettingsPanel() {
+        return settingsPanel;
     }
             
     private DisplayMaster displayMaster;
+    private SettingsPanel settingsPanel;
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -38,39 +49,17 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-
-        jScrollPane1.setBorder(null);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jTable1.setShowHorizontalLines(false);
-        jTable1.setShowVerticalLines(false);
-        jScrollPane1.setViewportView(jTable1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addGap(0, 1349, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addGap(0, 690, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

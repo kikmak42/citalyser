@@ -18,19 +18,19 @@ public class Initialiser {
         if(userHome == null)
             userHome = ".";
         File home = new File(userHome);
-        Main.settingsDirectory = new File(home,".citalyser");
-        if(!Main.settingsDirectory.exists())
+        Main.setSettingsDirectory(new File(home,".citalyser"));
+        if(!Main.getSettingsDirectory().exists())
         {
-            if(!Main.settingsDirectory.mkdir())
+            if(!Main.getSettingsDirectory().mkdir())
             {
                 logger.error("Failed to create Settings Directory. Exiting..");
                 //System.exit(0);
             }
             else
-                logger.info("Created app directory at : " + Main.settingsDirectory.getAbsolutePath());
+                logger.info("Created app directory at : " + Main.getSettingsDirectory().getAbsolutePath());
         }
         else
-            logger.info("App Directory already present at  " + Main.settingsDirectory.getAbsolutePath());
+            logger.info("App Directory already present at  " + Main.getSettingsDirectory().getAbsolutePath());
     }
     
 }
