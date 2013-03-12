@@ -10,7 +10,7 @@
  */
 package citalyser.ui.visualization.panels.external.settingspanel;
 
-import citalyser.ui.visualization.panels.external.SettingsPanel;
+import citalyser.ui.control.DisplayMaster;
 
 /**
  *
@@ -22,12 +22,10 @@ public class ProxyPanel extends javax.swing.JPanel {
     public ProxyPanel() {
         initComponents();
     }
-
-    public void setSettingsPanel(SettingsPanel settingsPanel) {
-        this.settingsPanel = settingsPanel;
-    }
     
-    private SettingsPanel settingsPanel;
+    public void setDisplayMaster(DisplayMaster displayMaster) {
+        this.displayMaster = displayMaster;
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -110,6 +108,11 @@ public class ProxyPanel extends javax.swing.JPanel {
         jPasswordField1.setEnabled(false);
 
         jButton1.setText("Cancel");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("OK");
 
@@ -145,9 +148,9 @@ public class ProxyPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(148, Short.MAX_VALUE)
+                .addContainerGap(145, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
@@ -179,7 +182,7 @@ public class ProxyPanel extends javax.swing.JPanel {
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
                             .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -226,6 +229,12 @@ public class ProxyPanel extends javax.swing.JPanel {
         updateFields();
     }//GEN-LAST:event_jRadioButton4ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        displayMaster.cancelNewProxyButtonClicked();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+            
+    private DisplayMaster displayMaster;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;

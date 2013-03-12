@@ -21,11 +21,11 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="headerPanel1" pref="1351" max="32767" attributes="0"/>
-          <Component id="toolsPanel1" alignment="0" pref="1351" max="32767" attributes="0"/>
+          <Component id="headerPanel" pref="1351" max="32767" attributes="0"/>
+          <Component id="toolsPanel" alignment="0" pref="1351" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-              <Component id="sidebarPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="sidebarPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jSplitPane1" pref="1087" max="32767" attributes="0"/>
           </Group>
@@ -34,12 +34,12 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="headerPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="headerPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="toolsPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="toolsPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="sidebarPanel1" pref="536" max="32767" attributes="0"/>
+                  <Component id="sidebarPanel" pref="536" max="32767" attributes="0"/>
                   <Component id="jSplitPane1" alignment="0" pref="536" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -47,9 +47,9 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="citalyser.ui.visualization.panels.regulardisplaypanel.HeaderPanel" name="headerPanel1">
+    <Component class="citalyser.ui.visualization.panels.regulardisplaypanel.HeaderPanel" name="headerPanel">
     </Component>
-    <Component class="citalyser.ui.visualization.panels.regulardisplaypanel.ToolsPanel" name="toolsPanel1">
+    <Component class="citalyser.ui.visualization.panels.regulardisplaypanel.ToolsPanel" name="toolsPanel">
     </Component>
     <Container class="javax.swing.JSplitPane" name="jSplitPane1">
       <Properties>
@@ -67,7 +67,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
       <SubComponents>
-        <Component class="citalyser.ui.visualization.panels.regulardisplaypanel.ContentDisplayPanel" name="contentDisplayPanel1">
+        <Component class="citalyser.ui.visualization.panels.regulardisplaypanel.ContentDisplayPanel" name="contentDisplayPanel">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -79,7 +79,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="citalyser.ui.visualization.panels.regulardisplaypanel.DetailsDisplayPanel" name="detailsDisplayPanel1">
+        <Component class="citalyser.ui.visualization.panels.regulardisplaypanel.DetailsDisplayPanel" name="detailsDisplayPanel">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
               <JSplitPaneConstraints position="right"/>
@@ -88,7 +88,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="citalyser.ui.visualization.panels.regulardisplaypanel.SidebarPanel" name="sidebarPanel1">
+    <Component class="citalyser.ui.visualization.panels.regulardisplaypanel.SidebarPanel" name="sidebarPanel">
     </Component>
   </SubComponents>
 </Form>

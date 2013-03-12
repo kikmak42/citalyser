@@ -65,14 +65,14 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
           <SubComponents>
-            <Component class="citalyser.ui.visualization.panels.external.settingspanel.ProxyListPanel" name="proxyListPanel1">
+            <Component class="citalyser.ui.visualization.panels.external.settingspanel.ProxyListPanel" name="proxyListPanel">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                   <CardConstraints cardName="card2"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="citalyser.ui.visualization.panels.external.settingspanel.ProxyPanel" name="proxyPanel1">
+            <Component class="citalyser.ui.visualization.panels.external.settingspanel.ProxyPanel" name="proxyPanel">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                   <CardConstraints cardName="card3"/>

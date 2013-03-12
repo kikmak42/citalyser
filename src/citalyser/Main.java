@@ -1,24 +1,45 @@
 package citalyser;
 
-import citalyser.ui.visualization.MainFrame;
+import citalyser.ui.DisplayController;
+import citalyser.ui.control.DisplayControllerImpl;
+import java.io.File;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 public class Main {
 
 
-    static Logger logger = Logger.getLogger(Main.class.getName());
+    private static Logger logger = Logger.getLogger(Main.class.getName());
+    private static File settingsDirectory;
+    private static DisplayController displayController;
+
+    public static DisplayController getDisplayController() {
+        return displayController;
+    }
+
+    public static File getSettingsDirectory() {
+        return settingsDirectory;
+    }
+
+    public static void setSettingsDirectory(File settingsDirectory) {
+        Main.settingsDirectory = settingsDirectory;
+    }
     
     public static void main(String[] args) {
-        // TODO code application logic here
         
         /* Set Logger Settings*/
         PropertyConfigurator.configure("log4j.properties");
         
-        logger.debug("RK Opensoft 2013");
+        /* initialise the software */
+        Initialiser.init();
         
-        MainFrame mainFrame = new MainFrame();
-        mainFrame.setVisible(true);
+        /* Load the Config File*/
+        Config.init(settingsDirectory);
+        
+        displayController = new DisplayControllerImpl();
+        displayController.initializeDisplay();
+        
     }
     
+
 }

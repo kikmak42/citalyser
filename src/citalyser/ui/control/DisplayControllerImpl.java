@@ -9,5 +9,10 @@ package citalyser.ui.control;
  * @author Tanmay Patil
  */
 public class DisplayControllerImpl implements citalyser.ui.DisplayController {
+
+    @Override
+    public void initializeDisplay() {
+        DisplayMaster displayMaster = new DisplayMaster();
+    }
     
 }

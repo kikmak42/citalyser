@@ -10,7 +10,7 @@
  */
 package citalyser.ui.visualization.panels.external.settingspanel;
 
-import citalyser.ui.visualization.panels.external.SettingsPanel;
+import citalyser.ui.control.DisplayMaster;
 
 /**
  *
@@ -22,12 +22,12 @@ public class ProxyListPanel extends javax.swing.JPanel {
     public ProxyListPanel() {
         initComponents();
     }
-
-    public void setSettingsPanel(SettingsPanel settingsPanel) {
-        this.settingsPanel = settingsPanel;
-    }
     
-    private SettingsPanel settingsPanel;
+    public void setDisplayMaster(DisplayMaster displayMaster) {
+        this.displayMaster = displayMaster;
+    }
+            
+    private DisplayMaster displayMaster;
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -71,12 +71,22 @@ public class ProxyListPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Add");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Remove");
 
         jButton3.setText("Edit");
 
         jButton4.setText("OK");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -107,6 +117,16 @@ public class ProxyListPanel extends javax.swing.JPanel {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        displayMaster.settingsSaveAndClose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        displayMaster.openAddNewProxyWindow();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

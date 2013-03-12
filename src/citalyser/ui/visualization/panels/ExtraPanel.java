@@ -10,6 +10,7 @@
  */
 package citalyser.ui.visualization.panels;
 
+import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.external.SettingsPanel;
 
 /**
@@ -21,10 +22,23 @@ public class ExtraPanel extends javax.swing.JPanel {
     /** Creates new form ExtraPanel */
     public ExtraPanel() {
         initComponents();
+        settingsPanel = new SettingsPanel();
         this.setLayout(new java.awt.GridBagLayout());
-        add(new SettingsPanel());
-        setBackground(new java.awt.Color(0, 0, 0, 100));
+        add(settingsPanel);
+        setBackground(new java.awt.Color(0, 0, 0, 150));
     }
+    
+    public void setDisplayMaster(DisplayMaster displayMaster) {
+        this.displayMaster = displayMaster;
+        settingsPanel.setDisplayMaster(displayMaster);
+    }
+
+    public SettingsPanel getSettingsPanel() {
+        return settingsPanel;
+    }
+            
+    private DisplayMaster displayMaster;
+    private SettingsPanel settingsPanel;
 
     /** This method is called from within the constructor to
      * initialize the form.

@@ -10,6 +10,10 @@
  */
 package citalyser.ui.visualization.panels.external;
 
+import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.visualization.panels.external.settingspanel.ProxyListPanel;
+import citalyser.ui.visualization.panels.external.settingspanel.ProxyPanel;
+
 /**
  *
  * @author Tanmay Patil
@@ -19,14 +23,27 @@ public class SettingsPanel extends javax.swing.JPanel {
     /** Creates new form SettingsPanel */
     public SettingsPanel() {
         initComponents();
-        proxyPanel1.setSettingsPanel(this);
-        proxyListPanel1.setSettingsPanel(this);
     }
 
     public void flip() {
         ((java.awt.CardLayout) jPanel1.getLayout()).next(jPanel1);
     }
 
+    public ProxyListPanel getProxyListPanel() {
+        return proxyListPanel;
+    }
+
+    public ProxyPanel getProxyPanel() {
+        return proxyPanel;
+    }
+
+    public void setDisplayMaster(DisplayMaster displayMaster) {
+        this.displayMaster = displayMaster;
+        proxyListPanel.setDisplayMaster(displayMaster);
+        proxyPanel.setDisplayMaster(displayMaster);
+    }
+            
+    private DisplayMaster displayMaster;
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -40,8 +57,8 @@ public class SettingsPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        proxyListPanel1 = new citalyser.ui.visualization.panels.external.settingspanel.ProxyListPanel();
-        proxyPanel1 = new citalyser.ui.visualization.panels.external.settingspanel.ProxyPanel();
+        proxyListPanel = new citalyser.ui.visualization.panels.external.settingspanel.ProxyListPanel();
+        proxyPanel = new citalyser.ui.visualization.panels.external.settingspanel.ProxyPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
@@ -49,8 +66,8 @@ public class SettingsPanel extends javax.swing.JPanel {
         jLabel1.setText("Settings");
 
         jPanel1.setLayout(new java.awt.CardLayout());
-        jPanel1.add(proxyListPanel1, "card2");
-        jPanel1.add(proxyPanel1, "card3");
+        jPanel1.add(proxyListPanel, "card2");
+        jPanel1.add(proxyPanel, "card3");
 
         jTabbedPane1.addTab("Proxy Settings", jPanel1);
 
@@ -76,7 +93,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private citalyser.ui.visualization.panels.external.settingspanel.ProxyListPanel proxyListPanel1;
-    private citalyser.ui.visualization.panels.external.settingspanel.ProxyPanel proxyPanel1;
+    private citalyser.ui.visualization.panels.external.settingspanel.ProxyListPanel proxyListPanel;
+    private citalyser.ui.visualization.panels.external.settingspanel.ProxyPanel proxyPanel;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,6 +10,7 @@
  */
 package citalyser.ui.visualization.panels.common;
 
+import citalyser.ui.control.DisplayMaster;
 import java.awt.Color;
 
 /**
@@ -46,11 +47,21 @@ public class SearchPanel extends javax.swing.JPanel {
                 jTextField1FocusLost(evt);
             }
         });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/SearchButtonIcon.PNG"))); // NOI18N
         jButton1.setBorder(null);
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -96,7 +107,34 @@ public class SearchPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTextField1FocusLost
 
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        // TODO add your handling code here:
+        displayMaster.searchKeyPressed(this, evt.getKeyChar());
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        displayMaster.searchButtonClicked(this);
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    public void setDisplayMaster(DisplayMaster displayMaster) {
+        this.displayMaster = displayMaster;
+    }
+
+    public void requestSearchFieldFocus() {
+        this.jTextField1.requestFocus();
+    }    
+    
+    public void setSearchString(String searchString) {
+        jTextField1.setForeground(Color.BLACK);
+        jTextField1.setText(searchString);
+    }
+
+    public String getSearchString() {
+        return jTextField1.getText();
+    }
+    
     private boolean empty = true;
+    private DisplayMaster displayMaster;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
