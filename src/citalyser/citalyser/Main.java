@@ -1,6 +1,7 @@
 package citalyser;
 
-import citalyser.networking.HttpConnection;
+//import citalyser.networking.hall;
+import citalyser.api.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;

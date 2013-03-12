@@ -15,6 +15,10 @@ class CompareCite implements Comparator<Paper>{
 	}
 }
 
+/**
+ *
+ * @author rajkumar
+ */
 class Query{
     public int flag;
     public String name;
