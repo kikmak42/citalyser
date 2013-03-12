@@ -1,12 +1,9 @@
 package citalyser;
 
-<<<<<<< HEAD:src/citalyser/citalyser/Main.java
 //import citalyser.networking.hall;
 import citalyser.api.*;
-=======
 import citalyser.ui.DisplayController;
 import citalyser.ui.control.DisplayControllerImpl;
->>>>>>> 86b0a2ea9e65ac15098ce71857ca89c212799401:src/citalyser/Main.java
 import java.io.File;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
