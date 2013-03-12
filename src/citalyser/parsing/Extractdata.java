@@ -25,6 +25,7 @@ public class Extractdata {
     static Document doc;
     static private PaperCollection extractedPapers;
     static private ArrayList<Paper> papers;
+    static public ArrayList<String> citedbyList;
 
     public Extractdata(String source) {
         this.source = source;
@@ -40,7 +41,7 @@ public class Extractdata {
         FileReader file = null;
 
         try {
-            file = new FileReader("C:/Users/sony/Desktop/the 'present'/opensoft 2013/html.html");
+            file = new FileReader("/home/sahil/roughos/indentedrespose.html");
             BufferedReader reader = new BufferedReader(file);
             String line = "";
             while ((line = reader.readLine()) != null) {
@@ -71,7 +72,7 @@ public class Extractdata {
         Extractdata.source = source;
         extractedPapers = new PaperCollection();
         papers = new ArrayList<Paper>();
-
+        citedbyList = new ArrayList<String>();
         Paper insertInextractedpapers = new Paper();
         ArrayList<Author> authorsinPaper = new ArrayList<Author>();
         Author authorinpaper = new Author(null);
@@ -107,6 +108,7 @@ public class Extractdata {
                 System.out.println(author_name);
                 String url = "http://scholar.google.com";
                 String citations_link = url + author.attr("href");
+                System.out.println("author href:" + author.attr("href"));
                 System.out.println(citations_link);
             }
 
@@ -114,21 +116,34 @@ public class Extractdata {
             if (!author_section_b.isEmpty()) {
                 Element section = author_section_b.get(0);
                 String section_text = section.text();
-                String[] list = section_text.split(" - ");
+                String[] list = section_text.split(" - … ,? | - ");
+                System.out.println("section text :" + section_text);
                 System.out.println(Arrays.toString(list));
                 String names = list[0];
-                String jrnl = list[1].split(" …")[0];
+                System.out.println("list 0 :" + list[0]);
+                System.out.println("list 1 :" + list[1]);
+                String jrnl = list[1].split(", ")[0];
                 journalinpaper.setName(jrnl);
                 journalsinPaper.add(journalinpaper);
-                System.out.println(jrnl);
+                System.out.println("journal:" + jrnl);
 
                 insertInextractedpapers.setJournals(journalsinPaper);
-                String year = list[1].split(", ")[1];
-                System.out.println("year is:" + year + ":");
-                insertInextractedpapers.setYear(Integer.parseInt(year));
-                String publisher = list[2];
+                String year;
+                try {
+                    year = list[1].split("…, ")[1];
+                    System.out.println("year is:" + year + ":");
+                } catch (Exception e) {
+                    try {
+                        year = list[1].split(", ")[1];
+                        System.out.println("year is:" + year + ":");
 
-                System.out.println("Here:" + list[2]);
+                    } catch (Exception e1) {
+                        year = "0";
+                        System.out.println("year is:" + year + ":");
+
+                    }
+                }
+                insertInextractedpapers.setYear(Integer.parseInt(year));
                 String[] author_names = names.split(",|…");
                 for (String nameinarray : author_names) {
 
@@ -154,7 +169,12 @@ public class Extractdata {
             Elements citation_section = item.select(".gs_fl > a");
             if (!author_section_b.isEmpty()) {
                 Element section = citation_section.get(0);
-                String citation_count = section.text().split(" ")[2];
+                String citation_count;
+                try {
+                    citation_count = section.text().split(" ")[2];
+                } catch (Exception e) {
+                    citation_count = "0";
+                }
                 System.out.println("citation count:" + citation_count);
                 insertInextractedpapers.setNumCites(Integer.parseInt(citation_count));
 
@@ -166,5 +186,42 @@ public class Extractdata {
         extractedPapers.setPapers(papers);
         return extractedPapers;
 
+    }
+
+    public static ArrayList<String> extractCitedbyLinks(String source) {
+        Extractdata.source = source;
+        citedbyList = new ArrayList<String>();
+        doc = Jsoup.parse(source, "UTF-8");
+        Elements items = doc.select(".gs_ri");
+        //select all items 
+        for (Element item : items) {
+            Elements author_section_b = item.select(".gs_a");
+            //extracting the citation
+            Elements citation_section = item.select(".gs_fl > a");
+            if (!author_section_b.isEmpty()) {
+                Element section = citation_section.get(0);
+                String url = "http://scholar.google.com";
+                String citations_link;
+                String citation_count;
+                try {
+                    citation_count = section.text().split(" ")[2];
+                    citations_link = url + section.attr("href");
+                    citedbyList.add(citations_link);
+                } catch (Exception e) {
+                    citation_count = "0";
+                    citations_link = "";
+
+                }
+                System.out.println("citation count:" + citation_count);
+                System.out.println("citation link:" + citations_link);
+
+
+            }
+
+
+
+
+        }
+        return citedbyList;
     }
 }
