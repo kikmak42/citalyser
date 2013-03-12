@@ -62,7 +62,7 @@ public class Extractdata {
 
 
         //Extractdata exd = new Extractdata(returnValue);
-        extractCitedbyLinks(returnValue);
+        extractInfo(returnValue);
 
 
     }
@@ -132,17 +132,18 @@ public class Extractdata {
                 try {
                     year = list[1].split("…, ")[1];
                     System.out.println("year is:" + year + ":");
-                    insertInextractedpapers.setYear(Integer.parseInt(year));
                 } catch (Exception e) {
                     try {
                         year = list[1].split(", ")[1];
                         System.out.println("year is:" + year + ":");
+
                     } catch (Exception e1) {
                         year = "0";
                         System.out.println("year is:" + year + ":");
+
                     }
                 }
-
+                insertInextractedpapers.setYear(Integer.parseInt(year));
                 String[] author_names = names.split(",|…");
                 for (String nameinarray : author_names) {
 
@@ -209,17 +210,17 @@ public class Extractdata {
                 } catch (Exception e) {
                     citation_count = "0";
                     citations_link = "";
-                    
+
                 }
                 System.out.println("citation count:" + citation_count);
                 System.out.println("citation link:" + citations_link);
-                
+
 
             }
-            
-            
-            
-            
+
+
+
+
         }
         return citedbyList;
     }
