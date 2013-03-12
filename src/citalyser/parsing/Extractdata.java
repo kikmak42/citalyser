@@ -128,18 +128,21 @@ public class Extractdata {
                 System.out.println("journal:" + jrnl);
 
                 insertInextractedpapers.setJournals(journalsinPaper);
-
+                String year;
                 try {
-                    String year = list[1].split("…, ")[1];
+                    year = list[1].split("…, ")[1];
                     System.out.println("year is:" + year + ":");
                     insertInextractedpapers.setYear(Integer.parseInt(year));
                 } catch (Exception e) {
-                    String year = list[1].split(", ")[1];
-                    System.out.println("year is:" + year + ":");
+                    try {
+                        year = list[1].split(", ")[1];
+                        System.out.println("year is:" + year + ":");
+                    } catch (Exception e1) {
+                        year = "0";
+                        System.out.println("year is:" + year + ":");
+                    }
                 }
-                String publisher = list[2];
 
-                System.out.println("Here:" + list[2]);
                 String[] author_names = names.split(",|…");
                 for (String nameinarray : author_names) {
 
@@ -166,10 +169,9 @@ public class Extractdata {
             if (!author_section_b.isEmpty()) {
                 Element section = citation_section.get(0);
                 String citation_count;
-                try{
+                try {
                     citation_count = section.text().split(" ")[2];
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     citation_count = "0";
                 }
                 System.out.println("citation count:" + citation_count);
