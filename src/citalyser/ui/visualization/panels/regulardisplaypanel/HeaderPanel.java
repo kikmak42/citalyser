@@ -10,6 +10,9 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel;
 
+import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.visualization.panels.common.SearchPanel;
+
 /**
  *
  * @author Tanmay Patil
@@ -31,22 +34,34 @@ public class HeaderPanel extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        modeSelector = new javax.swing.JButton();
+        settingsButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        searchPanel1 = new citalyser.ui.visualization.panels.common.SearchPanel();
+        searchPanel = new citalyser.ui.visualization.panels.common.SearchPanel();
         jPanel3 = new javax.swing.JPanel();
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_1.png"))); // NOI18N
-        jButton1.setBorderPainted(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        modeSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_1.png"))); // NOI18N
+        modeSelector.setBorder(null);
+        modeSelector.setBorderPainted(false);
+        modeSelector.setContentAreaFilled(false);
+        modeSelector.setFocusPainted(false);
+        modeSelector.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                modeSelectorActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Settings");
+        settingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/settingButton.png"))); // NOI18N
+        settingsButton.setBorderPainted(false);
+        settingsButton.setContentAreaFilled(false);
+        settingsButton.setFocusPainted(false);
+        settingsButton.setFocusable(false);
+        settingsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                settingsButtonActionPerformed(evt);
+            }
+        });
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
@@ -68,7 +83,7 @@ public class HeaderPanel extends javax.swing.JPanel {
         jPanel1.add(jPanel2, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.weightx = 1000.0;
-        jPanel1.add(searchPanel1, gridBagConstraints);
+        jPanel1.add(searchPanel, gridBagConstraints);
 
         jPanel3.setPreferredSize(new java.awt.Dimension(0, 53));
 
@@ -93,11 +108,11 @@ public class HeaderPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(modeSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1039, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(settingsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -105,31 +120,60 @@ public class HeaderPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(settingsButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                    .addComponent(modeSelector, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
                 .addContainerGap())
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void modeSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeSelectorActionPerformed
         // TODO add your handling code here:
-        if (authorSearch) {
-            jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_2.png")));
-            authorSearch = false;
+        if (authorSearchMode) {
+            modeSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_2.png")));
+            authorSearchMode = false;
         } else {
-            jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_1.png")));
-            authorSearch = true;
+            modeSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_1.png")));
+            authorSearchMode = true;
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_modeSelectorActionPerformed
 
-    private boolean authorSearch = true;
+    private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsButtonActionPerformed
+        displayMaster.settingsButtonPressed();
+    }//GEN-LAST:event_settingsButtonActionPerformed
+
+    public SearchPanel getSearchPanel() {
+        return searchPanel;
+    }    
+    
+    public void setDisplayMaster(DisplayMaster displayMaster) {
+        this.displayMaster = displayMaster;
+        this.searchPanel.setDisplayMaster(displayMaster);
+    }
+
+    public void setAuthorSearchMode(boolean authorSearchMode) {
+        this.authorSearchMode = authorSearchMode;
+        if (authorSearchMode) {
+            modeSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_1.png")));
+            authorSearchMode = false;
+        } else {
+            modeSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_2.png")));
+            authorSearchMode = true;
+        }
+    }
+
+    public boolean isAuthorSearchMode() {
+        return authorSearchMode;
+    }
+            
+    private DisplayMaster displayMaster;
+    private boolean authorSearchMode = true;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private citalyser.ui.visualization.panels.common.SearchPanel searchPanel1;
+    private javax.swing.JButton modeSelector;
+    private citalyser.ui.visualization.panels.common.SearchPanel searchPanel;
+    private javax.swing.JButton settingsButton;
     // End of variables declaration//GEN-END:variables
 }

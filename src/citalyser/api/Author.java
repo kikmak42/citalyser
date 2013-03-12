@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Author{
+/**
+ *
+ * @author rohan
+ */
+public class Author {
         private String name;
         private double no_cites_per_paper;
         private double no_cites_per_year;

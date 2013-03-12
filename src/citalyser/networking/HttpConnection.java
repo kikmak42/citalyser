@@ -1,5 +1,5 @@
 
-package citalyser.networking;
+package hall;
 
 import java.net.*;
 import java.io.*;
@@ -15,6 +15,33 @@ public class HttpConnection {
 
     private static HttpURLConnection connection;
     private static ArrayList<String> hostnames = new ArrayList<String>(3);
+    private static ArrayList<String> agents = new ArrayList<String>(3);
+    
+    public static void saveProxy(String proxy, String userAgent) {
+        try {
+            System.out.print("Saving to proxy.config.....");
+            File file = new File("proxy.txt");
+            // if file doesnt exists, then create it
+            if (!file.exists()) {
+                    file.createNewFile();
+            }
+
+            String content = "";
+            content += new java.util.Date() +"\n";
+            content += proxy+"\n";
+            content += userAgent+"\n";
+            
+            FileWriter fw = new FileWriter(file.getAbsoluteFile(),true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(content);
+            bw.close();
+
+            System.out.println("Completed");
+
+        } catch (IOException e) {
+                e.printStackTrace();
+        }
+    }
     
     /**
      * 
@@ -26,25 +53,20 @@ public class HttpConnection {
      * @throws IOException 
      *              thrown if any I/O error occurred
      */
-    public static void connectUrl(String requestURL, String hostname)
+    public static void connectUrl(String requestURL, String hostname, String agentname)
         throws IOException {
 
         URL url = new URL(requestURL);
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(hostname, 8080));
         connection = (HttpURLConnection) url.openConnection(proxy); 
         connection.setInstanceFollowRedirects(true);
-        
-        //connection.connect();
-        //InputStream is = connection.getInputStream();
-        //System.out.println(is);
-        //System.out.println(connection.getURL());
         connection.setFollowRedirects(true);
         connection.setDoInput(true);
         connection.setDoOutput(false);
         connection.setReadTimeout(10000);
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Content-Type", "text/html; charset=ISO-8859-1");
-        connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:10.0.2) Gecko/20100101 Firefox/10.0.2");        
+        connection.setRequestProperty("User-Agent", agentname);        
     }
 
     /**
@@ -55,30 +77,54 @@ public class HttpConnection {
     public static String getUrlText(String url) {
         
         StringBuffer urlResponse = null;
-        hostnames.add("10.3.100.212");
-        hostnames.add("10.3.100.211");
-        hostnames.add("144.16.192.213");
-        hostnames.add("144.16.192.216");
-        hostnames.add("144.16.192.217");
-        hostnames.add("144.16.192.218");
-        hostnames.add("144.16.192.245");
-        hostnames.add("144.16.192.247");
+        if(hostnames.size() == 0) {
+            hostnames.add("10.3.100.209");
+            hostnames.add("10.3.100.210");
+            hostnames.add("10.3.100.212");
+            hostnames.add("10.3.100.211");
+            hostnames.add("144.16.192.216");
+            hostnames.add("144.16.192.217");
+            hostnames.add("144.16.192.218");
+            hostnames.add("144.16.192.245");
+            hostnames.add("144.16.192.247");
+        }
+        if(agents.size() == 0) {
+            agents.add("Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201");
+            agents.add("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.60 Safari/537.17");
+            agents.add("Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25");
+            agents.add("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/537.13+ (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2");
+            agents.add("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/534.55.3 (KHTML, like Gecko) Version/5.1.3 Safari/534.53.10");
+            agents.add("Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko ) Version/5.1 Mobile/9B176 Safari/7534.48.3");
+            agents.add("Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; de-at) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1");
+            agents.add("Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_7; da-dk) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1");
+            agents.add("Mozilla/5.0 (Windows; U; Windows NT 6.1; tr-TR) AppleWebKit/533.20.25 (KHTML, like Gecko) Version/5.0.4 Safari/533.20.27");
+            agents.add("Opera/9.80 (Windows NT 6.0) Presto/2.12.388 Version/12.14");
+            agents.add("Mozilla/5.0 (Windows NT 6.0; rv:2.0) Gecko/20100101 Firefox/4.0 Opera 12.14");
+            agents.add("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0) Opera 12.14");
+            agents.add("Opera/12.80 (Windows NT 5.1; U; en) Presto/2.10.289 Version/12.02");
+           
+        }
         
         String hostname;
         try {
-            hostname = hostnames.remove(0);
-            connectUrl(url,hostname);
-            hostnames.add(hostname);
              
             /* Check for errors in response codes*/
-            int responseCode = connection.getResponseCode();
+            int responseCode = 0;
             
-            while (responseCode != 200)
+            while(responseCode != 200)
             {
                 hostname = hostnames.remove(0);
-                connectUrl(url,hostname);
-                hostnames.add(hostname);
-                responseCode = connection.getResponseCode();
+                    
+                for(int j=0; j< agents.size() ; j++) {
+                    System.out.println(hostname + " - " + agents.get(j));
+                    System.out.println();
+                    connectUrl(url,hostname,agents.get(j));
+                    responseCode = connection.getResponseCode();
+                    System.out.println("response = "+responseCode);
+                    if(responseCode== 200) break;
+                    else saveProxy(hostname, agents.get(j));
+                }
+                if(responseCode == 200)hostnames.add(hostname);
             }
             
             /* Saving the html content */

@@ -5,6 +5,7 @@
 
 package citalyser;
 
+import citalyser.ui.model.Proxy;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -97,7 +98,7 @@ public class Config
     public static int setProxyList(List<Proxy> list)
     {
         logger.debug("Writing the proxies to a file");
-        File file = new File(Main.settingsDirectory,"proxies");
+        File file = new File(Main.getSettingsDirectory(),"proxies");
         if(!file.exists())
         {
             try{
@@ -129,7 +130,7 @@ public class Config
     {
         List<Proxy> proxyList = new ArrayList<Proxy>();
         HashMap<Integer,Proxy> hm;  
-        File f = new File(Main.settingsDirectory,"proxies");
+        File f = new File(Main.getSettingsDirectory(),"proxies");
         if(!f.exists())
             return null;
         try{

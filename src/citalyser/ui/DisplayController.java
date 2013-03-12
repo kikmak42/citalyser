@@ -10,4 +10,6 @@ package citalyser.ui;
  */
 public interface DisplayController {
     
+    public void initializeDisplay();
+    
 }
