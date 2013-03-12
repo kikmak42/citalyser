@@ -40,7 +40,7 @@ public class Extractdata {
         FileReader file = null;
 
         try {
-            file = new FileReader("C:/Users/sony/Desktop/the 'present'/opensoft 2013/html.html");
+            file = new FileReader("/home/sahil/roughos/indentedrespose.html");
             BufferedReader reader = new BufferedReader(file);
             String line = "";
             while ((line = reader.readLine()) != null) {
@@ -71,7 +71,6 @@ public class Extractdata {
         Extractdata.source = source;
         extractedPapers = new PaperCollection();
         papers = new ArrayList<Paper>();
-
         Paper insertInextractedpapers = new Paper();
         ArrayList<Author> authorsinPaper = new ArrayList<Author>();
         Author authorinpaper = new Author(null);
@@ -114,9 +113,12 @@ public class Extractdata {
             if (!author_section_b.isEmpty()) {
                 Element section = author_section_b.get(0);
                 String section_text = section.text();
-                String[] list = section_text.split(" - ");
+                String[] list = section_text.split(" - … , | - ");
+                System.out.println("section text :" + section_text);
                 System.out.println(Arrays.toString(list));
                 String names = list[0];
+                System.out.println("list 0 :" + list[0]);
+                System.out.println("list 1 :" + list[1]);
                 String jrnl = list[1].split(" …")[0];
                 journalinpaper.setName(jrnl);
                 journalsinPaper.add(journalinpaper);
