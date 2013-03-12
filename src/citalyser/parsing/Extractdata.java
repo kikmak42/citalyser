@@ -62,7 +62,7 @@ public class Extractdata {
 
 
         //Extractdata exd = new Extractdata(returnValue);
-        extractInfo(returnValue);
+        extractCitedbyLinks(returnValue);
 
 
     }
@@ -200,13 +200,26 @@ public class Extractdata {
             if (!author_section_b.isEmpty()) {
                 Element section = citation_section.get(0);
                 String url = "http://scholar.google.com";
-                String citations_link = url + section.attr("href");
-                String citation_count = section.text().split(" ")[2];
+                String citations_link;
+                String citation_count;
+                try {
+                    citation_count = section.text().split(" ")[2];
+                    citations_link = url + section.attr("href");
+                    citedbyList.add(citations_link);
+                } catch (Exception e) {
+                    citation_count = "0";
+                    citations_link = "";
+                    
+                }
                 System.out.println("citation count:" + citation_count);
                 System.out.println("citation link:" + citations_link);
-                citedbyList.add(citations_link);
+                
 
             }
+            
+            
+            
+            
         }
         return citedbyList;
     }
