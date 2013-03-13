@@ -17,10 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import org.apache.log4j.Logger;
-
 public class Config
 {
-    static Logger logger = Logger.getLogger(Config.class.getName());
+    static final Logger logger = Logger.getLogger(Config.class.getName());
     
     private static Properties properties;
     private static List<Proxy> proxyList;
@@ -51,7 +50,8 @@ public class Config
             }
             
         }
-        
+        /* Load the proxy Settings*/
+        loadProxylist();
     }
     
     private static int readConfigFile()
@@ -87,10 +87,12 @@ public class Config
     {
         int wresult = writeConfigFile();
         int rresult = readConfigFile();
-        if(wresult > 0 && rresult > 0)
+        if(wresult > 0 && rresult > 0) {
             return 0;
-        else
+        }
+        else {
             return -1;
+        }
     }
  /* 
   * PROXY Configuration as a hashmap
@@ -128,22 +130,26 @@ public class Config
     
     public static List<Proxy> getProxylist()
     {
-        List<Proxy> proxyList = new ArrayList<Proxy>();
+        return proxyList;
+    }
+    
+    public static void loadProxylist()
+    {
+        List<Proxy> pl = new ArrayList<Proxy>();
         HashMap<Integer,Proxy> hm;  
         File f = new File(Main.getSettingsDirectory(),"proxies");
         if(!f.exists())
-            return null;
+            return;
         try{
             ObjectInputStream s = new ObjectInputStream(new FileInputStream(f));
             hm = (HashMap<Integer,Proxy>)s.readObject();
             s.close();
             for (Proxy proxy : hm.values()) {
-                proxyList.add(proxy);
+                pl.add(proxy);
             }
-            return proxyList;
+            Config.proxyList = pl;
         }catch(Exception ex){
             logger.error("Error getting proxies.");
-            return null;
         }
     }
     
