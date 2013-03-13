@@ -13,35 +13,13 @@ import java.util.logging.*;
 
 public class HttpConnection {
 
-    private static HttpURLConnection connection;
-    private static ArrayList<String> hostnames = new ArrayList<String>(3);
-    private static ArrayList<String> agents = new ArrayList<String>(3);
+    //@constants 
+    private static int SERVER_READOUT_TIME = 15000;
     
-    public static void saveProxy(String proxy, String userAgent) {
-        try {
-            System.out.print("Saving to proxy.config.....");
-            File file = new File("proxy.txt");
-            // if file doesnt exists, then create it
-            if (!file.exists()) {
-                    file.createNewFile();
-            }
-
-            String content = "";
-            content += new java.util.Date() +"\n";
-            content += proxy+"\n";
-            content += userAgent+"\n";
-            
-            FileWriter fw = new FileWriter(file.getAbsoluteFile(),true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(content);
-            bw.close();
-
-            System.out.println("Completed");
-
-        } catch (IOException e) {
-                e.printStackTrace();
-        }
-    }
+    //@variables
+    private static HttpURLConnection connection;
+    private static ArrayList<String> hostnames = new ArrayList<String>();
+    private static ArrayList<String> agents = new ArrayList<String>();
     
     /**
      * 
@@ -60,10 +38,9 @@ public class HttpConnection {
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(hostname, 8080));
         connection = (HttpURLConnection) url.openConnection(proxy); 
         connection.setInstanceFollowRedirects(true);
-        connection.setFollowRedirects(true);
         connection.setDoInput(true);
         connection.setDoOutput(false);
-        connection.setReadTimeout(10000);
+        connection.setReadTimeout(SERVER_READOUT_TIME);
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Content-Type", "text/html; charset=ISO-8859-1");
         connection.setRequestProperty("User-Agent", agentname);        
@@ -78,15 +55,17 @@ public class HttpConnection {
         
         StringBuffer urlResponse = null;
         
+        //Get proxies from file and add them
         List proxies = Config.getProxylist();
-        if(HttpConnection.getProxylistSize() == 0) {
+        //List proxies = Arrays.asList("10.3.100.212","10.3.100.211");
+        if(proxies.isEmpty()) {
             Iterator proxyIterator = proxies.iterator();
             while (proxyIterator.hasNext()) {
                 hostnames.add(proxyIterator.next().toString());
             }
         }
         
-        if(agents.size() == 0) {
+        if(agents.isEmpty()) {
             agents.add("Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201");
             agents.add("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.60 Safari/537.17");
             agents.add("Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25");
@@ -100,7 +79,6 @@ public class HttpConnection {
             agents.add("Mozilla/5.0 (Windows NT 6.0; rv:2.0) Gecko/20100101 Firefox/4.0 Opera 12.14");
             agents.add("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.0) Opera 12.14");
             agents.add("Opera/12.80 (Windows NT 5.1; U; en) Presto/2.10.289 Version/12.02");
-           
         }
         
         String hostname;
@@ -111,19 +89,22 @@ public class HttpConnection {
             
             while(responseCode != 200)
             {
-                if(hostnames.size() != 0){
+                if(!hostnames.isEmpty()){
                     hostname = hostnames.remove(0);
                     
                     for(int j=0; j< agents.size() ; j++) {
-                        System.out.println(hostname + " - " + agents.get(j));
-                        System.out.println();
+                        //System.out.println(hostname + " - " + agents.get(j));
+                        //System.out.println();
                         connectUrl(url,hostname,agents.get(j));
                         responseCode = connection.getResponseCode();
                         System.out.println("response = "+responseCode);
                         if(responseCode== 200) break;
-                        else saveProxy(hostname, agents.get(j));
+                        else {
+                            hostnames.add(hostname);
+                            Config.setProxyList((List)hostnames);
+                        }
                     }
-                    if(responseCode == 200)hostnames.add(hostname);
+                    if(responseCode == 200)hostnames.add(0,hostname);
                 }
             }
             
@@ -140,32 +121,6 @@ public class HttpConnection {
             Logger.getLogger(HttpConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return urlResponse.toString();
-    }
-    
-    /**
-     * Generates the url with complete queries
-     * @param url - the base url of the remote host
-     * @param params - the parameters of the query object
-     * @return - the final url string to connect with queries
-     */
-    public static String urlGenerator(String url, String [] params){
-        
-        url += "/scholar?hl=en&start="+params[0];         //page number
-        url += "&as_q="+params[1];          //need all these words in article
-        url += "&as_epq="+params[2];        //need this exact phrase 
-        url += "&as_oq="+params[3];         //atleast on of the words
-        url += "&as_eq="+params[4];         //except these words
-        url += "&as_occt="+params[5];       //occur where
-        url += "&as_sauthors="+params[6];   //authors contain any of these
-        url += "&as_publication="+params[7];//published in which journals
-        url += "&as_ylo="+params[8];        //lower bound of year of publishing
-        url += "&as_yhi="+params[9];        //upper bound of year of publishing
-        return url;
-    }
-    
-    public static int getProxylistSize()
-    {
-        return hostnames.size();
     }
     
     /**
