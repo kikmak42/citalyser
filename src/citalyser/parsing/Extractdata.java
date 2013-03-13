@@ -113,7 +113,7 @@ public class Extractdata {
         FileReader file = null;
 
         try {
-            file = new FileReader("input.html.txt");
+            file = new FileReader("/home/sahil/roughos/indentedrespose.html");
             BufferedReader reader = new BufferedReader(file);
             String line = "";
             while ((line = reader.readLine()) != null) {
@@ -134,7 +134,7 @@ public class Extractdata {
 
 
         //Extractdata exd = new Extractdata(returnValue);
-        extractProfileInfo(returnValue);
+        extractInfo(returnValue);
 
 
     }
