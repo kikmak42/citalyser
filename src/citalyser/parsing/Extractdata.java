@@ -35,6 +35,12 @@ public class Extractdata {
         try {
             splitarr = string.split("…, ");
             flag = 1;
+            if(splitarr.length==1)
+            {
+                splitarr = string.split(", ");
+                Integer.parseInt(splitarr[1]);
+                flag =0;
+            }
         } catch (Exception e) {
             splitarr = string.split(", ");
         }
