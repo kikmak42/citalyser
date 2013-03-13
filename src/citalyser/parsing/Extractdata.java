@@ -6,10 +6,11 @@ package citalyser.parsing;
 
 import citalyser.api.*;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -21,6 +22,7 @@ import org.jsoup.select.Elements;
  */
 public class Extractdata {
 
+    private static Logger logger = Logger.getLogger(Extractdata.class.getName());
     static public String source;
     static Document doc;
     static private PaperCollection extractedPapers;
@@ -35,16 +37,14 @@ public class Extractdata {
         try {
             splitarr = string.split("…, ");
             flag = 1;
-            if(splitarr.length==1)
-            {
+            if (splitarr.length == 1) {
                 splitarr = string.split(", ");
                 Integer.parseInt(splitarr[1]);
-                flag =0;
+                flag = 0;
             }
         } catch (Exception e) {
             splitarr = string.split(", ");
         }
-
         if (type == 1) {
             if (splitarr.length == 2) {
                 if (flag == 1) {
@@ -108,6 +108,7 @@ public class Extractdata {
     //Author a= new Author("dvc");
 
     public static void main(String args[]) {
+        PropertyConfigurator.configure("log4j.properties");
 
         String returnValue = "";
         FileReader file = null;
@@ -145,11 +146,7 @@ public class Extractdata {
         extractedPapers = new PaperCollection();
         papers = new ArrayList<Paper>();
         citedbyList = new ArrayList<String>();
-        Paper insertInextractedpapers = new Paper();
-        ArrayList<Author> authorsinPaper = new ArrayList<Author>();
-        Author authorinpaper = new Author(null);
-        ArrayList<Journal> journalsinPaper = new ArrayList<Journal>();
-        Journal journalinpaper = new Journal(null);
+
         String jrnl;
         String year;
         int yearint;
@@ -157,6 +154,13 @@ public class Extractdata {
         Elements items = doc.select(".gs_ri");//select all items 
         for (Element item : items) {
             //extracting title section
+            ArrayList<Author> authorsinPaper = new ArrayList<Author>();
+            ArrayList<Journal> journalsinPaper = new ArrayList<Journal>();
+
+            Paper insertInextractedpapers = new Paper();
+            Journal journalinpaper = new Journal(null);
+            Author authorinpaper = new Author(null);
+
             Elements title_section = item.select("h3>a");
             if (!title_section.isEmpty()) {
                 Element section = title_section.get(0);//getting the first element of this array
@@ -203,6 +207,11 @@ public class Extractdata {
                     System.out.println("list 1 :" + list[1]);
                     // = list[1].split(", ")[0];
                     jrnl = splitjournal_year(list[1], 1);
+                    journalinpaper.setName(jrnl);
+                    journalsinPaper.add(journalinpaper);
+                    insertInextractedpapers.setJournals(journalsinPaper);
+
+
 //                    try {
 //                        jrnl = list[1].split("…, ")[0] + "…";
 //                    } catch (Exception e) {
@@ -253,6 +262,10 @@ public class Extractdata {
                     System.out.println("list 0 :" + list[0]);
                     String[] author_names = names.split(",|…");
                     jrnl = "";
+                    journalinpaper.setName(jrnl);
+                    journalsinPaper.add(journalinpaper);
+                    insertInextractedpapers.setJournals(journalsinPaper);
+
                     yearint = 0;
                     for (String nameinarray : author_names) {
 
@@ -261,9 +274,6 @@ public class Extractdata {
                     }
                     System.out.println("Authors:  " + Arrays.toString(author_names));
                 }
-                journalinpaper.setName(jrnl);
-                journalsinPaper.add(journalinpaper);
-                insertInextractedpapers.setJournals(journalsinPaper);
                 insertInextractedpapers.setYear(yearint);
                 insertInextractedpapers.setAuthors(authorsinPaper);
 
@@ -298,58 +308,61 @@ public class Extractdata {
 
         }
         extractedPapers.setPapers(papers);
+        for (Paper p : papers) {
+            logger.debug(p.getAuthors());
+        }
         return extractedPapers;
 
     }
-    public static void extractProfileInfo(String file){
-           doc = Jsoup.parse(file, "UTF-8");
-           Elements items = doc.select("div.gs_r");
-           
-           if(!items.isEmpty()){
-               
-               for(Element item: items){
-                   /*
-                   Elements title_section = item.select("h3.gs_rt>a");
-                   if (!title_section.isEmpty()) {
-                       Element section = title_section.get(0);//getting the first element of this array
-                       String title = section.text();
-                       String href = section.attr("href");
-                       //insertInextractedpapers.setTitle(title);
-                       System.out.println(title);
-                       System.out.println(href);
+
+    public static void extractProfileInfo(String file) {
+        doc = Jsoup.parse(file, "UTF-8");
+        Elements items = doc.select("div.gs_r");
+
+        if (!items.isEmpty()) {
+
+            for (Element item : items) {
+                /*
+                 Elements title_section = item.select("h3.gs_rt>a");
+                 if (!title_section.isEmpty()) {
+                 Element section = title_section.get(0);//getting the first element of this array
+                 String title = section.text();
+                 String href = section.attr("href");
+                 //insertInextractedpapers.setTitle(title);
+                 System.out.println(title);
+                 System.out.println(href);
                        
 
-                   }
-                   */
-                   //System.out.println("after ist printf");
-                   Elements author_section = item.select("h4.gs_rt2");
-                   System.out.println(author_section.isEmpty());
-                   if(!author_section.isEmpty()){
-                       for(Element section:author_section){
-                           
-                           Elements author_tags = section.select("a");
-                           for(Element author_tag : author_tags){
-                               String author_name = author_tag.text();
-                               String url = "http://scholar.google.com";
-                               String author_link = url+author_tag.attr("href");
-                               System.out.println(author_name);
-                               System.out.println(author_link);
-                           }
-                       }
-                       
-                       
-                   }
-                   
-                   
-               }
-               
-               
-           }
-        
-        
-        
+                 }
+                 */
+                //System.out.println("after ist printf");
+                Elements author_section = item.select("h4.gs_rt2");
+                System.out.println(author_section.isEmpty());
+                if (!author_section.isEmpty()) {
+                    for (Element section : author_section) {
+
+                        Elements author_tags = section.select("a");
+                        for (Element author_tag : author_tags) {
+                            String author_name = author_tag.text();
+                            String url = "http://scholar.google.com";
+                            String author_link = url + author_tag.attr("href");
+                            System.out.println(author_name);
+                            System.out.println(author_link);
+                        }
+                    }
+
+
+                }
+
+
+            }
+
+
+        }
+
+
+
     }
-    
 
     public static ArrayList<String> extractCitedbyLinks(String source) {
         Extractdata.source = source;
