@@ -9,7 +9,6 @@ package citalyser.api;
  * @author rohan
  */
 import java.util.*;
-import java.lang.*;
 
 public class Paper {
 
@@ -27,6 +26,7 @@ public class Paper {
         this.authors = null;
         this.journals = null;
         this.citations = null;
+        this.abstracttext = null;
     }
 
     public Paper(String t) {
@@ -35,6 +35,7 @@ public class Paper {
         this.authors = null;
         this.journals = null;
         this.citations = null;
+        this.abstracttext = null;
     }
 
     public String getTitle() {
@@ -82,7 +83,7 @@ public class Paper {
     }
 
     public void setCitations(ArrayList<Paper> p) {
-        this.citations = p;
+        this.citations = new ArrayList<>(p);
     }
 
     public String getAbstract() {
@@ -90,6 +91,6 @@ public class Paper {
     }
 
     public void setAbstract(String t) {
-        this.abstracttext = new String(t);
+        this.abstracttext = t;
     }
 }
