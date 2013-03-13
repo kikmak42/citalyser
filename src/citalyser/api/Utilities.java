@@ -38,7 +38,7 @@ class Query{
  * 
  * @return null
  * 
- * @author vikas
+ * @author vikassearchPanel.getSearchString()
  */
 class ProxyUtilities {
 
