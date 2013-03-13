@@ -256,7 +256,7 @@ public class Extractdata {
 
                 } /////////////////////////////////////////////////////////////////////////////
                 else {//len ==2
-                    System.out.println("section text :" + section_text);
+                    System.out.println("section text:" + section_text);
                     System.out.println(Arrays.toString(list));
                     String names = list[0];
                     System.out.println("list 0 :" + list[0]);
