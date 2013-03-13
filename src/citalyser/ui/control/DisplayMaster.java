@@ -128,6 +128,8 @@ public class DisplayMaster {
     public void openEditExistingProxyWindow() {
         extraPanel.getSettingsPanel().flip();
         extraPanel.getSettingsPanel().getProxyPanel().setPreviousProxyData(extraPanel.getSettingsPanel().getProxyListPanel().getProxyList().remove(extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getSelectedRow()));
+        ((javax.swing.table.DefaultTableModel) extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getModel()).removeRow(extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getSelectedRow());
+        citalyser.Config.setProxyList(extraPanel.getSettingsPanel().getProxyListPanel().getProxyList());
         extraPanel.getSettingsPanel().getProxyPanel().setEditMode(true);
     }
 
@@ -135,11 +137,6 @@ public class DisplayMaster {
         if (proxy == null) {
             //TODO: System, Autodetect and No Proxy
             return;
-        }
-        if (extraPanel.getSettingsPanel().getProxyPanel().isEditMode()) {
-            extraPanel.getSettingsPanel().getProxyListPanel().getProxyList().remove(extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getSelectedRow());
-            ((javax.swing.table.DefaultTableModel) extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getModel()).removeRow(extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getSelectedRow());
-            citalyser.Config.setProxyList(extraPanel.getSettingsPanel().getProxyListPanel().getProxyList());
         }
         extraPanel.getSettingsPanel().getProxyListPanel().getProxyList().add(proxy);
         String[] rowData = new String[3];
@@ -149,5 +146,6 @@ public class DisplayMaster {
         ((javax.swing.table.DefaultTableModel) extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getModel()).addRow(rowData);
         citalyser.Config.setProxyList(extraPanel.getSettingsPanel().getProxyListPanel().getProxyList());
         extraPanel.getSettingsPanel().flip();
+        extraPanel.getSettingsPanel().getProxyPanel().setPreviousProxyData(new Proxy("", 0, "", ""));
     }
 }
