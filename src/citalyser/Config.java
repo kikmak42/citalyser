@@ -17,10 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import org.apache.log4j.Logger;
-
 public class Config
 {
-    static Logger logger = Logger.getLogger(Config.class.getName());
+    static final Logger logger = Logger.getLogger(Config.class.getName());
     
     private static Properties properties;
     private static List<Proxy> proxyList;
@@ -87,10 +86,12 @@ public class Config
     {
         int wresult = writeConfigFile();
         int rresult = readConfigFile();
-        if(wresult > 0 && rresult > 0)
+        if(wresult > 0 && rresult > 0) {
             return 0;
-        else
+        }
+        else {
             return -1;
+        }
     }
  /* 
   * PROXY Configuration as a hashmap
