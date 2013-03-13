@@ -1,6 +1,6 @@
+package citalyser.networking;
 
-package hall;
-
+import citalyser.Config;
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -77,17 +77,15 @@ public class HttpConnection {
     public static String getUrlText(String url) {
         
         StringBuffer urlResponse = null;
-        if(hostnames.size() == 0) {
-            hostnames.add("10.3.100.209");
-            hostnames.add("10.3.100.210");
-            hostnames.add("10.3.100.212");
-            hostnames.add("10.3.100.211");
-            hostnames.add("144.16.192.216");
-            hostnames.add("144.16.192.217");
-            hostnames.add("144.16.192.218");
-            hostnames.add("144.16.192.245");
-            hostnames.add("144.16.192.247");
+        
+        List proxies = Config.getProxylist();
+        if(HttpConnection.getProxylistSize() == 0) {
+            Iterator proxyIterator = proxies.iterator();
+            while (proxyIterator.hasNext()) {
+                hostnames.add(proxyIterator.next().toString());
+            }
         }
+        
         if(agents.size() == 0) {
             agents.add("Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201");
             agents.add("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.60 Safari/537.17");
@@ -113,18 +111,20 @@ public class HttpConnection {
             
             while(responseCode != 200)
             {
-                hostname = hostnames.remove(0);
+                if(hostnames.size() != 0){
+                    hostname = hostnames.remove(0);
                     
-                for(int j=0; j< agents.size() ; j++) {
-                    System.out.println(hostname + " - " + agents.get(j));
-                    System.out.println();
-                    connectUrl(url,hostname,agents.get(j));
-                    responseCode = connection.getResponseCode();
-                    System.out.println("response = "+responseCode);
-                    if(responseCode== 200) break;
-                    else saveProxy(hostname, agents.get(j));
+                    for(int j=0; j< agents.size() ; j++) {
+                        System.out.println(hostname + " - " + agents.get(j));
+                        System.out.println();
+                        connectUrl(url,hostname,agents.get(j));
+                        responseCode = connection.getResponseCode();
+                        System.out.println("response = "+responseCode);
+                        if(responseCode== 200) break;
+                        else saveProxy(hostname, agents.get(j));
+                    }
+                    if(responseCode == 200)hostnames.add(hostname);
                 }
-                if(responseCode == 200)hostnames.add(hostname);
             }
             
             /* Saving the html content */
@@ -161,6 +161,11 @@ public class HttpConnection {
         url += "&as_ylo="+params[8];        //lower bound of year of publishing
         url += "&as_yhi="+params[9];        //upper bound of year of publishing
         return url;
+    }
+    
+    public static int getProxylistSize()
+    {
+        return hostnames.size();
     }
     
     /**

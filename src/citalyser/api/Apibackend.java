@@ -1,6 +1,6 @@
 package citalyser.api;
 import citalyser.parsing.*;
-import hall.HttpConnection;
+import citalyser.networking.HttpConnection;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

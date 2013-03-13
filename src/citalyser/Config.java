@@ -50,7 +50,8 @@ public class Config
             }
             
         }
-        
+        /* Load the proxy Settings*/
+        loadProxylist();
     }
     
     private static int readConfigFile()
@@ -129,22 +130,26 @@ public class Config
     
     public static List<Proxy> getProxylist()
     {
-        List<Proxy> proxyList = new ArrayList<Proxy>();
+        return proxyList;
+    }
+    
+    public static void loadProxylist()
+    {
+        List<Proxy> pl = new ArrayList<Proxy>();
         HashMap<Integer,Proxy> hm;  
         File f = new File(Main.getSettingsDirectory(),"proxies");
         if(!f.exists())
-            return null;
+            return;
         try{
             ObjectInputStream s = new ObjectInputStream(new FileInputStream(f));
             hm = (HashMap<Integer,Proxy>)s.readObject();
             s.close();
             for (Proxy proxy : hm.values()) {
-                proxyList.add(proxy);
+                pl.add(proxy);
             }
-            return proxyList;
+            Config.proxyList = pl;
         }catch(Exception ex){
             logger.error("Error getting proxies.");
-            return null;
         }
     }
     
