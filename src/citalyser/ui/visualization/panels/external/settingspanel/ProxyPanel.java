@@ -11,6 +11,7 @@
 package citalyser.ui.visualization.panels.external.settingspanel;
 
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.model.Proxy;
 
 /**
  *
@@ -115,6 +116,11 @@ public class ProxyPanel extends javax.swing.JPanel {
         });
 
         jButton2.setText("OK");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -182,7 +188,7 @@ public class ProxyPanel extends javax.swing.JPanel {
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
                             .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -213,6 +219,14 @@ public class ProxyPanel extends javax.swing.JPanel {
         }
     }
 
+    public boolean isEditMode() {
+        return editMode;
+    }
+
+    public void setEditMode(boolean editMode) {
+        this.editMode = editMode;
+    }
+
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         updateFields();
     }//GEN-LAST:event_jRadioButton2ActionPerformed
@@ -233,7 +247,16 @@ public class ProxyPanel extends javax.swing.JPanel {
         displayMaster.cancelNewProxyButtonClicked();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-            
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            Proxy proxy = new Proxy(jTextField1.getText(), Integer.parseInt(jTextField2.getText()), jTextField3.getText(), new String(jPasswordField1.getPassword()));
+            displayMaster.singleProxySettingsConfirmed(proxy);
+        } catch (NumberFormatException ex) {
+            displayMaster.singleProxySettingsConfirmed(null);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private boolean editMode = false;
     private DisplayMaster displayMaster;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -252,4 +275,11 @@ public class ProxyPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
+
+    public void setPreviousProxyData(Proxy proxy) {
+        jTextField1.setText(proxy.host);
+        jTextField2.setText(Integer.toString(proxy.port));
+        jTextField3.setText(proxy.username);
+        jPasswordField1.setText(proxy.password);
+    }
 }

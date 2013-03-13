@@ -113,7 +113,7 @@ public class Extractdata {
         FileReader file = null;
 
         try {
-            file = new FileReader("/home/sahil/roughos/indentedrespose.html");
+            file = new FileReader("input.html.txt");
             BufferedReader reader = new BufferedReader(file);
             String line = "";
             while ((line = reader.readLine()) != null) {
@@ -134,7 +134,7 @@ public class Extractdata {
 
 
         //Extractdata exd = new Extractdata(returnValue);
-        extractInfo(returnValue);
+        extractProfileInfo(returnValue);
 
 
     }
@@ -301,6 +301,55 @@ public class Extractdata {
         return extractedPapers;
 
     }
+    public static void extractProfileInfo(String file){
+           doc = Jsoup.parse(file, "UTF-8");
+           Elements items = doc.select("div.gs_r");
+           
+           if(!items.isEmpty()){
+               
+               for(Element item: items){
+                   /*
+                   Elements title_section = item.select("h3.gs_rt>a");
+                   if (!title_section.isEmpty()) {
+                       Element section = title_section.get(0);//getting the first element of this array
+                       String title = section.text();
+                       String href = section.attr("href");
+                       //insertInextractedpapers.setTitle(title);
+                       System.out.println(title);
+                       System.out.println(href);
+                       
+
+                   }
+                   */
+                   //System.out.println("after ist printf");
+                   Elements author_section = item.select("h4.gs_rt2");
+                   System.out.println(author_section.isEmpty());
+                   if(!author_section.isEmpty()){
+                       for(Element section:author_section){
+                           
+                           Elements author_tags = section.select("a");
+                           for(Element author_tag : author_tags){
+                               String author_name = author_tag.text();
+                               String url = "http://scholar.google.com";
+                               String author_link = url+author_tag.attr("href");
+                               System.out.println(author_name);
+                               System.out.println(author_link);
+                           }
+                       }
+                       
+                       
+                   }
+                   
+                   
+               }
+               
+               
+           }
+        
+        
+        
+    }
+    
 
     public static ArrayList<String> extractCitedbyLinks(String source) {
         Extractdata.source = source;
