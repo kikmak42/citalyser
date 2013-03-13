@@ -13,6 +13,11 @@ public class Author {
         private double no_cites_per_paper;
         private double no_cites_per_year;
         private PaperCollection paper_collection;
+
+    @Override
+    public String toString() {
+        return name;
+    }
         
         public Author(String name){
             this.paper_collection = null;
