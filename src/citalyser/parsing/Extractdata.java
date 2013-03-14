@@ -137,7 +137,7 @@ public class Extractdata {
 
         //Extractdata exd = new Extractdata(returnValue);
         //extractProfileInfo(returnValue);
-        getAuthors(returnValue);
+//        getAuthors(returnValue);
 
 
     }
@@ -498,7 +498,7 @@ public class Extractdata {
         
         
     }
-    
+    /*
     public static QueryResult getAuthors(String input ){
 
         QueryResult q = new QueryResult();
@@ -546,4 +546,5 @@ public class Extractdata {
         q.setAuthorList(authorList);
         return q;
     }
+    * */
 }

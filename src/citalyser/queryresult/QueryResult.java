@@ -2,12 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package citalyser.api;
+package citalyser.queryresult;
 
 /**
  *
- * @author KRISHNA
+ * @author sahil
  */
-public class AuthorListResult extends QueryResult<AuthorListResult>{
+
+public class QueryResult<T extends QueryResult<T>> {
     
+
 }
