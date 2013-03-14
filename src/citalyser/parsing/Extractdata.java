@@ -115,7 +115,7 @@ public class Extractdata {
         FileReader file = null;
 
         try {
-            file = new FileReader("C:/input.html");
+            file = new FileReader("/home/sahil/roughos/indentedrespose.html");
             BufferedReader reader = new BufferedReader(file);
             String line = "";
             while ((line = reader.readLine()) != null) {
@@ -137,7 +137,7 @@ public class Extractdata {
 
         //Extractdata exd = new Extractdata(returnValue);
         //extractProfileInfo(returnValue);
-        extractAuthorProfileInfo(returnValue);
+        getAuthors(returnValue);
 
 
     }
@@ -434,6 +434,7 @@ public class Extractdata {
     }
     
     public static QueryResult getAuthors(String input ){
+
         QueryResult q = new QueryResult();
         ArrayList<Author> authorList = new ArrayList<>();
         int citations;
@@ -451,7 +452,6 @@ public class Extractdata {
             imglink = "scholar.google.co.in" + item.select("img").get(0).attr("src");
             Elements links = item.select("a.cit-dark-large-link");
             Element link = links.get(0);
-            logger.debug(links.size());
             url = "scholar.google.co.in" + link.attr("href");
             name = link.text();
             parseddetails = details.split(" ");
