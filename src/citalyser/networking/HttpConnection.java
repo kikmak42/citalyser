@@ -124,27 +124,6 @@ public class HttpConnection {
     }
     
     /**
-     * Generates the url with complete queries
-     * @param url - the base url of the remote host
-     * @param params - the parameters of the query object
-     * @return - the final url string to connect with queries
-     */
-    public static String urlGenerator(String url, String [] params){
-        
-        url += "/scholar?hl=en&start="+params[0];         //page number
-        url += "&as_q="+params[1];          //need all these words in article
-        url += "&as_epq="+params[2];        //need this exact phrase 
-        url += "&as_oq="+params[3];         //atleast on of the words
-        url += "&as_eq="+params[4];         //except these words
-        url += "&as_occt="+params[5];       //occur where
-        url += "&as_sauthors="+params[6];   //authors contain any of these
-        url += "&as_publication="+params[7];//published in which journals
-        url += "&as_ylo="+params[8];        //lower bound of year of publishing
-        url += "&as_yhi="+params[9];        //upper bound of year of publishing
-        return url;
-    }
-    
-    /**
      * Closes the connection if opened
      */
     public static void disconnect() {
