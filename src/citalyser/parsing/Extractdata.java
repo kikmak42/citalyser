@@ -418,18 +418,37 @@ public class Extractdata {
         logger.debug(elements.size());
         for(Element item : elements){
             Author author = new Author("");
+            int citations;
             String name,imglink;
-            String details = item.text();
-            imglink = item.select("img").get(0).attr("src");
+            String url;
+            String details,university;
+            String[] parseddetails;
+            details= item.text();
+            imglink ="scholar.google.co.in"+ item.select("img").get(0).attr("src");
             Elements links = item.select("a.cit-dark-large-link");
             Element link = links.get(0);
             logger.debug(links.size());
-            String url = link.attr("href");
+            url = "scholar.google.co.in"+link.attr("href");
             name = link.text();
+            parseddetails = details.split(" ");
+            try{
+                citations=Integer.parseInt(parseddetails[parseddetails.length-1]);
+                university = details.substring(name.length(),details.length()-9-Integer.toString(citations).length());
+            }
+            catch(Exception e){
+                citations=0;
+                university = details.substring(details.length()-name.length());
+            }
+            author.setName(name);
+            
+            author.setImagesrc(imglink);
+            author.setProfilelink(url);
             logger.debug("img src:"+imglink);
             logger.debug("url:"+url);
             logger.debug("name:"+name);//name
             logger.debug("details:"+details);//all else
+            logger.debug("univ:"+university);
+            logger.debug("citations:"+citations);
         }
         
         return q;

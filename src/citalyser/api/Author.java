@@ -14,7 +14,7 @@ public class Author {
         private double no_cites_per_year;
         private String imgsrc;
         private String proilelink;
-        private String university;
+        private String univandemail;
         private int totalcitaions;
         private PaperCollection paper_collection;
 
@@ -28,7 +28,7 @@ public class Author {
             this.name = name;
             this.imgsrc=null;
             this.proilelink=null;
-            this.university=null;
+            this.univandemail=null;
         }
 
         public String getName(){
@@ -64,7 +64,7 @@ public class Author {
             no_cites_per_year = (double)total_cites/years.size();
         }
         public String getUniversity(){
-            return this.university;
+            return this.univandemail;
         }
         public String getImageSrc(){
             return this.imgsrc;
@@ -79,7 +79,7 @@ public class Author {
             this.totalcitaions = i;
         }
         public void setUniversity(String s){
-            this.university = s;
+            this.univandemail = s;
         }
         public void setImagesrc(String s){
             this.imgsrc = s;
