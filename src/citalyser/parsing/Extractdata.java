@@ -409,50 +409,52 @@ public class Extractdata {
         }
         return ret;
     }
-    
-    public static QueryResult getAuthors(String input ){
+
+    public static QueryResult getAuthors(String input) {
         QueryResult q = new QueryResult();
-        ArrayList<Author> authorList;
-        doc = Jsoup.parse(input,"UTF-8");
+        ArrayList<Author> authorList = new ArrayList<>();
+        int citations;
+        String name, imglink;
+        String url;
+        String details, university;
+        String[] parseddetails;
+        doc = Jsoup.parse(input, "UTF-8");
         Elements elements = doc.select("div.g-unit");
         logger.debug(elements.size());
-        for(Element item : elements){
+        for (Element item : elements) {
             Author author = new Author("");
-            int citations;
-            String name,imglink;
-            String url;
-            String details,university;
-            String[] parseddetails;
-            details= item.text();
-            imglink ="scholar.google.co.in"+ item.select("img").get(0).attr("src");
+
+            details = item.text();
+            imglink = "scholar.google.co.in" + item.select("img").get(0).attr("src");
             Elements links = item.select("a.cit-dark-large-link");
             Element link = links.get(0);
             logger.debug(links.size());
-            url = "scholar.google.co.in"+link.attr("href");
+            url = "scholar.google.co.in" + link.attr("href");
             name = link.text();
             parseddetails = details.split(" ");
-            try{
-                citations=Integer.parseInt(parseddetails[parseddetails.length-1]);
-                university = details.substring(name.length(),details.length()-9-Integer.toString(citations).length());
-            }
-            catch(Exception e){
-                citations=0;
-                university = details.substring(details.length()-name.length());
+            try {
+                citations = Integer.parseInt(parseddetails[parseddetails.length - 1]);
+                university = details.substring(name.length(), details.length() - 9 - Integer.toString(citations).length());
+            } catch (Exception e) {
+                citations = 0;
+                university = details.substring(details.length() - name.length());
             }
             author.setName(name);
-            
+            author.setUniversity(university);
+            author.setTotalCitations(citations);
             author.setImagesrc(imglink);
             author.setProfilelink(url);
-            logger.debug("img src:"+imglink);
-            logger.debug("url:"+url);
-            logger.debug("name:"+name);//name
-            logger.debug("details:"+details);//all else
-            logger.debug("univ:"+university);
-            logger.debug("citations:"+citations);
+
+            authorList.add(author);
         }
-        
+        for(Author author: authorList){
+        logger.debug("img src:" + author.getImageSrc());
+        logger.debug("url:" + author.getProfileLink());
+        logger.debug("name:" + author.getName());//name
+        logger.debug("univ:" + author.getUniversity());
+        logger.debug("citations:" + author.getTotalCitations());
+        }
+        q.setAuthorList(authorList);
         return q;
     }
-    
-    
 }
