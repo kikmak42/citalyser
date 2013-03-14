@@ -13,7 +13,6 @@ import citalyser.ui.model.Proxy;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.ExtraPanel;
 import citalyser.ui.visualization.panels.common.SearchPanel;
-import citalyser.ui.visualization.panels.regulardisplaypanel.ContentDisplayPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import org.apache.log4j.Logger;
@@ -92,8 +91,7 @@ public class DisplayMaster {
 
     public void searchButtonClicked(SearchPanel searchPanel) {
         if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
-            
-    mainFrame.getRegularDisplayPanel().getContentDisplayPanel().setTable(TableModelCreator.getTableModel(Apibackend.getDetails(null)));
+            mainFrame.getRegularDisplayPanel().getContentDisplayPanel().setTable(TableModelCreator.getTableModel(Apibackend.getDetails(null)));
         } else {
             if (searchPanel.equals(mainFrame.getStartPanel().getAuthorSearchPanel())) {
                 ((java.awt.CardLayout) mainFrame.getContentPane().getLayout()).last(mainFrame.getContentPane());
