@@ -135,7 +135,7 @@ public class Extractdata {
 
 
         //Extractdata exd = new Extractdata(returnValue);
-        extractInfo(returnValue);
+        getAuthors(returnValue);
 
 
     }
@@ -409,4 +409,29 @@ public class Extractdata {
         }
         return ret;
     }
+    
+    public static QueryResult getAuthors(String input ){
+        QueryResult q = new QueryResult();
+        ArrayList<Author> authorList;
+        doc = Jsoup.parse(input,"UTF-8");
+        Elements elements = doc.select("div.g-unit");
+        logger.debug(elements.size());
+        for(Element item : elements){
+            Author author = new Author("");
+            String name;
+            String details = item.text();
+            Elements links = item.select("a.cit-dark-large-link");
+            Element link = links.get(0);
+            logger.debug(links.size());
+            String url = link.attr("href");
+            String text = link.text();
+            logger.debug(url);
+            logger.debug(text);//name
+            logger.debug(details);//all else
+        }
+        
+        return q;
+    }
+    
+    
 }
