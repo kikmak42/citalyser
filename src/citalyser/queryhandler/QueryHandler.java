@@ -22,7 +22,8 @@ import javax.swing.table.*;
 public class QueryHandler {
     public static PaperCollection getDetails(Query q){
         String URL = new String();
-        
+        //String query_name = q.name.replace(' ', '+');   // check
+        String query_name = q.name;
         //TableModel retval = new DefaultTableModel();
         PaperCollection p;
 
@@ -36,10 +37,12 @@ public class QueryHandler {
                 URL +=  "as_oq=" + "" + "&";
                 URL += "as_eq=" + "" + "&";
                 URL +="as_occt=" + "" + "&";
-                URL +="as_sauthors=" + q.name + "&" ;
+                URL +="as_sauthors=" + query_name + "&" ; //q.name may contain spaces
                 URL +="as_publication=" + "" + "&";
                 URL +="as_ylo=" + q.min_year + "&";
                 URL +="as_yhi=" + q.max_year + "&";
+                URL +="num=" + q.num_results + "&";
+                URL += "scisbd=" + q.sort_flag + "&";
                 URL +="btnG=&hl=en&as_sdt=1%2C5";
                 break;
                 
@@ -52,27 +55,29 @@ public class QueryHandler {
                 URL += "as_eq=" + "" + "&";
                 URL +="as_occt=" + "" + "&";
                 URL +="as_sauthors=" + ""+ "&" ;
-                URL +="as_publication=" + q.name + "&";
+                URL +="as_publication=" + query_name + "&";
                 URL +="as_ylo=" + q.min_year + "&";
                 URL +="as_yhi=" + q.max_year + "&";
+                URL +="num=" + q.num_results + "&";
+                URL += "scisbd=" + q.sort_flag + "&";
                 URL +="btnG=&hl=en&as_sdt=1%2C5";
                 break;
                 
             case MET_JOURN:
                 URL = "http://scholar.google.co.in/citations?hl=en&";
                 URL += "view_op=search_venues";
-                URL += "&vq=" + q.name;
+                URL += "&vq=" + query_name;
                 break;
                 
             case MET_AUTH:
                 URL = "http://scholar.google.co.in/citations?hl=en&";
                 URL += "view_op=search_authors";
-                URL += "&mauthors=" + q.name;
+                URL += "&mauthors=" + query_name;
                 break;
                 
             case AUTH_PROF:
                 URL = "http://scholar.google.co.in/citations?hl=en&";
-                URL += "&view_op=list_works&pagesize=100";
+                URL += "view_op=list_works&pagesize=100";
                 URL += "&user=" + q.ID;
                 break;
                 

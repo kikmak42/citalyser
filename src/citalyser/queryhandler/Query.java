@@ -17,6 +17,7 @@ public class Query{
     public int max_year;
     public int min_year;
     public int start_result;
+    public int num_results;
     public boolean sort_flag;
     public boolean h_idx;
     public boolean i_idx;

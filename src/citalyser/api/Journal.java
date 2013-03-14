@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Journal{
+public class Journal extends QueryResult<Journal>{
 	private String name;
         private double cites_per_author;
         private double papers_per_author;
