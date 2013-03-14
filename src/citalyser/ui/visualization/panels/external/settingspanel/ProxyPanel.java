@@ -11,7 +11,7 @@
 package citalyser.ui.visualization.panels.external.settingspanel;
 
 import citalyser.ui.control.DisplayMaster;
-import citalyser.ui.model.Proxy;
+import citalyser.ui.model.CProxy;
 
 /**
  *
@@ -249,7 +249,7 @@ public class ProxyPanel extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            Proxy proxy = new Proxy(jTextField1.getText(), Integer.parseInt(jTextField2.getText()), jTextField3.getText(), new String(jPasswordField1.getPassword()));
+            CProxy proxy = new CProxy(jTextField1.getText(), Integer.parseInt(jTextField2.getText()), jTextField3.getText(), new String(jPasswordField1.getPassword()));
             displayMaster.singleProxySettingsConfirmed(proxy);
         } catch (NumberFormatException ex) {
             displayMaster.singleProxySettingsConfirmed(null);
@@ -276,7 +276,7 @@ public class ProxyPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 
-    public void setPreviousProxyData(Proxy proxy) {
+    public void setPreviousProxyData(CProxy proxy) {
         jTextField1.setText(proxy.host);
         jTextField2.setText(Integer.toString(proxy.port));
         jTextField3.setText(proxy.username);

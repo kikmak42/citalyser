@@ -5,7 +5,7 @@
 
 package citalyser;
 
-import citalyser.ui.model.Proxy;
+import citalyser.ui.model.CProxy;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -22,7 +22,7 @@ public class Config
     static final Logger logger = Logger.getLogger(Config.class.getName());
     
     private static Properties properties;
-    private static List<Proxy> proxyList;
+    private static List<CProxy> proxyList;
   
     private static File configFile = null;
      
@@ -97,7 +97,7 @@ public class Config
  /* 
   * PROXY Configuration as a hashmap
   */   
-    public static int setProxyList(List<Proxy> list)
+    public static int setProxyList(List<CProxy> list)
     {
         logger.debug("Writing the proxies to a file");
         File file = new File(Main.getSettingsDirectory(),"proxies");
@@ -112,7 +112,7 @@ public class Config
             }
         }
         try {
-            HashMap<Integer,Proxy> hm = new HashMap<Integer,Proxy>();
+            HashMap<Integer,CProxy> hm = new HashMap<Integer,CProxy>();
             for(int i = 0;i<list.size();i++)
                 hm.put(i, list.get(i));
             ObjectOutputStream s = new ObjectOutputStream(new FileOutputStream(file));
@@ -128,23 +128,23 @@ public class Config
         }
     }
     
-    public static List<Proxy> getProxylist()
+    public static List<CProxy> getProxylist()
     {
         return proxyList;
     }
     
     public static void loadProxylist()
     {
-        List<Proxy> pl = new ArrayList<Proxy>();
-        HashMap<Integer,Proxy> hm;  
+        List<CProxy> pl = new ArrayList<CProxy>();
+        HashMap<Integer,CProxy> hm;  
         File f = new File(Main.getSettingsDirectory(),"proxies");
         if(!f.exists())
             return;
         try{
             ObjectInputStream s = new ObjectInputStream(new FileInputStream(f));
-            hm = (HashMap<Integer,Proxy>)s.readObject();
+            hm = (HashMap<Integer,CProxy>)s.readObject();
             s.close();
-            for (Proxy proxy : hm.values()) {
+            for (CProxy proxy : hm.values()) {
                 pl.add(proxy);
             }
             Config.proxyList = pl;

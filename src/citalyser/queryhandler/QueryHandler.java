@@ -25,7 +25,7 @@ public class QueryHandler {
         String html ;
         TableModel retval = new DefaultTableModel();
         PaperCollection p;
-        switch(q.flag){
+       /* switch(q.flag){
             case 1: 
                 URL =  "http://scholar.google.co.in/scholar?";
                 URL +=  "start="+ q.start_page +"&";
@@ -79,17 +79,17 @@ public class QueryHandler {
                 URL += "vq=en&view_op=list_hcore&";
                 URL += "venue=" + q.ID;
                 break;
-        }
+        }*/
         
         //NETWORK FUNCTION CALLED HERE
         
+        //html = HttpConnection.getUrlText("http://scholar.google.co.in/scholar?hl=en&q=animesh+mukherjee&btnG=&as_sdt=1%2C5&as_sdtp=");
         html = HttpConnection.getUrlText(URL);
         
         p = Extractdata.extractInfo(html);
         
         return p;
-        
-       // return retval;
+       
       }
     
     private static String getDummyHtml() {
