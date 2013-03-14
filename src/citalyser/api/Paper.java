@@ -67,7 +67,7 @@ public class Paper {
     }
 
     public void setAuthors(ArrayList<Author> l) {
-        this.authors = new ArrayList<>(l);
+        this.authors = new ArrayList<Author>(l);
     }
 
     public ArrayList<Journal> getJournals() {
