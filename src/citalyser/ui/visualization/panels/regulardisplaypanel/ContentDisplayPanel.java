@@ -11,8 +11,8 @@
 package citalyser.ui.visualization.panels.regulardisplaypanel;
 
 import citalyser.ui.control.DisplayMaster;
-import javax.swing.JTable;
-import javax.swing.table.TableModel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel.GridDisplayPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel.TableDisplayPanel;
 
 /**
  *
@@ -27,20 +27,16 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
     
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
+        tableDisplayPanel.setDisplayMaster(displayMaster);
+        gridDisplayPanel.setDisplayMaster(displayMaster);
     }
-    
-    public void setTable(TableModel tm)
-    {
-        jTable1.setModel(tm);
-        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        int col = jTable1.getColumnCount();
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(15);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(35);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(25);
-        jTable1.getColumnModel().getColumn(3).setPreferredWidth(25);
-        jTable1.getColumnModel().getColumn(4).setPreferredWidth(40);
-        jTable1.getColumnModel().getColumn(5).setPreferredWidth(60);
-        jTable1.repaint();
+
+    public TableDisplayPanel getTableDisplayPanel() {
+        return tableDisplayPanel;
+    }
+
+    public GridDisplayPanel getGridDisplayPanel() {
+        return gridDisplayPanel;
     }
             
     private DisplayMaster displayMaster;
@@ -54,39 +50,15 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel.TableDisplayPanel();
+        gridDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel.GridDisplayPanel();
 
-        jScrollPane1.setBorder(null);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jTable1.setShowHorizontalLines(false);
-        jTable1.setShowVerticalLines(false);
-        jScrollPane1.setViewportView(jTable1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-        );
+        setLayout(new java.awt.CardLayout());
+        add(tableDisplayPanel, "card2");
+        add(gridDisplayPanel, "card3");
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel.GridDisplayPanel gridDisplayPanel;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel.TableDisplayPanel tableDisplayPanel;
     // End of variables declaration//GEN-END:variables
 }
