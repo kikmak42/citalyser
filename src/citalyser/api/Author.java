@@ -8,7 +8,7 @@ import java.util.TreeSet;
  *
  * @author rohan
  */
-public class Author {
+public class Author extends QueryResult<Author>{
         private String name;
         private double no_cites_per_paper;
         private double no_cites_per_year;

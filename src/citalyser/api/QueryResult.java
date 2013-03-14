@@ -10,7 +10,7 @@ package citalyser.api;
  */
 import java.util.ArrayList;
 
-public class QueryResult {
+public class QueryResult<T extends QueryResult<T>> {
     private int hasauthourList;
     private ArrayList<Author> authorList;
     private PageResultPaperCollection pageResultpaperCollection;
@@ -29,7 +29,7 @@ public class QueryResult {
     public ArrayList<Author> getAuthorList(){
         return this.authorList;
     }
-    public PageResultPaperCollection getPaperCollection(){
+   /* public PageResultPaperCollection getPaperCollection(){
         return this.pageResultpaperCollection;
-    }
+    }*/
 }

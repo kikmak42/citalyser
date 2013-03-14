@@ -11,7 +11,7 @@ package citalyser.api;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class PaperCollection {
+public class PaperCollection extends QueryResult<PaperCollection> {
 
     private int h_index;
     private int i_index;
