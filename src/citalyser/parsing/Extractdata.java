@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+//i have given the path of input.html in c:\input.html
 package citalyser.parsing;
 
 import citalyser.api.*;
@@ -114,7 +115,7 @@ public class Extractdata {
         FileReader file = null;
 
         try {
-            file = new FileReader("/home/sahil/roughos/indentedrespose.html");
+            file = new FileReader("C:/input.html");
             BufferedReader reader = new BufferedReader(file);
             String line = "";
             while ((line = reader.readLine()) != null) {
@@ -135,7 +136,8 @@ public class Extractdata {
 
 
         //Extractdata exd = new Extractdata(returnValue);
-        getAuthors(returnValue);
+        //extractProfileInfo(returnValue);
+        extractAuthorProfileInfo(returnValue);
 
 
     }
@@ -410,7 +412,28 @@ public class Extractdata {
         return ret;
     }
 
-    public static QueryResult getAuthors(String input) {
+    
+    public static void extractAuthorProfileInfo(String src){
+        doc = Jsoup.parse(src, "UTF-8");
+        Elements items = doc.select("table.cit-table");
+        System.out.println(items.isEmpty());
+        
+        if(!items.isEmpty()){
+            for (Element item : items){
+                //Elements rows = item.select("tr.cit-table item");
+                System.out.println("inside for loop");
+                Elements rows  = item.select(".item");
+                logger.debug(rows.isEmpty());
+            }
+            
+            
+        }
+        
+        
+        
+    }
+    
+    public static QueryResult getAuthors(String input ){
         QueryResult q = new QueryResult();
         ArrayList<Author> authorList = new ArrayList<>();
         int citations;
