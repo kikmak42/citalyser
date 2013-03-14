@@ -5,11 +5,13 @@
 package citalyser.ui.control;
 
 
-import citalyser.api.Apibackend;
+
+import citalyser.queryhandler.QueryHandler;
 import citalyser.ui.model.TableModelCreator;
 
-import citalyser.ui.model.Proxy;
+import citalyser.ui.model.CProxy;
 
+import citalyser.queryhandler.*;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.ExtraPanel;
 import citalyser.ui.visualization.panels.common.SearchPanel;
@@ -91,7 +93,10 @@ public class DisplayMaster {
 
     public void searchButtonClicked(SearchPanel searchPanel) {
         if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
-            mainFrame.getRegularDisplayPanel().getContentDisplayPanel().setTable(TableModelCreator.getTableModel(Apibackend.getDetails(null)));
+            
+
+    //mainFrame.getRegularDisplayPanel().getContentDisplayPanel().setTable(TableModelCreator.getTableModel(QueryHandler.getDetails(null)));
+
         } else {
             if (searchPanel.equals(mainFrame.getStartPanel().getAuthorSearchPanel())) {
                 ((java.awt.CardLayout) mainFrame.getContentPane().getLayout()).last(mainFrame.getContentPane());
@@ -138,7 +143,7 @@ public class DisplayMaster {
         extraPanel.getSettingsPanel().getProxyPanel().setEditMode(true);
     }
 
-    public void singleProxySettingsConfirmed(Proxy proxy) {
+    public void singleProxySettingsConfirmed(CProxy proxy) {
         if (proxy == null) {
             //TODO: System, Autodetect and No Proxy
             return;
@@ -151,6 +156,6 @@ public class DisplayMaster {
         ((javax.swing.table.DefaultTableModel) extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getModel()).addRow(rowData);
         citalyser.Config.setProxyList(extraPanel.getSettingsPanel().getProxyListPanel().getProxyList());
         extraPanel.getSettingsPanel().flip();
-        extraPanel.getSettingsPanel().getProxyPanel().setPreviousProxyData(new Proxy("", 0, "", ""));
+        extraPanel.getSettingsPanel().getProxyPanel().setPreviousProxyData(new CProxy("", 0, "", ""));
     }
 }

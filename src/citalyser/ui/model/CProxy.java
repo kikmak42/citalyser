@@ -10,20 +10,20 @@ import java.io.Serializable;
  *
  * @author abhishek
  */
-public class Proxy implements Serializable{
+public class CProxy implements Serializable{
     public String host;
     public int port;
     public String username;
     public String password;
     
-    public Proxy(String host, int port, String username, String password)
+    public CProxy(String host, int port, String username, String password)
     {
         this.host = host;
         this.port = port;
         this.username = username;
         this.password = password;
     }
-    public Proxy(String host, int port)
+    public CProxy(String host, int port)
     {
         this.host = host;
         this.port = port;
@@ -33,5 +33,10 @@ public class Proxy implements Serializable{
     public String toString()
     {
         return host + ":"+port;
+    }
+    
+    public String getHostName()
+    {
+        return host;
     }
 }

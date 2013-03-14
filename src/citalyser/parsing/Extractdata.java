@@ -2,14 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+//i have given the path of input.html in c:\input.html
 package citalyser.parsing;
 
 import citalyser.api.*;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -21,6 +23,7 @@ import org.jsoup.select.Elements;
  */
 public class Extractdata {
 
+    private static Logger logger = Logger.getLogger(Extractdata.class.getName());
     static public String source;
     static Document doc;
     static private PaperCollection extractedPapers;
@@ -35,16 +38,14 @@ public class Extractdata {
         try {
             splitarr = string.split("…, ");
             flag = 1;
-            if(splitarr.length==1)
-            {
+            if (splitarr.length == 1) {
                 splitarr = string.split(", ");
                 Integer.parseInt(splitarr[1]);
-                flag =0;
+                flag = 0;
             }
         } catch (Exception e) {
             splitarr = string.split(", ");
         }
-
         if (type == 1) {
             if (splitarr.length == 2) {
                 if (flag == 1) {
@@ -108,6 +109,7 @@ public class Extractdata {
     //Author a= new Author("dvc");
 
     public static void main(String args[]) {
+        PropertyConfigurator.configure("log4j.properties");
 
         String returnValue = "";
         FileReader file = null;
@@ -134,7 +136,8 @@ public class Extractdata {
 
 
         //Extractdata exd = new Extractdata(returnValue);
-        extractInfo(returnValue);
+        //extractProfileInfo(returnValue);
+        getAuthors(returnValue);
 
 
     }
@@ -145,11 +148,7 @@ public class Extractdata {
         extractedPapers = new PaperCollection();
         papers = new ArrayList<Paper>();
         citedbyList = new ArrayList<String>();
-        Paper insertInextractedpapers = new Paper();
-        ArrayList<Author> authorsinPaper = new ArrayList<Author>();
-        Author authorinpaper = new Author(null);
-        ArrayList<Journal> journalsinPaper = new ArrayList<Journal>();
-        Journal journalinpaper = new Journal(null);
+
         String jrnl;
         String year;
         int yearint;
@@ -157,6 +156,13 @@ public class Extractdata {
         Elements items = doc.select(".gs_ri");//select all items 
         for (Element item : items) {
             //extracting title section
+            ArrayList<Author> authorsinPaper = new ArrayList<Author>();
+            ArrayList<Journal> journalsinPaper = new ArrayList<Journal>();
+
+            Paper insertInextractedpapers = new Paper();
+            Journal journalinpaper = new Journal(null);
+            Author authorinpaper = new Author(null);
+
             Elements title_section = item.select("h3>a");
             if (!title_section.isEmpty()) {
                 Element section = title_section.get(0);//getting the first element of this array
@@ -203,6 +209,11 @@ public class Extractdata {
                     System.out.println("list 1 :" + list[1]);
                     // = list[1].split(", ")[0];
                     jrnl = splitjournal_year(list[1], 1);
+                    journalinpaper.setName(jrnl);
+                    journalsinPaper.add(journalinpaper);
+                    insertInextractedpapers.setJournals(journalsinPaper);
+
+
 //                    try {
 //                        jrnl = list[1].split("…, ")[0] + "…";
 //                    } catch (Exception e) {
@@ -247,12 +258,16 @@ public class Extractdata {
 
                 } /////////////////////////////////////////////////////////////////////////////
                 else {//len ==2
-                    System.out.println("section text :" + section_text);
+                    System.out.println("section text:" + section_text);
                     System.out.println(Arrays.toString(list));
                     String names = list[0];
                     System.out.println("list 0 :" + list[0]);
                     String[] author_names = names.split(",|…");
                     jrnl = "";
+                    journalinpaper.setName(jrnl);
+                    journalsinPaper.add(journalinpaper);
+                    insertInextractedpapers.setJournals(journalsinPaper);
+
                     yearint = 0;
                     for (String nameinarray : author_names) {
 
@@ -261,9 +276,6 @@ public class Extractdata {
                     }
                     System.out.println("Authors:  " + Arrays.toString(author_names));
                 }
-                journalinpaper.setName(jrnl);
-                journalsinPaper.add(journalinpaper);
-                insertInextractedpapers.setJournals(journalsinPaper);
                 insertInextractedpapers.setYear(yearint);
                 insertInextractedpapers.setAuthors(authorsinPaper);
 
@@ -298,58 +310,61 @@ public class Extractdata {
 
         }
         extractedPapers.setPapers(papers);
+        for (Paper p : papers) {
+            logger.debug(p.getAuthors());
+        }
         return extractedPapers;
 
     }
-    public static void extractProfileInfo(String file){
-           doc = Jsoup.parse(file, "UTF-8");
-           Elements items = doc.select("div.gs_r");
-           
-           if(!items.isEmpty()){
-               
-               for(Element item: items){
-                   /*
-                   Elements title_section = item.select("h3.gs_rt>a");
-                   if (!title_section.isEmpty()) {
-                       Element section = title_section.get(0);//getting the first element of this array
-                       String title = section.text();
-                       String href = section.attr("href");
-                       //insertInextractedpapers.setTitle(title);
-                       System.out.println(title);
-                       System.out.println(href);
+
+    public static void extractProfileInfo(String file) {
+        doc = Jsoup.parse(file, "UTF-8");
+        Elements items = doc.select("div.gs_r");
+
+        if (!items.isEmpty()) {
+
+            for (Element item : items) {
+                /*
+                 Elements title_section = item.select("h3.gs_rt>a");
+                 if (!title_section.isEmpty()) {
+                 Element section = title_section.get(0);//getting the first element of this array
+                 String title = section.text();
+                 String href = section.attr("href");
+                 //insertInextractedpapers.setTitle(title);
+                 System.out.println(title);
+                 System.out.println(href);
                        
 
-                   }
-                   */
-                   //System.out.println("after ist printf");
-                   Elements author_section = item.select("h4.gs_rt2");
-                   System.out.println(author_section.isEmpty());
-                   if(!author_section.isEmpty()){
-                       for(Element section:author_section){
-                           
-                           Elements author_tags = section.select("a");
-                           for(Element author_tag : author_tags){
-                               String author_name = author_tag.text();
-                               String url = "http://scholar.google.com";
-                               String author_link = url+author_tag.attr("href");
-                               System.out.println(author_name);
-                               System.out.println(author_link);
-                           }
-                       }
-                       
-                       
-                   }
-                   
-                   
-               }
-               
-               
-           }
-        
-        
-        
+                 }
+                 */
+                //System.out.println("after ist printf");
+                Elements author_section = item.select("h4.gs_rt2");
+                System.out.println(author_section.isEmpty());
+                if (!author_section.isEmpty()) {
+                    for (Element section : author_section) {
+
+                        Elements author_tags = section.select("a");
+                        for (Element author_tag : author_tags) {
+                            String author_name = author_tag.text();
+                            String url = "http://scholar.google.com";
+                            String author_link = url + author_tag.attr("href");
+                            System.out.println(author_name);
+                            System.out.println(author_link);
+                        }
+                    }
+
+
+                }
+
+
+            }
+
+
+        }
+
+
+
     }
-    
 
     public static ArrayList<String> extractCitedbyLinks(String source) {
         Extractdata.source = source;
@@ -395,5 +410,140 @@ public class Extractdata {
         } catch (Exception e) {
         }
         return ret;
+    }
+
+    
+    public static void extractAuthorProfileInfo(String src){
+        doc = Jsoup.parse(src, "UTF-8");
+        Elements items = doc.select("table.cit-table");
+        System.out.println(items.isEmpty());
+        String url= "http://scholar.google.com";
+        /*
+        if(!items.isEmpty()){
+            for (Element item : items){
+                //Elements rows = item.select("tr.cit-table item");
+                System.out.println("inside for loop");
+                Elements rows  = item.select(".item");
+                logger.debug("rows are"+rows.isEmpty());
+                for(Element row : rows){
+                    //extracting the paper title and link of paper
+                    Elements title_section = row.select("td#col-title");
+                    logger.debug("titlesection"+title_section.isEmpty());
+                    Elements title_tags = title_section.get(0).select("a");
+                    if(!title_tags.isEmpty()){
+                        String title_link = url+title_tags.get(0).attr("href");
+                        String title_name  = title_tags.get(0).text();
+                        logger.debug("title link"+title_link);
+                        logger.debug("title_name"+title_name);
+                        
+                    }
+                    //extracting the names of the authors
+                    Elements desc_section = row.select("span.cit-gray");
+                    if(!desc_section.isEmpty()){
+                        String authors_list = desc_section.get(0).text();
+                        String[] author_names = authors_list.split(",");
+                        String journal = desc_section.get(1).text();
+                        String names = Arrays.toString(author_names);
+                        logger.debug("author names"+names);
+                        logger.debug("journal names"+journal);                        
+                    }
+                    
+                    //extracting the citation count
+                    Elements citation_section = row.select("td#col-citedby");
+                    if(!citation_section.isEmpty()){
+                        String citation_count = citation_section.get(0).text();
+                        logger.debug("citation_count "+citation_count);
+                        String cited_by_link = citation_section.get(0).select("a").attr("href");
+                        logger.debug("cited_by_link "+cited_by_link);
+                    }
+                    
+                     //extracting the publication year
+                    Elements year_section = row.select("td#col-year");
+                    if(!year_section.isEmpty()){
+                        String year = year_section.get(0).text();
+                        logger.debug("year "+year);
+                        
+                        
+                    }
+                    
+                    
+                }
+            }
+            
+            
+        }
+        */
+        
+        items = doc.select(".g-section");
+        logger.debug("items "+items.isEmpty());
+        ArrayList<String>co_authors = new ArrayList<String>();
+        ArrayList<String>co_authors_links = new ArrayList<String>();
+        if(!items.isEmpty()){
+            Element co_author_section = items.get(2);
+            Elements a_tags = co_author_section.select("a");
+            if(!a_tags.isEmpty()){
+                for(Element a_tag : a_tags){
+                    String link = url+a_tag.attr("href");
+                    co_authors_links.add(link);
+                    co_authors.add(a_tag.text());
+                }
+                
+            }
+            
+        }
+        logger.debug(co_authors_links);
+        logger.debug(co_authors);
+        
+        
+        
+        
+    }
+    
+    public static QueryResult getAuthors(String input ){
+
+        QueryResult q = new QueryResult();
+        ArrayList<Author> authorList = new ArrayList<>();
+        int citations;
+        String name, imglink;
+        String url;
+        String details, university;
+        String[] parseddetails;
+        doc = Jsoup.parse(input, "UTF-8");
+        Elements elements = doc.select("div.g-unit");
+        logger.debug(elements.size());
+        for (Element item : elements) {
+            Author author = new Author("");
+
+            details = item.text();
+            imglink = "scholar.google.co.in" + item.select("img").get(0).attr("src");
+            Elements links = item.select("a.cit-dark-large-link");
+            Element link = links.get(0);
+            url = "scholar.google.co.in" + link.attr("href");
+            name = link.text();
+            parseddetails = details.split(" ");
+            try {
+                citations = Integer.parseInt(parseddetails[parseddetails.length - 1]);
+                university = details.substring(name.length(), details.length() - 9 - Integer.toString(citations).length());
+            } catch (Exception e) {
+                citations = 0;
+                university = details.substring(details.length() - name.length());
+            }
+            author.setName(name);
+            author.setUniversity(university);
+            author.setTotalCitations(citations);
+            author.setImagesrc(imglink);
+            author.setProfilelink(url);
+
+            authorList.add(author);
+        }
+        for(Author author: authorList){
+        logger.debug("img src:" + author.getImageSrc());
+        logger.debug("url:" + author.getProfileLink());
+        logger.debug("name:" + author.getName());//name
+        logger.debug("univ:" + author.getUniversity());
+        logger.debug("citations:" + author.getTotalCitations());
+        }
+        q.setAuthorList(authorList);
+        return q;
     }
 }

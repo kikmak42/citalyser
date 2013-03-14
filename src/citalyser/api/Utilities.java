@@ -18,18 +18,6 @@ class CompareCite implements Comparator<Paper>{
 }
 
 /**
- *
- * @author rajkumar
- */
-class Query{
-    public int flag;
-    public String name;
-    public int max_year;
-    public int min_year;
-    public int start_page;
-    public int end_page;
-}
-/**
  * Sets System Proxy
  * @param host=proxy host
  *        port=proxy port
