@@ -11,6 +11,7 @@ import citalyser.ui.model.TableModelCreator;
 
 import citalyser.ui.model.CProxy;
 
+import citalyser.queryhandler.*;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.ExtraPanel;
 import citalyser.ui.visualization.panels.common.SearchPanel;
@@ -94,7 +95,9 @@ public class DisplayMaster {
     public void searchButtonClicked(SearchPanel searchPanel) {
         if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
             
+
     //mainFrame.getRegularDisplayPanel().getContentDisplayPanel().setTable(TableModelCreator.getTableModel(QueryHandler.getDetails(null)));
+
         } else {
             if (searchPanel.equals(mainFrame.getStartPanel().getAuthorSearchPanel())) {
                 ((java.awt.CardLayout) mainFrame.getContentPane().getLayout()).last(mainFrame.getContentPane());
