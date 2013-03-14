@@ -418,16 +418,18 @@ public class Extractdata {
         logger.debug(elements.size());
         for(Element item : elements){
             Author author = new Author("");
-            String name;
+            String name,imglink;
             String details = item.text();
+            imglink = item.select("img").get(0).attr("src");
             Elements links = item.select("a.cit-dark-large-link");
             Element link = links.get(0);
             logger.debug(links.size());
             String url = link.attr("href");
-            String text = link.text();
-            logger.debug(url);
-            logger.debug(text);//name
-            logger.debug(details);//all else
+            name = link.text();
+            logger.debug("img src:"+imglink);
+            logger.debug("url:"+url);
+            logger.debug("name:"+name);//name
+            logger.debug("details:"+details);//all else
         }
         
         return q;

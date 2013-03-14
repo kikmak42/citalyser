@@ -12,6 +12,10 @@ public class Author {
         private String name;
         private double no_cites_per_paper;
         private double no_cites_per_year;
+        private String imgsrc;
+        private String proilelink;
+        private String university;
+        private int totalcitaions;
         private PaperCollection paper_collection;
 
     @Override
@@ -22,6 +26,9 @@ public class Author {
         public Author(String name){
             this.paper_collection = null;
             this.name = name;
+            this.imgsrc=null;
+            this.proilelink=null;
+            this.university=null;
         }
 
         public String getName(){
@@ -56,4 +63,30 @@ public class Author {
             no_cites_per_paper = (double)total_cites/paperList.size();
             no_cites_per_year = (double)total_cites/years.size();
         }
+        public String getUniversity(){
+            return this.university;
+        }
+        public String getImageSrc(){
+            return this.imgsrc;
+        }
+        public String getProfileLink(){
+            return this.proilelink;
+        }
+        public int getTotalCitations(){
+            return this.totalcitaions;
+        }
+        public void setTotalCitations(int i){
+            this.totalcitaions = i;
+        }
+        public void setUniversity(String s){
+            this.university = s;
+        }
+        public void setImagesrc(String s){
+            this.imgsrc = s;
+        }
+        public void setProfilelink(String s){
+            this.proilelink = s;
+        }
+        
+        
 }
