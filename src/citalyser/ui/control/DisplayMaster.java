@@ -16,6 +16,7 @@ import citalyser.ui.visualization.panels.ExtraPanel;
 import citalyser.ui.visualization.panels.common.SearchPanel;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.Vector;
 import org.apache.log4j.Logger;
 
 /**
@@ -155,7 +156,35 @@ public class DisplayMaster {
         extraPanel.getSettingsPanel().getProxyPanel().setPreviousProxyData(new CProxy("", 0, "", ""));
     }
 
-    void displayErrorMessage(String message) {
+    public void displayErrorMessage(String message) {
         javax.swing.JOptionPane.showMessageDialog(mainFrame, message, "Error", javax.swing.JOptionPane.PLAIN_MESSAGE);
     }
+
+    public void addAutoCompleteSuggestions(Vector<String> suggestions) {
+        if (mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().isVisible()) {
+            if (suggestions == null) {
+                emptyAutoCompleteSuggestions();
+            } else {
+                for (String suggestion : suggestions) {
+                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getAutoCompleteSuggestions().add(suggestion);
+                }
+            }
+        }
+    }
+    
+    public void addAutoCompleteSuggestion(String suggestion) {
+        if (mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().isVisible()) {
+            if (suggestion != null) {
+                mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getAutoCompleteSuggestions().add(suggestion);
+            }
+        }
+    }
+
+    public void emptyAutoCompleteSuggestions() {
+        if (mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().isVisible()) {
+            mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getAutoCompleteSuggestions().removeAllElements();
+        }
+    }
+
+
 }
