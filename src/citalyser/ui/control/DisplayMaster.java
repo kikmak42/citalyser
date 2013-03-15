@@ -149,8 +149,7 @@ public class DisplayMaster {
     }
 
     public Query createQuery(SearchPanel searchPanel) {
-        return null;
+        return new Query.Builder(searchPanel.getSearchString()).build();
     }
-
 
 }
