@@ -8,7 +8,7 @@ import citalyser.Constants.queryType;
 
 /**
  *
- * @author rajkumar
+ * @author rajkumar, Tanmay
  */
 public class Query{
     public queryType flag;

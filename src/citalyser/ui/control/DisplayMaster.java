@@ -7,13 +7,10 @@ package citalyser.ui.control;
 
 
 
-import citalyser.queryhandler.Query;
-import citalyser.queryhandler.QueryHandler;
 import citalyser.ui.control.masters.SearchMaster;
 import citalyser.ui.control.masters.SettingsMaster;
 import citalyser.util.CProxy;
 
-import citalyser.ui.util.TableModelCreator;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.ExtraPanel;
 import citalyser.ui.visualization.panels.common.SearchPanel;
@@ -146,10 +143,6 @@ public class DisplayMaster {
         if (mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().isVisible()) {
             mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getAutoCompleteSuggestions().removeAllElements();
         }
-    }
-
-    public Query createQuery(SearchPanel searchPanel) {
-        return new Query.Builder(searchPanel.getSearchString()).build();
     }
 
 }

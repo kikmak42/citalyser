@@ -1,17 +1,9 @@
 package citalyser.queryhandler;
 
-import citalyser.cache.CacheHandler;
 import citalyser.model.UrlComposer;
-import citalyser.networking.HttpConnection;
 import citalyser.parsing.Parser;
-import citalyser.queryresult.AuthorListResult;
-import citalyser.queryresult.AuthorResult;
-import citalyser.queryresult.JournalListResult;
-import citalyser.queryresult.JournalResult;
-import citalyser.queryresult.PaperCollectionResult;
 import citalyser.queryresult.QueryResult;
 import citalyser.cache.CacheHandler;
-import javax.swing.text.Utilities;
 
 /**
  *
@@ -25,14 +17,22 @@ public class QueryHandler {
     private UrlComposer url;
     private String queryUrl;
     
-    public QueryHandler()
+    private QueryHandler()
     {
         cacheHandler = new CacheHandler();
         url = new UrlComposer();
         //parser = new Extractdata();
     }
     
-    public QueryResult getQueryResult(Query q){
+    private static class QueryHandlerHolder {
+        private static final QueryHandler queryHandler = new QueryHandler();
+    }
+
+    public static QueryHandler getInstance() {
+        return QueryHandlerHolder.queryHandler;
+    }    
+    
+    public QueryResult<?> getQueryResult(Query q){
         
         switch(q.flag){
             case GEN_AUTH: 

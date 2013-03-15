@@ -4,6 +4,10 @@
  */
 package citalyser.ui.control.masters;
 
+import citalyser.Constants.queryType;
+import citalyser.queryhandler.Query;
+import citalyser.queryhandler.QueryHandler;
+import citalyser.ui.control.switchers.QueryResultRenderingHandler;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.common.SearchPanel;
 import org.apache.log4j.Logger;
@@ -46,7 +50,7 @@ public class SearchMaster {
      
     public void searchButtonClicked(SearchPanel searchPanel) {
         if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
-            
+            //QueryResultRenderingHandler.render(QueryHandler.getInstance().getQueryResult(createQuery(searchPanel)));
             //mainFrame.getRegularDisplayPanel().getContentDisplayPanel().getTableDisplayPanel().setTable(TableModelCreator.getTableModel(QueryHandler.getDetails(null)));
         } else {
             if (searchPanel.equals(mainFrame.getStartPanel().getAuthorSearchPanel())) {
@@ -63,5 +67,9 @@ public class SearchMaster {
                 }
             }
         }
+    }
+
+    public Query createQuery(SearchPanel searchPanel) {
+        return new Query.Builder(searchPanel.getSearchString()).build();
     }
 }

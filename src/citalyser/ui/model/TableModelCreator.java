@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package citalyser.ui.util;
+package citalyser.ui.model;
 
 import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
@@ -18,7 +18,7 @@ import javax.swing.table.TableModel;
  */
 public class TableModelCreator {
 
-    static public TableModel getTableModel(PaperCollection pc) {
+    public static TableModel getTableModel(PaperCollection pc) {
         ArrayList<Paper> papers = pc.getPapers();
         String[] columnNames = {"S.No", "Title", "Year", "No. of Citations", "Author/(s)", "Journal/(s)"};
         Object[][] data = new Object[papers.size()][columnNames.length];
