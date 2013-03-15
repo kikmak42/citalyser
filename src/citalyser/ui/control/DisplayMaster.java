@@ -9,6 +9,7 @@ package citalyser.ui.control;
 
 import citalyser.queryhandler.Query;
 import citalyser.queryhandler.QueryHandler;
+import citalyser.ui.control.masters.SearchMaster;
 import citalyser.ui.control.masters.SettingsMaster;
 import citalyser.util.CProxy;
 
@@ -31,6 +32,7 @@ public class DisplayMaster {
     private ExtraPanel extraPanel;
     
     private SettingsMaster settingsMaster;
+    private SearchMaster searchMaster;
     
     private static Logger logger = Logger.getLogger(DisplayMaster.class.getName());
 
@@ -41,6 +43,7 @@ public class DisplayMaster {
         extraPanel = new ExtraPanel();
         extraPanel.setDisplayMaster(this);
         settingsMaster = new SettingsMaster(extraPanel);
+        searchMaster = new SearchMaster(mainFrame);
         settingsDialog = new javax.swing.JDialog(mainFrame);
         settingsDialog.setUndecorated(true);
         settingsDialog.setLocation(mainFrame.getRootPane().getX(), mainFrame.getRootPane().getY());
@@ -54,27 +57,13 @@ public class DisplayMaster {
     public SettingsMaster getSettingsMaster() {
         return settingsMaster;
     }
+
+    public SearchMaster getSearchMaster() {
+        return searchMaster;
+    }
     
     public void searchKeyPressed(SearchPanel searchPanel, char key) {
-        if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
-            //TODO: Autocomplete
-        } else {
-            if (searchPanel.equals(mainFrame.getStartPanel().getAuthorSearchPanel())) {
-                ((java.awt.CardLayout) mainFrame.getContentPane().getLayout()).last(mainFrame.getContentPane());
-                mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().requestSearchFieldFocus();
-                mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setSearchString(key + "");
-                mainFrame.getRegularDisplayPanel().getHeaderPanel().setAuthorSearchMode(true);
-            } else {
-                if (searchPanel.equals(mainFrame.getStartPanel().getJournalSearchPanel())) {
-                    ((java.awt.CardLayout) mainFrame.getContentPane().getLayout()).last(mainFrame.getContentPane());
-                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().requestSearchFieldFocus();
-                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setSearchString(key + "");
-                    mainFrame.getRegularDisplayPanel().getHeaderPanel().setAuthorSearchMode(false);
-                } else {
-                    logger.info("Invalid key event : " + key);
-                }
-            }
-        }
+        searchMaster.searchKeyPressed(searchPanel, key);
     }
 
     public void settingsButtonPressed() {
@@ -102,24 +91,7 @@ public class DisplayMaster {
     }
 
     public void searchButtonClicked(SearchPanel searchPanel) {
-        if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
-            
-            //mainFrame.getRegularDisplayPanel().getContentDisplayPanel().getTableDisplayPanel().setTable(TableModelCreator.getTableModel(QueryHandler.getDetails(null)));
-        } else {
-            if (searchPanel.equals(mainFrame.getStartPanel().getAuthorSearchPanel())) {
-                ((java.awt.CardLayout) mainFrame.getContentPane().getLayout()).last(mainFrame.getContentPane());
-                mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().requestSearchFieldFocus();
-                mainFrame.getRegularDisplayPanel().getHeaderPanel().setAuthorSearchMode(true);
-            } else {
-                if (searchPanel.equals(mainFrame.getStartPanel().getJournalSearchPanel())) {
-                    ((java.awt.CardLayout) mainFrame.getContentPane().getLayout()).last(mainFrame.getContentPane());
-                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().requestSearchFieldFocus();
-                    mainFrame.getRegularDisplayPanel().getHeaderPanel().setAuthorSearchMode(false);
-                } else {
-                    logger.info("Invalid search clicked event");
-                }
-            }
-        }
+        searchMaster.searchButtonClicked(searchPanel);
     }
     
     public void settingsSaveAndClose() {
