@@ -10,6 +10,7 @@ import java.util.TreeSet;
  */
 public class Author {
         private String name;
+        private String id;
         private double no_cites_per_paper;
         private double no_cites_per_year;
         private String imgsrc;
@@ -33,6 +34,12 @@ public class Author {
             this.univandemail=null;
         }
 
+        public String getId(){
+            return this.id;
+        }
+        public void setId(String s){
+            this.id = s;
+        }
         public String getName(){
             return this.name;
         }
