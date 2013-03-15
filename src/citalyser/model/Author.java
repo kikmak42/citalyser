@@ -17,7 +17,7 @@ public class Author {
         private String univandemail;
         private int totalcitaions;
         private PaperCollection paper_collection;
-
+        private ArrayList<Author> co_authors;
     
     @Override
     public String toString() {
@@ -25,6 +25,7 @@ public class Author {
     }
         
         public Author(String name){
+            this.co_authors=null;
             this.paper_collection = null;
             this.name = name;
             this.imgsrc=null;
@@ -88,6 +89,13 @@ public class Author {
         public void setProfilelink(String s){
             this.proilelink = s;
         }
+        public ArrayList<Author> getCoAuthors(){
+            return this.co_authors;
+        }
+        public void setCoAuthors(ArrayList<Author> coauthors){
+            this.co_authors = coauthors;
+        }
+        
         
         
 }

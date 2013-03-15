@@ -12,4 +12,6 @@ public interface DisplayController {
     
     public void initializeDisplay();
     
+    public void displayErrorMessage(String Message);
+    
 }
