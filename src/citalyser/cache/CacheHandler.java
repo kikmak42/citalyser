@@ -6,20 +6,21 @@
 package citalyser.cache;
 
 import citalyser.Constants;
-import citalyser.model.Apibackend;
 import citalyser.queryresult.QueryResult;
 
 public class CacheHandler {
-    
-    private Apibackend apibackend;
-    
+   
     public CacheHandler()
     {
-        apibackend = new Apibackend();
+    }
+   
+    public QueryResult getObject(String key)
+    {
+        return null;
     }
     
-    public QueryResult getQueryResult(String url,Constants.queryType q)
+    public int setObject(QueryResult qr, String key)
     {
-        return apibackend.getQueryResult(url,q);
+        return 0;
     }
 }

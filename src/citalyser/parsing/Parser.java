@@ -24,9 +24,9 @@ import org.jsoup.select.Elements;
  *
  * @author Abhishek Gupta
  */
-public class Extractdata {
+public class Parser {
 
-    private static Logger logger = Logger.getLogger(Extractdata.class.getName());
+    private static Logger logger = Logger.getLogger(Parser.class.getName());
     static public String source;
     static Document doc;
     static private PaperCollection extractedPapers;
@@ -103,7 +103,7 @@ public class Extractdata {
         return null;
     }
 
-    public Extractdata(String source) {
+    public Parser(String source) {
         this.source = source;
         extractedPapers = new PaperCollection();
         papers = new ArrayList<Paper>();
@@ -149,7 +149,7 @@ public class Extractdata {
 
     //this function takes the title of a paper and the source string and returns an arraylist of authors of that paper
     public static PaperCollection extractInfo(String source) {
-        Extractdata.source = source;
+        Parser.source = source;
         extractedPapers = new PaperCollection();
         papers = new ArrayList<Paper>();
         citedbyList = new ArrayList<String>();
@@ -372,7 +372,7 @@ public class Extractdata {
     }
 
     public static ArrayList<String> extractCitedbyLinks(String source) {
-        Extractdata.source = source;
+        Parser.source = source;
         citedbyList = new ArrayList<String>();
         doc = Jsoup.parse(source, "UTF-8");
         Elements items = doc.select(".gs_ri");
