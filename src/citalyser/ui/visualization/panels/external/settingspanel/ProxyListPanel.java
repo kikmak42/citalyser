@@ -11,6 +11,11 @@
 package citalyser.ui.visualization.panels.external.settingspanel;
 
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.model.Proxy;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -21,13 +26,58 @@ public class ProxyListPanel extends javax.swing.JPanel {
     /** Creates new form ProxyListPanel */
     public ProxyListPanel() {
         initComponents();
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (e.getFirstIndex() < 0) {
+                    jButton3.setEnabled(false);
+                } else {
+                    jButton3.setEnabled(true);
+                }
+            }
+        });
+        proxyList = citalyser.Config.getProxylist();
+        if (proxyList != null) {
+            for (Proxy proxy : proxyList) {
+                String[] rowData = new String[3];
+                rowData[0] = proxy.host;
+                rowData[1] = Integer.toString(proxy.port);
+                rowData[2] = proxy.username;
+                ((javax.swing.table.DefaultTableModel) jTable1.getModel()).addRow(rowData);
+            }
+        } else {
+            proxyList = new ArrayList<>();
+        }
     }
+    
+    public javax.swing.JTable getProxyTable() {
+        return jTable1;
+    }    
     
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
     }
+
+    public void setProxyList(List<Proxy> proxyList) {
+        this.proxyList = proxyList;
+    }
+
+    public List<Proxy> getProxyList() {
+        return proxyList;
+    }
+
+    public void setSelectedEditableProxyEntry(int selectedEditableProxyEntry) {
+        this.selectedEditableProxyEntry = selectedEditableProxyEntry;
+    }
+
+    public int getSelectedEditableProxyEntry() {
+        return selectedEditableProxyEntry;
+    }
             
     private DisplayMaster displayMaster;
+    private List<Proxy> proxyList;
+    private int selectedEditableProxyEntry;
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -78,8 +128,19 @@ public class ProxyListPanel extends javax.swing.JPanel {
         });
 
         jButton2.setText("Remove");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Edit");
+        jButton3.setEnabled(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("OK");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -123,9 +184,17 @@ public class ProxyListPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         displayMaster.openAddNewProxyWindow();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        displayMaster.removeSelectedProxyEntry();
+        jButton3.setEnabled(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        displayMaster.openEditExistingProxyWindow();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

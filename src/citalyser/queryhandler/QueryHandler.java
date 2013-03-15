@@ -1,4 +1,6 @@
-package citalyser.api;
+package citalyser.queryhandler;
+
+import citalyser.api.*;
 import citalyser.parsing.*;
 import citalyser.networking.HttpConnection;
 import java.io.BufferedReader;
@@ -17,10 +19,10 @@ import javax.swing.table.*;
  */
 
 
-public class Apibackend {
+public class QueryHandler {
     public static PaperCollection getDetails(Query q){
         String URL = new String();
-        String html ;//= new String();
+        String html ;
         TableModel retval = new DefaultTableModel();
         PaperCollection p;
         switch(q.flag){
@@ -52,6 +54,30 @@ public class Apibackend {
                 URL +="as_ylo=" + q.min_year + "&";
                 URL +="as_yhi=" + q.max_year + "&";
                 URL +="btnG=&hl=en&as_sdt=0%2C5";
+                break;
+                
+            case 3:
+                URL = "http://scholar.google.co.in/citations?hl=en&";
+                URL += "view_op=search_venues";
+                URL += "&vq=" + q.name;
+                break;
+                
+            case 4:
+                URL = "http://scholar.google.co.in/citations?hl=en&";
+                URL += "view_op=search_authors";
+                URL += "&mauthors=" + q.name;
+                break;
+                
+            case 5:
+                URL = "http://scholar.google.co.in/citations?hl=en&";
+                URL += "&view_op=list_works&pagesize=100";
+                URL += "&user=" + q.ID;
+                break;
+                
+            case 6:
+                URL  = "http://scholar.google.co.in/citations?hl=en&";
+                URL += "vq=en&view_op=list_hcore&";
+                URL += "venue=" + q.ID;
                 break;
         }
         
