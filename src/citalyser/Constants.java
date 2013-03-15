@@ -9,13 +9,6 @@ package citalyser;
  * @author rajkumar
  */
 public class Constants {
-    public enum queryType{
-        GEN_AUTH,               // Author papers from Google Scholar 
-        GEN_JOURN,              // Journal Papers from Google Scholar
-        MET_AUTH,               // All Authors matching a particular string from Google Author Search
-        MET_JOURN,              // All Journals matching a particular string from Google Metrics
-        AUTH_PROF,              // Get Complete Author Details from Google Author Search
-        JOURN_PROF              // Get Complete Journal Details from Google Metrics Search
-    }
+    
     
 }

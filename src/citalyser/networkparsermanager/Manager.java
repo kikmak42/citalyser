@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 package citalyser.networkparsermanager;
+import citalyser.Main;
 import citalyser.cache.CacheHandler;
 import citalyser.model.UrlComposer;
 import citalyser.networking.HttpConnection;
@@ -10,49 +11,51 @@ import citalyser.parsing.Parser;
 import citalyser.queryresult.PaperCollectionResult;
 import citalyser.queryresult.QueryResult;
 import javax.swing.text.Utilities;
+import org.apache.log4j.Logger;
 /**
  *
  * @author NEHAL
  */
 public class Manager {
-    
+    private static Logger logger = Logger.getLogger(Manager.class.getName());
     /* Query Case - GEN_AUTH */
-    QueryResult getAuthorPapersFromScholar(String url)
+    public QueryResult getAuthorPapersFromScholar(String url)
     {
         String html = HttpConnection.getUrlText(url);
+        logger.info("GettingAuthorPapers from Network"+url);
         return Parser.extractInfo(html);
     }
     
     /* Query Case - GEN_JOURN */
-    QueryResult getJournalPapersFromScholar(String url)
+    public QueryResult getJournalPapersFromScholar(String url)
     {
         String html = HttpConnection.getUrlText(url);
         return Parser.extractInfo(html);
     }
     
     /* Query Case - MET_AUTH */
-    QueryResult getAuthorList(String url)
+    public QueryResult getAuthorList(String url)
     {
          String html = HttpConnection.getUrlText(url);
         return Parser.getAuthors(html);
     }
     
     /* Query Case - MET_JOURN */
-    QueryResult getJournalList(String url)
+    public QueryResult getJournalList(String url)
     {
          String html = HttpConnection.getUrlText(url);
         return null;
     }
     
     /* Query Case - AUTH_PROF */
-    QueryResult getCompleteAuthorFromMetric(String url)
+    public QueryResult getCompleteAuthorFromMetric(String url)
     {
          String html = HttpConnection.getUrlText(url);
         return null;
     }
     
     /* Query Case - JOURN_PROF */
-    QueryResult getCompleteJournalFromMetric(String url)
+    public QueryResult getCompleteJournalFromMetric(String url)
     {
          String html = HttpConnection.getUrlText(url);
         return null;

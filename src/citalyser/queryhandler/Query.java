@@ -4,14 +4,12 @@
  */
 package citalyser.queryhandler;
 
-import citalyser.Constants.queryType;
-
 /**
  *
  * @author rajkumar, Tanmay
  */
 public class Query{
-    public queryType flag;
+    public QueryType flag;
     public String name;
     public String ID;
     public int max_year;
@@ -36,7 +34,7 @@ public class Query{
     }
     
     public static class Builder {
-        private queryType flag;
+        private QueryType flag;
         private String name;
         private String ID;
         private int max_year;
@@ -51,7 +49,7 @@ public class Query{
             this.name = name;
         }
 
-        public Builder flag(queryType flag) {
+        public Builder flag(QueryType flag) {
             this.flag = flag;
             return this;
         }

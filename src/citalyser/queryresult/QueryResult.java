@@ -9,8 +9,9 @@ package citalyser.queryresult;
  * @author sahil
  */
 
-public abstract class QueryResult<E> {
-    abstract public void setContents(E e);
-    abstract public E getContents();
+public abstract class QueryResult<T> {
+
+    abstract public void setContents(T t);
+    abstract public T getContents();
 
 }
