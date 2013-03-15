@@ -8,7 +8,7 @@ package citalyser.ui.control;
 
 
 import citalyser.queryhandler.QueryHandler;
-import citalyser.ui.utils.CProxy;
+import citalyser.util.CProxy;
 
 import citalyser.ui.utils.TableModelCreator;
 import citalyser.ui.visualization.MainFrame;

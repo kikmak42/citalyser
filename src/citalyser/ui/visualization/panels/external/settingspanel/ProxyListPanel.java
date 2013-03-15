@@ -11,7 +11,7 @@
 package citalyser.ui.visualization.panels.external.settingspanel;
 
 import citalyser.ui.control.DisplayMaster;
-import citalyser.ui.utils.CProxy;
+import citalyser.util.CProxy;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.event.ListSelectionEvent;
