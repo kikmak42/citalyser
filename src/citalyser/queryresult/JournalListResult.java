@@ -4,27 +4,25 @@
  */
 package citalyser.queryresult;
 
-import citalyser.model.Journal;
+import citalyser.model.*;
 import java.util.ArrayList;
 
 /**
  *
  * @author KRISHNA
  */
-public class JournalListResult extends QueryResult<JournalListResult> {
-    private ArrayList<Journal>journalList;
+public class JournalListResult extends QueryResult<ArrayList<Journal>> {
+
+    private ArrayList<Journal> journalList;
     //private int hasauthourList;
-    
-    public void setJournalList(ArrayList<Journal> journallist){
-        this.journalList = new ArrayList<>(journallist);
+
+    @Override
+    public void setContents(ArrayList<Journal> e) {
+        this.journalList = e;
     }
-    public ArrayList<Journal> getJournalList(){
+
+    @Override
+    public ArrayList<Journal> getContents() {
         return this.journalList;
     }
-    /*public int getHasAuthorList(){
-        return this.hasauthourList;
-    }
-    public void setHasAuthorList(int i){
-        this.hasauthourList = i;
-    }*/
 }

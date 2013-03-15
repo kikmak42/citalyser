@@ -78,8 +78,8 @@ public class Parser {
         if (type == 2) {
             {
                 try {
-                    Integer.parseInt(splitarr[splitarr.length-1]);
-                    return splitarr[splitarr.length-1];
+                    Integer.parseInt(splitarr[splitarr.length - 1]);
+                    return splitarr[splitarr.length - 1];
                 } catch (Exception e) {
                     return "0";
                 }
@@ -152,7 +152,7 @@ public class Parser {
         //Extractdata exd = new Extractdata(returnValue);
         //extractProfileInfo(returnValue);
         //getAuthors(returnValue);
-        extractInfo(returnValue);
+        getAuthors(returnValue);
 //        getAuthors(returnValue);
 
 
@@ -178,7 +178,7 @@ public class Parser {
 
             Paper insertInextractedpapers = new Paper();
             Journal journalinpaper = new Journal(null);
-            Author authorinpaper = new Author(null);
+
 
             Elements title_section = item.select("h3>a");
             if (!title_section.isEmpty()) {
@@ -265,7 +265,7 @@ public class Parser {
 //                    }
                     String[] author_names = names.split(",|…");
                     for (String nameinarray : author_names) {
-
+                        Author authorinpaper = new Author(null);
                         authorinpaper.setName(nameinarray);
                         authorsinPaper.add(authorinpaper);
                     }
@@ -287,7 +287,7 @@ public class Parser {
 
                     yearint = 0;
                     for (String nameinarray : author_names) {
-
+                        Author authorinpaper = new Author(null);
                         authorinpaper.setName(nameinarray);
                         authorsinPaper.add(authorinpaper);
                     }
@@ -314,11 +314,11 @@ public class Parser {
                 Element section = citation_section.get(0);
                 String citation_count;
                 try {
-                    if(section.text().split(" ")[0]=="Cited"){
-                    citation_count = section.text().split(" ")[2];
+                    if (section.text().split(" ")[0] == "Cited") {
+                        citation_count = section.text().split(" ")[2];
+                    } else {
+                        citation_count = "0";
                     }
-                    else
-                        citation_count="0";
                 } catch (Exception e) {
                     citation_count = "0";
                 }
@@ -334,8 +334,8 @@ public class Parser {
         for (Paper p : papers) {
             logger.debug(p.getAuthors());
         }
-        pcr.setPaperCollection(extractedPapers);
-        return pcr;
+        //pcr.(extractedPapers);
+        return null;
 
     }
 
@@ -567,12 +567,13 @@ public class Parser {
 
     public static QueryResult<AuthorListResult> getAuthors(String input) {
 
-        //QueryResult q = new QueryResult<AuthorListResult>();
-        AuthorListResult alr = new AuthorListResult();
+        QueryResult<Author> q = new AuthorResult(); 
+        logger.debug("############## " + q.getContents());
+        AuthorResult alr = new AuthorResult();
         ArrayList<Author> authorList = new ArrayList<>();
         int citations;
         String name, imglink;
-        String url;
+        String url,userid;
         String details, university;
         String[] parseddetails;
         doc = Jsoup.parse(input, "UTF-8");
@@ -595,16 +596,18 @@ public class Parser {
                 citations = 0;
                 university = details.substring(details.length() - name.length());
             }
+            String str ;
+            str= url.split("user=")[0];
+            //userid = url.substring(str.length()+5,str.split("&")[]);
             author.setName(name);
             author.setUniversity(university);
             author.setTotalCitations(citations);
             author.setImagesrc(imglink);
             author.setProfilelink(url);
-
             authorList.add(author);
         }
-        
-        alr.setAuthorList(authorList);
+
+        //alr.setAuthorList(authorList);
 
         for (Author author : authorList) {
             logger.debug("img src:" + author.getImageSrc());
@@ -614,6 +617,6 @@ public class Parser {
             logger.debug("citations:" + author.getTotalCitations());
         }
 
-        return alr;
+        return null;
     }
 }
