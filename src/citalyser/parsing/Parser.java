@@ -154,8 +154,8 @@ public class Parser {
     }
 
     //this function takes the title of a paper and the source string and returns an arraylist of authors of that paper
-    public static QueryResult extractInfo(String source) {
-        QueryResult q= new PaperCollectionResult();
+    public static QueryResult<PaperCollection> extractInfo(String source) {
+        QueryResult<PaperCollection> q= new PaperCollectionResult();
         Parser.source = source;
         
         extractedPapers = new PaperCollection();
@@ -430,8 +430,8 @@ public class Parser {
         return ret;
     }
 
-    public static QueryResult extractAuthorProfileInfo(String src) {
-        QueryResult qr_author_result = new AuthorResult();
+    public static QueryResult<Author> extractAuthorProfileInfo(String src) {
+        QueryResult<Author> qr_author_result = new AuthorResult();
         //AuthorResult ar =new AuthorResult();
         Author author = new Author(null);
         PaperCollection pc = new PaperCollection();
@@ -611,10 +611,10 @@ public class Parser {
 
     }
 
-    public static QueryResult getAuthors(String input) {
+    public static QueryResult<Author> getAuthors(String input) {
 
-        QueryResult q = new AuthorListResult(); 
-        //logger.debug("############## " + q.getContents());
+        QueryResult<ArrayList<Author>> q = new AuthorListResult(); 
+        logger.debug("############## " + q.getContents());
         //AuthorResult alr = new AuthorResult();
         ArrayList<Author> authorList = new ArrayList<>();
         int citations;
