@@ -129,7 +129,7 @@ public class Parser {
         FileReader file = null;
 
         try {
-            file = new FileReader("C:/input.html");
+            file = new FileReader("/home/sahil/roughos/indentedrespose.html");
             BufferedReader reader = new BufferedReader(file);
             String line = "";
             while ((line = reader.readLine()) != null) {
@@ -149,20 +149,15 @@ public class Parser {
 
 
 
-        //Extractdata exd = new Extractdata(returnValue);
-        //extractProfileInfo(returnValue);
-        //getAuthors(returnValue);
-        getAuthors(returnValue);
-        //extractInfo(returnValue);
-//        getAuthors(returnValue);
-        extractAuthorProfileInfo(returnValue);
+        extractInfo(returnValue);
 
     }
 
     //this function takes the title of a paper and the source string and returns an arraylist of authors of that paper
-    public static QueryResult<PaperCollectionResult> extractInfo(String source) {
+    public static QueryResult<PaperCollection> extractInfo(String source) {
+        QueryResult<PaperCollection> q= new PaperCollectionResult();
         Parser.source = source;
-        PaperCollectionResult pcr = new PaperCollectionResult();
+        
         extractedPapers = new PaperCollection();
         papers = new ArrayList<Paper>();
         citedbyList = new ArrayList<String>();
@@ -335,7 +330,7 @@ public class Parser {
         for (Paper p : papers) {
             logger.debug(p.getAuthors());
         }
-        //pcr.(extractedPapers);
+        q.setContents(extractedPapers);
         return null;
 
     }
@@ -435,8 +430,9 @@ public class Parser {
         return ret;
     }
 
-    public static QueryResult<AuthorResult> extractAuthorProfileInfo(String src) {
-        AuthorResult ar =new AuthorResult();
+    public static QueryResult<Author> extractAuthorProfileInfo(String src) {
+        QueryResult<Author> qr_author_result = new AuthorResult();
+        //AuthorResult ar =new AuthorResult();
         Author author = new Author(null);
         PaperCollection pc = new PaperCollection();
         ArrayList<Paper> papers = new ArrayList<Paper>();
@@ -608,17 +604,18 @@ public class Parser {
         pc.setPapers(papers);
         author.setPaperCollection(pc);
         author.setCoAuthors(co_author_list);
-        ar.setContents(author);
-        return null;
+        qr_author_result.setContents(author);
+        //qr_author_result.setContents(ar);
+        return qr_author_result;
 
 
     }
 
-    public static QueryResult<AuthorListResult> getAuthors(String input) {
+    public static QueryResult<Author> getAuthors(String input) {
 
-        QueryResult<Author> q = new AuthorResult(); 
+        QueryResult<ArrayList<Author>> q = new AuthorListResult(); 
         logger.debug("############## " + q.getContents());
-        AuthorResult alr = new AuthorResult();
+        //AuthorResult alr = new AuthorResult();
         ArrayList<Author> authorList = new ArrayList<>();
         int citations;
         String name, imglink;
@@ -656,7 +653,7 @@ public class Parser {
             authorList.add(author);
         }
 
-        //alr.setAuthorList(authorList);
+        //alr.setContents(authorList);
 
         for (Author author : authorList) {
             logger.debug("img src:" + author.getImageSrc());
@@ -665,7 +662,7 @@ public class Parser {
             logger.debug("univ:" + author.getUniversity());
             logger.debug("citations:" + author.getTotalCitations());
         }
-
+        q.setContents(authorList);
         return null; 
     }
 }
