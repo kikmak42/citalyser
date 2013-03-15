@@ -9,7 +9,7 @@ import citalyser.model.Author;
 import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.model.Journal;
-import citalyser.queryresult.AuthorListResult;
+import citalyser.queryresult.*;
 import citalyser.queryresult.QueryResult;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -159,8 +159,9 @@ public class Parser {
     }
 
     //this function takes the title of a paper and the source string and returns an arraylist of authors of that paper
-    public static PaperCollection extractInfo(String source) {
+    public static QueryResult<PaperCollectionResult> extractInfo(String source) {
         Parser.source = source;
+        PaperCollectionResult pcr = new PaperCollectionResult();
         extractedPapers = new PaperCollection();
         papers = new ArrayList<Paper>();
         citedbyList = new ArrayList<String>();
@@ -313,7 +314,11 @@ public class Parser {
                 Element section = citation_section.get(0);
                 String citation_count;
                 try {
+                    if(section.text().split(" ")[0]=="Cited"){
                     citation_count = section.text().split(" ")[2];
+                    }
+                    else
+                        citation_count="0";
                 } catch (Exception e) {
                     citation_count = "0";
                 }
@@ -329,7 +334,8 @@ public class Parser {
         for (Paper p : papers) {
             logger.debug(p.getAuthors());
         }
-        return extractedPapers;
+        pcr.setPaperCollection(extractedPapers);
+        return pcr;
 
     }
 
@@ -597,6 +603,7 @@ public class Parser {
 
             authorList.add(author);
         }
+        
         alr.setAuthorList(authorList);
 
         for (Author author : authorList) {
