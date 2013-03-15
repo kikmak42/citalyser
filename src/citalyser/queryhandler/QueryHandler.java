@@ -48,7 +48,7 @@ public class QueryHandler {
     QueryResult getAuthorPapersFromScholar(Query q)
     {
         String queryUrl = UrlComposer.getGenAuthUrl(q);
-        Object cacheResult = cacheHandler.getObject(queryUrl);
+        Object cacheResult = cacheHandler.getObject(queryUrl,PaperCollectionResult.class);
         if(cacheResult!=null)
             return (PaperCollectionResult)cacheResult;
         
