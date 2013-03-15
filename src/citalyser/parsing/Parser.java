@@ -129,7 +129,7 @@ public class Parser {
         FileReader file = null;
 
         try {
-            file = new FileReader("C:/input.html");
+            file = new FileReader("/home/sahil/roughos/indentedrespose.html");
             BufferedReader reader = new BufferedReader(file);
             String line = "";
             while ((line = reader.readLine()) != null) {
@@ -149,13 +149,9 @@ public class Parser {
 
 
 
-        //Extractdata exd = new Extractdata(returnValue);
-        //extractProfileInfo(returnValue);
-        //getAuthors(returnValue);
+       
         getAuthors(returnValue);
-        //extractInfo(returnValue);
-//        getAuthors(returnValue);
-        extractAuthorProfileInfo(returnValue);
+       
 
     }
 
@@ -614,11 +610,11 @@ public class Parser {
 
     }
 
-    public static QueryResult<AuthorListResult> getAuthors(String input) {
+    public static QueryResult<Author> getAuthors(String input) {
 
-        QueryResult<Author> q = new AuthorResult(); 
+        QueryResult<ArrayList<Author>> q = new AuthorListResult(); 
         logger.debug("############## " + q.getContents());
-        AuthorResult alr = new AuthorResult();
+        //AuthorResult alr = new AuthorResult();
         ArrayList<Author> authorList = new ArrayList<>();
         int citations;
         String name, imglink;
@@ -656,7 +652,7 @@ public class Parser {
             authorList.add(author);
         }
 
-        //alr.setAuthorList(authorList);
+        //alr.setContents(authorList);
 
         for (Author author : authorList) {
             logger.debug("img src:" + author.getImageSrc());
@@ -665,7 +661,7 @@ public class Parser {
             logger.debug("univ:" + author.getUniversity());
             logger.debug("citations:" + author.getTotalCitations());
         }
-
+        q.setContents(authorList);
         return null; 
     }
 }
