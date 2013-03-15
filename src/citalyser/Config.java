@@ -120,9 +120,10 @@ public class Config
             s.flush();
             s.close();
             logger.info("Dumped the proxyList to file.");
+            loadProxylist();
             return 0;
         } catch (IOException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
             logger.error("Error writing Proxy hashmap to file : " + ex.getMessage());
             return -1;
         }
@@ -150,6 +151,8 @@ public class Config
             Config.proxyList = pl;
         }catch(Exception ex){
             logger.error("Error getting proxies.");
+            f.delete();
+            Config.proxyList = null;
         }
     }
     
