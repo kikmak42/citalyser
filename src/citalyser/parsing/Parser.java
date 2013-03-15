@@ -149,14 +149,15 @@ public class Parser {
 
 
 
-        getAuthors(returnValue);
+        extractInfo(returnValue);
 
     }
 
     //this function takes the title of a paper and the source string and returns an arraylist of authors of that paper
-    public static QueryResult<PaperCollectionResult> extractInfo(String source) {
+    public static QueryResult<PaperCollection> extractInfo(String source) {
+        QueryResult<PaperCollection> q= new PaperCollectionResult();
         Parser.source = source;
-        PaperCollectionResult pcr = new PaperCollectionResult();
+        
         extractedPapers = new PaperCollection();
         papers = new ArrayList<Paper>();
         citedbyList = new ArrayList<String>();
@@ -329,7 +330,7 @@ public class Parser {
         for (Paper p : papers) {
             logger.debug(p.getAuthors());
         }
-        //pcr.(extractedPapers);
+        q.setContents(extractedPapers);
         return null;
 
     }
