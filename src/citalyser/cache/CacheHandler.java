@@ -12,6 +12,11 @@ import citalyser.queryresult.JournalListResult;
 import citalyser.queryresult.JournalResult;
 import citalyser.queryresult.PaperCollectionResult;
 import citalyser.queryresult.QueryResult;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.security.MessageDigest;
 import org.apache.log4j.Logger;
 
@@ -25,17 +30,37 @@ public class CacheHandler {
         cacheHandler = new CacheHandler();
     }
    
-    public QueryResult getObject(String key,Class<? extends QueryResult<?>> queryResultType)
+    public  Object getObject(String url)
     {
-        System.out.println(key);
-        String hashcode = getSHA1(key);
-        System.out.println(hashcode);
-        return null;
+        String hashCode = getSHA1(url);
+        FileInputStream file;
+        try{
+            file = new FileInputStream(hashCode);
+        } catch(FileNotFoundException e) {
+            System.out.println(e);
+            return null;
+        }
+        Object result;
+        try (ObjectInputStream ObjIn = new ObjectInputStream(file)) {
+            result = ObjIn.readObject();
+        }  catch(Exception e) {
+            System.out.println(e);
+            return null;
+        }
+        return result;
     }
     
-    public int setObject(QueryResult qr, String key)
+    public int setObject(QueryResult qr, String url)
     {
-        return 0;
+        String hashCode = getSHA1(url);
+        try (ObjectOutputStream ObjOut = new ObjectOutputStream(new FileOutputStream(hashCode))) {
+            ObjOut.writeObject(qr);
+        } catch(Exception e) {
+            System.out.println(e);
+            return 0;
+        } finally {
+            return 1;
+        }
     }
     
     private String getSHA1(String key) {
@@ -57,9 +82,10 @@ public class CacheHandler {
        /* Query Case - GEN_AUTH */
     public QueryResult getAuthorPapersFromScholar(String queryUrl)
     {
-        Object cacheResult = cacheHandler.getObject(queryUrl,PaperCollectionResult.class);
-        if(cacheResult!=null)
+        Object cacheResult = cacheHandler.getObject(queryUrl);
+        if(cacheResult!=null) {
             return (PaperCollectionResult)cacheResult;
+        }
         
         //TODO web query handler
         return null;
@@ -68,9 +94,10 @@ public class CacheHandler {
     /* Query Case - GEN_JOURN */
     public QueryResult getJournalPapersFromScholar(String queryUrl)
     {
-        Object cacheResult = cacheHandler.getObject(queryUrl,PaperCollectionResult.class);
-        if(cacheResult!=null)
+        Object cacheResult = cacheHandler.getObject(queryUrl);
+        if(cacheResult!=null) {
             return (PaperCollectionResult)cacheResult;
+        }
         
         //TODO web query handler
         
@@ -80,9 +107,10 @@ public class CacheHandler {
     /* Query Case - MET_AUTH */
     public QueryResult getAuthorList(String queryUrl)
     {
-        Object cacheResult = cacheHandler.getObject(queryUrl,PaperCollectionResult.class);
-        if(cacheResult!=null)
+        Object cacheResult = cacheHandler.getObject(queryUrl);
+        if(cacheResult!=null) {
             return (AuthorListResult)cacheResult;
+        }
         
         //TODO web query handler
         return null;
@@ -91,9 +119,10 @@ public class CacheHandler {
     /* Query Case - MET_JOURN */
     public QueryResult getJournalList(String queryUrl)
     {
-        Object cacheResult = cacheHandler.getObject(queryUrl,PaperCollectionResult.class);
-        if(cacheResult!=null)
+        Object cacheResult = cacheHandler.getObject(queryUrl);
+        if(cacheResult!=null) {
             return (JournalListResult)cacheResult;
+        }
         
         //TODO web query handler
         return null;
@@ -102,9 +131,10 @@ public class CacheHandler {
     /* Query Case - AUTH_PROF */
     public QueryResult getCompleteAuthorFromMetric(String queryUrl)
     {
-        Object cacheResult = cacheHandler.getObject(queryUrl,PaperCollectionResult.class);
-        if(cacheResult!=null)
+        Object cacheResult = cacheHandler.getObject(queryUrl);
+        if(cacheResult!=null) {
             return (AuthorResult)cacheResult;
+        }
         
         //TODO web query handler
         return null;
@@ -113,9 +143,10 @@ public class CacheHandler {
     /* Query Case - JOURN_PROF */
     public QueryResult getCompleteJournalFromMetric(String queryUrl)
     {
-        Object cacheResult = cacheHandler.getObject(queryUrl,PaperCollectionResult.class);
-        if(cacheResult!=null)
+        Object cacheResult = cacheHandler.getObject(queryUrl);
+        if(cacheResult!=null) {
             return (JournalResult)cacheResult;
+        }
         
         //TODO web query handler
         return null;

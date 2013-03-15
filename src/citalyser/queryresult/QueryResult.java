@@ -9,7 +9,6 @@ package citalyser.queryresult;
  * @author sahil
  */
 
-public class QueryResult<T extends QueryResult<T>> {
-    
-
+public class QueryResult<T> {
+        
 }
