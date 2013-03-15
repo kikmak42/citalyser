@@ -7,10 +7,12 @@ package citalyser.ui.control;
 
 
 
+import citalyser.queryhandler.Query;
 import citalyser.queryhandler.QueryHandler;
+import citalyser.ui.control.masters.SettingsMaster;
 import citalyser.util.CProxy;
 
-import citalyser.ui.utils.TableModelCreator;
+import citalyser.ui.util.TableModelCreator;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.ExtraPanel;
 import citalyser.ui.visualization.panels.common.SearchPanel;
@@ -27,6 +29,9 @@ public class DisplayMaster {
     private MainFrame mainFrame;
     private javax.swing.JDialog settingsDialog;
     private ExtraPanel extraPanel;
+    
+    private SettingsMaster settingsMaster;
+    
     private static Logger logger = Logger.getLogger(DisplayMaster.class.getName());
 
     public DisplayMaster() {
@@ -35,6 +40,7 @@ public class DisplayMaster {
         mainFrame.setVisible(true);
         extraPanel = new ExtraPanel();
         extraPanel.setDisplayMaster(this);
+        settingsMaster = new SettingsMaster(extraPanel);
         settingsDialog = new javax.swing.JDialog(mainFrame);
         settingsDialog.setUndecorated(true);
         settingsDialog.setLocation(mainFrame.getRootPane().getX(), mainFrame.getRootPane().getY());
@@ -43,6 +49,10 @@ public class DisplayMaster {
         settingsDialog.setPreferredSize(new java.awt.Dimension(1349, 692));
         settingsDialog.setBackground(new Color(0, 0, 0, 0));
         settingsDialog.pack();
+    }
+
+    public SettingsMaster getSettingsMaster() {
+        return settingsMaster;
     }
     
     public void searchKeyPressed(SearchPanel searchPanel, char key) {
@@ -93,6 +103,7 @@ public class DisplayMaster {
 
     public void searchButtonClicked(SearchPanel searchPanel) {
         if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
+            
             //mainFrame.getRegularDisplayPanel().getContentDisplayPanel().getTableDisplayPanel().setTable(TableModelCreator.getTableModel(QueryHandler.getDetails(null)));
         } else {
             if (searchPanel.equals(mainFrame.getStartPanel().getAuthorSearchPanel())) {
@@ -110,50 +121,29 @@ public class DisplayMaster {
             }
         }
     }
-
+    
     public void settingsSaveAndClose() {
         settingsDialog.setVisible(false);
     }
 
     public void openAddNewProxyWindow() {
-        extraPanel.getSettingsPanel().flip();
-        extraPanel.getSettingsPanel().getProxyPanel().setEditMode(false);
+        settingsMaster.openAddNewProxyWindow();
     }
 
     public void cancelNewProxyButtonClicked() {
-        extraPanel.getSettingsPanel().flip();
+        settingsMaster.cancelNewProxyButtonClicked();
     }
 
     public void removeSelectedProxyEntry() {
-        if (extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getSelectedRow() != -1) {
-            extraPanel.getSettingsPanel().getProxyListPanel().getProxyList().remove(extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getSelectedRow());
-            ((javax.swing.table.DefaultTableModel) extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getModel()).removeRow(extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getSelectedRow());
-            citalyser.Config.setProxyList(extraPanel.getSettingsPanel().getProxyListPanel().getProxyList());
-        }
+        settingsMaster.removeSelectedProxyEntry();
     }
 
     public void openEditExistingProxyWindow() {
-        extraPanel.getSettingsPanel().flip();
-        extraPanel.getSettingsPanel().getProxyPanel().setPreviousProxyData(extraPanel.getSettingsPanel().getProxyListPanel().getProxyList().remove(extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getSelectedRow()));
-        ((javax.swing.table.DefaultTableModel) extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getModel()).removeRow(extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getSelectedRow());
-        citalyser.Config.setProxyList(extraPanel.getSettingsPanel().getProxyListPanel().getProxyList());
-        extraPanel.getSettingsPanel().getProxyPanel().setEditMode(true);
+        settingsMaster.openEditExistingProxyWindow();
     }
 
     public void singleProxySettingsConfirmed(CProxy proxy) {
-        if (proxy == null) {
-            //TODO: System, Autodetect and No Proxy
-            return;
-        }
-        extraPanel.getSettingsPanel().getProxyListPanel().getProxyList().add(proxy);
-        String[] rowData = new String[3];
-        rowData[0] = proxy.host;
-        rowData[1] = Integer.toString(proxy.port);
-        rowData[2] = proxy.username;
-        ((javax.swing.table.DefaultTableModel) extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getModel()).addRow(rowData);
-        citalyser.Config.setProxyList(extraPanel.getSettingsPanel().getProxyListPanel().getProxyList());
-        extraPanel.getSettingsPanel().flip();
-        extraPanel.getSettingsPanel().getProxyPanel().setPreviousProxyData(new CProxy("", 0, "", ""));
+        settingsMaster.singleProxySettingsConfirmed(proxy);
     }
 
     public void displayErrorMessage(String message) {
@@ -184,6 +174,10 @@ public class DisplayMaster {
         if (mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().isVisible()) {
             mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getAutoCompleteSuggestions().removeAllElements();
         }
+    }
+
+    public Query createQuery(SearchPanel searchPanel) {
+        return null;
     }
 
 
