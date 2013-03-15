@@ -18,19 +18,43 @@ public class Initialiser {
         if(userHome == null)
             userHome = ".";
         File home = new File(userHome);
-        Main.setSettingsDirectory(new File(home,".citalyser"));
-        if(!Main.getSettingsDirectory().exists())
+        Main.settingsDirectory = new File(home,".citalyser");
+        if(!Main.settingsDirectory.exists())
         {
-            if(!Main.getSettingsDirectory().mkdir())
+            if(!Main.settingsDirectory.mkdir())
             {
                 logger.error("Failed to create Settings Directory. Exiting..");
                 //System.exit(0);
+                return;
             }
             else
-                logger.info("Created app directory at : " + Main.getSettingsDirectory().getAbsolutePath());
+                logger.info("Created app directory at : " + Main.settingsDirectory.getAbsolutePath());
         }
         else
-            logger.info("App Directory already present at  " + Main.getSettingsDirectory().getAbsolutePath());
+            logger.info("App Directory already present at  " + Main.settingsDirectory.getAbsolutePath());
+        
+        initCache();
     }
+    
+    public static void initCache()
+    {
+        Main.CacheDirectory = new File(Main.settingsDirectory,"Cache");
+        if(!Main.CacheDirectory.exists())
+        {
+            if(!Main.CacheDirectory.mkdir())
+            {
+                logger.error("Failed to create Cache Directory. Exiting..");
+                //System.exit(0);
+                return;
+            }
+            else
+                logger.info("Created app directory at : " + Main.settingsDirectory.getAbsolutePath());
+        }
+        else
+            logger.info("App Directory already present at  " + Main.settingsDirectory.getAbsolutePath());
+        
+    }
+    
+    
     
 }

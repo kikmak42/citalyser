@@ -11,19 +11,12 @@ public class Main {
 
 
     private static Logger logger = Logger.getLogger(Main.class.getName());
-    private static File settingsDirectory;
+    public static File settingsDirectory;
+    public static File CacheDirectory;
     private static DisplayController displayController;
 
     public static DisplayController getDisplayController() {
         return displayController;
-    }
-
-    public static File getSettingsDirectory() {
-        return settingsDirectory;
-    }
-
-    public static void setSettingsDirectory(File settingsDirectory) {
-        Main.settingsDirectory = settingsDirectory;
     }
     
     public static void main(String[] args) {

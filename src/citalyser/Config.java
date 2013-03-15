@@ -100,7 +100,7 @@ public class Config
     public static int setProxyList(List<CProxy> list)
     {
         logger.debug("Writing the proxies to a file");
-        File file = new File(Main.getSettingsDirectory(),"proxies");
+        File file = new File(Main.settingsDirectory,"proxies");
         if(!file.exists())
         {
             try{
@@ -138,7 +138,7 @@ public class Config
     {
         List<CProxy> pl = new ArrayList<CProxy>();
         HashMap<Integer,CProxy> hm;  
-        File f = new File(Main.getSettingsDirectory(),"proxies");
+        File f = new File(Main.settingsDirectory,"proxies");
         if(!f.exists())
             return;
         try{
