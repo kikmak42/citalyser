@@ -11,20 +11,24 @@ import java.util.ArrayList;
  *
  * @author KRISHNA
  */
-public class AuthorListResult extends QueryResult<AuthorListResult>{
+public class AuthorListResult extends QueryResult<ArrayList<Author>>{
     private ArrayList<Author> authorList;
-    private int hasauthourList;
     
-    public void setAuthorList(ArrayList<Author> authorlist){
-        this.authorList = new ArrayList<>(authorlist);
+//    public void setAuthorList(ArrayList<Author> authorlist){
+//        this.authorList = new ArrayList<>(authorlist);
+//    }
+//    public ArrayList<Author> getAuthorList(){
+//        return this.authorList;
+//    }
+    
+
+    @Override
+    public void setContents(ArrayList<Author> e) {
+        this.authorList = e;
     }
-    public ArrayList<Author> getAuthorList(){
+
+    @Override
+    public ArrayList<Author> getContents() {
         return this.authorList;
-    }
-    public int getHasAuthorList(){
-        return this.hasauthourList;
-    }
-    public void setHasAuthorList(int i){
-        this.hasauthourList = i;
     }
 }

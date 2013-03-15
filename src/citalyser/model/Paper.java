@@ -12,6 +12,8 @@ import java.util.*;
 
 public class Paper {
 
+    private String url;
+    private String cited_by_url;
     private String title;
     private int year;
     private int num_cites;
@@ -21,6 +23,8 @@ public class Paper {
     private ArrayList<Paper> citations;
 
     public Paper() {
+        this.cited_by_url = null;
+        this.url = null;
         this.title = null;
         this.num_cites = 0;
         this.authors = null;
@@ -30,6 +34,8 @@ public class Paper {
     }
 
     public Paper(String t) {
+        this.url = null;
+        this.cited_by_url = null;
         this.title = t;
         this.num_cites = 0;
         this.authors = null;
@@ -38,6 +44,24 @@ public class Paper {
         this.abstracttext = null;
     }
 
+    public String getcitedByUrl() {
+        return this.cited_by_url;
+    }
+
+    public void setCitedByUrl(String t) {
+        this.cited_by_url = t;
+    }
+    
+    
+    public String getUrl() {
+        return this.url;
+    }
+
+    public void setUrl(String t) {
+        this.url = t;
+    }
+    
+       
     public String getTitle() {
         return this.title;
     }

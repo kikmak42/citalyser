@@ -78,8 +78,8 @@ public class Parser {
         if (type == 2) {
             {
                 try {
-                    Integer.parseInt(splitarr[splitarr.length-1]);
-                    return splitarr[splitarr.length-1];
+                    Integer.parseInt(splitarr[splitarr.length - 1]);
+                    return splitarr[splitarr.length - 1];
                 } catch (Exception e) {
                     return "0";
                 }
@@ -129,7 +129,7 @@ public class Parser {
         FileReader file = null;
 
         try {
-            file = new FileReader("/home/sahil/roughos/indentedrespose.html");
+            file = new FileReader("C:/input.html");
             BufferedReader reader = new BufferedReader(file);
             String line = "";
             while ((line = reader.readLine()) != null) {
@@ -152,9 +152,10 @@ public class Parser {
         //Extractdata exd = new Extractdata(returnValue);
         //extractProfileInfo(returnValue);
         //getAuthors(returnValue);
-        extractInfo(returnValue);
+        getAuthors(returnValue);
+        //extractInfo(returnValue);
 //        getAuthors(returnValue);
-
+        extractAuthorProfileInfo(returnValue);
 
     }
 
@@ -178,7 +179,7 @@ public class Parser {
 
             Paper insertInextractedpapers = new Paper();
             Journal journalinpaper = new Journal(null);
-            Author authorinpaper = new Author(null);
+
 
             Elements title_section = item.select("h3>a");
             if (!title_section.isEmpty()) {
@@ -265,7 +266,7 @@ public class Parser {
 //                    }
                     String[] author_names = names.split(",|…");
                     for (String nameinarray : author_names) {
-
+                        Author authorinpaper = new Author(null);
                         authorinpaper.setName(nameinarray);
                         authorsinPaper.add(authorinpaper);
                     }
@@ -287,7 +288,7 @@ public class Parser {
 
                     yearint = 0;
                     for (String nameinarray : author_names) {
-
+                        Author authorinpaper = new Author(null);
                         authorinpaper.setName(nameinarray);
                         authorsinPaper.add(authorinpaper);
                     }
@@ -314,11 +315,11 @@ public class Parser {
                 Element section = citation_section.get(0);
                 String citation_count;
                 try {
-                    if(section.text().split(" ")[0]=="Cited"){
-                    citation_count = section.text().split(" ")[2];
+                    if (section.text().split(" ")[0] == "Cited") {
+                        citation_count = section.text().split(" ")[2];
+                    } else {
+                        citation_count = "0";
                     }
-                    else
-                        citation_count="0";
                 } catch (Exception e) {
                     citation_count = "0";
                 }
@@ -334,8 +335,8 @@ public class Parser {
         for (Paper p : papers) {
             logger.debug(p.getAuthors());
         }
-        pcr.setPaperCollection(extractedPapers);
-        return pcr;
+        //pcr.(extractedPapers);
+        return null;
 
     }
 
@@ -434,7 +435,12 @@ public class Parser {
         return ret;
     }
 
-    public static void extractAuthorProfileInfo(String src) {
+    public static QueryResult<AuthorResult> extractAuthorProfileInfo(String src) {
+        AuthorResult ar =new AuthorResult();
+        Author author = new Author(null);
+        PaperCollection pc = new PaperCollection();
+        ArrayList<Paper> papers = new ArrayList<Paper>();
+        
         doc = Jsoup.parse(src, "UTF-8");
         Elements items = doc.select("table.cit-table");
         System.out.println(items.isEmpty());
@@ -442,21 +448,28 @@ public class Parser {
 
         if (!items.isEmpty()) {
             for (Element item : items) {
+                
                 //Elements rows = item.select("tr.cit-table item");
                 System.out.println("inside for loop");
                 Elements rows = item.select(".item");
                 logger.debug("rows are" + rows.isEmpty());
                 for (Element row : rows) {
                     //extracting the paper title and link of paper
+                    //creating a paper object
+                    Paper papr = new Paper();
+                    ArrayList<Author> paper_authors = new ArrayList<>();
+                    ArrayList<Journal> paper_jrnl = new ArrayList<>();
                     Elements title_section = row.select("td#col-title");
                     logger.debug("titlesection" + title_section.isEmpty());
                     Elements title_tags = title_section.get(0).select("a");
                     if (!title_tags.isEmpty()) {
                         String title_link = url + title_tags.get(0).attr("href");
                         String title_name = title_tags.get(0).text();
-                        logger.debug("title link" + title_link);
-                        logger.debug("title_name" + title_name);
-
+                        //logger.debug("title link" + title_link);
+                        //logger.debug("title_name" + title_name);
+                        papr.setTitle(title_name);
+                        papr.setUrl(title_link);
+                        
                     }
                     //extracting the names of the authors
                     Elements desc_section = row.select("span.cit-gray");
@@ -468,20 +481,27 @@ public class Parser {
                             authors_list = desc_section.get(0).text();
                             String[] author_names = authors_list.split(",");
                             names = Arrays.toString(author_names);
-                            logger.debug("author names" + names);
+                            for(String name : author_names){
+                                Author paper_author = new Author(name);
+                                paper_authors.add(paper_author);
+                            }
+                            //logger.debug("author names" + names);
 
                         } catch (Exception e) {
                             names = "";
-                            logger.debug("author names" + names);
+                            //logger.debug("author names" + names);
                         }
 
                         try {
                             journal = desc_section.get(1).text();
-                            logger.debug("journal names" + journal);
+                            Journal jrnl = new Journal(journal);
+                            paper_jrnl.add(jrnl);
+                            
+                            //logger.debug("journal names" + journal);
 
                         } catch (Exception e) {
                             journal = "";
-                            logger.debug("journal names" + journal);
+                            //logger.debug("journal names" + journal);
                         }
 
 
@@ -496,18 +516,20 @@ public class Parser {
                         String cited_by_link;
                         try {
                             citation_count = citation_section.get(0).text();
-                            logger.debug("citation_count " + citation_count);
+                            //logger.debug("citation_count " + citation_count);
+                            papr.setNumCites(Integer.parseInt(citation_count));
                         } catch (Exception e) {
                             citation_count = "";
-                            logger.debug("citation_count " + citation_count);
+                            //logger.debug("citation_count " + citation_count);
                         }
 
                         try {
                             cited_by_link = citation_section.get(0).select("a").attr("href");
-                            logger.debug("cited_by_link " + cited_by_link);
+                            //logger.debug("cited_by_link " + cited_by_link);
+                            papr.setCitedByUrl(cited_by_link);
                         } catch (Exception e) {
                             cited_by_link = "";
-                            logger.debug("cited_by_link " + cited_by_link);
+                            //logger.debug("cited_by_link " + cited_by_link);
                         }
 
                     }
@@ -518,7 +540,8 @@ public class Parser {
                         String year;
                         try {
                             year = year_section.get(0).text();
-                            logger.debug("year " + year);
+                            //logger.debug("year " + year);
+                            papr.setYear(Integer.parseInt(year));
                         } catch (Exception e) {
                             year = "";
                             logger.debug("year " + year);
@@ -526,28 +549,43 @@ public class Parser {
 
 
                     }
-
-
+                    logger.debug(papr.getUrl());
+                    logger.debug(papr.getTitle());
+                    logger.debug(papr.getNumCites());
+                    logger.debug(papr.getYear());
+                    logger.debug(papr.getcitedByUrl());
+                    logger.debug(papr.getAbstract());
+                    papers.add(papr);
                 }
+                
             }
 
 
         }
-
+        
 
         items = doc.select(".g-section");
         logger.debug("items " + items.isEmpty());
         ArrayList<String> co_authors = new ArrayList<String>();
         ArrayList<String> co_authors_links = new ArrayList<String>();
+        ArrayList<Author> co_author_list = new ArrayList<Author>();
         if (!items.isEmpty()) {
             try {
                 Element co_author_section = items.get(2);
                 Elements a_tags = co_author_section.select("a");
                 if (!a_tags.isEmpty()) {
                     for (Element a_tag : a_tags) {
+                        
                         String link = url + a_tag.attr("href");
                         co_authors_links.add(link);
                         co_authors.add(a_tag.text());
+                        //to prevent view all co-authors link to be returned in result
+                        if(!a_tag.text().equals("View all co-authors")){
+                            Author authr = new Author(a_tag.text());
+                            authr.setProfilelink(link);
+                            co_author_list.add(authr);
+                        }
+                        
                     }
 
                 }
@@ -558,21 +596,33 @@ public class Parser {
 
 
         }
-        logger.debug(co_authors_links);
-        logger.debug(co_authors);
-
+        
+        //logger.debug(co_authors_links);
+        //logger.debug(co_authors);
+        
+        for(Author co_author : co_author_list){
+            logger.debug(co_author.getName());
+            logger.debug(co_author.getProfileLink());
+        }
+        
+        pc.setPapers(papers);
+        author.setPaperCollection(pc);
+        author.setCoAuthors(co_author_list);
+        ar.setContents(author);
+        return null;
 
 
     }
 
     public static QueryResult<AuthorListResult> getAuthors(String input) {
 
-        //QueryResult q = new QueryResult<AuthorListResult>();
-        AuthorListResult alr = new AuthorListResult();
+        QueryResult<Author> q = new AuthorResult(); 
+        logger.debug("############## " + q.getContents());
+        AuthorResult alr = new AuthorResult();
         ArrayList<Author> authorList = new ArrayList<>();
         int citations;
         String name, imglink;
-        String url;
+        String url,userid;
         String details, university;
         String[] parseddetails;
         doc = Jsoup.parse(input, "UTF-8");
@@ -595,16 +645,18 @@ public class Parser {
                 citations = 0;
                 university = details.substring(details.length() - name.length());
             }
+            String str ;
+            str= url.split("user=")[0];
+            //userid = url.substring(str.length()+5,str.split("&")[]);
             author.setName(name);
             author.setUniversity(university);
             author.setTotalCitations(citations);
             author.setImagesrc(imglink);
             author.setProfilelink(url);
-
             authorList.add(author);
         }
-        
-        alr.setAuthorList(authorList);
+
+        //alr.setAuthorList(authorList);
 
         for (Author author : authorList) {
             logger.debug("img src:" + author.getImageSrc());
@@ -614,6 +666,6 @@ public class Parser {
             logger.debug("citations:" + author.getTotalCitations());
         }
 
-        return alr;
+        return null; 
     }
 }

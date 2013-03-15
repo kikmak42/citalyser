@@ -14,6 +14,7 @@ import java.util.TreeSet;
 
 public class Journal {
 	private String name;
+        private String id;
         private double cites_per_author;
         private double papers_per_author;
         private PaperCollection paper_collection;
@@ -22,6 +23,12 @@ public class Journal {
             this.name = name;
 	}
 
+        public String getId(){
+            return this.id;
+        }
+        public void setId(String s){
+            this.id = s;
+        }
 	public String getName(){
             return this.name;
 	}
