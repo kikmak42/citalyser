@@ -115,7 +115,7 @@ public class Extractdata {
         FileReader file = null;
 
         try {
-            file = new FileReader("/home/sahil/roughos/indentedrespose.html");
+            file = new FileReader("c:/input.html");
             BufferedReader reader = new BufferedReader(file);
             String line = "";
             while ((line = reader.readLine()) != null) {
@@ -137,8 +137,8 @@ public class Extractdata {
 
         //Extractdata exd = new Extractdata(returnValue);
         //extractProfileInfo(returnValue);
-        getAuthors(returnValue);
-
+        //getAuthors(returnValue);
+        extractAuthorProfileInfo(returnValue);
 
     }
 
@@ -418,7 +418,7 @@ public class Extractdata {
         Elements items = doc.select("table.cit-table");
         System.out.println(items.isEmpty());
         String url= "http://scholar.google.com";
-        /*
+        
         if(!items.isEmpty()){
             for (Element item : items){
                 //Elements rows = item.select("tr.cit-table item");
@@ -440,28 +440,75 @@ public class Extractdata {
                     //extracting the names of the authors
                     Elements desc_section = row.select("span.cit-gray");
                     if(!desc_section.isEmpty()){
-                        String authors_list = desc_section.get(0).text();
-                        String[] author_names = authors_list.split(",");
-                        String journal = desc_section.get(1).text();
-                        String names = Arrays.toString(author_names);
-                        logger.debug("author names"+names);
-                        logger.debug("journal names"+journal);                        
+                        String authors_list;
+                        String names;
+                        String journal;
+                        try{
+                            authors_list = desc_section.get(0).text();
+                            String[] author_names = authors_list.split(",");
+                            names = Arrays.toString(author_names);
+                            logger.debug("author names"+names);
+                            
+                        }
+                        
+                        catch(Exception e){
+                            names = "";                          
+                            logger.debug("author names"+names);
+                        }
+                        
+                         try{
+                            journal = desc_section.get(1).text();
+                            logger.debug("journal names"+journal);     
+                            
+                        }
+                        
+                        catch(Exception e){
+                            journal = "";                          
+                            logger.debug("journal names"+journal);     
+                        }
+                        
+                                               
+                        
+                        
                     }
                     
                     //extracting the citation count
                     Elements citation_section = row.select("td#col-citedby");
                     if(!citation_section.isEmpty()){
-                        String citation_count = citation_section.get(0).text();
-                        logger.debug("citation_count "+citation_count);
-                        String cited_by_link = citation_section.get(0).select("a").attr("href");
-                        logger.debug("cited_by_link "+cited_by_link);
+                        String citation_count;
+                        String cited_by_link;
+                        try{
+                            citation_count = citation_section.get(0).text();
+                            logger.debug("citation_count "+citation_count);
+                        }
+                        catch(Exception e){
+                            citation_count = "";
+                            logger.debug("citation_count "+citation_count);
+                        }
+                        
+                        try{
+                            cited_by_link = citation_section.get(0).select("a").attr("href");
+                            logger.debug("cited_by_link "+cited_by_link);
+                        }
+                        catch(Exception e){
+                            cited_by_link = "";
+                            logger.debug("cited_by_link "+cited_by_link);
+                        }
+                        
                     }
                     
                      //extracting the publication year
                     Elements year_section = row.select("td#col-year");
                     if(!year_section.isEmpty()){
-                        String year = year_section.get(0).text();
-                        logger.debug("year "+year);
+                        String year;
+                        try{
+                            year = year_section.get(0).text();
+                            logger.debug("year "+year);
+                        }
+                        catch(Exception e){
+                            year ="";
+                            logger.debug("year "+year);
+                        }
                         
                         
                     }
@@ -472,28 +519,34 @@ public class Extractdata {
             
             
         }
-        */
+        
         
         items = doc.select(".g-section");
         logger.debug("items "+items.isEmpty());
         ArrayList<String>co_authors = new ArrayList<String>();
         ArrayList<String>co_authors_links = new ArrayList<String>();
         if(!items.isEmpty()){
-            Element co_author_section = items.get(2);
-            Elements a_tags = co_author_section.select("a");
-            if(!a_tags.isEmpty()){
-                for(Element a_tag : a_tags){
-                    String link = url+a_tag.attr("href");
-                    co_authors_links.add(link);
-                    co_authors.add(a_tag.text());
+            try{
+                Element co_author_section = items.get(2);
+                Elements a_tags = co_author_section.select("a");
+                if (!a_tags.isEmpty()) {
+                    for (Element a_tag : a_tags) {
+                        String link = url + a_tag.attr("href");
+                        co_authors_links.add(link);
+                        co_authors.add(a_tag.text());
+                    }
+
                 }
+            }
+            catch(Exception e){
+                System.out.println("exception occured in co_author section");
                 
             }
+            
             
         }
         logger.debug(co_authors_links);
         logger.debug(co_authors);
-        
         
         
         
