@@ -313,7 +313,11 @@ public class Parser {
                 Element section = citation_section.get(0);
                 String citation_count;
                 try {
+                    if(section.text().split(" ")[0]=="Cited"){
                     citation_count = section.text().split(" ")[2];
+                    }
+                    else
+                        citation_count="0";
                 } catch (Exception e) {
                     citation_count = "0";
                 }
@@ -597,6 +601,7 @@ public class Parser {
 
             authorList.add(author);
         }
+        
         alr.setAuthorList(authorList);
 
         for (Author author : authorList) {
