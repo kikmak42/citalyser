@@ -4,6 +4,8 @@
  */
 package citalyser.ui.control;
 
+import java.util.Vector;
+
 /**
  *
  * @author Tanmay Patil
@@ -20,6 +22,21 @@ public class DisplayControllerImpl implements citalyser.ui.DisplayController {
     @Override
     public void displayErrorMessage(String message) {
         displayMaster.displayErrorMessage(message);
+    }
+
+    @Override
+    public void addAutoCompleteSuggestions(Vector<String> suggestions) {
+        displayMaster.addAutoCompleteSuggestions(suggestions);
+    }
+
+    @Override
+    public void addAutoCompleteSuggestion(String suggestion) {
+        displayMaster.addAutoCompleteSuggestion(suggestion);
+    }
+
+    @Override
+    public void emptyAutoCompleteSuggestions() {
+        displayMaster.emptyAutoCompleteSuggestions();
     }
     
 }
