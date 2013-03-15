@@ -115,7 +115,7 @@ public class HttpConnection {
                     }
                     if(responseCode == 200)
                         hostnames.add(0,hostname);
-                    Config.setProxyList((List)hostnames);
+                     //Config.setProxyList((List)hostnames);
                     
                 }
             }

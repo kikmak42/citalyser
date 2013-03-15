@@ -1,9 +1,11 @@
 package citalyser.queryhandler;
 
+import citalyser.Main;
 import citalyser.cache.CacheHandler;
 import citalyser.model.UrlComposer;
 import citalyser.parsing.Parser;
 import citalyser.queryresult.QueryResult;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -11,7 +13,7 @@ import citalyser.queryresult.QueryResult;
  */
 
 public class QueryHandler {
-    
+    private static Logger logger = Logger.getLogger(QueryHandler.class.getName());
     private CacheHandler cacheHandler;
     private Parser parser;
     private UrlComposer url;
@@ -27,6 +29,7 @@ public class QueryHandler {
         
         switch(q.flag){
             case GEN_AUTH: 
+                logger.debug("Getting GEN_AUTH");
                 queryUrl = UrlComposer.getGenAuthUrl(q);
                 return cacheHandler.getAuthorPapersFromScholar(queryUrl);
             case GEN_JOURN:
