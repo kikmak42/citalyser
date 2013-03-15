@@ -149,9 +149,7 @@ public class Parser {
 
 
 
-       
         getAuthors(returnValue);
-       
 
     }
 
@@ -431,8 +429,9 @@ public class Parser {
         return ret;
     }
 
-    public static QueryResult<AuthorResult> extractAuthorProfileInfo(String src) {
-        AuthorResult ar =new AuthorResult();
+    public static QueryResult<Author> extractAuthorProfileInfo(String src) {
+        QueryResult<Author> qr_author_result = new AuthorResult();
+        //AuthorResult ar =new AuthorResult();
         Author author = new Author(null);
         PaperCollection pc = new PaperCollection();
         ArrayList<Paper> papers = new ArrayList<Paper>();
@@ -604,8 +603,9 @@ public class Parser {
         pc.setPapers(papers);
         author.setPaperCollection(pc);
         author.setCoAuthors(co_author_list);
-        ar.setContents(author);
-        return null;
+        qr_author_result.setContents(author);
+        //qr_author_result.setContents(ar);
+        return qr_author_result;
 
 
     }
