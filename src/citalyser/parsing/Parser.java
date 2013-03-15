@@ -9,6 +9,8 @@ import citalyser.model.Author;
 import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.model.Journal;
+import citalyser.queryresult.AuthorListResult;
+import citalyser.queryresult.QueryResult;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -556,10 +558,11 @@ public class Parser {
         
         
     }
-    /*
+    
     public static QueryResult getAuthors(String input ){
 
-        QueryResult q = new QueryResult();
+        //QueryResult q = new QueryResult<AuthorListResult>();
+        AuthorListResult alr = new AuthorListResult();
         ArrayList<Author> authorList = new ArrayList<>();
         int citations;
         String name, imglink;
@@ -594,6 +597,8 @@ public class Parser {
 
             authorList.add(author);
         }
+        alr.setAuthorList(authorList);
+        
         for(Author author: authorList){
         logger.debug("img src:" + author.getImageSrc());
         logger.debug("url:" + author.getProfileLink());
@@ -601,8 +606,8 @@ public class Parser {
         logger.debug("univ:" + author.getUniversity());
         logger.debug("citations:" + author.getTotalCitations());
         }
-        q.setAuthorList(authorList);
-        return q;
+        
+        return alr;
     }
-    * */
+    
 }
