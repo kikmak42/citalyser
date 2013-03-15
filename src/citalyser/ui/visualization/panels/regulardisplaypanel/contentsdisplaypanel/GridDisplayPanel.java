@@ -22,6 +22,7 @@ public class GridDisplayPanel extends javax.swing.JPanel {
 
     /** Creates new form GridDisplayPanel */
     public GridDisplayPanel() {
+        gridEntityPanels = new Vector<>();
         initComponents();
     }
 
