@@ -2,7 +2,7 @@
  * @author Abhishek Choudhary
  * @Email-id : abhishek@codeblues.in
  *****************************************************************/
-package citalyser.ui.model;
+package citalyser.ui.utils;
 
 import java.io.Serializable;
 

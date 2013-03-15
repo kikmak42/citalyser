@@ -5,7 +5,7 @@
 
 package citalyser;
 
-import citalyser.ui.model.CProxy;
+import citalyser.ui.utils.CProxy;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

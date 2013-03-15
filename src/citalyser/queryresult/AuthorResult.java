@@ -4,7 +4,7 @@
  */
 package citalyser.queryresult;
 
-import citalyser.api.Author;
+import citalyser.model.Author;
 
 /**
  *

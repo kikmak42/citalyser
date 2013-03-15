@@ -4,7 +4,7 @@
  */
 package citalyser.queryresult;
 
-import citalyser.api.PaperCollection;
+import citalyser.model.PaperCollection;
 
 /**
  *

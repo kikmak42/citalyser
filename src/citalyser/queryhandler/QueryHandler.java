@@ -1,6 +1,7 @@
 package citalyser.queryhandler;
 
-import citalyser.api.*;
+import citalyser.model.PaperCollection;
+import citalyser.model.Apibackend;
 import citalyser.parsing.*;
 import citalyser.networking.HttpConnection;
 import java.io.BufferedReader;

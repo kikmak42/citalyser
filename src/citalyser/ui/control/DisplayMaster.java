@@ -8,9 +8,9 @@ package citalyser.ui.control;
 
 
 import citalyser.queryhandler.QueryHandler;
-import citalyser.ui.model.CProxy;
+import citalyser.ui.utils.CProxy;
 
-import citalyser.ui.model.TableModelCreator;
+import citalyser.ui.utils.TableModelCreator;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.ExtraPanel;
 import citalyser.ui.visualization.panels.common.SearchPanel;

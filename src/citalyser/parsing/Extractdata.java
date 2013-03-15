@@ -5,7 +5,10 @@
 //i have given the path of input.html in c:\input.html
 package citalyser.parsing;
 
-import citalyser.api.*;
+import citalyser.model.Author;
+import citalyser.model.Paper;
+import citalyser.model.PaperCollection;
+import citalyser.model.Journal;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

@@ -4,7 +4,7 @@
  */
 package citalyser.queryresult;
 
-import citalyser.api.Journal;
+import citalyser.model.Journal;
 import java.util.ArrayList;
 
 /**

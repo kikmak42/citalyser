@@ -11,7 +11,7 @@
 package citalyser.ui.visualization.panels.external.settingspanel;
 
 import citalyser.ui.control.DisplayMaster;
-import citalyser.ui.model.CProxy;
+import citalyser.ui.utils.CProxy;
 
 /**
  *

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package citalyser.api;
+package citalyser.model;
 
 import citalyser.constants.queryType;
 import citalyser.networking.HttpConnection;

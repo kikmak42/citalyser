@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package citalyser.ui.model;
+package citalyser.ui.utils;
 
-import citalyser.api.Paper;
-import citalyser.api.PaperCollection;
+import citalyser.model.Paper;
+import citalyser.model.PaperCollection;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
