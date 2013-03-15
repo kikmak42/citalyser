@@ -10,6 +10,7 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel;
 
+import citalyser.queryresult.QueryResult;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel.GridDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel.TableDisplayPanel;
@@ -37,6 +38,10 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
 
     public GridDisplayPanel getGridDisplayPanel() {
         return gridDisplayPanel;
+    }
+    
+    public void showResults(QueryResult queryResult) {
+        
     }
             
     private DisplayMaster displayMaster;

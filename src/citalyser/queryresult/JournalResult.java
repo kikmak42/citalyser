@@ -10,12 +10,17 @@ import citalyser.model.Journal;
  *
  * @author KRISHNA
  */
-public class JournalResult  extends QueryResult<JournalResult>{
+public class JournalResult extends QueryResult<Journal> {
+
     private Journal journal;
-    public Journal getJournal(){
-       return this.journal;
+
+    @Override
+    public void setContents(Journal e) {
+        this.journal = e;
     }
-    public void setJournal(Journal j){
-        this.journal = j;
+
+    @Override
+    public Journal getContents() {
+        return this.journal;
     }
 }
