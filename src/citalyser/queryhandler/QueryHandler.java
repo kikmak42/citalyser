@@ -25,6 +25,7 @@ public class QueryHandler {
         url = new UrlComposer();
         //parser = new Extractdata();
     }
+    
     public QueryResult getQueryResult(Query q){
         
         switch(q.flag){

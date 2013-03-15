@@ -1,7 +1,7 @@
 package citalyser.networking;
 
 import citalyser.Config;
-import citalyser.ui.utils.CProxy;
+import citalyser.util.CProxy;
 import java.net.*;
 import java.io.*;
 import java.util.*;
