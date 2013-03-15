@@ -8,7 +8,7 @@ package citalyser;
  *
  * @author rajkumar
  */
-public class constants {
+public class Constants {
     public enum queryType{
         GEN_AUTH, GEN_JOURN, MET_AUTH, MET_JOURN, AUTH_PROF, JOURN_PROF
     }

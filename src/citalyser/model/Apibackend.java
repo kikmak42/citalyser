@@ -4,25 +4,27 @@
  */
 package citalyser.model;
 
-import citalyser.constants.queryType;
+import citalyser.Constants.queryType;
 import citalyser.networking.HttpConnection;
 import citalyser.parsing.Extractdata;
+import citalyser.queryresult.QueryResult;
 
 /**
  *
  * @author rajkumar
  */
 public class Apibackend {
-    public PaperCollection getResults(String URL,queryType q){
+    
+    public QueryResult getQueryResult(String URL,queryType q){
         String html ;
-        PaperCollection p = null;
+        QueryResult qResult = null;
         html = HttpConnection.getUrlText(URL);
         switch(q){
             case GEN_AUTH:
-                p = Extractdata.extractInfo(html);
+//                qResult = Extractdata.extractInfo(html);
                 break;
             case GEN_JOURN:
-                p = Extractdata.extractInfo(html);
+//                qResult = Extractdata.extractInfo(html);
                 break;
             case MET_AUTH:
 
@@ -40,6 +42,6 @@ public class Apibackend {
                 
                 break;
         }
-        return p;
+        return qResult;
     }
 }

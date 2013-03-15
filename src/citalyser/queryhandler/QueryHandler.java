@@ -1,18 +1,15 @@
 package citalyser.queryhandler;
 
+import citalyser.cache.CacheHandler;
 import citalyser.model.PaperCollection;
 import citalyser.model.Apibackend;
 import citalyser.parsing.*;
 import citalyser.networking.HttpConnection;
+import citalyser.queryresult.QueryResult;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.table.*;
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
@@ -21,12 +18,19 @@ import javax.swing.table.*;
 
 
 public class QueryHandler {
-    public static PaperCollection getDetails(Query q){
+    
+    private CacheHandler cacheHandler;
+    
+    public QueryHandler()
+    {
+        cacheHandler = new CacheHandler();
+    }
+    public QueryResult getDetails(Query q){
         String URL = new String();
         //String query_name = q.name.replace(' ', '+');   // check
         String query_name = q.name;
         //TableModel retval = new DefaultTableModel();
-        PaperCollection p;
+        QueryResult qResult;
 
 
         switch(q.flag){
@@ -97,12 +101,9 @@ public class QueryHandler {
         
         //p = Extractdata.extractInfo(html);
         
-
-        p = new Apibackend().getResults(URL,q.flag);
-
-        return p;
-       
-      }
+        qResult = cacheHandler.getQueryResult(URL,q.flag);
+        return qResult;
+    }
     
     /*private static String getDummyHtml() {
         String returnValue = "";

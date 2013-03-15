@@ -4,7 +4,7 @@
  */
 package citalyser.queryhandler;
 
-import citalyser.constants.queryType;
+import citalyser.Constants.queryType;
 
 /**
  *
