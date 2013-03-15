@@ -9,10 +9,17 @@ package citalyser.ui.control;
  * @author Tanmay Patil
  */
 public class DisplayControllerImpl implements citalyser.ui.DisplayController {
+    
+    private DisplayMaster displayMaster;
 
     @Override
     public void initializeDisplay() {
-        DisplayMaster displayMaster = new DisplayMaster();
+        this.displayMaster = new DisplayMaster();
+    }
+
+    @Override
+    public void displayErrorMessage(String message) {
+        displayMaster.displayErrorMessage(message);
     }
     
 }

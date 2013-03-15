@@ -10,6 +10,7 @@ import java.util.TreeSet;
  */
 public class Author {
         private String name;
+        private String id;
         private double no_cites_per_paper;
         private double no_cites_per_year;
         private String imgsrc;
@@ -17,7 +18,7 @@ public class Author {
         private String univandemail;
         private int totalcitaions;
         private PaperCollection paper_collection;
-
+        private ArrayList<Author> co_authors;
     
     @Override
     public String toString() {
@@ -25,6 +26,7 @@ public class Author {
     }
         
         public Author(String name){
+            this.co_authors=null;
             this.paper_collection = null;
             this.name = name;
             this.imgsrc=null;
@@ -32,6 +34,12 @@ public class Author {
             this.univandemail=null;
         }
 
+        public String getId(){
+            return this.id;
+        }
+        public void setId(String s){
+            this.id = s;
+        }
         public String getName(){
             return this.name;
         }
@@ -88,6 +96,13 @@ public class Author {
         public void setProfilelink(String s){
             this.proilelink = s;
         }
+        public ArrayList<Author> getCoAuthors(){
+            return this.co_authors;
+        }
+        public void setCoAuthors(ArrayList<Author> coauthors){
+            this.co_authors = coauthors;
+        }
+        
         
         
         
