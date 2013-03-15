@@ -77,28 +77,37 @@ public class Parser {
 
         if (type == 2) {
             {
-                if (splitarr.length == 2) {
-//                    if (flag == 1) {
-//                        return splitarr[0] + "…";
-//                    } else {
-//                        try {
-//                            Integer.parseInt(splitarr[1]);
-//                            return splitarr[0];
-//                        } catch (Exception e) {
-//                            return splitarr[0] + splitarr[1];
-//                        }
-//                    }
-                    return splitarr[1];
+                try {
+                    Integer.parseInt(splitarr[splitarr.length-1]);
+                    return splitarr[splitarr.length-1];
+                } catch (Exception e) {
+                    return "0";
                 }
 
-                if (splitarr.length == 1) {
-                    try {
-                        Integer.parseInt(splitarr[0]);
-                        return splitarr[0];
-                    } catch (Exception e) {
-                        return "0";
-                    }
-                }
+                /*
+                 if (splitarr.length == 2) {
+                 //                    if (flag == 1) {
+                 //                        return splitarr[0] + "…";
+                 //                    } else {
+                 //                        try {
+                 //                            Integer.parseInt(splitarr[1]);
+                 //                            return splitarr[0];
+                 //                        } catch (Exception e) {
+                 //                            return splitarr[0] + splitarr[1];
+                 //                        }
+                 //                    }
+                 return splitarr[1];
+                 }
+
+                 if (splitarr.length == 1) {
+                 try {
+                 Integer.parseInt(splitarr[0]);
+                 return splitarr[0];
+                 } catch (Exception e) {
+                 return "0";
+                 }
+                 }
+                 */
             }
 
         }
@@ -120,7 +129,7 @@ public class Parser {
         FileReader file = null;
 
         try {
-            file = new FileReader("c:/input.html");
+            file = new FileReader("/home/sahil/roughos/indentedrespose.html");
             BufferedReader reader = new BufferedReader(file);
             String line = "";
             while ((line = reader.readLine()) != null) {
@@ -143,7 +152,7 @@ public class Parser {
         //Extractdata exd = new Extractdata(returnValue);
         //extractProfileInfo(returnValue);
         //getAuthors(returnValue);
-        extractAuthorProfileInfo(returnValue);
+        extractInfo(returnValue);
 //        getAuthors(returnValue);
 
 
@@ -419,121 +428,113 @@ public class Parser {
         return ret;
     }
 
-    
-    public static void extractAuthorProfileInfo(String src){
+    public static void extractAuthorProfileInfo(String src) {
         doc = Jsoup.parse(src, "UTF-8");
         Elements items = doc.select("table.cit-table");
         System.out.println(items.isEmpty());
-        String url= "http://scholar.google.com";
-        
-        if(!items.isEmpty()){
-            for (Element item : items){
+        String url = "http://scholar.google.com";
+
+        if (!items.isEmpty()) {
+            for (Element item : items) {
                 //Elements rows = item.select("tr.cit-table item");
                 System.out.println("inside for loop");
-                Elements rows  = item.select(".item");
-                logger.debug("rows are"+rows.isEmpty());
-                for(Element row : rows){
+                Elements rows = item.select(".item");
+                logger.debug("rows are" + rows.isEmpty());
+                for (Element row : rows) {
                     //extracting the paper title and link of paper
                     Elements title_section = row.select("td#col-title");
-                    logger.debug("titlesection"+title_section.isEmpty());
+                    logger.debug("titlesection" + title_section.isEmpty());
                     Elements title_tags = title_section.get(0).select("a");
-                    if(!title_tags.isEmpty()){
-                        String title_link = url+title_tags.get(0).attr("href");
-                        String title_name  = title_tags.get(0).text();
-                        logger.debug("title link"+title_link);
-                        logger.debug("title_name"+title_name);
-                        
+                    if (!title_tags.isEmpty()) {
+                        String title_link = url + title_tags.get(0).attr("href");
+                        String title_name = title_tags.get(0).text();
+                        logger.debug("title link" + title_link);
+                        logger.debug("title_name" + title_name);
+
                     }
                     //extracting the names of the authors
                     Elements desc_section = row.select("span.cit-gray");
-                    if(!desc_section.isEmpty()){
+                    if (!desc_section.isEmpty()) {
                         String authors_list;
                         String names;
                         String journal;
-                        try{
+                        try {
                             authors_list = desc_section.get(0).text();
                             String[] author_names = authors_list.split(",");
                             names = Arrays.toString(author_names);
-                            logger.debug("author names"+names);
-                            
+                            logger.debug("author names" + names);
+
+                        } catch (Exception e) {
+                            names = "";
+                            logger.debug("author names" + names);
                         }
-                        
-                        catch(Exception e){
-                            names = "";                          
-                            logger.debug("author names"+names);
-                        }
-                        
-                         try{
+
+                        try {
                             journal = desc_section.get(1).text();
-                            logger.debug("journal names"+journal);     
-                            
+                            logger.debug("journal names" + journal);
+
+                        } catch (Exception e) {
+                            journal = "";
+                            logger.debug("journal names" + journal);
                         }
-                        
-                        catch(Exception e){
-                            journal = "";                          
-                            logger.debug("journal names"+journal);     
-                        }
-                        
-                                               
-                        
-                        
+
+
+
+
                     }
-                    
+
                     //extracting the citation count
                     Elements citation_section = row.select("td#col-citedby");
-                    if(!citation_section.isEmpty()){
+                    if (!citation_section.isEmpty()) {
                         String citation_count;
                         String cited_by_link;
-                        try{
+                        try {
                             citation_count = citation_section.get(0).text();
-                            logger.debug("citation_count "+citation_count);
-                        }
-                        catch(Exception e){
+                            logger.debug("citation_count " + citation_count);
+                        } catch (Exception e) {
                             citation_count = "";
-                            logger.debug("citation_count "+citation_count);
+                            logger.debug("citation_count " + citation_count);
                         }
-                        
-                        try{
+
+                        try {
                             cited_by_link = citation_section.get(0).select("a").attr("href");
-                            logger.debug("cited_by_link "+cited_by_link);
-                        }
-                        catch(Exception e){
+                            logger.debug("cited_by_link " + cited_by_link);
+                        } catch (Exception e) {
                             cited_by_link = "";
-                            logger.debug("cited_by_link "+cited_by_link);
+                            logger.debug("cited_by_link " + cited_by_link);
                         }
-                        
+
                     }
-                    
-                     //extracting the publication year
+
+                    //extracting the publication year
                     Elements year_section = row.select("td#col-year");
-                    if(!year_section.isEmpty()){
+                    if (!year_section.isEmpty()) {
                         String year;
-                        try{
+                        try {
                             year = year_section.get(0).text();
-                            logger.debug("year "+year);
+                            logger.debug("year " + year);
+                        } catch (Exception e) {
+                            year = "";
+                            logger.debug("year " + year);
                         }
-                        catch(Exception e){
-                            year ="";
-                            logger.debug("year "+year);
-                        }
-                        
-                        
+
+
                     }
-                    
-                    
+
+
                 }
             }
-            
-            
+
+
         }
-        
-        
+
+
         items = doc.select(".g-section");
-        logger.debug("items "+items.isEmpty());
-        ArrayList<String>co_authors = new ArrayList<String>();
-        ArrayList<String>co_authors_links = new ArrayList<String>();
-        if(!items.isEmpty()){
-            try{
+        logger.debug("items " + items.isEmpty());
+        ArrayList<String> co_authors = new ArrayList<String>();
+        ArrayList<String> co_authors_links = new ArrayList<String>();
+        if (!items.isEmpty()) {
+            try {
                 Element co_author_section = items.get(2);
                 Elements a_tags = co_author_section.select("a");
                 if (!a_tags.isEmpty()) {
@@ -544,22 +545,21 @@ public class Parser {
                     }
 
                 }
-            }
-            catch(Exception e){
+            } catch (Exception e) {
                 System.out.println("exception occured in co_author section");
-                
+
             }
-            
-            
+
+
         }
         logger.debug(co_authors_links);
         logger.debug(co_authors);
-        
-        
-        
+
+
+
     }
-    
-    public static QueryResult getAuthors(String input ){
+
+    public static QueryResult<AuthorListResult> getAuthors(String input) {
 
         //QueryResult q = new QueryResult<AuthorListResult>();
         AuthorListResult alr = new AuthorListResult();
@@ -598,16 +598,15 @@ public class Parser {
             authorList.add(author);
         }
         alr.setAuthorList(authorList);
-        
-        for(Author author: authorList){
-        logger.debug("img src:" + author.getImageSrc());
-        logger.debug("url:" + author.getProfileLink());
-        logger.debug("name:" + author.getName());//name
-        logger.debug("univ:" + author.getUniversity());
-        logger.debug("citations:" + author.getTotalCitations());
+
+        for (Author author : authorList) {
+            logger.debug("img src:" + author.getImageSrc());
+            logger.debug("url:" + author.getProfileLink());
+            logger.debug("name:" + author.getName());//name
+            logger.debug("univ:" + author.getUniversity());
+            logger.debug("citations:" + author.getTotalCitations());
         }
-        
+
         return alr;
     }
-    
 }
