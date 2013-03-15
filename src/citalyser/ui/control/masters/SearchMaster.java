@@ -49,9 +49,16 @@ public class SearchMaster {
     }
      
     public void searchButtonClicked(SearchPanel searchPanel) {
+        final SearchPanel mySearchPanel = searchPanel;
         if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
-            QueryResultRenderingHandler.render(QueryHandler.getInstance().getQueryResult(createQuery(searchPanel)));
-            //mainFrame.getRegularDisplayPanel().getContentDisplayPanel().getTableDisplayPanel().setTable(TableModelCreator.getTableModel(QueryHandler.getDetails(null)));
+            new Thread() {
+
+                @Override
+                public void run() {
+                    QueryResultRenderingHandler.render(QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel)));
+                }
+                
+            }.start();
         } else {
             if (searchPanel.equals(mainFrame.getStartPanel().getAuthorSearchPanel())) {
                 ((java.awt.CardLayout) mainFrame.getContentPane().getLayout()).last(mainFrame.getContentPane());
