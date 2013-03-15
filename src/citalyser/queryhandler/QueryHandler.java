@@ -4,8 +4,13 @@ import citalyser.cache.CacheHandler;
 import citalyser.model.UrlComposer;
 import citalyser.networking.HttpConnection;
 import citalyser.parsing.Parser;
+import citalyser.queryresult.AuthorListResult;
+import citalyser.queryresult.AuthorResult;
+import citalyser.queryresult.JournalListResult;
+import citalyser.queryresult.JournalResult;
 import citalyser.queryresult.PaperCollectionResult;
 import citalyser.queryresult.QueryResult;
+import citalyser.cache.CacheHandler;
 import javax.swing.text.Utilities;
 
 /**
@@ -17,81 +22,39 @@ public class QueryHandler {
     
     private CacheHandler cacheHandler;
     private Parser parser;
+    private UrlComposer url;
+    private String queryUrl;
     
     public QueryHandler()
     {
         cacheHandler = new CacheHandler();
+        url = new UrlComposer();
         //parser = new Extractdata();
     }
     public QueryResult getQueryResult(Query q){
         
         switch(q.flag){
             case GEN_AUTH: 
-                return getAuthorPapersFromScholar(q);
+                queryUrl = UrlComposer.getGenAuthUrl(q);
+                return cacheHandler.getAuthorPapersFromScholar(queryUrl);
             case GEN_JOURN:
-                return getJournalPapersFromScholar(q);
+                queryUrl = UrlComposer.getGenJournUrl(q);
+                return cacheHandler.getJournalPapersFromScholar(queryUrl);
             case MET_AUTH:
-                return getAuthorList(q);
+                queryUrl = UrlComposer.getMetAuthUrl(q);
+                return cacheHandler.getAuthorList(queryUrl);
             case MET_JOURN:
-                return getJournalList(q);
+                queryUrl = UrlComposer.getMetJournUrl(q);
+                return cacheHandler.getJournalList(queryUrl);
             case AUTH_PROF:
-                return getCompleteAuthorFromMetric(q);
+                queryUrl = UrlComposer.getAuthProfUrl(q);
+                return cacheHandler.getCompleteAuthorFromMetric(queryUrl);
             case JOURN_PROF:
-                return getCompleteJournalFromMetric(q);
+                queryUrl = UrlComposer.getJournProfUrl(q);
+                return cacheHandler.getCompleteJournalFromMetric(queryUrl);
             default : 
                 return null;
         }
         
-    }
-    
-    /* Query Case - GEN_AUTH */
-    QueryResult getAuthorPapersFromScholar(Query q)
-    {
-        String queryUrl = UrlComposer.getGenAuthUrl(q);
-        Object cacheResult = cacheHandler.getObject(queryUrl,PaperCollectionResult.class);
-        if(cacheResult!=null)
-            return (PaperCollectionResult)cacheResult;
-        
-        //return( HttpConnection.getUrlText(queryUrl));
-    
-        //qResult = cacheHandler.getQueryResult(URL,q.flag);
-        //return qResult;
-        //NETWORK FUNCTION CALLED HERE
-        
-        //html = HttpConnection.getUrlText("http://scholar.google.co.in/scholar?hl=en&q=animesh+mukherjee&btnG=&as_sdt=1%2C5&as_sdtp=");
-        //html = HttpConnection.getUrlText(URL);
-        
-        //p = Extractdata.extractInfo(html);
-        return null;
-    }
-    
-    /* Query Case - GEN_JOURN */
-    QueryResult getJournalPapersFromScholar(Query q)
-    {
-        return null;
-    }
-    
-    /* Query Case - MET_AUTH */
-    QueryResult getAuthorList(Query q)
-    {
-        return null;
-    }
-    
-    /* Query Case - MET_JOURN */
-    QueryResult getJournalList(Query q)
-    {
-        return null;
-    }
-    
-    /* Query Case - AUTH_PROF */
-    QueryResult getCompleteAuthorFromMetric(Query q)
-    {
-        return null;
-    }
-    
-    /* Query Case - JOURN_PROF */
-    QueryResult getCompleteJournalFromMetric(Query q)
-    {
-        return null;
     }
 }
