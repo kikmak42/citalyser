@@ -11,7 +11,7 @@
 package citalyser.ui.visualization.panels.external.settingspanel;
 
 import citalyser.ui.control.DisplayMaster;
-import citalyser.ui.model.Proxy;
+import citalyser.ui.utils.CProxy;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.event.ListSelectionEvent;
@@ -39,7 +39,7 @@ public class ProxyListPanel extends javax.swing.JPanel {
         });
         proxyList = citalyser.Config.getProxylist();
         if (proxyList != null) {
-            for (Proxy proxy : proxyList) {
+            for (CProxy proxy : proxyList) {
                 String[] rowData = new String[3];
                 rowData[0] = proxy.host;
                 rowData[1] = Integer.toString(proxy.port);
@@ -59,11 +59,11 @@ public class ProxyListPanel extends javax.swing.JPanel {
         this.displayMaster = displayMaster;
     }
 
-    public void setProxyList(List<Proxy> proxyList) {
+    public void setProxyList(List<CProxy> proxyList) {
         this.proxyList = proxyList;
     }
 
-    public List<Proxy> getProxyList() {
+    public List<CProxy> getProxyList() {
         return proxyList;
     }
 
@@ -76,7 +76,7 @@ public class ProxyListPanel extends javax.swing.JPanel {
     }
             
     private DisplayMaster displayMaster;
-    private List<Proxy> proxyList;
+    private List<CProxy> proxyList;
     private int selectedEditableProxyEntry;
 
     /** This method is called from within the constructor to

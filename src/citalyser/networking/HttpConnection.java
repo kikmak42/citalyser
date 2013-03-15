@@ -1,6 +1,7 @@
 package citalyser.networking;
 
 import citalyser.Config;
+import citalyser.ui.utils.CProxy;
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -13,6 +14,7 @@ import java.util.logging.*;
 
 public class HttpConnection {
 
+    private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(HttpConnection.class.getName());
     //@constants 
     private static int SERVER_READOUT_TIME = 15000;
     
@@ -33,9 +35,9 @@ public class HttpConnection {
      */
     public static void connectUrl(String requestURL, String hostname, String agentname)
         throws IOException {
-
+        logger.debug("Hostname : " + hostname);
         URL url = new URL(requestURL);
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(hostname, 8080));
+        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(hostname,8080));
         connection = (HttpURLConnection) url.openConnection(proxy); 
         connection.setInstanceFollowRedirects(true);
         connection.setDoInput(true);
@@ -53,16 +55,22 @@ public class HttpConnection {
      */
     public static String getUrlText(String url) {
         
+        logger.info("Getting URL Text for : " + url);
         StringBuffer urlResponse = null;
         
         //Get proxies from file and add them
         List proxies = Config.getProxylist();
-        //List proxies = Arrays.asList("10.3.100.212","10.3.100.211");
-        if(proxies.isEmpty()) {
-            Iterator proxyIterator = proxies.iterator();
-            while (proxyIterator.hasNext()) {
-                hostnames.add(proxyIterator.next().toString());
+        logger.debug("No of Proxies : " + proxies.size());
+        if(!proxies.isEmpty()) {
+            for(int i = 0;i<proxies.size();i++)
+            {
+                CProxy cproxy = (CProxy) proxies.get(i);
+                hostnames.add(cproxy.getHostName());
             }
+//            Iterator proxyIterator = proxies.iterator();
+//            while (proxyIterator.hasNext()) {
+//                hostnames.add(proxyIterator.next());
+        //}
         }
         
         if(agents.isEmpty()) {
@@ -92,19 +100,23 @@ public class HttpConnection {
                 if(!hostnames.isEmpty()){
                     hostname = hostnames.remove(0);
                     
-                    for(int j=0; j< agents.size() ; j++) {
-                        //System.out.println(hostname + " - " + agents.get(j));
+                    for(int j=0; j< agents.size() ; j++) 
+                    {
+                        System.out.println(hostname + " - " + agents.get(j));
                         //System.out.println();
                         connectUrl(url,hostname,agents.get(j));
                         responseCode = connection.getResponseCode();
-                        System.out.println("response = "+responseCode);
+                        //logger.debug("Proxy : " + hostname + "response = "+responseCode);
                         if(responseCode== 200) break;
-                        else {
+                        else 
+                        {
                             hostnames.add(hostname);
-                            Config.setProxyList((List)hostnames);
                         }
                     }
-                    if(responseCode == 200)hostnames.add(0,hostname);
+                    if(responseCode == 200)
+                        hostnames.add(0,hostname);
+                    Config.setProxyList((List)hostnames);
+                    
                 }
             }
             

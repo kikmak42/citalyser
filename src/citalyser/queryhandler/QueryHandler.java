@@ -1,6 +1,7 @@
 package citalyser.queryhandler;
 
-import citalyser.api.*;
+import citalyser.model.PaperCollection;
+import citalyser.model.Apibackend;
 import citalyser.parsing.*;
 import citalyser.networking.HttpConnection;
 import java.io.BufferedReader;
@@ -22,77 +23,88 @@ import javax.swing.table.*;
 public class QueryHandler {
     public static PaperCollection getDetails(Query q){
         String URL = new String();
-        String html ;
-        TableModel retval = new DefaultTableModel();
+        //String query_name = q.name.replace(' ', '+');   // check
+        String query_name = q.name;
+        //TableModel retval = new DefaultTableModel();
         PaperCollection p;
+
+
         switch(q.flag){
-            case 1: 
+            case GEN_AUTH: 
                 URL =  "http://scholar.google.co.in/scholar?";
-                URL +=  "start="+ q.start_page +"&";
+                URL +=  "start="+ q.start_result +"&";
                 URL +=  "as_q=" + "" + "&" ;
                 URL +=  "as_epq=" + "" + "&";
                 URL +=  "as_oq=" + "" + "&";
                 URL += "as_eq=" + "" + "&";
                 URL +="as_occt=" + "" + "&";
-                URL +="as_sauthors=" + q.name + "&" ;
+                URL +="as_sauthors=" + query_name + "&" ; //q.name may contain spaces
                 URL +="as_publication=" + "" + "&";
                 URL +="as_ylo=" + q.min_year + "&";
                 URL +="as_yhi=" + q.max_year + "&";
-                URL +="btnG=&hl=en&as_sdt=0%2C5";
+                URL +="num=" + q.num_results + "&";
+                URL += "scisbd=" + q.sort_flag + "&";
+                URL +="btnG=&hl=en&as_sdt=1%2C5";
                 break;
                 
-            case 2:
+            case GEN_JOURN:
                 URL =  "http://scholar.google.co.in/scholar?";
-                URL  +=  "start="+ q.start_page +"&";
+                URL  +=  "start="+ q.start_result +"&";
                 URL  +=  "as_q=" + "" + "&" ;
                 URL  +=  "as_epq=" + "" + "&";
                 URL  +=  "as_oq=" + "" + "&";
                 URL += "as_eq=" + "" + "&";
                 URL +="as_occt=" + "" + "&";
                 URL +="as_sauthors=" + ""+ "&" ;
-                URL +="as_publication=" + q.name + "&";
+                URL +="as_publication=" + query_name + "&";
                 URL +="as_ylo=" + q.min_year + "&";
                 URL +="as_yhi=" + q.max_year + "&";
-                URL +="btnG=&hl=en&as_sdt=0%2C5";
+                URL +="num=" + q.num_results + "&";
+                URL += "scisbd=" + q.sort_flag + "&";
+                URL +="btnG=&hl=en&as_sdt=1%2C5";
                 break;
                 
-            case 3:
+            case MET_JOURN:
                 URL = "http://scholar.google.co.in/citations?hl=en&";
                 URL += "view_op=search_venues";
-                URL += "&vq=" + q.name;
+                URL += "&vq=" + query_name;
                 break;
                 
-            case 4:
+            case MET_AUTH:
                 URL = "http://scholar.google.co.in/citations?hl=en&";
                 URL += "view_op=search_authors";
-                URL += "&mauthors=" + q.name;
+                URL += "&mauthors=" + query_name;
                 break;
                 
-            case 5:
+            case AUTH_PROF:
                 URL = "http://scholar.google.co.in/citations?hl=en&";
-                URL += "&view_op=list_works&pagesize=100";
+                URL += "view_op=list_works&pagesize=100";
                 URL += "&user=" + q.ID;
                 break;
                 
-            case 6:
+            case JOURN_PROF:
                 URL  = "http://scholar.google.co.in/citations?hl=en&";
                 URL += "vq=en&view_op=list_hcore&";
                 URL += "venue=" + q.ID;
                 break;
         }
         
+
         //NETWORK FUNCTION CALLED HERE
         
-        html = HttpConnection.getUrlText(URL);
+        //html = HttpConnection.getUrlText("http://scholar.google.co.in/scholar?hl=en&q=animesh+mukherjee&btnG=&as_sdt=1%2C5&as_sdtp=");
+        //html = HttpConnection.getUrlText(URL);
         
-        p = Extractdata.extractInfo(html);
+        //p = Extractdata.extractInfo(html);
         
+
+        p = new Apibackend().getResults(URL,q.flag);
+
         return p;
-        
-       // return retval;
+       
       }
     
-    private static String getDummyHtml() {
+    /*private static String getDummyHtml() {
         String returnValue = "";
         FileReader file = null;
 
@@ -115,5 +127,5 @@ public class QueryHandler {
             }
         }
         return returnValue;
-    }
+    }*/
 }

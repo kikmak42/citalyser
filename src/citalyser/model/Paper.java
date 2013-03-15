@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package citalyser.api;
+package citalyser.model;
 
 /**
  *
@@ -67,7 +67,7 @@ public class Paper {
     }
 
     public void setAuthors(ArrayList<Author> l) {
-        this.authors = new ArrayList<Author>(l);
+        this.authors = new ArrayList<>(l);
     }
 
     public ArrayList<Journal> getJournals() {

@@ -1,4 +1,4 @@
-package citalyser.api;
+package citalyser.model;
 
 import java.util.*;
 

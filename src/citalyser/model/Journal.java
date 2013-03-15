@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package citalyser.api;
+package citalyser.model;
 
 /**
  *
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Journal{
+public class Journal {
 	private String name;
         private double cites_per_author;
         private double papers_per_author;

@@ -1,4 +1,4 @@
-package citalyser.api;
+package citalyser.model;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -18,6 +18,7 @@ public class Author {
         private int totalcitaions;
         private PaperCollection paper_collection;
 
+    
     @Override
     public String toString() {
         return name;
