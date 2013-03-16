@@ -98,9 +98,7 @@ public class CacheHandler {
         Object cacheResult = getObject(queryUrl);
         if(cacheResult!=null) {
             logger.info("Getting GEN_AUTH - Cache hit");
-            //System.out.println("CacheContent class type :" + cacheResult.getClass().getName());
             PaperCollectionResult q = (PaperCollectionResult)cacheResult;
-            //System.out.println("From getAuthorPapers-cache- : "+((PaperCollectionResult)q).toString());
             return q;
         } else {
             logger.info("Getting GEN_AUTH - Cache miss.");
@@ -116,9 +114,11 @@ public class CacheHandler {
     {
         Object cacheResult = getObject(queryUrl);
         if(cacheResult!=null) {
+            logger.info("Getting GEN_JOURN - Cache hit");
             return (PaperCollectionResult)cacheResult;
         } else {
-            QueryResult q = manager.getJournalPapersFromScholar(queryUrl);;
+            logger.info("Getting GEN_JOURN - Cache miss.");
+            QueryResult q = manager.getJournalPapersFromScholar(queryUrl);
             setObject(q, queryUrl);
             return q;
         }
@@ -129,8 +129,10 @@ public class CacheHandler {
     {
         Object cacheResult = getObject(queryUrl);
         if(cacheResult!=null) {
+            logger.info("Getting MET_AUTH - Cache hit");
             return (AuthorListResult)cacheResult;
         } else {
+            logger.info("Getting MET_AUTH - Cache miss");
             QueryResult q = manager.getAuthorList(queryUrl);
             setObject(q, queryUrl);
             return q;
@@ -142,8 +144,10 @@ public class CacheHandler {
     {
         Object cacheResult = getObject(queryUrl);
         if(cacheResult!=null) {
+            logger.info("Getting MET_JOURN - Cache hit");
             return (JournalListResult)cacheResult;
         } else {
+            logger.info("Getting MET_JOURN - Cache miss");
              QueryResult q = manager.getJournalList(queryUrl);
             setObject(q, queryUrl);
             return q;
@@ -155,8 +159,10 @@ public class CacheHandler {
     {
         Object cacheResult = getObject(queryUrl);
         if(cacheResult!=null) {
+            logger.info("Getting AUTH_PROF - Cache hit");
             return (AuthorResult)cacheResult;
         } else {
+            logger.info("Getting AUTH_PROF - Cache miss");
             QueryResult q = manager.getCompleteAuthorFromMetric(queryUrl);
             setObject(q, queryUrl);
             return q;
@@ -168,8 +174,10 @@ public class CacheHandler {
     {
         Object cacheResult = getObject(queryUrl);
         if(cacheResult!=null) {
+            logger.info("Getting JOURN_PROF - Cache hit");
             return (JournalResult)cacheResult;
         } else {
+            logger.info("Getting JOURN_PROF - Cache miss");
             QueryResult q = manager.getCompleteJournalFromMetric(queryUrl);
             setObject(q, queryUrl);
             return q;
