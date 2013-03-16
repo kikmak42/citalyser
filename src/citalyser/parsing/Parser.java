@@ -331,7 +331,7 @@ public class Parser {
             logger.debug(p.getAuthors());
         }
         q.setContents(extractedPapers);
-        return null;
+        return q;
 
     }
 

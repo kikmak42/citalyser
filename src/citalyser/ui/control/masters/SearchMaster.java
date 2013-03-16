@@ -7,6 +7,7 @@ package citalyser.ui.control.masters;
 import citalyser.queryhandler.Query;
 import citalyser.queryhandler.QueryHandler;
 import citalyser.queryhandler.QueryType;
+import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.control.switchers.QueryResultRenderingHandler;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.common.SearchPanel;
@@ -19,11 +20,13 @@ import org.apache.log4j.Logger;
 public class SearchMaster {
     
     private MainFrame mainFrame;
+    private DisplayMaster displayMaster;
     
     private static Logger logger = Logger.getLogger(SearchMaster.class.getName());
 
-    public SearchMaster(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public SearchMaster(DisplayMaster displayMaster) {
+        this.displayMaster = displayMaster;
+        this.mainFrame = displayMaster.getMainFrame();
     }
     
     public void searchKeyPressed(SearchPanel searchPanel, char key) {
@@ -55,7 +58,7 @@ public class SearchMaster {
 
                 @Override
                 public void run() {
-                    QueryResultRenderingHandler.render(QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel)));
+                    displayMaster.getQueryResultRenderingHandler().render(QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel)));
                 }
                 
             }.start();
@@ -77,6 +80,6 @@ public class SearchMaster {
     }
 
     public Query createQuery(SearchPanel searchPanel) {
-        return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_AUTH).build();
+        return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_AUTH).numResult(20).minYear(1990).maxYear(2013).build();
     }
 }

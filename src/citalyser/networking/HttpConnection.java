@@ -34,11 +34,11 @@ public class HttpConnection {
      *              thrown if any I/O error occurred
      */
     public static void connectUrl(String requestURL, String hostname, String agentname)
-        throws IOException {
+        throws IOException, URISyntaxException {
         logger.debug("Hostname : " + hostname);
-        URL url = new URL(requestURL);
+        URL url = new URI(requestURL).toURL();
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(hostname,8080));
-        connection = (HttpURLConnection) url.openConnection(proxy); 
+        connection = (HttpURLConnection) (url.openConnection(proxy)); 
         connection.setInstanceFollowRedirects(true);
         connection.setDoInput(true);
         connection.setDoOutput(false);
@@ -103,8 +103,12 @@ public class HttpConnection {
                     for(int j=0; j< agents.size() ; j++) 
                     {
                         System.out.println(hostname + " - " + agents.get(j));
-                        //System.out.println();
-                        connectUrl(url,hostname,agents.get(j));
+                        try {
+                            //System.out.println();
+                            connectUrl(url,hostname,agents.get(j));
+                        } catch (URISyntaxException ex) {
+                            ex.printStackTrace();
+                        }
                         responseCode = connection.getResponseCode();
                         //logger.debug("Proxy : " + hostname + "response = "+responseCode);
                         if(responseCode== 200) break;

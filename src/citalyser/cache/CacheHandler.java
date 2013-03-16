@@ -102,7 +102,8 @@ public class CacheHandler {
         } else {
             logger.debug("Getting GEN_AUTH - Cache miss.");
             QueryResult q = manager.getAuthorPapersFromScholar(queryUrl);
-            setObject(q, queryUrl);
+            //setObject(q, queryUrl);
+            logger.debug(q);
             return q;
         }
     }
