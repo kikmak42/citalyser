@@ -21,8 +21,6 @@ public class HttpConnection {
     
     //@variables
     private static HttpURLConnection connection;
-    private static ArrayList<String> hostnames = new ArrayList<String>();
-    private static ArrayList<String> agents = new ArrayList<String>();
     
     /**
      * 
@@ -44,10 +42,10 @@ public class HttpConnection {
         else
             proxy = Proxy.NO_PROXY;
         connection = (HttpURLConnection) (url.openConnection(proxy)); 
-        connection.setInstanceFollowRedirects(true);
+        //connection.setInstanceFollowRedirects(true);
         connection.setDoInput(true);
         connection.setDoOutput(false);
-        connection.setReadTimeout(Constants.SERVER_READOUT_TIME);
+        connection.setConnectTimeout(Constants.SERVER_READOUT_TIME);
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Content-Type", "text/html; charset=ISO-8859-1");
         connection.setRequestProperty("User-Agent", agentname);        
@@ -93,7 +91,11 @@ public class HttpConnection {
                         return urlResponse.toString();
                     }
                 }catch(ConnectException | UnknownHostException ex){
+                    //ex.printStackTrace();
                     logger.error("Proxy : " + proxies.get(i) + " not working");
+                    break;
+                }catch(SocketTimeoutException ex){
+                    logger.error("Connection Timeout Connecting to  : " + proxies.get(i).toString());
                     break;
                 }
                 catch(Exception ex){
