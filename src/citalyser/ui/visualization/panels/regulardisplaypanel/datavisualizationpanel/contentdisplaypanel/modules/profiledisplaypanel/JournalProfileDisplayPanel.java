@@ -2,32 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules;
-
-import citalyser.ui.control.DisplayMaster;
+package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel;
 
 /**
  *
  * @author kaushik
  */
-public class ProfileDisplayPanel extends javax.swing.JPanel {
+public class JournalProfileDisplayPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form ProfileDisplayPanel
+     * Creates new form JournalProfileDisplayPanel
      */
-    public ProfileDisplayPanel() {
+    public JournalProfileDisplayPanel() {
         initComponents();
     }
-
-    public void setDisplayMaster(DisplayMaster displayMaster) {
-        this.displayMaster = displayMaster;
-    }
-
-    public DisplayMaster getDisplayMaster() {
-        return displayMaster;
-    }
-    
-    private DisplayMaster displayMaster;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,7 +34,7 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
