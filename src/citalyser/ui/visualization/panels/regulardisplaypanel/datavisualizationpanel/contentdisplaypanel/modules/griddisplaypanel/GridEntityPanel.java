@@ -67,7 +67,7 @@ public class GridEntityPanel extends javax.swing.JPanel {
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setOpaque(true);
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 12));
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel2.setText("Name of the Author");
 
         jLabel3.setText("University and e-mail id");
