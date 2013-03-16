@@ -35,7 +35,7 @@ public class TableModelCreator {
         return tableModel;
     }
     
-    private static<E> String convertToString(List<E> l){
+    private static <E> String convertToString(List<E> l){
         StringBuilder stringBuilder=new StringBuilder();
         for(E e:l){
             stringBuilder.append(e.toString()).append(", ");
