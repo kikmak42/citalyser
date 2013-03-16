@@ -57,12 +57,9 @@ public class CacheHandler {
     
     public int setObject(QueryResult qr, String url)
     {
-        //logger.info("Object : " + qr.toString());
-        System.out.println("Object : "+qr.toString());
         String hashCode = getSHA1(url);
         File file = new File(Main.CacheDirectory,hashCode);
-        //logger.info("Setting Cache at : " + file.getAbsolutePath());
-        System.out.println("Setting Cache : " + file.getAbsolutePath());
+        logger.info("Setting Cache at : " + file.getAbsolutePath());
         try (ObjectOutputStream ObjOut = new ObjectOutputStream(new FileOutputStream(file))) {
             ObjOut.writeObject(qr);
             ObjOut.flush();
