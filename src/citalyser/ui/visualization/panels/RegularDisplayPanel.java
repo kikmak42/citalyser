@@ -43,22 +43,12 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
     public SidebarPanel getSidebarPanel() {
         return sidebarPanel;
     }
-
-    public ContentDisplayPanel getContentDisplayPanel() {
-        return contentDisplayPanel;
-    }
-
-    public DetailsDisplayPanel getDetailsDisplayPanel() {
-        return detailsDisplayPanel;
-    }
     
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
         this.headerPanel.setDisplayMaster(displayMaster);
         this.toolsPanel.setDisplayMaster(displayMaster);
         this.sidebarPanel.setDisplayMaster(displayMaster);
-        this.contentDisplayPanel.setDisplayMaster(displayMaster);
-        this.detailsDisplayPanel.setDisplayMaster(displayMaster);
     }
             
     private DisplayMaster displayMaster;
@@ -75,22 +65,33 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
         headerPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.HeaderPanel();
         toolsPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.ToolsPanel();
         jSplitPane1 = new javax.swing.JSplitPane();
-        contentDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.ContentDisplayPanel();
-        detailsDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel();
+        dataVisualizationPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.DataVisualizationPanel();
+        statusDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.StatusDisplayPanel();
         sidebarPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.SidebarPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         jSplitPane1.setBackground(new java.awt.Color(255, 255, 255));
         jSplitPane1.setBorder(null);
-        jSplitPane1.setDividerLocation(700);
-        jSplitPane1.setDividerSize(20);
+        jSplitPane1.setDividerLocation(500);
+        jSplitPane1.setDividerSize(0);
+        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setToolTipText("");
         jSplitPane1.setOneTouchExpandable(true);
+        jSplitPane1.setTopComponent(dataVisualizationPanel);
 
-        contentDisplayPanel.setBackground(new java.awt.Color(255, 255, 255));
-        jSplitPane1.setLeftComponent(contentDisplayPanel);
-        jSplitPane1.setRightComponent(detailsDisplayPanel);
+        javax.swing.GroupLayout statusDisplayPanelLayout = new javax.swing.GroupLayout(statusDisplayPanel);
+        statusDisplayPanel.setLayout(statusDisplayPanelLayout);
+        statusDisplayPanelLayout.setHorizontalGroup(
+            statusDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1087, Short.MAX_VALUE)
+        );
+        statusDisplayPanelLayout.setVerticalGroup(
+            statusDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 36, Short.MAX_VALUE)
+        );
+
+        jSplitPane1.setRightComponent(statusDisplayPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -117,11 +118,11 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.ContentDisplayPanel contentDisplayPanel;
-    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel detailsDisplayPanel;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.DataVisualizationPanel dataVisualizationPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.HeaderPanel headerPanel;
     private javax.swing.JSplitPane jSplitPane1;
     private citalyser.ui.visualization.panels.regulardisplaypanel.SidebarPanel sidebarPanel;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.StatusDisplayPanel statusDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.ToolsPanel toolsPanel;
     // End of variables declaration//GEN-END:variables
 }

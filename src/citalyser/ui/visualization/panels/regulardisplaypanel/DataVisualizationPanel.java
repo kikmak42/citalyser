@@ -30,17 +30,27 @@ public class DataVisualizationPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        contentDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.ContentDisplayPanel();
+        graphViewPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.GraphViewPanel();
+
+        setLayout(new java.awt.CardLayout());
+        add(contentDisplayPanel, "card3");
+
+        javax.swing.GroupLayout graphViewPanelLayout = new javax.swing.GroupLayout(graphViewPanel);
+        graphViewPanel.setLayout(graphViewPanelLayout);
+        graphViewPanelLayout.setHorizontalGroup(
+            graphViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 849, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        graphViewPanelLayout.setVerticalGroup(
+            graphViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 657, Short.MAX_VALUE)
         );
+
+        add(graphViewPanel, "card3");
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.ContentDisplayPanel contentDisplayPanel;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.GraphViewPanel graphViewPanel;
     // End of variables declaration//GEN-END:variables
 }

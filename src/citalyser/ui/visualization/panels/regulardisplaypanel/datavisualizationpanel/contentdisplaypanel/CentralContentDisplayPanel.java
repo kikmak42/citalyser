@@ -30,17 +30,45 @@ public class CentralContentDisplayPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        gridDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.GridDisplayPanel();
+        listDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ListDisplayPanel();
+        profileDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ProfileDisplayPanel();
+        tableDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel();
+
+        setLayout(new java.awt.CardLayout());
+        add(gridDisplayPanel, "card2");
+
+        javax.swing.GroupLayout listDisplayPanelLayout = new javax.swing.GroupLayout(listDisplayPanel);
+        listDisplayPanel.setLayout(listDisplayPanelLayout);
+        listDisplayPanelLayout.setHorizontalGroup(
+            listDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        listDisplayPanelLayout.setVerticalGroup(
+            listDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 425, Short.MAX_VALUE)
         );
+
+        add(listDisplayPanel, "card3");
+
+        javax.swing.GroupLayout profileDisplayPanelLayout = new javax.swing.GroupLayout(profileDisplayPanel);
+        profileDisplayPanel.setLayout(profileDisplayPanelLayout);
+        profileDisplayPanelLayout.setHorizontalGroup(
+            profileDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        profileDisplayPanelLayout.setVerticalGroup(
+            profileDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 425, Short.MAX_VALUE)
+        );
+
+        add(profileDisplayPanel, "card4");
+        add(tableDisplayPanel, "card5");
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.GridDisplayPanel gridDisplayPanel;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ListDisplayPanel listDisplayPanel;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ProfileDisplayPanel profileDisplayPanel;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel tableDisplayPanel;
     // End of variables declaration//GEN-END:variables
 }

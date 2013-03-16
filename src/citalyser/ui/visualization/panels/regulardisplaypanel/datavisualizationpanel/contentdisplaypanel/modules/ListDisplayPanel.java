@@ -10,6 +10,8 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules;
 
+import citalyser.ui.control.DisplayMaster;
+
 /**
  *
  * @author Tanmay Patil
@@ -20,6 +22,16 @@ public class ListDisplayPanel extends javax.swing.JPanel {
     public ListDisplayPanel() {
         initComponents();
     }
+
+    public void setDisplayMaster(DisplayMaster displayMaster) {
+        this.displayMaster = displayMaster;
+    }
+
+    public DisplayMaster getDisplayMaster() {
+        return displayMaster;
+    }
+    
+    private DisplayMaster displayMaster;
 
     /** This method is called from within the constructor to
      * initialize the form.

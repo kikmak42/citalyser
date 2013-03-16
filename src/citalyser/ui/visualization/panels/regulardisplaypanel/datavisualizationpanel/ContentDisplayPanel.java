@@ -12,8 +12,6 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 
 import citalyser.queryresult.QueryResult;
 import citalyser.ui.control.DisplayMaster;
-import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.GridDisplayPanel;
-import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel;
 
 /**
  *
@@ -45,9 +43,22 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setLayout(new java.awt.CardLayout());
+        jSplitPane1 = new javax.swing.JSplitPane();
+        centralContentDisplayPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.CentralContentDisplayPanel();
+        detailsDisplayPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel();
+
+        setLayout(new java.awt.BorderLayout());
+
+        jSplitPane1.setDividerLocation(400);
+        jSplitPane1.setLeftComponent(centralContentDisplayPanel1);
+        jSplitPane1.setRightComponent(detailsDisplayPanel1);
+
+        add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.CentralContentDisplayPanel centralContentDisplayPanel1;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel detailsDisplayPanel1;
+    private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
 
     public void flipToGridDisplayPanel() {

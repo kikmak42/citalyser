@@ -161,7 +161,7 @@ public class DisplayMaster {
 
     public void renderPaperCollection(PaperCollection paperCollection) {
         //mainFrame.getRegularDisplayPanel().getContentDisplayPanel().getTableDisplayPanel().setTable(TableModelCreator.getTableModel(paperCollection));
-        mainFrame.getRegularDisplayPanel().getContentDisplayPanel().flipToTableDisplayPanel();
+        //mainFrame.getRegularDisplayPanel().getContentDisplayPanel().flipToTableDisplayPanel();
     }
     
     public boolean checkAuthorMode(){
@@ -174,7 +174,7 @@ public class DisplayMaster {
             for (Author author : arrayList) {
                 //mainFrame.getRegularDisplayPanel().getContentDisplayPanel().getGridDisplayPanel().addGridEntityPanel(new GridEntityPanel(author));
             }
-            mainFrame.getRegularDisplayPanel().getContentDisplayPanel().flipToGridDisplayPanel();
+            //mainFrame.getRegularDisplayPanel().getContentDisplayPanel().flipToGridDisplayPanel();
         } else {
             Main.getDisplayController().displayErrorMessage("Null Author List");
         }

@@ -38,26 +38,24 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        upperDetailsDisplayPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.UpperDetailsDisplayPanel();
+        lowerDetailsDisplayPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.LowerDetailsDisplayPanel();
 
         setBackground(new java.awt.Color(153, 153, 255));
-        setLayout(new java.awt.CardLayout());
+        setLayout(new java.awt.BorderLayout());
 
-        jList1.setBackground(new java.awt.Color(204, 204, 255));
-        jList1.setFont(new java.awt.Font("Arial", 1, 14));
-        jList1.setForeground(new java.awt.Color(0, 51, 153));
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        jSplitPane1.setDividerLocation(0);
+        jSplitPane1.setDividerSize(20);
+        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane1.setTopComponent(upperDetailsDisplayPanel1);
+        jSplitPane1.setRightComponent(lowerDetailsDisplayPanel1);
 
-        add(jScrollPane1, "card2");
+        add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList jList1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSplitPane jSplitPane1;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.LowerDetailsDisplayPanel lowerDetailsDisplayPanel1;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.UpperDetailsDisplayPanel upperDetailsDisplayPanel1;
     // End of variables declaration//GEN-END:variables
 }
