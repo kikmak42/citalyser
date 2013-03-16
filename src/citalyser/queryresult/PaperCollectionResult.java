@@ -5,12 +5,13 @@
 package citalyser.queryresult;
 
 import citalyser.model.PaperCollection;
+import java.io.Serializable;
 
 /**
  *
  * @author KRISHNA
  */
-public class PaperCollectionResult extends QueryResult<PaperCollection> {
+public class PaperCollectionResult extends QueryResult<PaperCollection> implements Serializable {
     private PaperCollection paper_collection;
     
     

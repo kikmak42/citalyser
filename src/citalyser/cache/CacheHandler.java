@@ -42,7 +42,7 @@ public class CacheHandler {
         try{
             finputstream = new FileInputStream(file);
         } catch(FileNotFoundException e) {
-            logger.error("Error opening Cache file : " + e.getMessage());
+            logger.error("Cache file not found: " + e.getMessage());
             return null;
         }
         Object result;
@@ -98,11 +98,12 @@ public class CacheHandler {
         Object cacheResult = getObject(queryUrl);
         if(cacheResult!=null) {
             logger.info("Getting GEN_AUTH - Cache hit");
-            return (PaperCollectionResult)cacheResult;
+            PaperCollectionResult q = (PaperCollectionResult)cacheResult;
+            return q;
         } else {
-            logger.debug("Getting GEN_AUTH - Cache miss.");
+            logger.info("Getting GEN_AUTH - Cache miss.");
             QueryResult q = manager.getAuthorPapersFromScholar(queryUrl);
-            //setObject(q, queryUrl);
+            setObject(q, queryUrl);
             logger.debug(q);
             return q;
         }
@@ -113,9 +114,11 @@ public class CacheHandler {
     {
         Object cacheResult = getObject(queryUrl);
         if(cacheResult!=null) {
+            logger.info("Getting GEN_JOURN - Cache hit");
             return (PaperCollectionResult)cacheResult;
         } else {
-            QueryResult q = manager.getJournalPapersFromScholar(queryUrl);;
+            logger.info("Getting GEN_JOURN - Cache miss.");
+            QueryResult q = manager.getJournalPapersFromScholar(queryUrl);
             setObject(q, queryUrl);
             return q;
         }
@@ -126,8 +129,10 @@ public class CacheHandler {
     {
         Object cacheResult = getObject(queryUrl);
         if(cacheResult!=null) {
+            logger.info("Getting MET_AUTH - Cache hit");
             return (AuthorListResult)cacheResult;
         } else {
+            logger.info("Getting MET_AUTH - Cache miss");
             QueryResult q = manager.getAuthorList(queryUrl);
             setObject(q, queryUrl);
             return q;
@@ -139,8 +144,10 @@ public class CacheHandler {
     {
         Object cacheResult = getObject(queryUrl);
         if(cacheResult!=null) {
+            logger.info("Getting MET_JOURN - Cache hit");
             return (JournalListResult)cacheResult;
         } else {
+            logger.info("Getting MET_JOURN - Cache miss");
              QueryResult q = manager.getJournalList(queryUrl);
             setObject(q, queryUrl);
             return q;
@@ -152,8 +159,10 @@ public class CacheHandler {
     {
         Object cacheResult = getObject(queryUrl);
         if(cacheResult!=null) {
+            logger.info("Getting AUTH_PROF - Cache hit");
             return (AuthorResult)cacheResult;
         } else {
+            logger.info("Getting AUTH_PROF - Cache miss");
             QueryResult q = manager.getCompleteAuthorFromMetric(queryUrl);
             setObject(q, queryUrl);
             return q;
@@ -165,8 +174,10 @@ public class CacheHandler {
     {
         Object cacheResult = getObject(queryUrl);
         if(cacheResult!=null) {
+            logger.info("Getting JOURN_PROF - Cache hit");
             return (JournalResult)cacheResult;
         } else {
+            logger.info("Getting JOURN_PROF - Cache miss");
             QueryResult q = manager.getCompleteJournalFromMetric(queryUrl);
             setObject(q, queryUrl);
             return q;

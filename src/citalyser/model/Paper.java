@@ -8,9 +8,10 @@ package citalyser.model;
  *
  * @author rohan
  */
+import java.io.Serializable;
 import java.util.*;
 
-public class Paper {
+public class Paper implements Serializable {
 
     private String url;
     private String cited_by_url;

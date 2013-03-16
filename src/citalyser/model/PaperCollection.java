@@ -8,10 +8,11 @@ package citalyser.model;
  *
  * @author rohan
  */
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class PaperCollection {
+public class PaperCollection implements Serializable {
 
     private int h_index;
     private int i_index;

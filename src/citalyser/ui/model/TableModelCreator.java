@@ -27,7 +27,7 @@ public class TableModelCreator {
             data[i][2] = papers.get(i).getYear();
             data[i][3] = Integer.toString(papers.get(i).getNumCites());
             data[i][4] = convertToString(papers.get(i).getAuthors());
-            data[i][5] = convertToString(papers.get(i).getJournals());
+            data[i][5] = (papers.get(i).getJournals().get(0).getName());
         }
 
         TableModel tableModel = new DefaultTableModel(data, columnNames);
