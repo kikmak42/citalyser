@@ -161,7 +161,7 @@ public class DisplayMaster {
 
     public void renderPaperCollection(PaperCollection paperCollection) {
         //mainFrame.getRegularDisplayPanel().getContentDisplayPanel().getTableDisplayPanel().setTable(TableModelCreator.getTableModel(paperCollection));
-        
+        mainFrame.getRegularDisplayPanel().getContentDisplayPanel().flipToTableDisplayPanel();
     }
     
     public boolean checkAuthorMode(){

@@ -69,8 +69,8 @@ public class Query{
             return this;
         }
 
-        public Builder startYear(int startYear) {
-            this.start_result = startYear;
+        public Builder startResult(int startResult) {
+            this.start_result = startResult;
             return this;
         }
 

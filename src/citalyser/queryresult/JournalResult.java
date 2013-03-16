@@ -5,7 +5,9 @@
 package citalyser.queryresult;
 
 import citalyser.model.Journal;
+import citalyser.model.Paper;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -23,5 +25,15 @@ public class JournalResult extends QueryResult<Journal> implements Serializable 
     @Override
     public Journal getContents() {
         return this.journal;
+    }
+    
+    @Override
+    public void appendContents(Journal j){
+        ArrayList<Paper> p = this.journal.getPaperCollection().getPapers();
+        ArrayList<Paper> temp = j.getPaperCollection().getPapers();
+        int i;
+        for(i=0; i<temp.size(); i++){
+            p.add(temp.get(i));
+        }
     }
 }

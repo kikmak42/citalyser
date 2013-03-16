@@ -32,4 +32,9 @@ public class AuthorListResult extends QueryResult<ArrayList<Author>> implements 
     public ArrayList<Author> getContents() {
         return this.authorList;
     }
+    
+    @Override
+    public void appendContents(ArrayList<Author> a){
+        
+    }
 }
