@@ -155,9 +155,9 @@ public class Parser {
 
     //this function takes the title of a paper and the source string and returns an arraylist of authors of that paper
     public static QueryResult<PaperCollection> extractInfo(String source) {
-        QueryResult<PaperCollection> q= new PaperCollectionResult();
+        QueryResult<PaperCollection> q = new PaperCollectionResult();
         Parser.source = source;
-        
+
         extractedPapers = new PaperCollection();
         papers = new ArrayList<Paper>();
         citedbyList = new ArrayList<String>();
@@ -310,11 +310,13 @@ public class Parser {
                 Element section = citation_section.get(0);
                 String citation_count;
                 try {
-                    if (section.text().split(" ")[0] == "Cited") {
-                        citation_count = section.text().split(" ")[2];
-                    } else {
-                        citation_count = "0";
+                    String[] str = section.text().split(" ");
+                    logger.debug("###"+Arrays.toString(str)+"###");
+                    if (str[0].equals("Cited")) {
+                        citation_count = str[2];
                     }
+                    else
+                        citation_count="0";
                 } catch (Exception e) {
                     citation_count = "0";
                 }
@@ -328,7 +330,7 @@ public class Parser {
         }
         extractedPapers.setPapers(papers);
         for (Paper p : papers) {
-            logger.debug(p.getAuthors());
+            logger.debug(p.getCitations());
         }
         q.setContents(extractedPapers);
         return q;
@@ -436,7 +438,7 @@ public class Parser {
         Author author = new Author(null);
         PaperCollection pc = new PaperCollection();
         ArrayList<Paper> papers = new ArrayList<Paper>();
-        
+
         doc = Jsoup.parse(src, "UTF-8");
         Elements items = doc.select("table.cit-table");
         System.out.println(items.isEmpty());
@@ -444,7 +446,7 @@ public class Parser {
 
         if (!items.isEmpty()) {
             for (Element item : items) {
-                
+
                 //Elements rows = item.select("tr.cit-table item");
                 System.out.println("inside for loop");
                 Elements rows = item.select(".item");
@@ -465,7 +467,7 @@ public class Parser {
                         //logger.debug("title_name" + title_name);
                         papr.setTitle(title_name);
                         papr.setUrl(title_link);
-                        
+
                     }
                     //extracting the names of the authors
                     Elements desc_section = row.select("span.cit-gray");
@@ -477,7 +479,7 @@ public class Parser {
                             authors_list = desc_section.get(0).text();
                             String[] author_names = authors_list.split(",");
                             names = Arrays.toString(author_names);
-                            for(String name : author_names){
+                            for (String name : author_names) {
                                 Author paper_author = new Author(name);
                                 paper_authors.add(paper_author);
                             }
@@ -492,7 +494,7 @@ public class Parser {
                             journal = desc_section.get(1).text();
                             Journal jrnl = new Journal(journal);
                             paper_jrnl.add(jrnl);
-                            
+
                             //logger.debug("journal names" + journal);
 
                         } catch (Exception e) {
@@ -553,12 +555,12 @@ public class Parser {
                     logger.debug(papr.getAbstract());
                     papers.add(papr);
                 }
-                
+
             }
 
 
         }
-        
+
 
         items = doc.select(".g-section");
         logger.debug("items " + items.isEmpty());
@@ -571,17 +573,17 @@ public class Parser {
                 Elements a_tags = co_author_section.select("a");
                 if (!a_tags.isEmpty()) {
                     for (Element a_tag : a_tags) {
-                        
+
                         String link = url + a_tag.attr("href");
                         co_authors_links.add(link);
                         co_authors.add(a_tag.text());
                         //to prevent view all co-authors link to be returned in result
-                        if(!a_tag.text().equals("View all co-authors")){
+                        if (!a_tag.text().equals("View all co-authors")) {
                             Author authr = new Author(a_tag.text());
                             authr.setProfilelink(link);
                             co_author_list.add(authr);
                         }
-                        
+
                     }
 
                 }
@@ -592,15 +594,15 @@ public class Parser {
 
 
         }
-        
+
         //logger.debug(co_authors_links);
         //logger.debug(co_authors);
-        
-        for(Author co_author : co_author_list){
+
+        for (Author co_author : co_author_list) {
             logger.debug(co_author.getName());
             logger.debug(co_author.getProfileLink());
         }
-        
+
         pc.setPapers(papers);
         author.setPaperCollection(pc);
         author.setCoAuthors(co_author_list);
@@ -613,13 +615,13 @@ public class Parser {
 
     public static QueryResult<Author> getAuthors(String input) {
 
-        QueryResult<ArrayList<Author>> q = new AuthorListResult(); 
+        QueryResult<ArrayList<Author>> q = new AuthorListResult();
         logger.debug("############## " + q.getContents());
         //AuthorResult alr = new AuthorResult();
         ArrayList<Author> authorList = new ArrayList<>();
         int citations;
         String name, imglink;
-        String url,userid;
+        String url, userid;
         String details, university;
         String[] parseddetails;
         doc = Jsoup.parse(input, "UTF-8");
@@ -642,8 +644,8 @@ public class Parser {
                 citations = 0;
                 university = details.substring(details.length() - name.length());
             }
-            String str ;
-            str= url.split("user=")[0];
+            String str;
+            str = url.split("user=")[0];
             //userid = url.substring(str.length()+5,str.split("&")[]);
             author.setName(name);
             author.setUniversity(university);
@@ -663,6 +665,6 @@ public class Parser {
             logger.debug("citations:" + author.getTotalCitations());
         }
         q.setContents(authorList);
-        return null; 
+        return null;
     }
 }
