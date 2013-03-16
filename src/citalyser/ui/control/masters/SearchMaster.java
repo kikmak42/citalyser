@@ -77,11 +77,11 @@ public class SearchMaster {
     }
 
     public Query createQuery(SearchPanel searchPanel) {
-        /*if (displayMaster.checkAuthorMode()) {
-            return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_AUTH).numResult(20).minYear(1900).maxYear(2013).build();
+        if (displayMaster.checkAuthorMode()) {
+            return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_AUTH).numResult(20).minYear(1900).maxYear(2013).build();
+
         } else {
             return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_JOURN).numResult(20).minYear(1900).maxYear(2013).build();
-        }*/
-        return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_AUTH).numResult(20).minYear(1900).maxYear(2013).build();
+        }
     }
 }

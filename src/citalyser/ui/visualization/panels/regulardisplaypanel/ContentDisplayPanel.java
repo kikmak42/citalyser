@@ -70,4 +70,8 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
     public void flipToGridDisplayPanel() {
         ((java.awt.CardLayout) this.getLayout()).last(this);
     }
+
+    public void flipToTableDisplayPanel() {
+        ((java.awt.CardLayout) this.getLayout()).first(this);
+    }
 }

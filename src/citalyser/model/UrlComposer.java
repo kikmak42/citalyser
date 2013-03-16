@@ -31,7 +31,7 @@ public class UrlComposer {
         URL +="as_yhi=" + q.max_year + "&";
         URL +="num=" + q.num_results + "&";
         URL += "scisbd=" + q.sort_flag + "&";
-        URL +="btnG=&hl=en&as_sdt=1%2C5";
+        URL +="btnG=&hl=en&as_sdt=1%2C5&as_vis=1";
         return URL;
     }
     
@@ -52,7 +52,7 @@ public class UrlComposer {
         URL +="as_yhi=" + q.max_year + "&";
         URL +="num=" + q.num_results + "&";
         URL += "scisbd=" + q.sort_flag + "&";
-        URL +="btnG=&hl=en&as_sdt=1%2C5";
+        URL +="btnG=&hl=en&as_sdt=1%2C5&as_vis=1";
         return URL;
     }
     
