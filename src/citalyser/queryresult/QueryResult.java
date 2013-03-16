@@ -4,12 +4,14 @@
  */
 package citalyser.queryresult;
 
+import java.io.Serializable;
+
 /**
  *
  * @author sahil
  */
 
-public abstract class QueryResult<T> {
+public abstract class QueryResult<T> implements Serializable{
 
     abstract public void setContents(T t);
     abstract public T getContents();

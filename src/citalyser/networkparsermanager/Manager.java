@@ -22,7 +22,7 @@ public class Manager {
     public QueryResult getAuthorPapersFromScholar(String url)
     {
         String html = HttpConnection.getUrlText(url);
-        logger.info("GettingAuthorPapers from Network"+url);
+        logger.info("GettingAuthorPapers from Network - "+url);
         return Parser.extractInfo(html);
     }
     

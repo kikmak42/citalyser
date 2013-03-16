@@ -1,5 +1,6 @@
 package citalyser.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
@@ -8,7 +9,7 @@ import java.util.TreeSet;
  *
  * @author rohan
  */
-public class Author {
+public class Author implements Serializable {
         private String name;
         private String id;
         private double no_cites_per_paper;

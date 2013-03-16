@@ -42,7 +42,7 @@ public class CacheHandler {
         try{
             finputstream = new FileInputStream(file);
         } catch(FileNotFoundException e) {
-            logger.error("Error opening Cache file : " + e.getMessage());
+            logger.error("Cache file not found: " + e.getMessage());
             return null;
         }
         Object result;
@@ -98,11 +98,18 @@ public class CacheHandler {
         Object cacheResult = getObject(queryUrl);
         if(cacheResult!=null) {
             logger.info("Getting GEN_AUTH - Cache hit");
-            return (PaperCollectionResult)cacheResult;
+            //System.out.println("CacheContent class type :" + cacheResult.getClass().getName());
+            PaperCollectionResult q = (PaperCollectionResult)cacheResult;
+            //System.out.println("From getAuthorPapers-cache- : "+((PaperCollectionResult)q).toString());
+            return q;
         } else {
-            logger.debug("Getting GEN_AUTH - Cache miss.");
+            logger.info("Getting GEN_AUTH - Cache miss.");
             QueryResult q = manager.getAuthorPapersFromScholar(queryUrl);
+           /* PaperCollectionResult pColl = (PaperCollectionResult)q;
+            if(pColl.getContents() != null)
+                System.out.println("From getAuthorPapers-network- : "+pColl.getContents().toString());
             setObject(q, queryUrl);
+            */
             return q;
         }
     }
