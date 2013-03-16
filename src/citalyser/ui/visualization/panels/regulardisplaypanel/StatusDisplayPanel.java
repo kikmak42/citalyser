@@ -4,41 +4,22 @@
  */
 
 /*
- * ExtraPanel.java
+ * StatusDisplayPanel.java
  *
- * Created on Mar 11, 2013, 10:54:35 PM
+ * Created on Mar 17, 2013, 3:12:45 AM
  */
-package citalyser.ui.visualization.panels;
-
-import citalyser.ui.control.DisplayMaster;
-import citalyser.ui.visualization.panels.external.SettingsPanel;
+package citalyser.ui.visualization.panels.regulardisplaypanel;
 
 /**
  *
  * @author Tanmay Patil
  */
-public class ExtraPanel extends javax.swing.JPanel {
+public class StatusDisplayPanel extends javax.swing.JPanel {
 
-    /** Creates new form ExtraPanel */
-    public ExtraPanel() {
+    /** Creates new form StatusDisplayPanel */
+    public StatusDisplayPanel() {
         initComponents();
-        settingsPanel = new SettingsPanel();
-        this.setLayout(new java.awt.GridBagLayout());
-        add(settingsPanel);
-        setBackground(new java.awt.Color(0, 0, 0, 150));
     }
-    
-    public void setDisplayMaster(DisplayMaster displayMaster) {
-        this.displayMaster = displayMaster;
-        settingsPanel.setDisplayMaster(displayMaster);
-    }
-
-    public SettingsPanel getSettingsPanel() {
-        return settingsPanel;
-    }
-            
-    private DisplayMaster displayMaster;
-    private SettingsPanel settingsPanel;
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -53,11 +34,11 @@ public class ExtraPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1349, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -35,7 +35,7 @@ public class QueryResultRenderingHandler {
         if (queryResult instanceof AuthorListResult) {
             displayMaster.renderAuthorList((ArrayList<Author>) queryResult.getContents());
         } else if (queryResult instanceof AuthorResult) {
-            
+            displayMaster.renderAuthorProfile((Author) queryResult.getContents());
         } else if (queryResult instanceof JournalListResult) {
             
         } else if (queryResult instanceof JournalResult) {

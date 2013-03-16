@@ -12,8 +12,8 @@ package citalyser.ui.visualization.panels;
 
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.MainFrame;
-import citalyser.ui.visualization.panels.regulardisplaypanel.ContentDisplayPanel;
-import citalyser.ui.visualization.panels.regulardisplaypanel.DetailsDisplayPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.ContentDisplayPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.HeaderPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.SidebarPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.ToolsPanel;
@@ -75,8 +75,8 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
         headerPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.HeaderPanel();
         toolsPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.ToolsPanel();
         jSplitPane1 = new javax.swing.JSplitPane();
-        contentDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.ContentDisplayPanel();
-        detailsDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.DetailsDisplayPanel();
+        contentDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.ContentDisplayPanel();
+        detailsDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel();
         sidebarPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.SidebarPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -117,8 +117,8 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private citalyser.ui.visualization.panels.regulardisplaypanel.ContentDisplayPanel contentDisplayPanel;
-    private citalyser.ui.visualization.panels.regulardisplaypanel.DetailsDisplayPanel detailsDisplayPanel;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.ContentDisplayPanel contentDisplayPanel;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel detailsDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.HeaderPanel headerPanel;
     private javax.swing.JSplitPane jSplitPane1;
     private citalyser.ui.visualization.panels.regulardisplaypanel.SidebarPanel sidebarPanel;

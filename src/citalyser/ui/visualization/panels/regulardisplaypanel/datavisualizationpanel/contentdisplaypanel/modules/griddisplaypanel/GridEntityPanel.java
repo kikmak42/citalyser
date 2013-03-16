@@ -8,12 +8,10 @@
  *
  * Created on Mar 15, 2013, 1:47:06 AM
  */
-package citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel.griddisplaypanel;
+package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.griddisplaypanel;
 
 import citalyser.model.Author;
 import citalyser.ui.control.DisplayMaster;
-import java.net.MalformedURLException;
-import java.net.URL;
 import org.apache.log4j.Logger;
 
 /**
@@ -27,9 +25,7 @@ public class GridEntityPanel extends javax.swing.JPanel {
     /** Creates new form GridEntityPanel */
     public GridEntityPanel(Author author) {
         initComponents();
-            //logger.debug("Input src: " + author.getImageSrc());
-            //URL url = new URL("http://" + author.getImageSrc());
-            //logger.debug(url.getHost());
+        this.author = author;
         jLabel1.setIcon(new javax.swing.ImageIcon("http://" + author.getImageSrc()));
         jLabel2.setText(author.getName());
         jLabel3.setText("<html>" + author.getUniversity());
@@ -45,6 +41,7 @@ public class GridEntityPanel extends javax.swing.JPanel {
     }
     
     private DisplayMaster displayMaster;
+    private Author author;
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -61,11 +58,16 @@ public class GridEntityPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(275, 100));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setOpaque(true);
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 12));
         jLabel2.setText("Name of the Author");
 
         jLabel3.setText("University and e-mail id");
@@ -99,6 +101,11 @@ public class GridEntityPanel extends javax.swing.JPanel {
             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        displayMaster.authorGridEntityClicked(author.getId());
+    }//GEN-LAST:event_formMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

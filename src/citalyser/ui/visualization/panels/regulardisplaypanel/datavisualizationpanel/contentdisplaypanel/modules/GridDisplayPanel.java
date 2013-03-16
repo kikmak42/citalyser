@@ -8,10 +8,10 @@
  *
  * Created on Mar 15, 2013, 1:45:41 AM
  */
-package citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel;
+package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules;
 
 import citalyser.ui.control.DisplayMaster;
-import citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel.griddisplaypanel.GridEntityPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.griddisplaypanel.GridEntityPanel;
 import java.util.Vector;
 
 /**
@@ -29,7 +29,7 @@ public class GridDisplayPanel extends javax.swing.JPanel {
     public void addGridEntityPanel(GridEntityPanel gridEntityPanel) {
         gridEntityPanel.setDisplayMaster(displayMaster);
         gridEntityPanels.add(gridEntityPanel);
-        this.add(gridEntityPanel);
+        jPanel1.add(gridEntityPanel);
     }    
 
     public void setGridEntityPanels(Vector<GridEntityPanel> gridEntityPanels) {
@@ -62,7 +62,18 @@ public class GridDisplayPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
+
+        setLayout(new java.awt.BorderLayout());
+
+        jScrollPane1.setViewportView(jPanel1);
+
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

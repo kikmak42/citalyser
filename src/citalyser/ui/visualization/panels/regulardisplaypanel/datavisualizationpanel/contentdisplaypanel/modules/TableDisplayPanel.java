@@ -8,7 +8,7 @@
  *
  * Created on Mar 15, 2013, 1:44:48 AM
  */
-package citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel;
+package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules;
 
 import citalyser.ui.control.DisplayMaster;
 import javax.swing.JTable;

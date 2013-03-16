@@ -7,6 +7,8 @@ package citalyser.ui.control;
 import citalyser.Main;
 import citalyser.model.Author;
 import citalyser.model.PaperCollection;
+import citalyser.queryhandler.Query;
+import citalyser.queryhandler.QueryHandler;
 import citalyser.ui.control.masters.SearchMaster;
 import citalyser.ui.control.masters.SettingsMaster;
 import citalyser.ui.control.switchers.QueryResultRenderingHandler;
@@ -14,9 +16,9 @@ import citalyser.ui.model.TableModelCreator;
 import citalyser.util.CProxy;
 
 import citalyser.ui.visualization.MainFrame;
-import citalyser.ui.visualization.panels.ExtraPanel;
+import citalyser.ui.visualization.panels.ExternalPanel;
 import citalyser.ui.visualization.panels.common.SearchPanel;
-import citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel.griddisplaypanel.GridEntityPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.griddisplaypanel.GridEntityPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ public class DisplayMaster {
     
     private MainFrame mainFrame;
     private javax.swing.JDialog settingsDialog;
-    private ExtraPanel extraPanel;
+    private ExternalPanel extraPanel;
     
     private SettingsMaster settingsMaster;
     private SearchMaster searchMaster;
@@ -44,7 +46,7 @@ public class DisplayMaster {
         mainFrame = new MainFrame();
         mainFrame.setDisplayMaster(this);
         mainFrame.setVisible(true);
-        extraPanel = new ExtraPanel();
+        extraPanel = new ExternalPanel();
         extraPanel.setDisplayMaster(this);
         settingsMaster = new SettingsMaster(extraPanel);
         searchMaster = new SearchMaster(this);
@@ -158,7 +160,7 @@ public class DisplayMaster {
     }
 
     public void renderPaperCollection(PaperCollection paperCollection) {
-        mainFrame.getRegularDisplayPanel().getContentDisplayPanel().getTableDisplayPanel().setTable(TableModelCreator.getTableModel(paperCollection));
+        //mainFrame.getRegularDisplayPanel().getContentDisplayPanel().getTableDisplayPanel().setTable(TableModelCreator.getTableModel(paperCollection));
         
     }
     
@@ -170,12 +172,20 @@ public class DisplayMaster {
     public void renderAuthorList(ArrayList<Author> arrayList) {
         if (arrayList != null) {
             for (Author author : arrayList) {
-                mainFrame.getRegularDisplayPanel().getContentDisplayPanel().getGridDisplayPanel().addGridEntityPanel(new GridEntityPanel(author));
+                //mainFrame.getRegularDisplayPanel().getContentDisplayPanel().getGridDisplayPanel().addGridEntityPanel(new GridEntityPanel(author));
             }
             mainFrame.getRegularDisplayPanel().getContentDisplayPanel().flipToGridDisplayPanel();
         } else {
             Main.getDisplayController().displayErrorMessage("Null Author List");
         }
+    }
+
+    public void authorGridEntityClicked(String id) {
+        queryResultRenderingHandler.render(QueryHandler.getInstance().getQueryResult(new Query.Builder("").ID(id).build()));
+    }
+
+    public void renderAuthorProfile(Author author) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
 

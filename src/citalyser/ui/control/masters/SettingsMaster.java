@@ -4,7 +4,7 @@
  */
 package citalyser.ui.control.masters;
 
-import citalyser.ui.visualization.panels.ExtraPanel;
+import citalyser.ui.visualization.panels.ExternalPanel;
 import citalyser.util.CProxy;
 
 /**
@@ -13,9 +13,9 @@ import citalyser.util.CProxy;
  */
 public class SettingsMaster {
     
-    private ExtraPanel extraPanel;
+    private ExternalPanel extraPanel;
 
-    public SettingsMaster(ExtraPanel extraPanel) {
+    public SettingsMaster(ExternalPanel extraPanel) {
         this.extraPanel = extraPanel;
     }
 

@@ -78,7 +78,6 @@ public class UrlComposer {
     
     public static String getAuthProfUrl(Query q)
     {
-        String query_name = q.name;
         String URL = new String();
         URL = "http://scholar.google.co.in/citations?hl=en&";
         URL += "view_op=list_works&pagesize=100";

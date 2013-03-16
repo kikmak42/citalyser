@@ -8,7 +8,7 @@
  *
  * Created on Mar 16, 2013, 12:57:17 AM
  */
-package citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel;
+package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules;
 
 /**
  *

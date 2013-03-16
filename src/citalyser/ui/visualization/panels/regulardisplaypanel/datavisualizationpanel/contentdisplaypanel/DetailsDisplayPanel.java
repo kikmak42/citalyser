@@ -8,7 +8,7 @@
  *
  * Created on Mar 9, 2013, 4:22:42 PM
  */
-package citalyser.ui.visualization.panels.regulardisplaypanel;
+package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel;
 
 import citalyser.ui.control.DisplayMaster;
 
@@ -42,9 +42,10 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
         jList1 = new javax.swing.JList();
 
         setBackground(new java.awt.Color(153, 153, 255));
+        setLayout(new java.awt.CardLayout());
 
         jList1.setBackground(new java.awt.Color(204, 204, 255));
-        jList1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jList1.setFont(new java.awt.Font("Arial", 1, 14));
         jList1.setForeground(new java.awt.Color(0, 51, 153));
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -53,16 +54,7 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jList1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-        );
+        add(jScrollPane1, "card2");
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList jList1;

@@ -8,12 +8,12 @@
  *
  * Created on Mar 9, 2013, 3:20:35 AM
  */
-package citalyser.ui.visualization.panels.regulardisplaypanel;
+package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel;
 
 import citalyser.queryresult.QueryResult;
 import citalyser.ui.control.DisplayMaster;
-import citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel.GridDisplayPanel;
-import citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel.TableDisplayPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.GridDisplayPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel;
 
 /**
  *
@@ -28,16 +28,6 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
     
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
-        tableDisplayPanel.setDisplayMaster(displayMaster);
-        gridDisplayPanel.setDisplayMaster(displayMaster);
-    }
-
-    public TableDisplayPanel getTableDisplayPanel() {
-        return tableDisplayPanel;
-    }
-
-    public GridDisplayPanel getGridDisplayPanel() {
-        return gridDisplayPanel;
     }
     
     public void showResults(QueryResult queryResult) {
@@ -55,16 +45,9 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tableDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel.TableDisplayPanel();
-        gridDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel.GridDisplayPanel();
-
         setLayout(new java.awt.CardLayout());
-        add(tableDisplayPanel, "card2");
-        add(gridDisplayPanel, "card3");
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel.GridDisplayPanel gridDisplayPanel;
-    private citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel.TableDisplayPanel tableDisplayPanel;
     // End of variables declaration//GEN-END:variables
 
     public void flipToGridDisplayPanel() {
