@@ -277,9 +277,9 @@ public class ProxyPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void setPreviousProxyData(CProxy proxy) {
-        jTextField1.setText(proxy.host);
-        jTextField2.setText(Integer.toString(proxy.port));
-        jTextField3.setText(proxy.username);
-        jPasswordField1.setText(proxy.password);
+        jTextField1.setText(proxy.getHostName());
+        jTextField2.setText(Integer.toString(proxy.getPort()));
+        jTextField3.setText(proxy.getUsername());
+        jPasswordField1.setText(proxy.getPassword());
     }
 }

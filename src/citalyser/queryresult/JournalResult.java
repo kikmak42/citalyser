@@ -5,12 +5,13 @@
 package citalyser.queryresult;
 
 import citalyser.model.Journal;
+import java.io.Serializable;
 
 /**
  *
  * @author KRISHNA
  */
-public class JournalResult extends QueryResult<Journal> {
+public class JournalResult extends QueryResult<Journal> implements Serializable {
 
     private Journal journal;
 
