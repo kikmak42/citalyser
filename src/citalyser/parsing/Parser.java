@@ -28,15 +28,15 @@ import org.jsoup.select.Elements;
  */
 public class Parser {
 
-    private static Logger logger = Logger.getLogger(Parser.class.getName());
-    static public String source;
-    static Document doc;
-    static private PaperCollection extractedPapers;
-    static private ArrayList<Paper> papers;
-    static public ArrayList<String> citedbyList;
-    static private String names;
+    private Logger logger = Logger.getLogger(Parser.class.getName());
+    public String source;
+    Document doc;
+    private PaperCollection extractedPapers;
+    private ArrayList<Paper> papers;
+    public ArrayList<String> citedbyList;
+    private String names;
 
-    private static String splitjournal_year(String string, int type) {
+    private String splitjournal_year(String string, int type) {
         String[] splitarr;
         int flag = 0;
 
@@ -84,43 +84,11 @@ public class Parser {
                     return "0";
                 }
 
-                /*
-                 if (splitarr.length == 2) {
-                 //                    if (flag == 1) {
-                 //                        return splitarr[0] + "…";
-                 //                    } else {
-                 //                        try {
-                 //                            Integer.parseInt(splitarr[1]);
-                 //                            return splitarr[0];
-                 //                        } catch (Exception e) {
-                 //                            return splitarr[0] + splitarr[1];
-                 //                        }
-                 //                    }
-                 return splitarr[1];
-                 }
-
-                 if (splitarr.length == 1) {
-                 try {
-                 Integer.parseInt(splitarr[0]);
-                 return splitarr[0];
-                 } catch (Exception e) {
-                 return "0";
-                 }
-                 }
-                 */
             }
 
         }
         return null;
     }
-
-    public Parser(String source) {
-        this.source = source;
-        extractedPapers = new PaperCollection();
-        papers = new ArrayList<Paper>();
-
-    }
-    //Author a= new Author("dvc");
 
     public static void main(String args[]) {
         PropertyConfigurator.configure("log4j.properties");
@@ -148,19 +116,19 @@ public class Parser {
         }
 
 
-
-        extractInfo(returnValue);
+        Parser p = new Parser();
+        p.extractInfo(returnValue);
 
     }
 
     //this function takes the title of a paper and the source string and returns an arraylist of authors of that paper
-    public static QueryResult<PaperCollection> extractInfo(String source) {
+    public QueryResult<PaperCollection> extractInfo(String source) {
         QueryResult<PaperCollection> q = new PaperCollectionResult();
-        Parser.source = source;
-
+        this.source = source;
         extractedPapers = new PaperCollection();
         papers = new ArrayList<Paper>();
         citedbyList = new ArrayList<String>();
+        String citations_link="";
 
         String jrnl;
         String year;
@@ -185,13 +153,8 @@ public class Parser {
 
             }
 
-            Elements author_section_a = item.select(".gs_a > a");
-            for (Element author : author_section_a) {
-                String author_name = author.text();//getting the author name
-                String url = "http://scholar.google.com";
-                String citations_link = url + author.attr("href");
-            }
-////////////////////////////////////////////////////////////////////////////////////////////////////
+            
+/////////////////////////////////////////////////////`///////////////////////////////////////////////
             Elements author_section_b = item.select(".gs_a");
             if (!author_section_b.isEmpty()) {
                 Element section = author_section_b.get(0);
@@ -231,6 +194,23 @@ public class Parser {
                         authorsinPaper.add(authorinpaper);
                     }
                 }
+
+
+                Elements citation_section = item.select(".gs_fl > a");
+                if (!author_section_b.isEmpty()) {
+                    Element section_ = citation_section.get(0);
+                    String url = "http://scholar.google.com";
+                    try {
+                        citations_link = url + section_.attr("href");
+                        citedbyList.add(citations_link);
+                    } catch (Exception e) {
+                        citations_link = "";
+
+                    }
+
+                }
+
+                insertInextractedpapers.setCitedByUrl(citations_link);
                 insertInextractedpapers.setYear(yearint);
                 insertInextractedpapers.setAuthors(authorsinPaper);
 
@@ -254,9 +234,9 @@ public class Parser {
                     String[] str = section.text().split(" ");
                     if (str[0].equals("Cited")) {
                         citation_count = str[2];
+                    } else {
+                        citation_count = "0";
                     }
-                    else
-                        citation_count="0";
                 } catch (Exception e) {
                     citation_count = "0";
                 }
@@ -268,32 +248,22 @@ public class Parser {
 
         }
         extractedPapers.setPapers(papers);
-        for(Paper p : papers){
-            logger.debug(p.getJournals().get(0).getName());
+        for (Paper p : papers) {
+            logger.debug(p.getcitedByUrl());
         }
         q.setContents(extractedPapers);
         return q;
 
     }
 
-    public static void extractProfileInfo(String file) {
+    public void extractProfileInfo(String file) {
         doc = Jsoup.parse(file, "UTF-8");
         Elements items = doc.select("div.gs_r");
 
         if (!items.isEmpty()) {
 
             for (Element item : items) {
-                /*
-                 Elements title_section = item.select("h3.gs_rt>a");
-                 if (!title_section.isEmpty()) {
-                 Element section = title_section.get(0);//getting the first element of this array
-                 String title = section.text();
-                 String href = section.attr("href");
-                 //insertInextractedpapers.setTitle(title);
-                       
 
-                 }
-                 */
                 Elements author_section = item.select("h4.gs_rt2");
                 if (!author_section.isEmpty()) {
                     for (Element section : author_section) {
@@ -319,51 +289,7 @@ public class Parser {
 
     }
 
-    public static ArrayList<String> extractCitedbyLinks(String source) {
-        Parser.source = source;
-        citedbyList = new ArrayList<String>();
-        doc = Jsoup.parse(source, "UTF-8");
-        Elements items = doc.select(".gs_ri");
-        //select all items 
-        for (Element item : items) {
-            Elements author_section_b = item.select(".gs_a");
-            //extracting the citation
-            Elements citation_section = item.select(".gs_fl > a");
-            if (!author_section_b.isEmpty()) {
-                Element section = citation_section.get(0);
-                String url = "http://scholar.google.com";
-                String citations_link;
-                String citation_count;
-                try {
-                    citation_count = section.text().split(" ")[2];
-                    citations_link = url + section.attr("href");
-                    citedbyList.add(citations_link);
-                } catch (Exception e) {
-                    citation_count = "0";
-                    citations_link = "";
-
-                }
-
-
-            }
-
-
-
-
-        }
-        return citedbyList;
-    }
-
-    int checkparsednumbermid(String inp) {
-        int ret = 0;
-        try {
-            ret = inp.split("").length;
-        } catch (Exception e) {
-        }
-        return ret;
-    }
-
-    public static QueryResult<Author> extractAuthorProfileInfo(String src) {
+    public QueryResult<Author> extractAuthorProfileInfo(String src) {
         QueryResult<Author> qr_author_result = new AuthorResult();
         //AuthorResult ar =new AuthorResult();
         Author author = new Author(null);
@@ -496,7 +422,6 @@ public class Parser {
 
                 }
             } catch (Exception e) {
-
             }
 
 
@@ -514,7 +439,7 @@ public class Parser {
 
     }
 
-    public static QueryResult<Author> getAuthors(String input) {
+    public QueryResult<Author> getAuthors(String input) {
 
         QueryResult<ArrayList<Author>> q = new AuthorListResult();
         //AuthorResult alr = new AuthorResult();
@@ -556,7 +481,7 @@ public class Parser {
 
         //alr.setContents(authorList);
 
-        
+
         q.setContents(authorList);
         return null;
     }
