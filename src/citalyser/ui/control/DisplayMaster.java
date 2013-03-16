@@ -4,16 +4,13 @@
  */
 package citalyser.ui.control;
 
-
-
-
-import citalyser.queryhandler.Query;
-import citalyser.queryhandler.QueryHandler;
+import citalyser.model.PaperCollection;
 import citalyser.ui.control.masters.SearchMaster;
 import citalyser.ui.control.masters.SettingsMaster;
+import citalyser.ui.control.switchers.QueryResultRenderingHandler;
+import citalyser.ui.model.TableModelCreator;
 import citalyser.util.CProxy;
 
-import citalyser.ui.util.TableModelCreator;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.ExtraPanel;
 import citalyser.ui.visualization.panels.common.SearchPanel;
@@ -34,6 +31,8 @@ public class DisplayMaster {
     private SettingsMaster settingsMaster;
     private SearchMaster searchMaster;
     
+    private QueryResultRenderingHandler queryResultRenderingHandler;
+    
     private static Logger logger = Logger.getLogger(DisplayMaster.class.getName());
 
     public DisplayMaster() {
@@ -43,7 +42,7 @@ public class DisplayMaster {
         extraPanel = new ExtraPanel();
         extraPanel.setDisplayMaster(this);
         settingsMaster = new SettingsMaster(extraPanel);
-        searchMaster = new SearchMaster(mainFrame);
+        searchMaster = new SearchMaster(this);
         settingsDialog = new javax.swing.JDialog(mainFrame);
         settingsDialog.setUndecorated(true);
         settingsDialog.setLocation(mainFrame.getRootPane().getX(), mainFrame.getRootPane().getY());
@@ -52,14 +51,19 @@ public class DisplayMaster {
         settingsDialog.setPreferredSize(new java.awt.Dimension(1349, 692));
         settingsDialog.setBackground(new Color(0, 0, 0, 0));
         settingsDialog.pack();
+        queryResultRenderingHandler = new QueryResultRenderingHandler(this);
+    }
+
+    public MainFrame getMainFrame() {
+        return mainFrame;
     }
 
     public SettingsMaster getSettingsMaster() {
         return settingsMaster;
     }
 
-    public SearchMaster getSearchMaster() {
-        return searchMaster;
+    public QueryResultRenderingHandler getQueryResultRenderingHandler() {
+        return queryResultRenderingHandler;
     }
     
     public void searchKeyPressed(SearchPanel searchPanel, char key) {
@@ -148,8 +152,9 @@ public class DisplayMaster {
         }
     }
 
-    public Query createQuery(SearchPanel searchPanel) {
-        return new Query.Builder(searchPanel.getSearchString()).build();
+    public void renderPaperCollection(PaperCollection paperCollection) {
+        mainFrame.getRegularDisplayPanel().getContentDisplayPanel().getTableDisplayPanel().setTable(TableModelCreator.getTableModel(paperCollection));
     }
+
 
 }

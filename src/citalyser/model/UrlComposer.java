@@ -1,6 +1,10 @@
 package citalyser.model;
 
+import citalyser.Main;
 import citalyser.queryhandler.Query;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.logging.Logger;
 
 
 /**
@@ -12,6 +16,7 @@ public class UrlComposer {
     public static String getGenAuthUrl(Query q)
     {
         String query_name = q.name;
+        query_name = query_name.replaceAll(" ", "+");
         String URL = new String();
         URL =  "http://scholar.google.co.in/scholar?";
         URL +=  "start="+ q.start_result +"&";

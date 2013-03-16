@@ -1,11 +1,12 @@
 package citalyser.queryhandler;
 
-import citalyser.Main;
+
 import citalyser.cache.CacheHandler;
 import citalyser.model.UrlComposer;
 import citalyser.parsing.Parser;
 import citalyser.queryresult.QueryResult;
 import org.apache.log4j.Logger;
+
 
 /**
  *
@@ -19,14 +20,22 @@ public class QueryHandler {
     private UrlComposer url;
     private String queryUrl;
     
-    public QueryHandler()
+    private QueryHandler()
     {
         cacheHandler = new CacheHandler();
         url = new UrlComposer();
         //parser = new Extractdata();
     }
     
-    public QueryResult getQueryResult(Query q){
+    private static class QueryHandlerHolder {
+        private static final QueryHandler queryHandler = new QueryHandler();
+    }
+
+    public static QueryHandler getInstance() {
+        return QueryHandlerHolder.queryHandler;
+    }    
+    
+    public QueryResult<?> getQueryResult(Query q){
         
         switch(q.flag){
             case GEN_AUTH: 

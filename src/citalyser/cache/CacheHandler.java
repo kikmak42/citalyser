@@ -105,11 +105,8 @@ public class CacheHandler {
         } else {
             logger.info("Getting GEN_AUTH - Cache miss.");
             QueryResult q = manager.getAuthorPapersFromScholar(queryUrl);
-           /* PaperCollectionResult pColl = (PaperCollectionResult)q;
-            if(pColl.getContents() != null)
-                System.out.println("From getAuthorPapers-network- : "+pColl.getContents().toString());
             setObject(q, queryUrl);
-            */
+            logger.debug(q);
             return q;
         }
     }

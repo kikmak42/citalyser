@@ -4,6 +4,11 @@
  */
 package citalyser.ui.control.masters;
 
+import citalyser.queryhandler.Query;
+import citalyser.queryhandler.QueryHandler;
+import citalyser.queryhandler.QueryType;
+import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.control.switchers.QueryResultRenderingHandler;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.common.SearchPanel;
 import org.apache.log4j.Logger;
@@ -15,11 +20,13 @@ import org.apache.log4j.Logger;
 public class SearchMaster {
     
     private MainFrame mainFrame;
+    private DisplayMaster displayMaster;
     
     private static Logger logger = Logger.getLogger(SearchMaster.class.getName());
 
-    public SearchMaster(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public SearchMaster(DisplayMaster displayMaster) {
+        this.displayMaster = displayMaster;
+        this.mainFrame = displayMaster.getMainFrame();
     }
     
     public void searchKeyPressed(SearchPanel searchPanel, char key) {
@@ -45,9 +52,16 @@ public class SearchMaster {
     }
      
     public void searchButtonClicked(SearchPanel searchPanel) {
+        final SearchPanel mySearchPanel = searchPanel;
         if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
-            
-            //mainFrame.getRegularDisplayPanel().getContentDisplayPanel().getTableDisplayPanel().setTable(TableModelCreator.getTableModel(QueryHandler.getDetails(null)));
+            new Thread() {
+
+                @Override
+                public void run() {
+                    displayMaster.getQueryResultRenderingHandler().render(QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel)));
+                }
+                
+            }.start();
         } else {
             if (searchPanel.equals(mainFrame.getStartPanel().getAuthorSearchPanel())) {
                 ((java.awt.CardLayout) mainFrame.getContentPane().getLayout()).last(mainFrame.getContentPane());
@@ -63,5 +77,9 @@ public class SearchMaster {
                 }
             }
         }
+    }
+
+    public Query createQuery(SearchPanel searchPanel) {
+        return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_AUTH).numResult(20).minYear(1990).maxYear(2013).build();
     }
 }

@@ -41,9 +41,9 @@ public class ProxyListPanel extends javax.swing.JPanel {
         if (proxyList != null) {
             for (CProxy proxy : proxyList) {
                 String[] rowData = new String[3];
-                rowData[0] = proxy.host;
-                rowData[1] = Integer.toString(proxy.port);
-                rowData[2] = proxy.username;
+                rowData[0] = proxy.getHostName();
+                rowData[1] = Integer.toString(proxy.getPort());
+                rowData[2] = proxy.getUsername();
                 ((javax.swing.table.DefaultTableModel) jTable1.getModel()).addRow(rowData);
             }
         } else {

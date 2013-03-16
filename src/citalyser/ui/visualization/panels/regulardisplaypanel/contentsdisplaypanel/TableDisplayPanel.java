@@ -36,14 +36,6 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     public void setTable(TableModel tm)
     {
         jTable1.setModel(tm);
-        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        int col = jTable1.getColumnCount();
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(15);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(35);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(25);
-        jTable1.getColumnModel().getColumn(3).setPreferredWidth(25);
-        jTable1.getColumnModel().getColumn(4).setPreferredWidth(40);
-        jTable1.getColumnModel().getColumn(5).setPreferredWidth(60);
         jTable1.repaint();
     }
     
