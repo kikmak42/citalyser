@@ -35,4 +35,9 @@ public class PaperCollectionResult extends QueryResult<PaperCollection> implemen
     public PaperCollection getContents() {
         return this.paper_collection;
     }
+    
+    @Override
+    public void appendContents(PaperCollection p){
+        
+    }
 }

@@ -5,7 +5,10 @@
 package citalyser.queryresult;
 
 import citalyser.model.Author;
+import citalyser.model.Paper;
+import citalyser.model.PaperCollection;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -23,5 +26,15 @@ public class AuthorResult extends QueryResult<Author> implements Serializable{
     @Override
     public Author getContents() {
         return this.author;
+    }
+    
+    @Override
+    public void appendContents(Author a){
+        ArrayList<Paper> p = this.author.getPaperCollection().getPapers();
+        ArrayList<Paper> temp = a.getPaperCollection().getPapers();
+        int i;
+        for(i=0; i<temp.size(); i++){
+            p.add(temp.get(i));
+        }
     }
 }

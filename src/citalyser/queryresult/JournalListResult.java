@@ -26,4 +26,13 @@ public class JournalListResult extends QueryResult<ArrayList<Journal>> implement
     public ArrayList<Journal> getContents() {
         return this.journalList;
     }
+    
+    /**
+     *
+     * @param j
+     */
+    @Override
+    public void appendContents(ArrayList<Journal> j){
+        
+    }
 }
