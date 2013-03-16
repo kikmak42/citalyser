@@ -12,6 +12,8 @@ package citalyser.ui.visualization.panels;
 
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.MainFrame;
+import citalyser.ui.visualization.panels.regulardisplaypanel.DataVisualizationPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.StatusDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.ContentDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.HeaderPanel;
@@ -42,6 +44,14 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
 
     public SidebarPanel getSidebarPanel() {
         return sidebarPanel;
+    }
+
+    public DataVisualizationPanel getDataVisualizationPanel() {
+        return dataVisualizationPanel;
+    }
+
+    public StatusDisplayPanel getStatusDisplayPanel() {
+        return statusDisplayPanel;
     }
     
     public void setDisplayMaster(DisplayMaster displayMaster) {
