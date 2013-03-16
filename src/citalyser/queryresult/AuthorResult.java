@@ -5,17 +5,23 @@
 package citalyser.queryresult;
 
 import citalyser.model.Author;
+import java.io.Serializable;
 
 /**
  *
  * @author KRISHNA
  */
-public class AuthorResult  extends QueryResult<AuthorResult>{
+public class AuthorResult extends QueryResult<Author> implements Serializable{
+
     private Author author;
-    public Author getAuthor(){
-       return this.author;
+
+    @Override
+    public void setContents(Author e) {
+        this.author = e;
     }
-    public void setAuthor(Author a){
-        this.author = a;
+
+    @Override
+    public Author getContents() {
+        return this.author;
     }
 }
