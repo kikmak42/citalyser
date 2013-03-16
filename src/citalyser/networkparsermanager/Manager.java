@@ -56,7 +56,7 @@ public class Manager {
         logger.info("GettingAuthorList from Network - "+url);
          String html = HttpConnection.getUrlText(url);
          if(html != null) {
-            return parser.extractInfo(html);
+            return parser.getAuthors(html);
         }else {
              logger.info("null result form httpconnection");
             return null;
