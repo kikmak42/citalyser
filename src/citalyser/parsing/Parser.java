@@ -184,16 +184,7 @@ public class Parser {
                 insertInextractedpapers.setTitle(title);
 
             }
-            //extracting pdf section
-            Elements pdf_section = item.select(".gs_ggs > a");
-            if (!pdf_section.isEmpty()) {
-                Element section = pdf_section.get(0);
-                String pdf = section.attr("href");
 
-
-            }
-
-            //extracting the authors
             Elements author_section_a = item.select(".gs_a > a");
             for (Element author : author_section_a) {
                 String author_name = author.text();//getting the author name
@@ -216,44 +207,14 @@ public class Parser {
                     journalinpaper.setName(jrnl);
                     journalsinPaper.add(journalinpaper);
                     insertInextractedpapers.setJournals(journalsinPaper);
-
-
-//                    try {
-//                        jrnl = list[1].split("…, ")[0] + "…";
-//                    } catch (Exception e) {
-//                        jrnl = list[1].split(", ")[0];
-//                    }
                     year = splitjournal_year(list[1], 2);
                     yearint = Integer.parseInt(year);
-//                    try {
-//                        year = list[1].split("…, ")[1];
-//                        yearint = Integer.parseInt(year);
-//                    } catch (Exception e) {
-//                        try {
-//                            year = list[1].split(", ")[1];
-//                            yearint = Integer.parseInt(year);
-//
-//                        } catch (Exception e1) {
-//                            year = list[1];
-//                            try {
-//                                yearint = Integer.parseInt(year);
-//                                journalinpaper.setName("");
-//                            } catch (Exception e2) {
-//                                yearint = 0;
-//
-//                            }
-//
-//                        }
-//                    }
                     String[] author_names = names.split(",|…");
                     for (String nameinarray : author_names) {
                         Author authorinpaper = new Author(null);
                         authorinpaper.setName(nameinarray);
                         authorsinPaper.add(authorinpaper);
                     }
-
-
-
                 } /////////////////////////////////////////////////////////////////////////////
                 else {//len ==2
                     String names = list[0];
@@ -307,7 +268,9 @@ public class Parser {
 
         }
         extractedPapers.setPapers(papers);
-        
+        for(Paper p : papers){
+            logger.debug(p.getJournals().get(0).getName());
+        }
         q.setContents(extractedPapers);
         return q;
 
@@ -540,8 +503,6 @@ public class Parser {
         }
 
 
-        for (Author co_author : co_author_list) {
-        }
 
         pc.setPapers(papers);
         author.setPaperCollection(pc);
