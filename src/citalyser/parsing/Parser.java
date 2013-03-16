@@ -439,7 +439,7 @@ public class Parser {
 
     }
 
-    public QueryResult<Author> getAuthors(String input) {
+    public QueryResult<ArrayList<Author>> getAuthors(String input) {
 
         QueryResult<ArrayList<Author>> q = new AuthorListResult();
         //AuthorResult alr = new AuthorResult();
