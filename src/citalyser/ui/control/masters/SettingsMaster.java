@@ -51,9 +51,9 @@ public class SettingsMaster {
         }
         extraPanel.getSettingsPanel().getProxyListPanel().getProxyList().add(proxy);
         String[] rowData = new String[3];
-        rowData[0] = proxy.host;
-        rowData[1] = Integer.toString(proxy.port);
-        rowData[2] = proxy.username;
+        rowData[0] = proxy.getHostName();
+        rowData[1] = Integer.toString(proxy.getPort());
+        rowData[2] = proxy.getUsername();
         ((javax.swing.table.DefaultTableModel) extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getModel()).addRow(rowData);
         citalyser.Config.setProxyList(extraPanel.getSettingsPanel().getProxyListPanel().getProxyList());
         extraPanel.getSettingsPanel().flip();
