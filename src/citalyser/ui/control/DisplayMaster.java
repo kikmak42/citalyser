@@ -154,4 +154,8 @@ public class DisplayMaster {
         extraPanel.getSettingsPanel().flip();
         extraPanel.getSettingsPanel().getProxyPanel().setPreviousProxyData(new CProxy("", 0, "", ""));
     }
+
+    void displayErrorMessage(String message) {
+        javax.swing.JOptionPane.showMessageDialog(mainFrame, message, "Error", javax.swing.JOptionPane.PLAIN_MESSAGE);
+    }
 }
