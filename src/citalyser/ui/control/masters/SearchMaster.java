@@ -80,6 +80,6 @@ public class SearchMaster {
     }
 
     public Query createQuery(SearchPanel searchPanel) {
-        return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_AUTH).numResult(20).minYear(1990).maxYear(2013).build();
+        return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_AUTH).numResult(20).minYear(1900).maxYear(2013).build();
     }
 }
