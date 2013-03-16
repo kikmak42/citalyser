@@ -104,6 +104,8 @@ public class HttpConnection {
                 }
             }
         }
+        Main.getDisplayController().displayErrorMessage("We could not connect to Google Scholar from any of the Proxies. "
+                    + "Please check your ProxyList or Try again Later.");
         logger.error("We could not connect to Google Scholar from any of the Proxies. "
                     + "Please check your ProxyList or Try again Later.");
         return null;
