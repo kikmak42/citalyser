@@ -80,6 +80,8 @@ public class HttpConnection {
                     responseCode = connection.getResponseCode();
                     if(responseCode == Constants.OK_Response_Code)
                     {
+                        /* update ProxyList */
+                        updateProxyList(proxies,i);
                         /* Saving the html content */
                         DataInputStream response = new DataInputStream(connection.getInputStream());
                         BufferedReader reader = new BufferedReader(new InputStreamReader(response));
@@ -89,6 +91,7 @@ public class HttpConnection {
                             urlResponse.append(line);
                         }
                         return urlResponse.toString();
+                        
                     }
                 }catch(ConnectException | UnknownHostException ex){
                     //ex.printStackTrace();
@@ -106,9 +109,22 @@ public class HttpConnection {
         }
         logger.error("We could not connect to Google Scholar from any of the Proxies. "
                     + "Please check your ProxyList or Try again Later.");
+        Main.getDisplayController().displayErrorMessage("We could not connect to Google Scholar from any of the Proxies. "
+                    + "Please check your ProxyList or Try again Later.");
         return null;
     }
     
+    public static void updateProxyList(List<CProxy> proxies,int index)
+    {
+        CProxy cproxy = proxies.get(index);
+        if(!cproxy.getnoProxy())
+        {    
+            logger.debug("Shifting proxy to top : " + cproxy.toString());
+            proxies.remove(index);
+            proxies.add(0,cproxy);
+            Config.setProxyList(proxies);
+        }
+    }
     /**
      * Closes the connection if opened
      */
