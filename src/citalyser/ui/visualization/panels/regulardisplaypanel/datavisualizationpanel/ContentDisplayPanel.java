@@ -12,6 +12,8 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 
 import citalyser.queryresult.QueryResult;
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.CentralContentDisplayPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel;
 
 /**
  *
@@ -26,6 +28,14 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
     
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
+    }
+
+    public CentralContentDisplayPanel getCentralContentDisplayPanel() {
+        return centralContentDisplayPanel;
+    }
+
+    public DetailsDisplayPanel getDetailsDisplayPanel() {
+        return detailsDisplayPanel;
     }
     
     public void showResults(QueryResult queryResult) {
@@ -44,20 +54,20 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jSplitPane1 = new javax.swing.JSplitPane();
-        centralContentDisplayPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.CentralContentDisplayPanel();
-        detailsDisplayPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel();
+        centralContentDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.CentralContentDisplayPanel();
+        detailsDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel();
 
         setLayout(new java.awt.BorderLayout());
 
         jSplitPane1.setDividerLocation(400);
-        jSplitPane1.setLeftComponent(centralContentDisplayPanel1);
-        jSplitPane1.setRightComponent(detailsDisplayPanel1);
+        jSplitPane1.setLeftComponent(centralContentDisplayPanel);
+        jSplitPane1.setRightComponent(detailsDisplayPanel);
 
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.CentralContentDisplayPanel centralContentDisplayPanel1;
-    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel detailsDisplayPanel1;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.CentralContentDisplayPanel centralContentDisplayPanel;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel detailsDisplayPanel;
     private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
 

@@ -10,6 +10,12 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel;
 
+import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.GridDisplayPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ListDisplayPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ProfileDisplayPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel;
+
 /**
  *
  * @author Tanmay Patil
@@ -20,6 +26,36 @@ public class CentralContentDisplayPanel extends javax.swing.JPanel {
     public CentralContentDisplayPanel() {
         initComponents();
     }
+
+    public void setDisplayMaster(DisplayMaster displayMaster) {
+        this.displayMaster = displayMaster;
+        gridDisplayPanel.setDisplayMaster(displayMaster);
+        listDisplayPanel.setDisplayMaster(displayMaster);
+        profileDisplayPanel.setDisplayMaster(displayMaster);
+        tableDisplayPanel.setDisplayMaster(displayMaster);
+    }
+
+    public DisplayMaster getDisplayMaster() {
+        return displayMaster;
+    }
+
+    public GridDisplayPanel getGridDisplayPanel() {
+        return gridDisplayPanel;
+    }
+
+    public ListDisplayPanel getListDisplayPanel() {
+        return listDisplayPanel;
+    }
+
+    public ProfileDisplayPanel getProfileDisplayPanel() {
+        return profileDisplayPanel;
+    }
+
+    public TableDisplayPanel getTableDisplayPanel() {
+        return tableDisplayPanel;
+    }
+    
+    private DisplayMaster displayMaster;
 
     /** This method is called from within the constructor to
      * initialize the form.

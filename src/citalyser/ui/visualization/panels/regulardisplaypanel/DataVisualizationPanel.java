@@ -10,6 +10,10 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel;
 
+import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.ContentDisplayPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.GraphViewPanel;
+
 /**
  *
  * @author Tanmay Patil
@@ -20,6 +24,20 @@ public class DataVisualizationPanel extends javax.swing.JPanel {
     public DataVisualizationPanel() {
         initComponents();
     }
+
+    public ContentDisplayPanel getContentDisplayPanel() {
+        return contentDisplayPanel;
+    }
+
+    public GraphViewPanel getGraphViewPanel() {
+        return graphViewPanel;
+    }
+
+    public void setDisplayMaster(DisplayMaster displayMaster) {
+        this.displayMaster = displayMaster;
+    }
+    
+    private DisplayMaster displayMaster;
 
     /** This method is called from within the constructor to
      * initialize the form.

@@ -11,6 +11,8 @@
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel;
 
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.LowerDetailsDisplayPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.UpperDetailsDisplayPanel;
 
 /**
  *
@@ -25,6 +27,16 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
     
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
+        upperDetailsDisplayPanel.setDisplayMaster(displayMaster);
+        lowerDetailsDisplayPanel.setDisplayMaster(displayMaster);
+    }
+
+    public UpperDetailsDisplayPanel getUpperDetailsDisplayPanel() {
+        return upperDetailsDisplayPanel;
+    }
+
+    public LowerDetailsDisplayPanel getLowerDetailsDisplayPanel() {
+        return lowerDetailsDisplayPanel;
     }
             
     private DisplayMaster displayMaster;
@@ -39,8 +51,8 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jSplitPane1 = new javax.swing.JSplitPane();
-        upperDetailsDisplayPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.UpperDetailsDisplayPanel();
-        lowerDetailsDisplayPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.LowerDetailsDisplayPanel();
+        upperDetailsDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.UpperDetailsDisplayPanel();
+        lowerDetailsDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.LowerDetailsDisplayPanel();
 
         setBackground(new java.awt.Color(153, 153, 255));
         setLayout(new java.awt.BorderLayout());
@@ -48,14 +60,14 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
         jSplitPane1.setDividerLocation(0);
         jSplitPane1.setDividerSize(20);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        jSplitPane1.setTopComponent(upperDetailsDisplayPanel1);
-        jSplitPane1.setRightComponent(lowerDetailsDisplayPanel1);
+        jSplitPane1.setTopComponent(upperDetailsDisplayPanel);
+        jSplitPane1.setRightComponent(lowerDetailsDisplayPanel);
 
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSplitPane jSplitPane1;
-    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.LowerDetailsDisplayPanel lowerDetailsDisplayPanel1;
-    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.UpperDetailsDisplayPanel upperDetailsDisplayPanel1;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.LowerDetailsDisplayPanel lowerDetailsDisplayPanel;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.UpperDetailsDisplayPanel upperDetailsDisplayPanel;
     // End of variables declaration//GEN-END:variables
 }
