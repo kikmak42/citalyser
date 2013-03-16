@@ -23,21 +23,21 @@ public class Manager {
     {
         String html = HttpConnection.getUrlText(url);
         logger.info("GettingAuthorPapers from Network - "+url);
-        return Parser.extractInfo(html);
+        return (new Parser()).extractInfo(html);
     }
     
     /* Query Case - GEN_JOURN */
     public QueryResult getJournalPapersFromScholar(String url)
     {
         String html = HttpConnection.getUrlText(url);
-        return Parser.extractInfo(html);
+        return new Parser().extractInfo(html);
     }
     
     /* Query Case - MET_AUTH */
     public QueryResult getAuthorList(String url)
     {
          String html = HttpConnection.getUrlText(url);
-        return Parser.getAuthors(html);
+        return new Parser().getAuthors(html);
     }
     
     /* Query Case - MET_JOURN */
