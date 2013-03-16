@@ -613,7 +613,7 @@ public class Parser {
 
     }
 
-    public static QueryResult<Author> getAuthors(String input) {
+    public static QueryResult<ArrayList<Author>> getAuthors(String input) {
 
         QueryResult<ArrayList<Author>> q = new AuthorListResult();
         logger.debug("############## " + q.getContents());
@@ -665,6 +665,6 @@ public class Parser {
             logger.debug("citations:" + author.getTotalCitations());
         }
         q.setContents(authorList);
-        return null;
+        return q;
     }
 }

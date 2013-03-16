@@ -66,4 +66,8 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
     private citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel.GridDisplayPanel gridDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.contentsdisplaypanel.TableDisplayPanel tableDisplayPanel;
     // End of variables declaration//GEN-END:variables
+
+    public void flipToGridDisplayPanel() {
+        ((java.awt.CardLayout) this.getLayout()).last(this);
+    }
 }

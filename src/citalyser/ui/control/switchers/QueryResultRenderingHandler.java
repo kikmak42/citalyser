@@ -5,6 +5,7 @@
 package citalyser.ui.control.switchers;
 
 import citalyser.Main;
+import citalyser.model.Author;
 import citalyser.model.PaperCollection;
 import citalyser.queryresult.AuthorListResult;
 import citalyser.queryresult.AuthorResult;
@@ -13,6 +14,7 @@ import citalyser.queryresult.JournalResult;
 import citalyser.queryresult.PaperCollectionResult;
 import citalyser.queryresult.QueryResult;
 import citalyser.ui.control.DisplayMaster;
+import java.util.ArrayList;
 import org.apache.log4j.Logger;
 
 /**
@@ -31,7 +33,7 @@ public class QueryResultRenderingHandler {
     
     public void render(QueryResult<?> queryResult) {
         if (queryResult instanceof AuthorListResult) {
-            
+            displayMaster.renderAuthorList((ArrayList<Author>) queryResult.getContents());
         } else if (queryResult instanceof AuthorResult) {
             
         } else if (queryResult instanceof JournalListResult) {

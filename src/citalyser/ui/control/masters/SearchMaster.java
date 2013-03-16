@@ -8,7 +8,6 @@ import citalyser.queryhandler.Query;
 import citalyser.queryhandler.QueryHandler;
 import citalyser.queryhandler.QueryType;
 import citalyser.ui.control.DisplayMaster;
-import citalyser.ui.control.switchers.QueryResultRenderingHandler;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.common.SearchPanel;
 import org.apache.log4j.Logger;
@@ -80,6 +79,6 @@ public class SearchMaster {
     }
 
     public Query createQuery(SearchPanel searchPanel) {
-        return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_AUTH).numResult(20).minYear(1990).maxYear(2013).build();
+        return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_AUTH).numResult(20).minYear(1990).maxYear(2013).build();
     }
 }
