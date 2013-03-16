@@ -578,9 +578,13 @@ public class Parser {
                         String link = url + a_tag.attr("href");
                         co_authors_links.add(link);
                         co_authors.add(a_tag.text());
-                        Author authr = new Author(a_tag.text());
-                        authr.setProfilelink(link);
-                        co_author_list.add(authr);
+                        //to prevent view all co-authors link to be returned in result
+                        if(!a_tag.text().equals("View all co-authors")){
+                            Author authr = new Author(a_tag.text());
+                            authr.setProfilelink(link);
+                            co_author_list.add(authr);
+                        }
+                        
                     }
 
                 }
@@ -594,12 +598,12 @@ public class Parser {
         
         //logger.debug(co_authors_links);
         //logger.debug(co_authors);
-        /*
+        
         for(Author co_author : co_author_list){
             logger.debug(co_author.getName());
             logger.debug(co_author.getProfileLink());
         }
-        */
+        
         pc.setPapers(papers);
         author.setPaperCollection(pc);
         author.setCoAuthors(co_author_list);
