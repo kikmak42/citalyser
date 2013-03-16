@@ -25,23 +25,42 @@ public class Manager {
     }
     public QueryResult getAuthorPapersFromScholar(String url)
     {
-        String html = HttpConnection.getUrlText(url);
         logger.info("GettingAuthorPapers from Network - "+url);
-        return parser.extractInfo(html);
+        String html = HttpConnection.getUrlText(url);
+
+       if(html != null) {
+            return parser.extractInfo(html);
+        }
+       else {
+           logger.info("null result form httpconnection");
+            return null;
+        }
     }
     
     /* Query Case - GEN_JOURN */
     public QueryResult getJournalPapersFromScholar(String url)
     {
+        logger.info("GettingJournalPapers from Network - "+url);
         String html = HttpConnection.getUrlText(url);
-        return parser.extractInfo(html);
+        if(html != null) {
+            return parser.extractInfo(html);
+        } else {
+            logger.info("null result form httpconnection");
+            return null;
+        }
     }
     
     /* Query Case - MET_AUTH */
     public QueryResult getAuthorList(String url)
     {
+        logger.info("GettingAuthorList from Network - "+url);
          String html = HttpConnection.getUrlText(url);
-        return parser.getAuthors(html);
+         if(html != null) {
+            return parser.extractInfo(html);
+        }else {
+             logger.info("null result form httpconnection");
+            return null;
+        }
     }
     
     /* Query Case - MET_JOURN */
@@ -55,6 +74,9 @@ public class Manager {
     public QueryResult getCompleteAuthorFromMetric(String url)
     {
          String html = HttpConnection.getUrlText(url);
+         if(html!=null)
+             return new Parser().extractAuthorProfileInfo(html);
+         else
         return null;
     }
     
