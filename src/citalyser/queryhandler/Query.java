@@ -4,14 +4,12 @@
  */
 package citalyser.queryhandler;
 
-import citalyser.Constants.queryType;
-
 /**
  *
- * @author rajkumar
+ * @author rajkumar, Tanmay
  */
 public class Query{
-    public queryType flag;
+    public QueryType flag;
     public String name;
     public String ID;
     public int max_year;
@@ -21,4 +19,84 @@ public class Query{
     public boolean sort_flag;
     public boolean h_idx;
     public boolean i_idx;
+
+    private Query(Builder builder) {
+        flag = builder.flag;
+        name = builder.name;
+        ID = builder.ID;
+        max_year = builder.max_year;
+        min_year = builder.min_year;
+        start_result = builder.start_result;
+        num_results = builder.num_results;
+        sort_flag = builder.sort_flag;
+        h_idx = builder.h_idx;
+        i_idx = builder.i_idx;
+    }
+    
+    public static class Builder {
+        private QueryType flag;
+        private String name;
+        private String ID;
+        private int max_year;
+        private int min_year;
+        private int start_result;
+        private int num_results;
+        private boolean sort_flag;
+        private boolean h_idx;
+        private boolean i_idx;
+        
+        public Builder(String name) {
+            this.name = name;
+        }
+
+        public Builder flag(QueryType flag) {
+            this.flag = flag;
+            return this;
+        }
+
+        public Builder ID(String ID) {
+            this.ID = ID;
+            return this;
+        }
+
+        public Builder maxYear(int maxYear) {
+            this.max_year = maxYear;
+            return this;
+        }
+
+        public Builder minYear(int minYear) {
+            this.min_year = minYear;
+            return this;
+        }
+
+        public Builder startYear(int startYear) {
+            this.start_result = startYear;
+            return this;
+        }
+
+        public Builder numResult(int numResult) {
+            this.num_results = numResult;
+            return this;
+        }
+
+        public Builder sortFlag(boolean sortFlag) {
+            this.sort_flag = sortFlag;
+            return this;
+        }
+
+        public Builder hIndex(boolean hIndex) {
+            this.h_idx = hIndex;
+            return this;
+        }
+
+        public Builder iIndex(boolean iIndex) {
+            this.i_idx = iIndex;
+            return this;
+        }
+
+        public Query build() {
+            return new Query(this);
+        }
+
+    }
 }
