@@ -5,13 +5,14 @@
 package citalyser.queryresult;
 
 import citalyser.model.Author;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author KRISHNA
  */
-public class AuthorListResult extends QueryResult<ArrayList<Author>>{
+public class AuthorListResult extends QueryResult<ArrayList<Author>> implements Serializable {
     private ArrayList<Author> authorList;
     
 //    public void setAuthorList(ArrayList<Author> authorlist){

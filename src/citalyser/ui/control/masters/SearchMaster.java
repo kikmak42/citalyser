@@ -17,17 +17,16 @@ import org.apache.log4j.Logger;
  * @author Tanmay Patil
  */
 public class SearchMaster {
-    
+
     private MainFrame mainFrame;
     private DisplayMaster displayMaster;
-    
     private static Logger logger = Logger.getLogger(SearchMaster.class.getName());
 
     public SearchMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
         this.mainFrame = displayMaster.getMainFrame();
     }
-    
+
     public void searchKeyPressed(SearchPanel searchPanel, char key) {
         if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
             //TODO: Autocomplete
@@ -49,7 +48,7 @@ public class SearchMaster {
             }
         }
     }
-     
+
     public void searchButtonClicked(SearchPanel searchPanel) {
         final SearchPanel mySearchPanel = searchPanel;
         if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
@@ -59,7 +58,6 @@ public class SearchMaster {
                 public void run() {
                     displayMaster.getQueryResultRenderingHandler().render(QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel)));
                 }
-                
             }.start();
         } else {
             if (searchPanel.equals(mainFrame.getStartPanel().getAuthorSearchPanel())) {
@@ -79,6 +77,11 @@ public class SearchMaster {
     }
 
     public Query createQuery(SearchPanel searchPanel) {
-        return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_AUTH).numResult(20).minYear(1990).maxYear(2013).build();
+        /*if (displayMaster.checkAuthorMode()) {
+            return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_AUTH).numResult(20).minYear(1900).maxYear(2013).build();
+        } else {
+            return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_JOURN).numResult(20).minYear(1900).maxYear(2013).build();
+        }*/
+        return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_AUTH).numResult(20).minYear(1900).maxYear(2013).build();
     }
 }

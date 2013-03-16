@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package citalyser.ui.control;
-
+   
 import citalyser.Main;
 import citalyser.model.Author;
 import citalyser.model.PaperCollection;
@@ -28,6 +28,7 @@ import org.apache.log4j.Logger;
  * @author Tanmay Patil
  */
 public class DisplayMaster {
+    
     private MainFrame mainFrame;
     private javax.swing.JDialog settingsDialog;
     private ExtraPanel extraPanel;
@@ -158,7 +159,13 @@ public class DisplayMaster {
 
     public void renderPaperCollection(PaperCollection paperCollection) {
         mainFrame.getRegularDisplayPanel().getContentDisplayPanel().getTableDisplayPanel().setTable(TableModelCreator.getTableModel(paperCollection));
+        
     }
+    
+    public boolean checkAuthorMode(){
+        return mainFrame.getRegularDisplayPanel().getHeaderPanel().isAuthorSearchMode();
+    }
+            
 
     public void renderAuthorList(ArrayList<Author> arrayList) {
         if (arrayList != null) {

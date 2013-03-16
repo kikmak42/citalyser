@@ -18,26 +18,49 @@ import org.apache.log4j.Logger;
  */
 public class Manager {
     private static Logger logger = Logger.getLogger(Manager.class.getName());
+    private Parser parser;
     /* Query Case - GEN_AUTH */
+    public Manager(){
+        parser = new Parser();
+    }
     public QueryResult getAuthorPapersFromScholar(String url)
     {
+        logger.info("GettingAuthorPapers from Network - "+url);
         String html = HttpConnection.getUrlText(url);
-        logger.info("GettingAuthorPapers from Network"+url);
-        return Parser.extractInfo(html);
+
+       if(html != null) {
+            return parser.extractInfo(html);
+        }
+       else {
+           logger.info("null result form httpconnection");
+            return null;
+        }
     }
     
     /* Query Case - GEN_JOURN */
     public QueryResult getJournalPapersFromScholar(String url)
     {
+        logger.info("GettingJournalPapers from Network - "+url);
         String html = HttpConnection.getUrlText(url);
-        return Parser.extractInfo(html);
+        if(html != null) {
+            return parser.extractInfo(html);
+        } else {
+            logger.info("null result form httpconnection");
+            return null;
+        }
     }
     
     /* Query Case - MET_AUTH */
     public QueryResult getAuthorList(String url)
     {
+        logger.info("GettingAuthorList from Network - "+url);
          String html = HttpConnection.getUrlText(url);
-        return Parser.getAuthors(html);
+         if(html != null) {
+            return parser.getAuthors(html);
+        }else {
+             logger.info("null result form httpconnection");
+            return null;
+        }
     }
     
     /* Query Case - MET_JOURN */
@@ -51,6 +74,9 @@ public class Manager {
     public QueryResult getCompleteAuthorFromMetric(String url)
     {
          String html = HttpConnection.getUrlText(url);
+         if(html!=null)
+             return new Parser().extractAuthorProfileInfo(html);
+         else
         return null;
     }
     
