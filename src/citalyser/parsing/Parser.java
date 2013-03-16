@@ -483,6 +483,6 @@ public class Parser {
 
 
         q.setContents(authorList);
-        return null;
+        return q;
     }
 }
