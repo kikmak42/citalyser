@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package citalyser.ui.control;
-
+   
 import citalyser.model.PaperCollection;
 import citalyser.ui.control.masters.SearchMaster;
 import citalyser.ui.control.masters.SettingsMaster;
