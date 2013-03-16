@@ -12,6 +12,7 @@ package citalyser.ui.visualization.panels.common;
 
 import citalyser.ui.control.DisplayMaster;
 import java.awt.Color;
+import java.util.Vector;
 
 /**
  *
@@ -21,6 +22,7 @@ public class SearchPanel extends javax.swing.JPanel {
 
     /** Creates new form SearchPanel */
     public SearchPanel() {
+        autoCompleteSuggestions = new Vector<>();
         initComponents();
     }
 
@@ -132,9 +134,14 @@ public class SearchPanel extends javax.swing.JPanel {
     public String getSearchString() {
         return jTextField1.getText();
     }
+
+    public Vector<String> getAutoCompleteSuggestions() {
+        return autoCompleteSuggestions;
+    }
     
     private boolean empty = true;
     private DisplayMaster displayMaster;
+    private Vector<String> autoCompleteSuggestions;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
