@@ -18,26 +18,30 @@ import org.apache.log4j.Logger;
  */
 public class Manager {
     private static Logger logger = Logger.getLogger(Manager.class.getName());
+    private Parser parser;
     /* Query Case - GEN_AUTH */
+    public Manager(){
+        parser = new Parser();
+    }
     public QueryResult getAuthorPapersFromScholar(String url)
     {
         String html = HttpConnection.getUrlText(url);
         logger.info("GettingAuthorPapers from Network - "+url);
-        return (new Parser()).extractInfo(html);
+        return parser.extractInfo(html);
     }
     
     /* Query Case - GEN_JOURN */
     public QueryResult getJournalPapersFromScholar(String url)
     {
         String html = HttpConnection.getUrlText(url);
-        return new Parser().extractInfo(html);
+        return parser.extractInfo(html);
     }
     
     /* Query Case - MET_AUTH */
     public QueryResult getAuthorList(String url)
     {
          String html = HttpConnection.getUrlText(url);
-        return new Parser().getAuthors(html);
+        return parser.getAuthors(html);
     }
     
     /* Query Case - MET_JOURN */
