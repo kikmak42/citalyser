@@ -20,21 +20,30 @@ public class Manager {
     QueryResult getAuthorPapersFromScholar(String url)
     {
         String html = HttpConnection.getUrlText(url);
-        return Parser.extractInfo(html);
+        if(html!=null)
+            return Parser.extractInfo(html);
+        else
+        return null;
     }
     
     /* Query Case - GEN_JOURN */
     QueryResult getJournalPapersFromScholar(String url)
     {
         String html = HttpConnection.getUrlText(url);
+        if(html!=null)
         return Parser.extractInfo(html);
+        else
+            return null;
     }
     
     /* Query Case - MET_AUTH */
     QueryResult getAuthorList(String url)
     {
          String html = HttpConnection.getUrlText(url);
+         if(html==null)
         return Parser.getAuthors(html);
+         else
+             return null;
     }
     
     /* Query Case - MET_JOURN */
@@ -48,6 +57,9 @@ public class Manager {
     QueryResult getCompleteAuthorFromMetric(String url)
     {
          String html = HttpConnection.getUrlText(url);
+         if(html!=null)
+             return Parser.extractAuthorProfileInfo(html);
+         else
         return null;
     }
     
