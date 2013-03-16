@@ -20,10 +20,9 @@ public class Author {
         private PaperCollection paper_collection;
         private ArrayList<Author> co_authors;
     
-    @Override
-    public String toString() {
-        return name;
-    }
+        public String toString() {
+            return name;
+        }
         
         public Author(String name){
             this.co_authors=null;
@@ -101,8 +100,5 @@ public class Author {
         }
         public void setCoAuthors(ArrayList<Author> coauthors){
             this.co_authors = coauthors;
-        }
-        
-        
-        
+        }      
 }
