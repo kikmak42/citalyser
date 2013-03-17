@@ -11,6 +11,7 @@
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel;
 
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.model.ContentRenderer;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.GridDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ListDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ProfileDisplayPanel;
@@ -20,7 +21,7 @@ import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpa
  *
  * @author Tanmay Patil
  */
-public class CentralContentDisplayPanel extends javax.swing.JPanel {
+public class CentralContentDisplayPanel extends javax.swing.JPanel implements ContentRenderer {
 
     /** Creates new form CentralContentDisplayPanel */
     public CentralContentDisplayPanel() {
@@ -39,36 +40,44 @@ public class CentralContentDisplayPanel extends javax.swing.JPanel {
         return displayMaster;
     }
 
+    @Override
     public GridDisplayPanel getGridDisplayPanel() {
         return gridDisplayPanel;
     }
 
+    @Override
     public ListDisplayPanel getListDisplayPanel() {
         return listDisplayPanel;
     }
 
+    @Override
     public ProfileDisplayPanel getProfileDisplayPanel() {
         return profileDisplayPanel;
     }
 
+    @Override
     public TableDisplayPanel getTableDisplayPanel() {
         return tableDisplayPanel;
     }
-    
+
+    @Override
     public void flipToGridDisplayPanel() {
         ((java.awt.CardLayout) this.getLayout()).first(this);
     }
     
+    @Override
     public void flipToListDisplayPanel() {
         ((java.awt.CardLayout) this.getLayout()).first(this);
         ((java.awt.CardLayout) this.getLayout()).next(this);
     }
     
+    @Override
     public void flipToProfileDisplayPanel() {
         ((java.awt.CardLayout) this.getLayout()).last(this);
         ((java.awt.CardLayout) this.getLayout()).previous(this);
     }
     
+    @Override
     public void flipToTableDisplayPanel() {
         ((java.awt.CardLayout) this.getLayout()).last(this);
     }

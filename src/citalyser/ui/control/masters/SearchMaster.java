@@ -57,7 +57,7 @@ public class SearchMaster {
 
                 @Override
                 public void run() {
-                    displayMaster.getQueryResultRenderingHandler().render(QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel)));
+                    displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel)));
                 }
             }.start();
         } else {

@@ -11,7 +11,6 @@
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules;
 
 import citalyser.ui.control.DisplayMaster;
-import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
 /**

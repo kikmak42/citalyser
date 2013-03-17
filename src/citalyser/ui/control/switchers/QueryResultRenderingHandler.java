@@ -14,6 +14,7 @@ import citalyser.queryresult.JournalResult;
 import citalyser.queryresult.PaperCollectionResult;
 import citalyser.queryresult.QueryResult;
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.model.ContentRenderer;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;
 
@@ -31,17 +32,17 @@ public class QueryResultRenderingHandler {
     
     private DisplayMaster displayMaster;
     
-    public void render(QueryResult<?> queryResult) {
+    public void render(ContentRenderer contentRenderer, QueryResult<?> queryResult) {
         if (queryResult instanceof AuthorListResult) {
-            displayMaster.renderAuthorList((ArrayList<Author>) queryResult.getContents());
+            displayMaster.render(contentRenderer, (ArrayList<Author>) queryResult.getContents());
         } else if (queryResult instanceof AuthorResult) {
-            displayMaster.renderAuthorProfile((Author) queryResult.getContents());
+            displayMaster.render(contentRenderer, (Author) queryResult.getContents());
         } else if (queryResult instanceof JournalListResult) {
             
         } else if (queryResult instanceof JournalResult) {
             
         } else if (queryResult instanceof PaperCollectionResult) {
-            displayMaster.renderPaperCollection((PaperCollection) queryResult.getContents());
+            displayMaster.render(contentRenderer, (PaperCollection) queryResult.getContents());
         } else {
             Main.getDisplayController().displayErrorMessage("Invalid Query Result Type " + queryResult);
         }

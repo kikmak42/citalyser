@@ -13,6 +13,7 @@ import citalyser.queryhandler.QueryType;
 import citalyser.ui.control.masters.SearchMaster;
 import citalyser.ui.control.masters.SettingsMaster;
 import citalyser.ui.control.switchers.QueryResultRenderingHandler;
+import citalyser.ui.model.ContentRenderer;
 import citalyser.ui.model.TableModelCreator;
 import citalyser.util.CProxy;
 
@@ -158,7 +159,7 @@ public class DisplayMaster {
 
             @Override
             public void run() {
-                queryResultRenderingHandler.render(QueryHandler.getInstance().getQueryResult(new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).build()));
+                queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), QueryHandler.getInstance().getQueryResult(new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).build()));
             }
             
         }.start();
@@ -168,32 +169,32 @@ public class DisplayMaster {
     //**************************** Rendering Functions *****************************
     //******************************************************************************
 
-    public void renderAuthorList(ArrayList<Author> arrayList) {
+    public void render(ContentRenderer contentRenderer, ArrayList<Author> arrayList) {
         if (arrayList != null) {
-            mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getGridDisplayPanel().clear();
+            contentRenderer.getGridDisplayPanel().clear();
             for (Author author : arrayList) {
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getGridDisplayPanel().addGridEntityPanel(new GridEntityPanel(author));
+                contentRenderer.getGridDisplayPanel().addGridEntityPanel(new GridEntityPanel(author));
             }
-            mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().flipToGridDisplayPanel();
+            contentRenderer.flipToGridDisplayPanel();
         } else {
             Main.getDisplayController().displayErrorMessage("Null Author List");
         }
     }
 
-    public void renderAuthorProfile(Author author) {
+    public void render(ContentRenderer contentRenderer, Author author) {
         if (author != null) {
-            mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getTableDisplayPanel().setTable(TableModelCreator.getTableModel(author.getPaperCollection()));
-            mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().flipToTableDisplayPanel();
+            contentRenderer.getTableDisplayPanel().setTable(TableModelCreator.getTableModel(author.getPaperCollection()));
+            contentRenderer.flipToTableDisplayPanel();
         } else {
             Main.getDisplayController().displayErrorMessage("Null Author");
         }
     }
 
-    public void renderPaperCollection(PaperCollection paperCollection) {
+    public void render(ContentRenderer contentRenderer, PaperCollection paperCollection) {
         if (paperCollection != null) {
             logger.debug("Size : " + paperCollection.getPapers().size());
-            mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getTableDisplayPanel().setTable(TableModelCreator.getTableModel(paperCollection));
-            mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().flipToTableDisplayPanel();
+            contentRenderer.getTableDisplayPanel().setTable(TableModelCreator.getTableModel(paperCollection));
+            contentRenderer.flipToTableDisplayPanel();
         } else {
             //TODO: Need to call api back
             Main.getDisplayController().displayErrorMessage("Null Paper Collection");
