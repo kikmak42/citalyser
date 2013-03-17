@@ -12,6 +12,9 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 
 import citalyser.model.Author;
 import citalyser.ui.control.DisplayMaster;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import org.apache.log4j.Logger;
 
 /**
@@ -26,7 +29,7 @@ public class GridEntityPanel extends javax.swing.JPanel {
     public GridEntityPanel(Author author) {
         initComponents();
         this.author = author;
-        jLabel1.setIcon(new javax.swing.ImageIcon("http://" + author.getImageSrc()));
+        jLabel1.setIcon(new javax.swing.ImageIcon(author.getImageSrc()));
         jLabel2.setText(author.getName());
         jLabel3.setText("<html>" + author.getUniversity());
         jLabel4.setText("Cited by: " + author.getTotalCitations());
@@ -57,6 +60,7 @@ public class GridEntityPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
+        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         setPreferredSize(new java.awt.Dimension(275, 100));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -67,7 +71,7 @@ public class GridEntityPanel extends javax.swing.JPanel {
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setOpaque(true);
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 12));
         jLabel2.setText("Name of the Author");
 
         jLabel3.setText("University and e-mail id");
@@ -95,14 +99,16 @@ public class GridEntityPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4))
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel4)
+                .addContainerGap())
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        logger.debug("Author Clicked ID : " + author.getId());
         displayMaster.authorGridEntityClicked(author.getId());
     }//GEN-LAST:event_formMouseClicked
 

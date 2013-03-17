@@ -469,9 +469,11 @@ public class Parser {
                 university = details.substring(details.length() - name.length());
             }
             String str;
-            str = url.split("user=")[0];
-            //userid = url.substring(str.length()+5,str.split("&")[]);
+            str = url.split("user=")[1];
+            userid = str.split("&")[0];
+            logger.debug("Author Id = " + userid);
             author.setName(name);
+            author.setId(userid);
             author.setUniversity(university);
             author.setTotalCitations(citations);
             author.setImagesrc(imglink);

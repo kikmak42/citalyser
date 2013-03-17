@@ -35,6 +35,8 @@ public class DataVisualizationPanel extends javax.swing.JPanel {
 
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
+        contentDisplayPanel.setDisplayMaster(displayMaster);
+        graphViewPanel.setDisplayMaster(displayMaster);
     }
     
     private DisplayMaster displayMaster;

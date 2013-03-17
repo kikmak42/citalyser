@@ -27,7 +27,11 @@ public class TableModelCreator {
             data[i][2] = papers.get(i).getYear();
             data[i][3] = Integer.toString(papers.get(i).getNumCites());
             data[i][4] = convertToString(papers.get(i).getAuthors());
-            data[i][5] = (papers.get(i).getJournals().get(0).getName());
+            if (papers.get(i).getJournals() == null) {
+                data[i][5] = "Empty";
+            } else {
+                data[i][5] = papers.get(i).getJournals().get(0).getName();
+            }
         }
 
         TableModel tableModel = new DefaultTableModel(data, columnNames);
@@ -37,9 +41,10 @@ public class TableModelCreator {
     
     private static <E> String convertToString(List<E> l){
         StringBuilder stringBuilder=new StringBuilder();
-        for(E e:l){
-            stringBuilder.append(e.toString()).append(", ");
-            
+        if (l != null) {
+            for(E e:l){
+                stringBuilder.append(e.toString()).append(", ");   
+            }
         }
         return stringBuilder.toString();
     }

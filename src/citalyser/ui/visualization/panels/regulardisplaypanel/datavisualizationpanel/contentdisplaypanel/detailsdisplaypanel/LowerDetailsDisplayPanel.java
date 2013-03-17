@@ -51,6 +51,24 @@ public class LowerDetailsDisplayPanel extends javax.swing.JPanel {
         return tableDisplayPanel;
     }
     
+    public void flipToGridDisplayPanel() {
+        ((java.awt.CardLayout) this.getLayout()).first(this);
+    }
+    
+    public void flipToListDisplayPanel() {
+        ((java.awt.CardLayout) this.getLayout()).first(this);
+        ((java.awt.CardLayout) this.getLayout()).next(this);
+    }
+    
+    public void flipToProfileDisplayPanel() {
+        ((java.awt.CardLayout) this.getLayout()).last(this);
+        ((java.awt.CardLayout) this.getLayout()).previous(this);
+    }
+    
+    public void flipToTableDisplayPanel() {
+        ((java.awt.CardLayout) this.getLayout()).last(this);
+    }
+    
     private DisplayMaster displayMaster;
 
     /** This method is called from within the constructor to
@@ -64,8 +82,8 @@ public class LowerDetailsDisplayPanel extends javax.swing.JPanel {
 
         gridDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.GridDisplayPanel();
         listDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ListDisplayPanel();
-        tableDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel();
         profileDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ProfileDisplayPanel();
+        tableDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel();
 
         setLayout(new java.awt.CardLayout());
         add(gridDisplayPanel, "card2");
@@ -82,7 +100,6 @@ public class LowerDetailsDisplayPanel extends javax.swing.JPanel {
         );
 
         add(listDisplayPanel, "card3");
-        add(tableDisplayPanel, "card5");
 
         javax.swing.GroupLayout profileDisplayPanelLayout = new javax.swing.GroupLayout(profileDisplayPanel);
         profileDisplayPanel.setLayout(profileDisplayPanelLayout);
@@ -96,6 +113,7 @@ public class LowerDetailsDisplayPanel extends javax.swing.JPanel {
         );
 
         add(profileDisplayPanel, "card5");
+        add(tableDisplayPanel, "card5");
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.GridDisplayPanel gridDisplayPanel;

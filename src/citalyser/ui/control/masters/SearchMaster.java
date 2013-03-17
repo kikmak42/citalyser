@@ -10,6 +10,7 @@ import citalyser.queryhandler.QueryType;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.common.SearchPanel;
+import java.util.Vector;
 import org.apache.log4j.Logger;
 
 /**
@@ -73,6 +74,32 @@ public class SearchMaster {
                     logger.info("Invalid search clicked event");
                 }
             }
+        }
+    }
+
+    public void addAutoCompleteSuggestions(Vector<String> suggestions) {
+        if (mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().isVisible()) {
+            if (suggestions == null) {
+                emptyAutoCompleteSuggestions();
+            } else {
+                for (String suggestion : suggestions) {
+                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getAutoCompleteSuggestions().add(suggestion);
+                }
+            }
+        }
+    }
+    
+    public void addAutoCompleteSuggestion(String suggestion) {
+        if (mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().isVisible()) {
+            if (suggestion != null) {
+                mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getAutoCompleteSuggestions().add(suggestion);
+            }
+        }
+    }
+
+    public void emptyAutoCompleteSuggestions() {
+        if (mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().isVisible()) {
+            mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getAutoCompleteSuggestions().removeAllElements();
         }
     }
 

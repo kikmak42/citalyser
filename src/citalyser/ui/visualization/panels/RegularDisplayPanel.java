@@ -59,6 +59,8 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
         this.headerPanel.setDisplayMaster(displayMaster);
         this.toolsPanel.setDisplayMaster(displayMaster);
         this.sidebarPanel.setDisplayMaster(displayMaster);
+        this.dataVisualizationPanel.setDisplayMaster(displayMaster);
+        this.statusDisplayPanel.setDisplayMaster(displayMaster);
     }
             
     private DisplayMaster displayMaster;

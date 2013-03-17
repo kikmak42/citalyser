@@ -41,7 +41,6 @@ public class QueryResultRenderingHandler {
         } else if (queryResult instanceof JournalResult) {
             
         } else if (queryResult instanceof PaperCollectionResult) {
-            logger.debug("PaperCollection size : " + ((PaperCollection) queryResult.getContents()).getPapers().size());
             displayMaster.renderPaperCollection((PaperCollection) queryResult.getContents());
         } else {
             Main.getDisplayController().displayErrorMessage("Invalid Query Result Type " + queryResult);

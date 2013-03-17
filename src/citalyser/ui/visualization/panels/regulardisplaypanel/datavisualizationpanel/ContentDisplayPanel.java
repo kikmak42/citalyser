@@ -28,6 +28,8 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
     
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
+        centralContentDisplayPanel.setDisplayMaster(displayMaster);
+        detailsDisplayPanel.setDisplayMaster(displayMaster);
     }
 
     public CentralContentDisplayPanel getCentralContentDisplayPanel() {

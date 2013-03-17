@@ -30,10 +30,6 @@ public class GridDisplayPanel extends javax.swing.JPanel {
         gridEntityPanel.setDisplayMaster(displayMaster);
         gridEntityPanels.add(gridEntityPanel);
         jPanel1.add(gridEntityPanel);
-    }    
-
-    public void setGridEntityPanels(Vector<GridEntityPanel> gridEntityPanels) {
-        this.gridEntityPanels = gridEntityPanels;
     }
 
     public Vector<GridEntityPanel> getGridEntityPanels() {
@@ -76,4 +72,9 @@ public class GridDisplayPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    public void clear() {
+        gridEntityPanels.clear();
+        jPanel1.removeAll();
+    }
 }

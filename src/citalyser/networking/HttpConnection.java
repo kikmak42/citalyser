@@ -76,6 +76,7 @@ public class HttpConnection {
             {
                 logger.debug("Proxy : " + proxies.get(i).toString() +" UserAgent : "+Constants.userAgents[j]);
                 try{
+                    logger.debug("Url: " + url);
                     connectUrl(url,proxies.get(i),Constants.userAgents[j]);
                     responseCode = connection.getResponseCode();
                     if(responseCode == Constants.OK_Response_Code)

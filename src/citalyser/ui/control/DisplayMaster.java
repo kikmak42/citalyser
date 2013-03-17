@@ -9,6 +9,7 @@ import citalyser.model.Author;
 import citalyser.model.PaperCollection;
 import citalyser.queryhandler.Query;
 import citalyser.queryhandler.QueryHandler;
+import citalyser.queryhandler.QueryType;
 import citalyser.ui.control.masters.SearchMaster;
 import citalyser.ui.control.masters.SettingsMaster;
 import citalyser.ui.control.switchers.QueryResultRenderingHandler;
@@ -134,59 +135,69 @@ public class DisplayMaster {
     }
 
     public void addAutoCompleteSuggestions(Vector<String> suggestions) {
-        if (mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().isVisible()) {
-            if (suggestions == null) {
-                emptyAutoCompleteSuggestions();
-            } else {
-                for (String suggestion : suggestions) {
-                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getAutoCompleteSuggestions().add(suggestion);
-                }
-            }
-        }
+        searchMaster.addAutoCompleteSuggestions(suggestions);
     }
     
     public void addAutoCompleteSuggestion(String suggestion) {
-        if (mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().isVisible()) {
-            if (suggestion != null) {
-                mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getAutoCompleteSuggestions().add(suggestion);
-            }
-        }
+        searchMaster.addAutoCompleteSuggestion(suggestion);
     }
 
     public void emptyAutoCompleteSuggestions() {
-        if (mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().isVisible()) {
-            mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getAutoCompleteSuggestions().removeAllElements();
-        }
-    }
-
-    public void renderPaperCollection(PaperCollection paperCollection) {
-        //mainFrame.getRegularDisplayPanel().getContentDisplayPanel().getTableDisplayPanel().setTable(TableModelCreator.getTableModel(paperCollection));
-        //mainFrame.getRegularDisplayPanel().getContentDisplayPanel().flipToTableDisplayPanel();
+        searchMaster.emptyAutoCompleteSuggestions();
     }
     
     public boolean checkAuthorMode(){
         return mainFrame.getRegularDisplayPanel().getHeaderPanel().isAuthorSearchMode();
     }
+
+    public void authorGridEntityClicked(String id) {
+        
+        final String myId = id;
+        
+        new Thread() {
+
+            @Override
+            public void run() {
+                queryResultRenderingHandler.render(QueryHandler.getInstance().getQueryResult(new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).build()));
+            }
             
+        }.start();
+    }
+    
+    //******************************************************************************
+    //**************************** Rendering Functions *****************************
+    //******************************************************************************
 
     public void renderAuthorList(ArrayList<Author> arrayList) {
         if (arrayList != null) {
+            mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getGridDisplayPanel().clear();
             for (Author author : arrayList) {
-                //mainFrame.getRegularDisplayPanel().getContentDisplayPanel().getGridDisplayPanel().addGridEntityPanel(new GridEntityPanel(author));
+                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getGridDisplayPanel().addGridEntityPanel(new GridEntityPanel(author));
             }
-            //mainFrame.getRegularDisplayPanel().getContentDisplayPanel().flipToGridDisplayPanel();
+            mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().flipToGridDisplayPanel();
         } else {
             Main.getDisplayController().displayErrorMessage("Null Author List");
         }
     }
 
-    public void authorGridEntityClicked(String id) {
-        queryResultRenderingHandler.render(QueryHandler.getInstance().getQueryResult(new Query.Builder("").ID(id).build()));
-    }
-
     public void renderAuthorProfile(Author author) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        if (author != null) {
+            mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getTableDisplayPanel().setTable(TableModelCreator.getTableModel(author.getPaperCollection()));
+            mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().flipToTableDisplayPanel();
+        } else {
+            Main.getDisplayController().displayErrorMessage("Null Author");
+        }
     }
 
+    public void renderPaperCollection(PaperCollection paperCollection) {
+        if (paperCollection != null) {
+            logger.debug("Size : " + paperCollection.getPapers().size());
+            mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getTableDisplayPanel().setTable(TableModelCreator.getTableModel(paperCollection));
+            mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().flipToTableDisplayPanel();
+        } else {
+            //TODO: Need to call api back
+            Main.getDisplayController().displayErrorMessage("Null Paper Collection");
+        }
+    }
 
 }
