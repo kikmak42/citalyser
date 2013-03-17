@@ -36,7 +36,7 @@ public class QueryHandler {
     }    
     
     public QueryResult<?> getQueryResult(Query q){
-        
+        q = UrlComposer.encodeQueryParameters(q);
         switch(q.flag){
             case GEN_AUTH: 
                 logger.debug("Getting GEN_AUTH");
