@@ -4,7 +4,10 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules;
 
+import citalyser.model.Author;
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.AuthorProfileDisplayPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.JournalProfileDisplayPanel;
 
 /**
  *
@@ -12,6 +15,7 @@ import citalyser.ui.control.DisplayMaster;
  */
 public class ProfileDisplayPanel extends javax.swing.JPanel {
 
+    private Author author;
     /**
      * Creates new form ProfileDisplayPanel
      */
@@ -26,7 +30,21 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
     public DisplayMaster getDisplayMaster() {
         return displayMaster;
     }
-    
+
+    public JournalProfileDisplayPanel getJournalProfileDisplayPanel() {
+        return journalProfileDisplayPanel;
+    }
+
+    public AuthorProfileDisplayPanel getAuthorProfileDisplayPanel() {
+        return authorProfileDisplayPanel;
+    }
+
+    public void displayAuthorProfile(Author author) {
+        this.author=author;
+        authorProfileDisplayPanel.setAuthorName(author.getName());
+        authorProfileDisplayPanel.setAuthorDetails(author.getUniversity());
+        authorProfileDisplayPanel.setAuthorStats(author.getCitesPerYear(),author.getCitesPerPaper());
+    }
     private DisplayMaster displayMaster;
 
     /**
@@ -38,17 +56,15 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        authorProfileDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.AuthorProfileDisplayPanel();
+        journalProfileDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.JournalProfileDisplayPanel();
+
+        setLayout(new java.awt.CardLayout());
+        add(authorProfileDisplayPanel, "card2");
+        add(journalProfileDisplayPanel, "card3");
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.AuthorProfileDisplayPanel authorProfileDisplayPanel;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.JournalProfileDisplayPanel journalProfileDisplayPanel;
     // End of variables declaration//GEN-END:variables
 }
