@@ -296,14 +296,11 @@ public class Parser {
         Author author = new Author(null);
         PaperCollection pc = new PaperCollection();
         ArrayList<Paper> papers = new ArrayList<Paper>();
-
         doc = Jsoup.parse(src, "UTF-8");
         Elements items = doc.select("table.cit-table");
         String url = "http://scholar.google.com";
-
         if (!items.isEmpty()) {
             for (Element item : items) {
-
                 //Elements rows = item.select("tr.cit-table item");
                 Elements rows = item.select(".item");
                 for (Element row : rows) {
@@ -319,7 +316,6 @@ public class Parser {
                         String title_name = title_tags.get(0).text();
                         papr.setTitle(title_name);
                         papr.setUrl(title_link);
-
                     }
                     //extracting the names of the authors
                     Elements desc_section = row.select("span.cit-gray");
@@ -335,30 +331,25 @@ public class Parser {
                                 Author paper_author = new Author(name);
                                 paper_authors.add(paper_author);
                             }
-
                         } catch (Exception e) {
                             names = "";
                             Author paper_author = new Author(names);
                             paper_authors.add(paper_author);
                         }
-
                         try {
                             journal = desc_section.get(1).text();
                             Journal jrnl = new Journal(journal);
                             paper_jrnl.add(jrnl);
-
-
                         } catch (Exception e) {
                             journal = "";
                             Journal jrnl = new Journal(journal);
                             paper_jrnl.add(jrnl);
                         }
-
-
-        logger.debug(journal+"\n"+names);
-
+                  // logger.debug("@@@@"+paper_jrnl.get(0).getName() );
                     }
-
+                    papr.setJournals(paper_jrnl);
+                    papr.setAuthors(paper_authors);
+                    
                     //extracting the citation count
                     Elements citation_section = row.select("td#col-citedby");
                     if (!citation_section.isEmpty()) {
@@ -370,16 +361,13 @@ public class Parser {
                         } catch (Exception e) {
                             citation_count = "";
                         }
-
                         try {
                             cited_by_link = citation_section.get(0).select("a").attr("href");
                             papr.setCitedByUrl(cited_by_link);
                         } catch (Exception e) {
                             cited_by_link = "";
                         }
-
                     }
-
                     //extracting the publication year
                     Elements year_section = row.select("td#col-year");
                     if (!year_section.isEmpty()) {
@@ -390,18 +378,11 @@ public class Parser {
                         } catch (Exception e) {
                             year = "";
                         }
-
-
                     }
                     papers.add(papr);
                 }
-
             }
-
-
         }
-
-
         items = doc.select(".g-section");
         ArrayList<String> co_authors = new ArrayList<String>();
         ArrayList<String> co_authors_links = new ArrayList<String>();
@@ -431,14 +412,17 @@ public class Parser {
 
 
         }
+        
 
-
-
+        
         pc.setPapers(papers);
         author.setPaperCollection(pc);
         author.setCoAuthors(co_author_list);
         qr_author_result.setContents(author);
         //qr_author_result.setContents(ar);
+        for(Paper p: pc.getPapers()){
+            logger.debug("#####"+p.getAuthors()+"\n"+p.getJournals()+"\n");
+        }
         return qr_author_result;
 
 
