@@ -5,6 +5,7 @@
 //i have given the path of input.html in c:\input.html
 package citalyser.parsing;
 
+import citalyser.Constants;
 import citalyser.model.Author;
 import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
@@ -455,7 +456,7 @@ public class Parser {
             Author author = new Author("");
 
             details = item.text();
-            imglink = "scholar.google.co.in" + item.select("img").get(0).attr("src");
+            imglink = Constants.SCHOLAR_BASE_URL + item.select("img").get(0).attr("src");
             Elements links = item.select("a.cit-dark-large-link");
             Element link = links.get(0);
             url = "scholar.google.co.in" + link.attr("href");

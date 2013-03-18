@@ -27,6 +27,7 @@ public class Constants {
     };
     
     public static int OK_Response_Code = 200;
+    public static String SCHOLAR_BASE_URL = "http://scholar.google.co.in";
 }
 
 
