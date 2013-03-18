@@ -29,6 +29,9 @@ public class SearchMaster {
     }
 
     public void searchKeyPressed(SearchPanel searchPanel, char key) {
+        if (key == java.awt.event.KeyEvent.VK_ENTER) {
+            searchButtonClicked(searchPanel);
+        }
         if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
             //TODO: Autocomplete
         } else {
