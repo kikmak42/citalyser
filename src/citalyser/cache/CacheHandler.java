@@ -9,17 +9,21 @@ import citalyser.Main;
 import citalyser.networkparsermanager.Manager;
 import citalyser.queryresult.AuthorListResult;
 import citalyser.queryresult.AuthorResult;
+import citalyser.queryresult.ImageResult;
 import citalyser.queryresult.JournalListResult;
 import citalyser.queryresult.JournalResult;
 import citalyser.queryresult.PaperCollectionResult;
 import citalyser.queryresult.QueryResult;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.security.MessageDigest;
+import javax.imageio.ImageIO;
 import org.apache.log4j.Logger;
 
 public class CacheHandler {
@@ -171,4 +175,19 @@ public class CacheHandler {
             return q;
         }
     }
+    
+    public QueryResult getImageFromLink(String queryUrl)
+    {
+        Object cacheResult = getObject(queryUrl);
+        if (cacheResult != null) {
+            logger.info("Getting IMAGE_FROM_LINK - Cache hit");
+            return (ImageResult)cacheResult;
+        } else {
+            logger.info("Getting IMAGE_FROM_LINK - Cache miss");
+            QueryResult q = manager.getImageFromLink(queryUrl);
+            setObject(q, queryUrl);
+            return q;
+        }
+    }
+    
 }

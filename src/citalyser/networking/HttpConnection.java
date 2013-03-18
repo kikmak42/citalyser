@@ -1,13 +1,16 @@
 package citalyser.networking;
 
+import citalyser.CommonUtils;
 import citalyser.Config;
 import citalyser.Constants;
 import citalyser.Main;
 import citalyser.util.CProxy;
+import java.awt.image.BufferedImage;
 import java.net.*;
 import java.io.*;
 import java.util.*;
 import java.util.logging.*;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -35,12 +38,8 @@ public class HttpConnection {
     public static void connectUrl(String requestURL,CProxy cproxy,String agentname)
         throws IOException, URISyntaxException {
         URL url = new URI(requestURL).toURL();
-        Proxy proxy;
-        if(!cproxy.getnoProxy())
-            proxy = new Proxy(Proxy.Type.HTTP, 
-                                new InetSocketAddress(cproxy.getHostName(),cproxy.getPort()));
-        else
-            proxy = Proxy.NO_PROXY;
+        Proxy proxy = CommonUtils.getJavaProxyFromCProxy(cproxy);
+        
         connection = (HttpURLConnection) (url.openConnection(proxy)); 
         //connection.setInstanceFollowRedirects(true);
         connection.setDoInput(true);
@@ -115,9 +114,59 @@ public class HttpConnection {
         return null;
     }
     
+    public static BufferedImage getImageFromUrl(String url)
+    {
+        logger.info("Getting Image from : " + url);
+        int responseCode = 0;
+        BufferedImage image = null;
+        List<CProxy> proxies = Config.getProxylist();
+        if(proxies == null)
+        {
+            proxies = new ArrayList<CProxy>();
+            proxies.add(new CProxy());
+        }
+        logger.debug("No of Proxies : " + proxies.size());
+        for(int i = 0;i<proxies.size(); i++)
+        {
+            logger.debug("Proxy : " + proxies.get(i).toString() +" UserAgent : "+Constants.userAgents[0]);
+            try
+            {
+                connectUrl(url,proxies.get(i),Constants.userAgents[0]);
+                responseCode = connection.getResponseCode();
+                logger.debug("Response Code : " + responseCode);
+                if(responseCode == Constants.OK_Response_Code)
+                {
+                    /* Get the image content */
+                    InputStream inStream = connection.getInputStream();
+                    image = ImageIO.read(inStream);
+                    logger.debug("Returning image.");
+                    return image;
+                }
+                else if(responseCode == Constants.NOT_FOUND_Code)
+                {
+                    return null;
+                }
+            }catch(ConnectException | UnknownHostException ex){
+                //ex.printStackTrace();
+                logger.error("Proxy : " + proxies.get(i) + " not working");
+                break;
+            }catch(SocketTimeoutException ex){
+                logger.error("Connection Timeout Connecting to  : " + proxies.get(i).toString());
+                break;
+            }
+            catch(Exception ex){
+                ex.printStackTrace();
+                logger.error("Error fetching Image : " + ex.getMessage());
+            }
+        }
+        logger.debug("Returning null as image.");
+        return null;
+    }
+    
     public static void updateProxyList(List<CProxy> proxies,int index)
     {
         CProxy cproxy = proxies.get(index);
+        //CommonUtils.setSystemProxy(cproxy);
         if(!cproxy.getnoProxy())
         {    
             logger.debug("Shifting proxy to top : " + cproxy.toString());

@@ -27,7 +27,9 @@ public class Constants {
     };
     
     public static int OK_Response_Code = 200;
+    public static int NOT_FOUND_Code = 404;
     public static String SCHOLAR_BASE_URL = "http://scholar.google.co.in";
+    public static String RESOURCE_FOLDER_PATH = "/citalyser/ui/visualization/resources/";
 }
 
 
