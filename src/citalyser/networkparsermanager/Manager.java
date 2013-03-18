@@ -8,8 +8,11 @@ import citalyser.cache.CacheHandler;
 import citalyser.model.UrlComposer;
 import citalyser.networking.HttpConnection;
 import citalyser.parsing.Parser;
+import citalyser.queryresult.ImageResult;
 import citalyser.queryresult.PaperCollectionResult;
 import citalyser.queryresult.QueryResult;
+import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
 import javax.swing.text.Utilities;
 import org.apache.log4j.Logger;
 /**
@@ -83,7 +86,21 @@ public class Manager {
     /* Query Case - JOURN_PROF */
     public QueryResult getCompleteJournalFromMetric(String url)
     {
-         String html = HttpConnection.getUrlText(url);
+        String html = HttpConnection.getUrlText(url);
         return null;
+    }
+    
+    /* Query Case - IMAGE_FROM_LINK */
+    public QueryResult getImageFromLink(String url)
+    {
+        BufferedImage img = HttpConnection.getImageFromUrl(url);
+        if(img != null)
+        {
+            QueryResult<ImageIcon> q = new ImageResult();
+            q.setContents(new ImageIcon(img));
+            return q;
+        }
+        return null;
+        
     }
 }
