@@ -118,7 +118,7 @@ public class Parser {
 
 
         Parser p = new Parser();
-        p.extractInfo(returnValue);
+        p.extractAuthorProfileInfo(returnValue);
 
     }
 
@@ -129,7 +129,7 @@ public class Parser {
         extractedPapers = new PaperCollection();
         papers = new ArrayList<Paper>();
         citedbyList = new ArrayList<String>();
-        String citations_link="";
+        String citations_link = "";
 
         String jrnl;
         String year;
@@ -154,7 +154,7 @@ public class Parser {
 
             }
 
-            
+
 /////////////////////////////////////////////////////`///////////////////////////////////////////////
             Elements author_section_b = item.select(".gs_a");
             if (!author_section_b.isEmpty()) {
@@ -329,7 +329,7 @@ public class Parser {
                         String journal;
                         try {
                             authors_list = desc_section.get(0).text();
-                            String[] author_names = authors_list.split(",");
+                            String[] author_names = authors_list.split(", ");
                             names = Arrays.toString(author_names);
                             for (String name : author_names) {
                                 Author paper_author = new Author(name);
@@ -338,6 +338,8 @@ public class Parser {
 
                         } catch (Exception e) {
                             names = "";
+                            Author paper_author = new Author(names);
+                            paper_authors.add(paper_author);
                         }
 
                         try {
@@ -348,10 +350,12 @@ public class Parser {
 
                         } catch (Exception e) {
                             journal = "";
+                            Journal jrnl = new Journal(journal);
+                            paper_jrnl.add(jrnl);
                         }
 
 
-
+        logger.debug(journal+"\n"+names);
 
                     }
 
@@ -454,8 +458,9 @@ public class Parser {
         Elements elements = doc.select("div.g-unit");
         for (Element item : elements) {
             Author author = new Author("");
-
+            logger.debug(item.html());
             details = item.text();
+            logger.debug("\n@@@@:" + item.select("a.cit-dark-large-link").outerHtml());
             imglink = Constants.SCHOLAR_BASE_URL + item.select("img").get(0).attr("src");
             Elements links = item.select("a.cit-dark-large-link");
             Element link = links.get(0);
@@ -472,7 +477,7 @@ public class Parser {
             String str;
             str = url.split("user=")[1];
             userid = str.split("&")[0];
-            logger.debug("Author Id = " + userid);
+            logger.debug("details =" + details);
             author.setName(name);
             author.setId(userid);
             author.setUniversity(university);
