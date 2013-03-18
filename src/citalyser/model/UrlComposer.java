@@ -99,7 +99,6 @@ public class UrlComposer {
     {
         try{
             q.name = URLEncoder.encode(q.name,"ISO-8859-1");
-            logger.debug("Query name : " +q.name);
             return q;
         }catch(Exception ex){
             logger.error("Error encoding URI : " + ex.getMessage());

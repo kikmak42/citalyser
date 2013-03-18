@@ -39,7 +39,7 @@ public class ImageHandler {
         final JLabel myLabel = jLabel;
         final String myImgSource = imageSource;
         try {
-        /*    new Thread() {
+            new Thread() {
                 @Override
                 public void run() {
                     QueryResult<?> q = (QueryResult<?>) QueryHandler.getInstance().getQueryResult(
@@ -58,9 +58,10 @@ public class ImageHandler {
                     }
                 }
                 
-            }.start();*/
-            QueryResult<?> q = (QueryResult<?>) QueryHandler.getInstance().getQueryResult(
+            }.start();
+       /*     QueryResult<?> q = (QueryResult<?>) QueryHandler.getInstance().getQueryResult(
                   new Query.Builder("").flag(QueryType.IMAGE_FROM_LINK).Url(myImgSource).build());
+            logger.debug("Getting Image.....");
             if(q instanceof ImageResult)
             {
                 ImageIcon img = (ImageIcon)q.getContents();
@@ -72,7 +73,7 @@ public class ImageHandler {
                 }
                 else
                     myLabel.setIcon(img);
-            }
+            } */
 //            //URL url = new URL(imageSource);
 //            //URLConnection conn = url.openConnection(CommonUtils.getBestJavaProxy());
 //            //InputStream inStream = conn.getInputStream();
@@ -84,6 +85,7 @@ public class ImageHandler {
 //            //graphics2D.dispose();
 //            jLabel.setIcon(new ImageIcon(bufferedImage));
         } catch (Exception ex) {
+            logger.debug("Error creating thread for getting image....");
             ex.printStackTrace();
         }
     }
