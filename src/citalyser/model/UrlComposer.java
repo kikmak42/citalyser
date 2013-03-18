@@ -4,7 +4,7 @@ import citalyser.Main;
 import citalyser.queryhandler.Query;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -12,11 +12,11 @@ import java.util.logging.Logger;
  * @author rajkumar
  */
 public class UrlComposer {
-    
+     private static Logger logger = Logger.getLogger(UrlComposer.class.getName());
     public static String getGenAuthUrl(Query q)
     {
         String query_name = q.name;
-        query_name = query_name.replaceAll(" ", "+");
+        //query_name = query_name.replaceAll(" ", "+");
         String URL = new String();
         URL =  "http://scholar.google.co.in/scholar?";
         URL +=  "start="+ q.start_result +"&";
@@ -93,6 +93,18 @@ public class UrlComposer {
         URL += "vq=en&view_op=list_hcore&";
         URL += "venue=" + q.ID;
         return URL;
+    }
+    
+    public static Query encodeQueryParameters(Query q)
+    {
+        try{
+            q.name = URLEncoder.encode(q.name,"ISO-8859-1");
+            logger.debug("Query name : " +q.name);
+            return q;
+        }catch(Exception ex){
+            logger.error("Error encoding URI : " + ex.getMessage());
+            return q;
+        }
     }
         
 }
