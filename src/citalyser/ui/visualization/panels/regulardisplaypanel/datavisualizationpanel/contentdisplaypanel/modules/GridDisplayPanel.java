@@ -12,6 +12,7 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.griddisplaypanel.GridEntityPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.griddisplaypanel.WrapLayout;
 import java.util.Vector;
 
 /**
@@ -24,6 +25,11 @@ public class GridDisplayPanel extends javax.swing.JPanel {
     public GridDisplayPanel() {
         gridEntityPanels = new Vector<>();
         initComponents();
+        WrapLayout wrapLayout = new WrapLayout();
+        wrapLayout.setAlignment(java.awt.FlowLayout.LEADING);
+        wrapLayout.setHgap(10);
+        wrapLayout.setVgap(10);
+        jPanel1.setLayout(wrapLayout);
     }
 
     public void addGridEntityPanel(GridEntityPanel gridEntityPanel) {
@@ -64,10 +70,12 @@ public class GridDisplayPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setBackground(new java.awt.Color(225, 225, 255));
         jScrollPane1.setViewportView(jPanel1);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

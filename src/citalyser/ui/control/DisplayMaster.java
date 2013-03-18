@@ -165,9 +165,9 @@ public class DisplayMaster {
         }.start();
     }
     
-    //******************************************************************************
-    //**************************** Rendering Functions *****************************
-    //******************************************************************************
+    //*****************************************************************************//
+    //**************************** Rendering Functions ****************************//
+    //*****************************************************************************//
 
     public void render(ContentRenderer contentRenderer, ArrayList<Author> arrayList) {
         if (arrayList != null) {
@@ -192,7 +192,6 @@ public class DisplayMaster {
 
     public void render(ContentRenderer contentRenderer, PaperCollection paperCollection) {
         if (paperCollection != null) {
-            logger.debug("Size : " + paperCollection.getPapers().size());
             contentRenderer.getTableDisplayPanel().setTable(TableModelCreator.getTableModel(paperCollection));
             contentRenderer.flipToTableDisplayPanel();
         } else {

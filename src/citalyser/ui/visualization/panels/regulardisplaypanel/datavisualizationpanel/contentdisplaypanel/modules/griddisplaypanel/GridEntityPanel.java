@@ -12,9 +12,7 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 
 import citalyser.model.Author;
 import citalyser.ui.control.DisplayMaster;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.griddisplaypanel.gridentitypanel.ImageHandler;
 import org.apache.log4j.Logger;
 
 /**
@@ -29,7 +27,7 @@ public class GridEntityPanel extends javax.swing.JPanel {
     public GridEntityPanel(Author author) {
         initComponents();
         this.author = author;
-        jLabel1.setIcon(new javax.swing.ImageIcon(author.getImageSrc()));
+        ImageHandler.displayImage(jLabel1, author.getImageSrc());
         jLabel2.setText(author.getName());
         jLabel3.setText("<html>" + author.getUniversity());
         jLabel4.setText("Cited by: " + author.getTotalCitations());
@@ -60,6 +58,7 @@ public class GridEntityPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         setPreferredSize(new java.awt.Dimension(275, 100));
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -71,8 +70,11 @@ public class GridEntityPanel extends javax.swing.JPanel {
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setOpaque(true);
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 12));
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Name of the Author");
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
         jLabel3.setText("University and e-mail id");
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -89,21 +91,21 @@ public class GridEntityPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addContainerGap())
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

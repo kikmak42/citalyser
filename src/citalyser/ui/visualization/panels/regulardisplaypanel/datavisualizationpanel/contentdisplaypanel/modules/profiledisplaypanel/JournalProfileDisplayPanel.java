@@ -4,6 +4,8 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel;
 
+import citalyser.model.Journal;
+
 /**
  *
  * @author kaushik
@@ -44,10 +46,14 @@ public class JournalProfileDisplayPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(181, Short.MAX_VALUE))
+                .addContainerGap(266, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
+    public void displayJournal(Journal journal) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 }

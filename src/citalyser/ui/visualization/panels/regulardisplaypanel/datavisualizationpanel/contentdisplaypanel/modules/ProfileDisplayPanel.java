@@ -5,17 +5,20 @@
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules;
 
 import citalyser.model.Author;
+import citalyser.model.Journal;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.AuthorProfileDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.JournalProfileDisplayPanel;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author kaushik
  */
 public class ProfileDisplayPanel extends javax.swing.JPanel {
+    
+    private static Logger logger = Logger.getLogger(ProfileDisplayPanel.class.getName());
 
-    private Author author;
     /**
      * Creates new form ProfileDisplayPanel
      */
@@ -40,11 +43,16 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
     }
 
     public void displayAuthorProfile(Author author) {
-        this.author=author;
-        authorProfileDisplayPanel.setAuthorName(author.getName());
-        authorProfileDisplayPanel.setAuthorDetails(author.getUniversity());
-        authorProfileDisplayPanel.setAuthorStats(author.getCitesPerYear(),author.getCitesPerPaper());
+        authorProfileDisplayPanel.displayAuthor(author);
+        ((java.awt.CardLayout) this.getLayout()).first(this);
     }
+
+    public void displayJournalProfile(Journal journal) {
+        journalProfileDisplayPanel.displayJournal(journal);
+        ((java.awt.CardLayout) this.getLayout()).last(this);
+    }
+
+    
     private DisplayMaster displayMaster;
 
     /**
@@ -59,10 +67,20 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
         authorProfileDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.AuthorProfileDisplayPanel();
         journalProfileDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.JournalProfileDisplayPanel();
 
+        addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                formPropertyChange(evt);
+            }
+        });
         setLayout(new java.awt.CardLayout());
         add(authorProfileDisplayPanel, "card2");
         add(journalProfileDisplayPanel, "card3");
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_formPropertyChange
+        logger.error(evt.getPropertyName() + ", " + evt.getNewValue() + ", " + evt.getSource());
+    }//GEN-LAST:event_formPropertyChange
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.AuthorProfileDisplayPanel authorProfileDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.JournalProfileDisplayPanel journalProfileDisplayPanel;
