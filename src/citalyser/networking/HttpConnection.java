@@ -22,9 +22,6 @@ public class HttpConnection {
     private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(HttpConnection.class.getName());
     //@constants
     
-    //@variables
-    private static HttpURLConnection connection;
-    
     /**
      * 
      * Makes an HTTP request to the specified URL.
@@ -35,8 +32,10 @@ public class HttpConnection {
      * @throws IOException 
      *              thrown if any I/O error occurred
      */
-    public static void connectUrl(String requestURL,CProxy cproxy,String agentname)
+    public static HttpURLConnection connectUrl(String requestURL,CProxy cproxy,String agentname)
         throws IOException, URISyntaxException {
+        
+        HttpURLConnection connection;
         URL url = new URI(requestURL).toURL();
         Proxy proxy = CommonUtils.getJavaProxyFromCProxy(cproxy);
         
@@ -47,7 +46,8 @@ public class HttpConnection {
         connection.setConnectTimeout(Constants.SERVER_READOUT_TIME);
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Content-Type", "text/html; charset=ISO-8859-1");
-        connection.setRequestProperty("User-Agent", agentname);        
+        connection.setRequestProperty("User-Agent", agentname);
+        return connection;
     }
 
     /**
@@ -76,7 +76,7 @@ public class HttpConnection {
                 logger.debug("Proxy : " + proxies.get(i).toString() +" UserAgent : "+Constants.userAgents[j]);
                 try{
                     logger.debug("Url: " + url);
-                    connectUrl(url,proxies.get(i),Constants.userAgents[j]);
+                    HttpURLConnection connection = connectUrl(url,proxies.get(i),Constants.userAgents[j]);
                     responseCode = connection.getResponseCode();
                     if(responseCode == Constants.OK_Response_Code)
                     {
@@ -90,6 +90,7 @@ public class HttpConnection {
                         while ((line = reader.readLine()) != null){
                             urlResponse.append(line);
                         }
+                        connection.disconnect();
                         return urlResponse.toString();
                         
                     }
@@ -131,7 +132,7 @@ public class HttpConnection {
             logger.debug("Proxy : " + proxies.get(i).toString() +" UserAgent : "+Constants.userAgents[0]);
             try
             {
-                connectUrl(url,proxies.get(i),Constants.userAgents[0]);
+                HttpURLConnection connection = connectUrl(url,proxies.get(i),Constants.userAgents[0]);
                 responseCode = connection.getResponseCode();
                 logger.debug("Response Code : " + responseCode);
                 if(responseCode == Constants.OK_Response_Code)
@@ -140,6 +141,7 @@ public class HttpConnection {
                     InputStream inStream = connection.getInputStream();
                     image = ImageIO.read(inStream);
                     logger.debug("Returning image.");
+                    connection.disconnect();
                     return image;
                 }
                 else if(responseCode == Constants.NOT_FOUND_Code)
@@ -178,9 +180,9 @@ public class HttpConnection {
     /**
      * Closes the connection if opened
      */
-    public static void disconnect() {
-        if (connection != null) {
-            connection.disconnect();
-        }
-    }
+//    public static void disconnect() {
+//        if (connection != null) {
+//            connection.disconnect();
+//        }
+//    }
 }
