@@ -24,9 +24,8 @@ public class ImageHandler {
         try {
             BufferedImage bufferedImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
             Graphics2D graphics2D = bufferedImage.createGraphics();
-            graphics2D.drawImage(ImageIO.read(
-                    new URL(imageSource)), 0, 0, 100, 100, jLabel);
-            //graphics2D.drawImage(ImageIO.read(new URL("http://cse.iitkgp.ac.in/~animeshm/mypic.jpg")), 0, 0, 100, 100, jLabel);
+            graphics2D.drawImage(ImageIO.read(new URL(imageSource)), 0, 0, 134, 136, jLabel);
+            //graphics2D.drawImage(ImageIO.read(new URL("http://cse.iitkgp.ac.in/~animeshm/mypic.jpg")), 0, 0, 134, 136, jLabel);
             graphics2D.dispose();
             jLabel.setIcon(new ImageIcon(bufferedImage));
         } catch (IOException ex) {
