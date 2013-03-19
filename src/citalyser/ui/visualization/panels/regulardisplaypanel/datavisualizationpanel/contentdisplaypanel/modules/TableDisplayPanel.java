@@ -13,6 +13,8 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 import citalyser.ui.control.DisplayMaster;
 import citalyser.util.CommonUtils;
 import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 
 /**
@@ -86,8 +88,11 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        File Results=new File("ExportedTable.csv");
-        CommonUtils.exportToCsv(tableModel, Results);
+        
+        JFileChooser chooser=new JFileChooser();
+        chooser.showSaveDialog(this);
+        File results=chooser.getSelectedFile();
+        CommonUtils.exportToCsv(tableModel, results);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
