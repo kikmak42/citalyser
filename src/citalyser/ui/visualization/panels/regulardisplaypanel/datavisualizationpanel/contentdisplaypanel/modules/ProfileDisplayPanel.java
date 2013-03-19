@@ -16,7 +16,6 @@ import org.apache.log4j.Logger;
  * @author kaushik
  */
 public class ProfileDisplayPanel extends javax.swing.JPanel {
-    
     private static Logger logger = Logger.getLogger(ProfileDisplayPanel.class.getName());
 
     /**
@@ -28,13 +27,14 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
 
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
+        authorProfileDisplayPanel.setDisplayMaster(displayMaster);
+        journalProfileDisplayPanel.setDisplayMaster(displayMaster);
     }
 
     public DisplayMaster getDisplayMaster() {
         return displayMaster;
     }
-
-    public JournalProfileDisplayPanel getJournalProfileDisplayPanel() {
+      public JournalProfileDisplayPanel getJournalProfileDisplayPanel() {
         return journalProfileDisplayPanel;
     }
 
@@ -55,6 +55,10 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
     
     private DisplayMaster displayMaster;
 
+ private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_formPropertyChange
+        logger.error(evt.getPropertyName() + ", " + evt.getNewValue() + ", " + evt.getSource());
+    }//GEN-LAST:event_formPropertyChange
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,25 +68,60 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         authorProfileDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.AuthorProfileDisplayPanel();
         journalProfileDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.JournalProfileDisplayPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
-        addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                formPropertyChange(evt);
-            }
-        });
-        setLayout(new java.awt.CardLayout());
-        add(authorProfileDisplayPanel, "card2");
-        add(journalProfileDisplayPanel, "card3");
+        jPanel1.setLayout(new java.awt.CardLayout());
+        jPanel1.add(authorProfileDisplayPanel, "card2");
+        jPanel1.add(journalProfileDisplayPanel, "card3");
+
+        jLabel1.setText("jLabel1");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(159, 159, 159))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+                .addContainerGap())
+        );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_formPropertyChange
-        logger.error(evt.getPropertyName() + ", " + evt.getNewValue() + ", " + evt.getSource());
-    }//GEN-LAST:event_formPropertyChange
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.AuthorProfileDisplayPanel authorProfileDisplayPanel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.JournalProfileDisplayPanel journalProfileDisplayPanel;
     // End of variables declaration//GEN-END:variables
 }

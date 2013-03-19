@@ -56,7 +56,7 @@ public class Manager {
         if (html != null) {
             return parser.getAuthors(html);
         } else {
-            logger.info("null result form httpconnection");
+            logger.info("null result from httpconnection");
             return null;
         }
     }
@@ -93,5 +93,17 @@ public class Manager {
         }
         return null;
 
+    }
+
+    /* Query Case - CITATIONS_LIST */
+    public QueryResult getCitationsList(String url) {
+        logger.info("GettingCitationsList from Network - " + url);
+        String html = HttpConnection.getUrlText(url);
+        if (html != null) {
+            return parser.extractInfo(html);
+        } else {
+            logger.info("null result from httpconnection");
+            return null;
+        }
     }
 }

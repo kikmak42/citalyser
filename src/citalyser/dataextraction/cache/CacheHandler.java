@@ -189,5 +189,19 @@ public class CacheHandler {
             return q;
         }
     }
+
+    public QueryResult getCitationsList(String queryUrl) {
+        Object cacheResult = getObject(queryUrl);
+        if (cacheResult != null) {
+            logger.info("Getting CITATIONS_LIST - Cache hit");
+            return (PaperCollectionResult)cacheResult;
+        } else {
+            logger.info("Getting CITATIONS_LIST - Cache miss");
+            QueryResult q = manager.getCitationsList(queryUrl);
+            logger.debug("Citation Result :" + q);
+            setObject(q, queryUrl);
+            return q;
+        }
+    }
     
 }

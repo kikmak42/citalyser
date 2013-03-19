@@ -118,7 +118,7 @@ public class Parser {
 
 
         Parser p = new Parser();
-        p.extractJournallist(returnValue);
+        p.getAuthors(returnValue);
 
     }
 
@@ -439,15 +439,19 @@ public class Parser {
         int citations;
         String name, imglink;
         String url, userid;
-        String details, university;
+        String details="", university="";
         String[] parseddetails;
         doc = Jsoup.parse(input, "UTF-8");
         Elements elements = doc.select("div.g-unit");
         for (Element item : elements) {
             Author author = new Author("");
-            logger.debug(item.html());
+           // logger.debug(item.html());
+            university = item.html();
+            university = university.split("<td")[2].split("hl=en\">")[1].split("Cited|<form|<input")[0];
+       
             details = item.text();
-            logger.debug("\n@@@@:" + item.select("a.cit-dark-large-link").outerHtml());
+          // logger.debug(university);
+           // logger.debug("\n@@@@:" + item.select("a.cit-dark-large-link").outerHtml());
             imglink = Constants.SCHOLAR_BASE_URL + item.select("img").get(0).attr("src");
             Elements links = item.select("a.cit-dark-large-link");
             Element link = links.get(0);
@@ -456,15 +460,15 @@ public class Parser {
             parseddetails = details.split(" ");
             try {
                 citations = Integer.parseInt(parseddetails[parseddetails.length - 1]);
-                university = details.substring(name.length(), details.length() - 9 - Integer.toString(citations).length());
+                //university = details.substring(name.length(), details.length());
             } catch (Exception e) {
                 citations = 0;
-                university = details.substring(details.length() - name.length());
+                //university = details.substring(details.length() - name.length());
             }
             String str;
             str = url.split("user=")[1];
             userid = str.split("&")[0];
-            logger.debug("details =" + details);
+            //logger.debug("details =" + details);
             author.setName(name);
             author.setId(userid);
             author.setUniversity(university);

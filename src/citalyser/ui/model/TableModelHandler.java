@@ -6,6 +6,7 @@ package citalyser.ui.model;
 
 import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -15,7 +16,7 @@ import javax.swing.table.TableModel;
  *
  * @author vikas
  */
-public class TableModelCreator {
+public class TableModelHandler {
 
     public static TableModel getTableModel(PaperCollection pc) {
         ArrayList<Paper> papers = pc.getPapers();

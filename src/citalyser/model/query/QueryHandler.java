@@ -60,6 +60,9 @@ public class QueryHandler {
             case IMAGE_FROM_LINK:
                 queryUrl = q.url;
                 return cacheHandler.getImageFromLink(queryUrl);
+            case CITATIONS_LIST:
+                queryUrl = q.url;
+                return cacheHandler.getCitationsList(queryUrl);
             default : 
                 return null;
         }

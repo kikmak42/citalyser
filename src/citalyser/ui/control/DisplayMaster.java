@@ -3,18 +3,22 @@
  * and open the template in the editor.
  */
 package citalyser.ui.control;
-   
+
 import citalyser.Main;
 import citalyser.model.Author;
+import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.model.query.Query;
 import citalyser.model.query.QueryHandler;
+import citalyser.model.query.QueryResult;
 import citalyser.model.query.QueryType;
+import citalyser.model.query.queryresult.AuthorResult;
 import citalyser.ui.control.masters.SearchMaster;
 import citalyser.ui.control.masters.SettingsMaster;
 import citalyser.ui.control.switchers.QueryResultRenderingHandler;
 import citalyser.ui.model.ContentRenderer;
-import citalyser.ui.model.TableModelCreator;
+import citalyser.ui.model.ListModelHandler;
+import citalyser.ui.model.TableModelHandler;
 import citalyser.util.CProxy;
 
 import citalyser.ui.visualization.MainFrame;
@@ -32,16 +36,13 @@ import org.apache.log4j.Logger;
  * @author Tanmay Patil
  */
 public class DisplayMaster {
-    
+
     private MainFrame mainFrame;
     private javax.swing.JDialog settingsDialog;
     private ExternalPanel extraPanel;
-    
     private SettingsMaster settingsMaster;
     private SearchMaster searchMaster;
-    
     private QueryResultRenderingHandler queryResultRenderingHandler;
-    
     private static Logger logger = Logger.getLogger(DisplayMaster.class.getName());
 
     public DisplayMaster() {
@@ -74,7 +75,7 @@ public class DisplayMaster {
     public QueryResultRenderingHandler getQueryResultRenderingHandler() {
         return queryResultRenderingHandler;
     }
-    
+
     public void searchKeyPressed(SearchPanel searchPanel, char key) {
         searchMaster.searchKeyPressed(searchPanel, key);
     }
@@ -82,7 +83,7 @@ public class DisplayMaster {
     public void settingsButtonPressed() {
         settingsDialog.setVisible(true);
     }
-    
+
     public void mainFrameChanged(int x, int y, int width, int height) {
         if (settingsDialog != null) {
             settingsDialog.setLocation(x, y);
@@ -106,7 +107,7 @@ public class DisplayMaster {
     public void searchButtonClicked(SearchPanel searchPanel) {
         searchMaster.searchButtonClicked(searchPanel);
     }
-    
+
     public void settingsSaveAndClose() {
         settingsDialog.setVisible(false);
     }
@@ -138,7 +139,7 @@ public class DisplayMaster {
     public void addAutoCompleteSuggestions(Vector<String> suggestions) {
         searchMaster.addAutoCompleteSuggestions(suggestions);
     }
-    
+
     public void addAutoCompleteSuggestion(String suggestion) {
         searchMaster.addAutoCompleteSuggestion(suggestion);
     }
@@ -146,29 +147,43 @@ public class DisplayMaster {
     public void emptyAutoCompleteSuggestions() {
         searchMaster.emptyAutoCompleteSuggestions();
     }
-    
-    public boolean checkAuthorMode(){
+
+    public boolean checkAuthorMode() {
         return mainFrame.getRegularDisplayPanel().getHeaderPanel().isAuthorSearchMode();
     }
 
-    public void authorGridEntityClicked(String id) {
-        
-        final String myId = id;
-        
-        new Thread() {
+    public void tableClicked(Paper paper) {
 
+        Query q =new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(paper.getcitedByUrl()).build();
+        QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
+        logger.debug(queryResult);
+        if (queryResult != null) {
+            PaperCollection pc = (PaperCollection) queryResult.getContents();
+            if (paper != null) {
+                renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
+            }
+        } else {
+            Main.getDisplayController().displayErrorMessage("Null QueryResult on Tableclicked...");
+
+        }
+    }
+
+    public void authorGridEntityClicked(String id) {
+
+        final String myId = id;
+
+        new Thread() {
             @Override
             public void run() {
                 queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), QueryHandler.getInstance().getQueryResult(new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).build()));
+                renderProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), ((AuthorResult) QueryHandler.getInstance().getQueryResult(new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).build())).getContents());
             }
-            
         }.start();
     }
-    
+
     //*****************************************************************************//
     //**************************** Rendering Functions ****************************//
     //*****************************************************************************//
-
     public void render(ContentRenderer contentRenderer, ArrayList<Author> arrayList) {
         if (arrayList != null) {
             contentRenderer.getGridDisplayPanel().clear();
@@ -183,7 +198,7 @@ public class DisplayMaster {
 
     public void render(ContentRenderer contentRenderer, Author author) {
         if (author != null) {
-            contentRenderer.getTableDisplayPanel().setTable(TableModelCreator.getTableModel(author.getPaperCollection()));
+            contentRenderer.getTableDisplayPanel().setTable(author.getPaperCollection(), TableModelHandler.getTableModel(author.getPaperCollection()));
             contentRenderer.flipToTableDisplayPanel();
         } else {
             Main.getDisplayController().displayErrorMessage("Null Author");
@@ -192,7 +207,7 @@ public class DisplayMaster {
 
     public void render(ContentRenderer contentRenderer, PaperCollection paperCollection) {
         if (paperCollection != null) {
-            contentRenderer.getTableDisplayPanel().setTable(TableModelCreator.getTableModel(paperCollection));
+            contentRenderer.getTableDisplayPanel().setTable(paperCollection, TableModelHandler.getTableModel(paperCollection));
             contentRenderer.flipToTableDisplayPanel();
         } else {
             //TODO: Need to call api back
@@ -200,4 +215,20 @@ public class DisplayMaster {
         }
     }
 
+    public void renderCitationsList(ContentRenderer contentRenderer, ArrayList<Paper> papers) {
+        if (papers != null) {
+            contentRenderer.getListDisplayPanel().setList(ListModelHandler.getListModel(papers));
+            contentRenderer.flipToListDisplayPanel();
+        } else {
+            Main.getDisplayController().displayErrorMessage("Null Citations List");
+        }
+    }
+    public void renderProfile(ContentRenderer contentRenderer, Author author) {
+        if (author != null) {
+            contentRenderer.getProfileDisplayPanel().displayAuthorProfile(author);
+            contentRenderer.flipToProfileDisplayPanel();
+        } else {
+            Main.getDisplayController().displayErrorMessage("Null Author");
+        }
+    }
 }
