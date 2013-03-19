@@ -16,8 +16,8 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jLabel1" alignment="0" pref="1349" max="32767" attributes="0"/>
-          <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
+          <Component id="jLabel1" alignment="0" pref="1348" max="32767" attributes="0"/>
+          <Component id="jPanel2" alignment="0" pref="1348" max="32767" attributes="0"/>
           <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
@@ -60,7 +60,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="240" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="30" max="32767" attributes="0"/>
+                  <EmptySpace pref="23" max="32767" attributes="0"/>
                   <Component id="authorSearchPanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="228" max="-2" attributes="0"/>
               </Group>
@@ -74,7 +74,7 @@
                       <Component id="jLabel2" alignment="1" max="32767" attributes="1"/>
                       <Component id="authorSearchPanel" alignment="1" max="32767" attributes="1"/>
                   </Group>
-                  <EmptySpace pref="74" max="32767" attributes="0"/>
+                  <EmptySpace pref="67" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -113,14 +113,14 @@
                   <Component id="journalSearchPanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="236" max="32767" attributes="0"/>
+                  <EmptySpace pref="229" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="73" max="32767" attributes="0"/>
+                  <EmptySpace pref="67" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jLabel3" alignment="1" max="32767" attributes="1"/>
                       <Component id="journalSearchPanel" alignment="1" max="32767" attributes="1"/>

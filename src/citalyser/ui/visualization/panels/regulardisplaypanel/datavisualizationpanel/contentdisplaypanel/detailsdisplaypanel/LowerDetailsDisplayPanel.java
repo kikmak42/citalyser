@@ -16,6 +16,7 @@ import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpa
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ListDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ProfileDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel;
+import java.awt.BorderLayout;
 
 /**
  *
@@ -63,14 +64,14 @@ public class LowerDetailsDisplayPanel extends javax.swing.JPanel implements Cont
     
     @Override
     public void flipToListDisplayPanel() {
-        ((java.awt.CardLayout) this.getLayout()).first(this);
-        ((java.awt.CardLayout) this.getLayout()).next(this);
+        ((java.awt.CardLayout) this.getLayout()).show(this, "card3");
+        listDisplayPanel.setLayout(new BorderLayout());
     }
     
     @Override
     public void flipToProfileDisplayPanel() {
-        ((java.awt.CardLayout) this.getLayout()).last(this);
-        ((java.awt.CardLayout) this.getLayout()).previous(this);
+        ((java.awt.CardLayout) this.getLayout()).show(this, "card5");
+        listDisplayPanel.setLayout(new BorderLayout());
     }
     
     @Override

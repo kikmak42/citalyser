@@ -60,6 +60,7 @@ public class ListDisplayPanel extends javax.swing.JPanel {
 
     public void setList(ListModel<Paper> listModel) {
         jList1.setModel(listModel);
+        this.validate();
         jList1.repaint();
     }
 }

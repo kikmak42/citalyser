@@ -153,19 +153,25 @@ public class DisplayMaster {
     }
 
     public void tableClicked(Paper paper) {
+        final Paper myPaper = paper;
+        new Thread() {
 
-        Query q =new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(paper.getcitedByUrl()).build();
-        QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
-        logger.debug(queryResult);
-        if (queryResult != null) {
-            PaperCollection pc = (PaperCollection) queryResult.getContents();
-            if (paper != null) {
-                renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
+            @Override
+            public void run() {
+                Query q =new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl()).build();
+                QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
+                logger.debug(queryResult);
+                if (queryResult != null) {
+                    PaperCollection pc = (PaperCollection) queryResult.getContents();
+                    if (myPaper != null) {
+                        renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
+                    }
+                } else {
+                    Main.getDisplayController().displayErrorMessage("Null QueryResult on Tableclicked...");
+                }
             }
-        } else {
-            Main.getDisplayController().displayErrorMessage("Null QueryResult on Tableclicked...");
-
-        }
+            
+        }.start();
     }
 
     public void authorGridEntityClicked(String id) {
@@ -176,7 +182,7 @@ public class DisplayMaster {
             @Override
             public void run() {
                 queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), QueryHandler.getInstance().getQueryResult(new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).build()));
-                renderProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), ((AuthorResult) QueryHandler.getInstance().getQueryResult(new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).build())).getContents());
+                //renderProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), ((AuthorResult) QueryHandler.getInstance().getQueryResult(new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).build())).getContents());
             }
         }.start();
     }
@@ -223,6 +229,7 @@ public class DisplayMaster {
             Main.getDisplayController().displayErrorMessage("Null Citations List");
         }
     }
+    
     public void renderProfile(ContentRenderer contentRenderer, Author author) {
         if (author != null) {
             contentRenderer.getProfileDisplayPanel().displayAuthorProfile(author);
