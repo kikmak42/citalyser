@@ -56,6 +56,8 @@ public class CacheHandler {
     }
 
     public int setObject(QueryResult qr, String url) {
+        if(qr == null )
+            return 0;
         String hashCode = getSHA1(url);
         File file = new File(Main.CacheDirectory, hashCode);
         logger.info("Setting Cache at : " + file.getAbsolutePath());
