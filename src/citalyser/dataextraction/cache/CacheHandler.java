@@ -199,7 +199,7 @@ public class CacheHandler {
             logger.info("Getting CITATIONS_LIST - Cache miss");
             QueryResult q = manager.getCitationsList(queryUrl);
             setObject(q, queryUrl);
-            return q;
+            return null;
         }
     }
     
