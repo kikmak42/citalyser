@@ -18,6 +18,7 @@ public class Author implements Serializable {
         private String proilelink;
         private String univandemail;
         private int totalcitaions;
+        private String graphurl;
         private PaperCollection paper_collection;
         private ArrayList<Author> co_authors;
     
@@ -33,6 +34,12 @@ public class Author implements Serializable {
             this.imgsrc=null;
             this.proilelink=null;
             this.univandemail=null;
+        }
+        public void setGraphurl(String url){
+            this.graphurl = url;
+        }
+        public String getGraphurl(){
+            return this.graphurl;
         }
 
         public String getId(){
