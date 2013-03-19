@@ -62,7 +62,7 @@ public class HttpConnection {
         
         //Get proxies from file and add them
         List<CProxy> proxies = Config.getProxylist();
-        if(proxies == null)
+        if(proxies == null || proxies.size() == 0)
         {
             proxies = new ArrayList<>();
             proxies.add(new CProxy());
@@ -74,9 +74,9 @@ public class HttpConnection {
             {
                 logger.debug("Proxy : " + proxies.get(i).toString() +" UserAgent : "+Constants.userAgents[j]);
                 try{
-                    logger.debug("Url: " + url);
                     HttpURLConnection connection = connectUrl(url,proxies.get(i),Constants.userAgents[j]);
                     responseCode = connection.getResponseCode();
+                    logger.debug("Response Code: " + responseCode);
                     if(responseCode == Constants.OK_Response_Code)
                     {
                         /* update ProxyList */
@@ -120,7 +120,7 @@ public class HttpConnection {
         int responseCode = 0;
         BufferedImage image = null;
         List<CProxy> proxies = Config.getProxylist();
-        if(proxies == null)
+        if(proxies == null || proxies.size() ==0)
         {
             proxies = new ArrayList<>();
             proxies.add(new CProxy());
