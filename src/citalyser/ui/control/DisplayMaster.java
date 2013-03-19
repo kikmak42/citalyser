@@ -176,7 +176,7 @@ public class DisplayMaster {
             @Override
             public void run() {
                 queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), QueryHandler.getInstance().getQueryResult(new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).build()));
-                renderProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), ((AuthorResult) QueryHandler.getInstance().getQueryResult(new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).build())).getContents());
+                //renderProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), ((AuthorResult) QueryHandler.getInstance().getQueryResult(new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).build())).getContents());
             }
         }.start();
     }
@@ -223,6 +223,7 @@ public class DisplayMaster {
             Main.getDisplayController().displayErrorMessage("Null Citations List");
         }
     }
+    
     public void renderProfile(ContentRenderer contentRenderer, Author author) {
         if (author != null) {
             contentRenderer.getProfileDisplayPanel().displayAuthorProfile(author);
