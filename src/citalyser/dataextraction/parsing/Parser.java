@@ -118,7 +118,7 @@ public class Parser {
 
 
         Parser p = new Parser();
-        p.extractJournalInfo(returnValue);
+        p.extractJournallist(returnValue);
 
     }
 
@@ -249,7 +249,7 @@ public class Parser {
 
         }
         extractedPapers.setPapers(papers);
-        
+
         q.setContents(extractedPapers);
         return q;
 
@@ -294,7 +294,14 @@ public class Parser {
         Author author = new Author(null);
         PaperCollection pc = new PaperCollection();
         ArrayList<Paper> paperList = new ArrayList<>();
+        String graphurl = "";
         doc = Jsoup.parse(src, "UTF-8");
+        Elements it = doc.select("div.cit-lbb");
+        if (!it.isEmpty()) {
+            graphurl = it.select("img").get(0).attr("src");
+        }
+        //logger.debug("@@@##"+graphurl);
+        author.setGraphurl(graphurl);
         Elements items = doc.select("table.cit-table");
         String url = "http://scholar.google.com";
         if (!items.isEmpty()) {
@@ -418,7 +425,7 @@ public class Parser {
         author.setCoAuthors(co_author_list);
         qr_author_result.setContents(author);
         //qr_author_result.setContents(ar);
-        
+
         return qr_author_result;
 
 
@@ -625,5 +632,63 @@ public class Parser {
 //            logger.debug("##:" + p.getJournals().get(0).getName());
 //        }
         return qj;
+    }
+
+    public QueryResult<ArrayList<Journal>> extractJournallist(String src) {
+        QueryResult<ArrayList<Journal>> qjl = new JournalListResult();
+        ArrayList<Journal> alj = new ArrayList<>();
+        doc = Jsoup.parse(src, "UTF-8");
+        String title ="";
+        String h5link = "";
+        String h5i = "0";
+        String h5m = "0";
+        Elements items = doc.select("table#gs_cit_list_table");
+        if (!items.isEmpty()) {
+            for (Element item : items) {
+                //Elements rows = item.select("tr.cit-table item");
+                Elements rows = item.select("tr");  //extract all the rows in each such table
+                int count = 0;
+                if (!rows.isEmpty()) {
+                    for (Element row : rows) {
+                        count++;
+                        if (count == 1) {
+                            continue;   //if first row then skip because it contains just the headers
+                        }
+                        title = row.select("td.gs_title").get(0).text();
+                        try{
+                        h5i = row.select("td.gs_num").get(0).text();
+                        }
+                        catch(Exception e){
+                            
+                        }
+                        try{
+                        h5link = Constants.SCHOLAR_BASE_URL+row.select("td.gs_num").get(0).select("a").get(0).attr("href");
+                        }
+                        catch(Exception e){
+                            
+                        }
+                        try{
+                        h5m = row.select("td.gs_num").get(1).text();
+                        }
+                        catch(Exception e){
+                            
+                        }
+                        Journal jour = new Journal(title);
+                        jour.setH5Link(h5link);
+                        jour.setH5index(Integer.parseInt(h5i));
+                        jour.setH5median(Integer.parseInt(h5m));
+                        alj.add(jour);
+                    }
+
+                }
+            }
+        }
+        qjl.setContents(alj);
+//        for(Journal j:alj){
+//            logger.debug(j.getName());
+//            logger.debug(j.getH5index()+"-"+j.getH5Link());
+//            logger.debug(j.getH5median());
+//        }
+        return qjl;
     }
 }
