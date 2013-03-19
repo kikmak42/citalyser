@@ -14,5 +14,6 @@ public enum QueryType {
     MET_AUTH,               // All Authors matching a particular string from Google Author Search
     MET_JOURN,              // All Journals matching a particular string from Google Metrics
     AUTH_PROF,              // Get Complete Author Details from Google Author Search
-    JOURN_PROF;              // Get Complete Journal Details from Google Metrics Search
+    JOURN_PROF,             // Get Complete Journal Details from Google Metrics Search
+    IMAGE_FROM_LINK         // Get BufferedImage from specified link
 }
