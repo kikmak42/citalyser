@@ -3,7 +3,7 @@
  * @Email-id : abhishek@codeblues.in
  *****************************************************************/
 
-package citalyser;
+package citalyser.util;
 
 import citalyser.util.CProxy;
 import java.net.InetSocketAddress;

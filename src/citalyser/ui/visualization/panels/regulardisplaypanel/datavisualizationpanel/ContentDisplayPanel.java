@@ -10,7 +10,7 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel;
 
-import citalyser.queryresult.QueryResult;
+import citalyser.model.query.QueryResult;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.CentralContentDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel;

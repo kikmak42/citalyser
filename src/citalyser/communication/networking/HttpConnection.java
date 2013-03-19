@@ -1,7 +1,7 @@
-package citalyser.networking;
+package citalyser.communication.networking;
 
-import citalyser.CommonUtils;
-import citalyser.Config;
+import citalyser.util.CommonUtils;
+import citalyser.util.Config;
 import citalyser.Constants;
 import citalyser.Main;
 import citalyser.util.CProxy;
@@ -9,7 +9,6 @@ import java.awt.image.BufferedImage;
 import java.net.*;
 import java.io.*;
 import java.util.*;
-import java.util.logging.*;
 import javax.imageio.ImageIO;
 
 /**
@@ -65,7 +64,7 @@ public class HttpConnection {
         List<CProxy> proxies = Config.getProxylist();
         if(proxies == null)
         {
-            proxies = new ArrayList<CProxy>();
+            proxies = new ArrayList<>();
             proxies.add(new CProxy());
         }
         logger.debug("No of Proxies : " + proxies.size());
@@ -123,7 +122,7 @@ public class HttpConnection {
         List<CProxy> proxies = Config.getProxylist();
         if(proxies == null)
         {
-            proxies = new ArrayList<CProxy>();
+            proxies = new ArrayList<>();
             proxies.add(new CProxy());
         }
         logger.debug("No of Proxies : " + proxies.size());

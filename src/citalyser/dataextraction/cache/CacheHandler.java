@@ -2,28 +2,26 @@
  * @author Abhishek Choudhary
  * @Email-id : abhishek@codeblues.in
  *****************************************************************/
-package citalyser.cache;
+package citalyser.dataextraction.cache;
 
-import citalyser.Constants;
 import citalyser.Main;
-import citalyser.networkparsermanager.Manager;
-import citalyser.queryresult.AuthorListResult;
-import citalyser.queryresult.AuthorResult;
-import citalyser.queryresult.ImageResult;
-import citalyser.queryresult.JournalListResult;
-import citalyser.queryresult.JournalResult;
-import citalyser.queryresult.PaperCollectionResult;
-import citalyser.queryresult.QueryResult;
-import java.awt.image.BufferedImage;
+import citalyser.communication.networkparsermanager.Manager;
+import citalyser.model.query.queryresult.AuthorListResult;
+import citalyser.model.query.queryresult.AuthorResult;
+import citalyser.model.query.queryresult.ImageResult;
+import citalyser.model.query.queryresult.JournalListResult;
+import citalyser.model.query.queryresult.JournalResult;
+import citalyser.model.query.queryresult.PaperCollectionResult;
+import citalyser.model.query.QueryResult;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import javax.imageio.ImageIO;
+import java.security.NoSuchAlgorithmException;
 import org.apache.log4j.Logger;
 
 public class CacheHandler {
@@ -83,7 +81,7 @@ public class CacheHandler {
                 result += Integer.toString((theDigest[i] & 0xff) + 0x100, 16).substring(1);
             }
             return result;
-        } catch (Exception e) {
+        } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return result;

@@ -3,15 +3,17 @@
  * and open the template in the editor.
  */
 //i have given the path of input.html in c:\input.html
-package citalyser.parsing;
+package citalyser.dataextraction.parsing;
 
+import citalyser.model.query.queryresult.AuthorListResult;
+import citalyser.model.query.queryresult.AuthorResult;
+import citalyser.model.query.queryresult.PaperCollectionResult;
 import citalyser.Constants;
 import citalyser.model.Author;
 import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.model.Journal;
-import citalyser.queryresult.*;
-import citalyser.queryresult.QueryResult;
+import citalyser.model.query.QueryResult;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -127,8 +129,8 @@ public class Parser {
         QueryResult<PaperCollection> q = new PaperCollectionResult();
         this.source = source;
         extractedPapers = new PaperCollection();
-        papers = new ArrayList<Paper>();
-        citedbyList = new ArrayList<String>();
+        papers = new ArrayList<>();
+        citedbyList = new ArrayList<>();
         String citations_link = "";
 
         String jrnl;
@@ -138,8 +140,8 @@ public class Parser {
         Elements items = doc.select(".gs_ri");//select all items 
         for (Element item : items) {
             //extracting title section
-            ArrayList<Author> authorsinPaper = new ArrayList<Author>();
-            ArrayList<Journal> journalsinPaper = new ArrayList<Journal>();
+            ArrayList<Author> authorsinPaper = new ArrayList<>();
+            ArrayList<Journal> journalsinPaper = new ArrayList<>();
 
             Paper insertInextractedpapers = new Paper();
             Journal journalinpaper = new Journal(null);
@@ -181,8 +183,8 @@ public class Parser {
                     }
                 } /////////////////////////////////////////////////////////////////////////////
                 else {//len ==2
-                    String names = list[0];
-                    String[] author_names = names.split(",|…");
+                    String nameList = list[0];
+                    String[] author_names = nameList.split(",|…");
                     jrnl = "";
                     journalinpaper.setName(jrnl);
                     journalsinPaper.add(journalinpaper);
@@ -295,7 +297,7 @@ public class Parser {
         //AuthorResult ar =new AuthorResult();
         Author author = new Author(null);
         PaperCollection pc = new PaperCollection();
-        ArrayList<Paper> papers = new ArrayList<Paper>();
+        ArrayList<Paper> paperList = new ArrayList<>();
         doc = Jsoup.parse(src, "UTF-8");
         Elements items = doc.select("table.cit-table");
         String url = "http://scholar.google.com";
@@ -321,19 +323,19 @@ public class Parser {
                     Elements desc_section = row.select("span.cit-gray");
                     if (!desc_section.isEmpty()) {
                         String authors_list;
-                        String names;
+                        String authorNames;
                         String journal;
                         try {
                             authors_list = desc_section.get(0).text();
                             String[] author_names = authors_list.split(", ");
-                            names = Arrays.toString(author_names);
+                            authorNames = Arrays.toString(author_names);
                             for (String name : author_names) {
                                 Author paper_author = new Author(name);
                                 paper_authors.add(paper_author);
                             }
                         } catch (Exception e) {
-                            names = "";
-                            Author paper_author = new Author(names);
+                            authorNames = "";
+                            Author paper_author = new Author(authorNames);
                             paper_authors.add(paper_author);
                         }
                         try {
@@ -379,14 +381,14 @@ public class Parser {
                             year = "";
                         }
                     }
-                    papers.add(papr);
+                    paperList.add(papr);
                 }
             }
         }
         items = doc.select(".g-section");
-        ArrayList<String> co_authors = new ArrayList<String>();
-        ArrayList<String> co_authors_links = new ArrayList<String>();
-        ArrayList<Author> co_author_list = new ArrayList<Author>();
+        ArrayList<String> co_authors = new ArrayList<>();
+        ArrayList<String> co_authors_links = new ArrayList<>();
+        ArrayList<Author> co_author_list = new ArrayList<>();
         if (!items.isEmpty()) {
             try {
                 Element co_author_section = items.get(2);
@@ -415,7 +417,7 @@ public class Parser {
         
 
         
-        pc.setPapers(papers);
+        pc.setPapers(paperList);
         author.setPaperCollection(pc);
         author.setCoAuthors(co_author_list);
         qr_author_result.setContents(author);
@@ -557,13 +559,13 @@ public class Parser {
                         Elements author_section = row.select("span.gs_authors");
                         if (!author_section.isEmpty()) {
                             String authors_list;
-                            String names;
+                            String authorNames;
 
                             try {
                                 authors_list = author_section.get(0).text();
                                 String[] author_names = authors_list.split(",");
-                                names = Arrays.toString(author_names);
-                                logger.debug("paper author names "+names);
+                                authorNames = Arrays.toString(author_names);
+                                logger.debug("paper author names "+authorNames);
                                 for (String name : author_names) {
                                     logger.debug("name before trimming "+name);
                                     name = name.replaceAll("\\.+"," "); //to remove all leading or trailing dots from a name
@@ -573,7 +575,7 @@ public class Parser {
                                 }
 
                             } catch (Exception e) {
-                                names = "";
+                                authorNames = "";
                             }
                         }
 

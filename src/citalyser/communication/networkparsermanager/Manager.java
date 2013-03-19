@@ -2,27 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package citalyser.networkparsermanager;
+package citalyser.communication.networkparsermanager;
 
-import citalyser.Config;
-import citalyser.Initialiser;
-import citalyser.Main;
-import citalyser.cache.CacheHandler;
-import citalyser.model.UrlComposer;
-import citalyser.networking.HttpConnection;
-import citalyser.parsing.Parser;
-import citalyser.queryresult.ImageResult;
-import citalyser.queryresult.PaperCollectionResult;
-import citalyser.queryresult.QueryResult;
+import citalyser.communication.networking.HttpConnection;
+import citalyser.dataextraction.parsing.Parser;
+import citalyser.model.query.queryresult.ImageResult;
+import citalyser.model.query.QueryResult;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import javax.swing.ImageIcon;
-import javax.swing.text.Utilities;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
 /**
  *

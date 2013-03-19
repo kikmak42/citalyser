@@ -3,8 +3,9 @@
  * @Email-id : abhishek@codeblues.in
  *****************************************************************/
 
-package citalyser;
+package citalyser.util;
 
+import citalyser.Main;
 import citalyser.util.CProxy;
 import java.io.File;
 import java.io.FileInputStream;
@@ -112,13 +113,13 @@ public class Config
             }
         }
         try {
-            HashMap<Integer,CProxy> hm = new HashMap<Integer,CProxy>();
+            HashMap<Integer,CProxy> hm = new HashMap<>();
             for(int i = 0;i<list.size();i++)
                 hm.put(i, list.get(i));
-            ObjectOutputStream s = new ObjectOutputStream(new FileOutputStream(file));
-            s.writeObject(hm);
-            s.flush();
-            s.close();
+            try (ObjectOutputStream s = new ObjectOutputStream(new FileOutputStream(file))) {
+                s.writeObject(hm);
+                s.flush();
+            }
             logger.info("Dumped the proxyList to file.");
             loadProxylist();
             return 0;
@@ -136,20 +137,20 @@ public class Config
     
     public static void loadProxylist()
     {
-        List<CProxy> pl = new ArrayList<CProxy>();
+        List<CProxy> pl = new ArrayList<>();
         HashMap<Integer,CProxy> hm;  
         File f = new File(Main.settingsDirectory,"proxies");
         if(!f.exists())
             return;
         try{
-            ObjectInputStream s = new ObjectInputStream(new FileInputStream(f));
-            hm = (HashMap<Integer,CProxy>)s.readObject();
-            s.close();
+            try (ObjectInputStream s = new ObjectInputStream(new FileInputStream(f))) {
+                hm = (HashMap<Integer,CProxy>)s.readObject();
+            }
             for (CProxy proxy : hm.values()) {
                 pl.add(proxy);
             }
             Config.proxyList = pl;
-        }catch(Exception ex){
+        }catch(IOException | ClassNotFoundException ex){
             logger.error("Error getting proxies.");
             f.delete();
             Config.proxyList = null;
@@ -169,11 +170,14 @@ public class Config
     
     private static boolean getBoolean(boolean var,String val)
     {
-        if(val.toLowerCase().equals("true"))
-            return true;
-        else if(val.toLowerCase().equals("false"))
-            return false;
-        else return var; 
+        switch (val.toLowerCase()) {
+            case "true":
+                return true;
+            case "false":
+                return false;
+            default:
+                return var;
+        }
     }
     
     private static long getLong(long var, String val)

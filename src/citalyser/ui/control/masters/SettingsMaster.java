@@ -32,7 +32,7 @@ public class SettingsMaster {
         if (extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getSelectedRow() != -1) {
             extraPanel.getSettingsPanel().getProxyListPanel().getProxyList().remove(extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getSelectedRow());
             ((javax.swing.table.DefaultTableModel) extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getModel()).removeRow(extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getSelectedRow());
-            citalyser.Config.setProxyList(extraPanel.getSettingsPanel().getProxyListPanel().getProxyList());
+            citalyser.util.Config.setProxyList(extraPanel.getSettingsPanel().getProxyListPanel().getProxyList());
         }
     }
 
@@ -40,7 +40,7 @@ public class SettingsMaster {
         extraPanel.getSettingsPanel().flip();
         extraPanel.getSettingsPanel().getProxyPanel().setPreviousProxyData(extraPanel.getSettingsPanel().getProxyListPanel().getProxyList().remove(extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getSelectedRow()));
         ((javax.swing.table.DefaultTableModel) extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getModel()).removeRow(extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getSelectedRow());
-        citalyser.Config.setProxyList(extraPanel.getSettingsPanel().getProxyListPanel().getProxyList());
+        citalyser.util.Config.setProxyList(extraPanel.getSettingsPanel().getProxyListPanel().getProxyList());
         extraPanel.getSettingsPanel().getProxyPanel().setEditMode(true);
     }
 
@@ -55,7 +55,7 @@ public class SettingsMaster {
         rowData[1] = Integer.toString(proxy.getPort());
         rowData[2] = proxy.getUsername();
         ((javax.swing.table.DefaultTableModel) extraPanel.getSettingsPanel().getProxyListPanel().getProxyTable().getModel()).addRow(rowData);
-        citalyser.Config.setProxyList(extraPanel.getSettingsPanel().getProxyListPanel().getProxyList());
+        citalyser.util.Config.setProxyList(extraPanel.getSettingsPanel().getProxyListPanel().getProxyList());
         extraPanel.getSettingsPanel().flip();
         extraPanel.getSettingsPanel().getProxyPanel().setPreviousProxyData(new CProxy("", 0, "", ""));
     }

@@ -1,7 +1,7 @@
 package citalyser.model;
 
 import citalyser.Main;
-import citalyser.queryhandler.Query;
+import citalyser.model.query.Query;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import org.apache.log4j.Logger;

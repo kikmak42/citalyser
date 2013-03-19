@@ -37,7 +37,7 @@ public class ProxyListPanel extends javax.swing.JPanel {
                 }
             }
         });
-        proxyList = citalyser.Config.getProxylist();
+        proxyList = citalyser.util.Config.getProxylist();
         if (proxyList != null) {
             for (CProxy proxy : proxyList) {
                 String[] rowData = new String[3];

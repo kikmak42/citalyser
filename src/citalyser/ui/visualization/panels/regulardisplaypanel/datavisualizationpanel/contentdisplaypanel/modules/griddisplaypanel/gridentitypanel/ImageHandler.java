@@ -4,13 +4,13 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.griddisplaypanel.gridentitypanel;
 
-import citalyser.CommonUtils;
+import citalyser.util.CommonUtils;
 import citalyser.Constants;
-import citalyser.queryhandler.Query;
-import citalyser.queryhandler.QueryHandler;
-import citalyser.queryhandler.QueryType;
-import citalyser.queryresult.ImageResult;
-import citalyser.queryresult.QueryResult;
+import citalyser.model.query.Query;
+import citalyser.model.query.QueryHandler;
+import citalyser.model.query.QueryType;
+import citalyser.model.query.queryresult.ImageResult;
+import citalyser.model.query.QueryResult;
 import citalyser.ui.visualization.MainFrame;
 import com.sun.corba.se.impl.orbutil.closure.Constant;
 import java.awt.Graphics2D;

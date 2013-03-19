@@ -1,10 +1,10 @@
-package citalyser.queryhandler;
+package citalyser.model.query;
 
 
-import citalyser.cache.CacheHandler;
+import citalyser.model.query.Query;
+import citalyser.dataextraction.cache.CacheHandler;
 import citalyser.model.UrlComposer;
-import citalyser.parsing.Parser;
-import citalyser.queryresult.QueryResult;
+import citalyser.dataextraction.parsing.Parser;
 import org.apache.log4j.Logger;
 
 
