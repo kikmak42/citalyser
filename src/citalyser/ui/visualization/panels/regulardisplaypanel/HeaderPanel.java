@@ -131,9 +131,11 @@ public class HeaderPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (authorSearchMode) {
             modeSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_2.png")));
+            searchPanel.setButtonPanel(true);
             authorSearchMode = false;
         } else {
             modeSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_1.png")));
+            searchPanel.setButtonPanel(false);
             authorSearchMode = true;
         }
     }//GEN-LAST:event_modeSelectorActionPerformed
