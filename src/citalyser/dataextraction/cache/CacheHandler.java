@@ -198,8 +198,9 @@ public class CacheHandler {
         } else {
             logger.info("Getting CITATIONS_LIST - Cache miss");
             QueryResult q = manager.getCitationsList(queryUrl);
+            logger.debug("Citation Result :" + q);
             setObject(q, queryUrl);
-            return null;
+            return q;
         }
     }
     
