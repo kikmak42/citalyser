@@ -64,7 +64,12 @@ public class Manager {
     /* Query Case - MET_JOURN */
     public QueryResult getJournalList(String url) {
         String html = HttpConnection.getUrlText(url);
-        return null;
+        if (html != null) {
+            return parser.extractJournallist(html);
+        } else {
+            logger.info("null result from httpconnection");
+            return null;
+        }
     }
 
     /* Query Case - AUTH_PROF */
