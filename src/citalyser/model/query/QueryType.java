@@ -15,5 +15,6 @@ public enum QueryType {
     MET_JOURN,              // All Journals matching a particular string from Google Metrics
     AUTH_PROF,              // Get Complete Author Details from Google Author Search
     JOURN_PROF,             // Get Complete Journal Details from Google Metrics Search
-    IMAGE_FROM_LINK         // Get BufferedImage from specified link
+    IMAGE_FROM_LINK,        // Get BufferedImage from specified link
+    CITATIONS_LIST          // Get Citations list of a Paper
 }
