@@ -53,7 +53,7 @@
               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <Component id="jLabel1" alignment="0" pref="136" max="32767" attributes="1"/>
+          <Component id="jLabel1" alignment="0" min="-2" pref="136" max="-2" attributes="1"/>
       </Group>
     </DimensionLayout>
   </Layout>

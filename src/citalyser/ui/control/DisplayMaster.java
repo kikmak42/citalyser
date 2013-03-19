@@ -22,13 +22,11 @@ import citalyser.util.CProxy;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.ExternalPanel;
 import citalyser.ui.visualization.panels.common.SearchPanel;
-import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.griddisplaypanel.GridEntityPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Vector;
-import javax.swing.table.TableModel;
 import org.apache.log4j.Logger;
 
 /**
@@ -218,6 +216,4 @@ public class DisplayMaster {
             Main.getDisplayController().displayErrorMessage("Null Citations List");
         }
     }
-
-
 }
