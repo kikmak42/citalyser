@@ -8,6 +8,6 @@ package citalyser.ui.model;
  *
  * @author Tanmay Patil
  */
-public class ListModelCreator {
+public class ProfileModelHandler {
     
 }
