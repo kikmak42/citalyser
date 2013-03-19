@@ -24,12 +24,12 @@ public class AuthorProfileDisplayPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public void AuthorProfileDisplayPanel(DisplayMaster displayMaster) {
-        this.displayMaster = displayMaster;
-    }
-
     public DisplayMaster getDisplayMaster() {
         return displayMaster;
+    }
+        
+    public void setDisplayMaster(DisplayMaster displayMaster) {
+        this.displayMaster = displayMaster;
     }
     
     public void displayAuthor(Author author) {
