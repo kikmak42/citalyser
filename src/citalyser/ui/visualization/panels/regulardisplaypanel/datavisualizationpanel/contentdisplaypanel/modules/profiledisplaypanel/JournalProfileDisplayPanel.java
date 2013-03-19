@@ -5,6 +5,7 @@
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel;
 
 import citalyser.model.Journal;
+import citalyser.ui.control.DisplayMaster;
 
 /**
  *
@@ -18,6 +19,20 @@ public class JournalProfileDisplayPanel extends javax.swing.JPanel {
     public JournalProfileDisplayPanel() {
         initComponents();
     }
+
+    public DisplayMaster getDisplayMaster() {
+        return displayMaster;
+    }
+        
+    public void setDisplayMaster(DisplayMaster displayMaster) {
+        this.displayMaster = displayMaster;
+    }
+    
+    public void displayJournal(Journal journal) {
+        
+    }
+    
+    private DisplayMaster displayMaster;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,7 +68,4 @@ public class JournalProfileDisplayPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 
-    public void displayJournal(Journal journal) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
 }
