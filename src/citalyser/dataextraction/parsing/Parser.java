@@ -445,12 +445,12 @@ public class Parser {
         Elements elements = doc.select("div.g-unit");
         for (Element item : elements) {
             Author author = new Author("");
-            //logger.debug(item.html());
+           // logger.debug(item.html());
             university = item.html();
-            university = university.split("<td")[2].split("hl=en\">")[1].split("<form|<input")[0];
+            university = university.split("<td")[2].split("hl=en\">")[1].split("Cited|<form|<input")[0];
        
             details = item.text();
-        //     logger.debug(university);
+          // logger.debug(university);
            // logger.debug("\n@@@@:" + item.select("a.cit-dark-large-link").outerHtml());
             imglink = Constants.SCHOLAR_BASE_URL + item.select("img").get(0).attr("src");
             Elements links = item.select("a.cit-dark-large-link");
