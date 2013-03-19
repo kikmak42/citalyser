@@ -156,9 +156,9 @@ public class DisplayMaster {
     }
 
     public void tableClicked(Paper paper) {
-        Query q =new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(paper.getUrl()).build();
-        System.out.println(q.url);
+        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(paper.getcitedByUrl()).build();
         PaperCollection pc = (PaperCollection)QueryHandler.getInstance().getQueryResult(q).getContents();
+        //System.out.println( pc.getPapers().get(0).getTitle() );
         if (paper != null) {
             renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers() );
         }
