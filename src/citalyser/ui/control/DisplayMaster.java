@@ -10,6 +10,7 @@ import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.model.query.Query;
 import citalyser.model.query.QueryHandler;
+import citalyser.model.query.QueryResult;
 import citalyser.model.query.QueryType;
 import citalyser.ui.control.masters.SearchMaster;
 import citalyser.ui.control.masters.SettingsMaster;
@@ -154,11 +155,15 @@ public class DisplayMaster {
     }
 
     public void tableClicked(Paper paper) {
-        Query q =new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(paper.getUrl()).build();
-        System.out.println(q.url);
-        PaperCollection pc = (PaperCollection)QueryHandler.getInstance().getQueryResult(q).getContents();
-        if (paper != null) {
-            renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers() );
+        Query q =new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(paper.getcitedByUrl()).build();
+        QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
+        if (queryResult != null) {
+            PaperCollection pc = (PaperCollection) QueryHandler.getInstance().getQueryResult(q).getContents();
+            if (paper != null) {
+                renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers() );
+            }
+        } else {
+            Main.getDisplayController().displayErrorMessage("Null QueryResult on Tableclicked...");
         }
     }
 
