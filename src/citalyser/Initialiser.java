@@ -48,10 +48,10 @@ public class Initialiser {
                 return;
             }
             else
-                logger.info("Created app directory at : " + Main.settingsDirectory.getAbsolutePath());
+                logger.info("Created Cache directory at : " + Main.settingsDirectory.getAbsolutePath());
         }
         else
-            logger.info("App Directory already present at  " + Main.settingsDirectory.getAbsolutePath());
+            logger.info("Cache Directory already present at  " + Main.settingsDirectory.getAbsolutePath());
         
     }
     

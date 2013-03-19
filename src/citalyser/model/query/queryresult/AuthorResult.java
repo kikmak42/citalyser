@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package citalyser.queryresult;
+package citalyser.model.query.queryresult;
 
+import citalyser.model.query.QueryResult;
 import citalyser.model.Author;
 import citalyser.model.Paper;
 import citalyser.model.PaperCollection;

@@ -28,12 +28,3 @@ class CompareCite implements Comparator<Paper>{
  * 
  * @author vikassearchPanel.getSearchString()
  */
-class ProxyUtilities {
-
-    public void setProxy(String host, String port, String user, String password) {
-        System.setProperty("http.proxyHost", host);
-        System.setProperty("http.proxyPort", port);
-        System.setProperty("http.proxyUser", user);
-        System.setProperty("http.proxyPassword", password);
-    }
-}

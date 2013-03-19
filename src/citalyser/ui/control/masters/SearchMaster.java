@@ -4,9 +4,9 @@
  */
 package citalyser.ui.control.masters;
 
-import citalyser.queryhandler.Query;
-import citalyser.queryhandler.QueryHandler;
-import citalyser.queryhandler.QueryType;
+import citalyser.model.query.Query;
+import citalyser.model.query.QueryHandler;
+import citalyser.model.query.QueryType;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.common.SearchPanel;
@@ -29,6 +29,9 @@ public class SearchMaster {
     }
 
     public void searchKeyPressed(SearchPanel searchPanel, char key) {
+        if (key == java.awt.event.KeyEvent.VK_ENTER) {
+            searchButtonClicked(searchPanel);
+        }
         if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
             //TODO: Autocomplete
         } else {

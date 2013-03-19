@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package citalyser.queryhandler;
+package citalyser.model.query;
 
 /**
  *
@@ -19,6 +19,7 @@ public class Query{
     public boolean sort_flag;
     public boolean h_idx;
     public boolean i_idx;
+    public String url;
 
     private Query(Builder builder) {
         flag = builder.flag;
@@ -31,6 +32,7 @@ public class Query{
         sort_flag = builder.sort_flag;
         h_idx = builder.h_idx;
         i_idx = builder.i_idx;
+        url = builder.url;
     }
     
     public static class Builder {
@@ -44,6 +46,7 @@ public class Query{
         private boolean sort_flag;
         private boolean h_idx;
         private boolean i_idx;
+        private String url;
         
         public Builder(String name) {
             this.name = name;
@@ -94,6 +97,11 @@ public class Query{
             return this;
         }
 
+        public Builder Url(String url) {
+            this.url = url;
+            return this;
+        }
+        
         public Query build() {
             return new Query(this);
         }

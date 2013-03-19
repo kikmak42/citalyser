@@ -1,10 +1,10 @@
-package citalyser.queryhandler;
+package citalyser.model.query;
 
 
-import citalyser.cache.CacheHandler;
+import citalyser.model.query.Query;
+import citalyser.dataextraction.cache.CacheHandler;
 import citalyser.model.UrlComposer;
-import citalyser.parsing.Parser;
-import citalyser.queryresult.QueryResult;
+import citalyser.dataextraction.parsing.Parser;
 import org.apache.log4j.Logger;
 
 
@@ -57,6 +57,9 @@ public class QueryHandler {
             case JOURN_PROF:
                 queryUrl = UrlComposer.getJournProfUrl(q);
                 return cacheHandler.getCompleteJournalFromMetric(queryUrl);
+            case IMAGE_FROM_LINK:
+                queryUrl = q.url;
+                return cacheHandler.getImageFromLink(queryUrl);
             default : 
                 return null;
         }
