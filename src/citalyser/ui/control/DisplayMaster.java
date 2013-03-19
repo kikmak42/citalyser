@@ -10,6 +10,7 @@ import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.model.query.Query;
 import citalyser.model.query.QueryHandler;
+import citalyser.model.query.QueryResult;
 import citalyser.model.query.QueryType;
 import citalyser.model.query.queryresult.AuthorResult;
 import citalyser.ui.control.masters.SearchMaster;
@@ -23,13 +24,11 @@ import citalyser.util.CProxy;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.ExternalPanel;
 import citalyser.ui.visualization.panels.common.SearchPanel;
-import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.griddisplaypanel.GridEntityPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Vector;
-import javax.swing.table.TableModel;
 import org.apache.log4j.Logger;
 
 /**
@@ -154,11 +153,17 @@ public class DisplayMaster {
     }
 
     public void tableClicked(Paper paper) {
-        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(paper.getUrl()).build();
-        System.out.println(q.url);
-        PaperCollection pc = (PaperCollection) QueryHandler.getInstance().getQueryResult(q).getContents();
-        if (paper != null) {
-            renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
+
+        Query q =new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(paper.getcitedByUrl()).build();
+        QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
+        if (queryResult != null) {
+            PaperCollection pc = (PaperCollection) QueryHandler.getInstance().getQueryResult(q).getContents();
+            if (paper != null) {
+                renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers() );
+            }
+        } else {
+            Main.getDisplayController().displayErrorMessage("Null QueryResult on Tableclicked...");
+
         }
     }
 
@@ -217,7 +222,6 @@ public class DisplayMaster {
             Main.getDisplayController().displayErrorMessage("Null Citations List");
         }
     }
-    
     public void renderProfile(ContentRenderer contentRenderer, Author author) {
         if (author != null) {
             contentRenderer.getProfileDisplayPanel().displayAuthorProfile(author);
