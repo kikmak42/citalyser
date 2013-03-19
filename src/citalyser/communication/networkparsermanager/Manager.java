@@ -85,7 +85,11 @@ public class Manager {
     /* Query Case - JOURN_PROF */
     public QueryResult getCompleteJournalFromMetric(String url) {
         String html = HttpConnection.getUrlText(url);
-        return null;
+        if (html != null) {
+            return new Parser().extractJournalInfo(html);
+        } else {
+            return null;
+        }
     }
 
     /* Query Case - IMAGE_FROM_LINK */
