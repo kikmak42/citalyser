@@ -131,11 +131,13 @@ public class HeaderPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (authorSearchMode) {
             modeSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_2.png")));
-            searchPanel.setButtonPanel(true);
+            this.searchPanel.getRadioButton1().setText("Google Metrics");
+            this.searchPanel.getRadioButton2().setText("Google Scholar");
             authorSearchMode = false;
         } else {
             modeSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_1.png")));
-            searchPanel.setButtonPanel(false);
+            this.searchPanel.getRadioButton1().setText("Author Papers");
+            this.searchPanel.getRadioButton2().setText("Author List");
             authorSearchMode = true;
         }
     }//GEN-LAST:event_modeSelectorActionPerformed
@@ -157,9 +159,16 @@ public class HeaderPanel extends javax.swing.JPanel {
         this.authorSearchMode = authorSearchMode;
         if (authorSearchMode) {
             modeSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_1.png")));
+            this.searchPanel.getRadioButton1().setText("Author Papers");
+            this.searchPanel.getRadioButton2().setText("Author List");
+            this.searchPanel.getButtonPanel().setVisible(true);
+            
             authorSearchMode = false;
         } else {
             modeSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_2.png")));
+            this.searchPanel.getRadioButton1().setText("Google Metrics");
+            this.searchPanel.getRadioButton2().setText("Google Scholar");
+            this.searchPanel.getButtonPanel().setVisible(true);
             authorSearchMode = true;
         }
     }

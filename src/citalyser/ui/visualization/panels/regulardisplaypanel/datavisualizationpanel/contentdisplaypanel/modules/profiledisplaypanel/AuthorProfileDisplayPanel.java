@@ -12,13 +12,15 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 
 import citalyser.model.Author;
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.griddisplaypanel.gridentitypanel.ImageHandler;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Tanmay Patil
  */
 public class AuthorProfileDisplayPanel extends javax.swing.JPanel {
-
+    static Logger logger = Logger.getLogger(AuthorProfileDisplayPanel.class.getName());
     /** Creates new form AuthorProfileDisplayPanel */
     public AuthorProfileDisplayPanel() {
         initComponents();
@@ -33,10 +35,13 @@ public class AuthorProfileDisplayPanel extends javax.swing.JPanel {
     }
     
     public void displayAuthor(Author author) {
+        logger.debug("Author name : " + author.getName());
         jLabel3.setText(author.getName());
-        jLabel2.setText(author.getUniversity());
+        jLabel2.setText(author.getUniversityAndEmail());
         jLabel7.setText("Citations/Year :"+author.getCitesPerYear());
         jLabel8.setText("Citations/Paper :"+author.getCitesPerPaper());
+        ImageHandler.displayImage(jLabel4, author.getGraphurl());
+        ImageHandler.displayImage(jLabel1, author.getImageSrc());
     }
     
     private DisplayMaster displayMaster;
