@@ -29,7 +29,7 @@ import org.jsoup.select.Elements;
  */
 public class Parser {
 
-    private Logger logger = Logger.getLogger(Parser.class.getName());
+    private static Logger logger = Logger.getLogger(Parser.class.getName());
     public String source;
     Document doc;
     private PaperCollection extractedPapers;
@@ -116,9 +116,10 @@ public class Parser {
             }
         }
 
-
+        QueryResult<ArrayList<Author>> a = new AuthorListResult();
         Parser p = new Parser();
-        p.getAuthors(returnValue);
+        a = p.getAuthors(returnValue);
+        logger.debug(a.getContents().size());
 
     }
 
