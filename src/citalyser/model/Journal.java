@@ -93,4 +93,9 @@ public class Journal implements Serializable {
             cites_per_author = total_cites/diff_authors.size();
             papers_per_author = paperList.size()/diff_authors.size();
         }
+        @Override
+        public String toString() {
+            return "";
+            //return "Journal{" + "description=" + description + ", name=" + name + ", id=" + id + ", cites_per_author=" + cites_per_author + ", papers_per_author=" + papers_per_author + ", h5Link=" + h5Link + ", h5index=" + h5index + ", h5median=" + h5median + ", paper_collection=" + paper_collection + '}';
+        }
 }
