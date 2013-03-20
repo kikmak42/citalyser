@@ -57,7 +57,7 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(153, 153, 255));
         setLayout(new java.awt.BorderLayout());
 
-        jSplitPane1.setDividerLocation(0);
+        jSplitPane1.setDividerLocation(200);
         jSplitPane1.setDividerSize(20);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setTopComponent(upperDetailsDisplayPanel);

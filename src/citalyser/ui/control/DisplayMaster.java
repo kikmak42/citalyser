@@ -182,9 +182,16 @@ public class DisplayMaster {
             @Override
             public void run() {
                 queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), QueryHandler.getInstance().getQueryResult(new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).build()));
-                //renderProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), ((AuthorResult) QueryHandler.getInstance().getQueryResult(new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).build())).getContents());
             }
         }.start();
+        
+        new Thread() {
+            @Override
+            public void run() {
+                renderProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), ((AuthorResult) QueryHandler.getInstance().getQueryResult(new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).build())).getContents());
+            }
+        }.start();
+        
     }
 
     //*****************************************************************************//

@@ -17,6 +17,7 @@ import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpa
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ProfileDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel;
 import java.awt.BorderLayout;
+import java.awt.Component;
 
 /**
  *
@@ -65,13 +66,11 @@ public class UpperDetailsDisplayPanel extends javax.swing.JPanel implements Cont
     @Override
     public void flipToListDisplayPanel() {
         ((java.awt.CardLayout) this.getLayout()).show(this, "card3");
-        listDisplayPanel.setLayout(new BorderLayout());
     }
     
     @Override
     public void flipToProfileDisplayPanel() {
         ((java.awt.CardLayout) this.getLayout()).show(this, "card5");
-        listDisplayPanel.setLayout(new BorderLayout());
     }
     
     @Override
@@ -106,24 +105,12 @@ public class UpperDetailsDisplayPanel extends javax.swing.JPanel implements Cont
         );
         listDisplayPanelLayout.setVerticalGroup(
             listDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 482, Short.MAX_VALUE)
         );
 
         add(listDisplayPanel, "card3");
-
-        javax.swing.GroupLayout profileDisplayPanelLayout = new javax.swing.GroupLayout(profileDisplayPanel);
-        profileDisplayPanel.setLayout(profileDisplayPanelLayout);
-        profileDisplayPanelLayout.setHorizontalGroup(
-            profileDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        profileDisplayPanelLayout.setVerticalGroup(
-            profileDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
         add(profileDisplayPanel, "card5");
-        add(tableDisplayPanel, "card5");
+        add(tableDisplayPanel, "card7");
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.GridDisplayPanel gridDisplayPanel;

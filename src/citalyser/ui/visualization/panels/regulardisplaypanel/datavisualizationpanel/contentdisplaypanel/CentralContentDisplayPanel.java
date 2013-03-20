@@ -69,13 +69,11 @@ public class CentralContentDisplayPanel extends javax.swing.JPanel implements Co
     @Override
     public void flipToListDisplayPanel() {
         ((java.awt.CardLayout) this.getLayout()).show(this, "card3");
-        listDisplayPanel.setLayout(new BorderLayout());
     }
     
     @Override
     public void flipToProfileDisplayPanel() {
         ((java.awt.CardLayout) this.getLayout()).show(this, "card5");
-        listDisplayPanel.setLayout(new BorderLayout());
     }
     
     @Override
