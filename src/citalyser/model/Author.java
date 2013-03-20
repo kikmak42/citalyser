@@ -21,7 +21,10 @@ public class Author implements Serializable {
         private String graphurl;
         private PaperCollection paper_collection;
         private ArrayList<Author> co_authors;
-    
+        private ArrayList<String> areas;
+        private String email;
+        private String university;
+        private String description;
     @Override
     public String toString() {
         return name;
@@ -34,6 +37,10 @@ public class Author implements Serializable {
             this.imgsrc=null;
             this.proilelink=null;
             this.univandemail=null;
+            this.areas = null;
+            this.email = null;
+            this.university = null;
+            this.description = null;
         }
         public void setGraphurl(String url){
             this.graphurl = url;
@@ -80,7 +87,7 @@ public class Author implements Serializable {
             no_cites_per_paper = (double)total_cites/paperList.size();
             no_cites_per_year = (double)total_cites/years.size();
         }
-        public String getUniversity(){
+        public String getUniversityAndEmail(){
             return this.univandemail;
         }
         public String getImageSrc(){
@@ -95,7 +102,7 @@ public class Author implements Serializable {
         public void setTotalCitations(int i){
             this.totalcitaions = i;
         }
-        public void setUniversity(String s){
+        public void setUniversityAndEmail(String s){
             this.univandemail = s;
         }
         public void setImagesrc(String s){
@@ -110,8 +117,40 @@ public class Author implements Serializable {
         public void setCoAuthors(ArrayList<Author> coauthors){
             this.co_authors = coauthors;
         }
-        
-        
-        
-        
+         public ArrayList<String> getAuthorAreas(){
+            return this.areas;
+        }
+        public void setAuthorAreas(ArrayList<String> a){
+            this.areas = a;
+        }
+        public String getUniversity(){
+            return this.university;
+        }
+        public void setUniversity(String univ){
+            this.university = univ;
+        }
+        public String getEmail(){
+            return this.email;
+        }
+        public void setEmail(String e){
+            this.email = e;
+        }
+        public String getDescription(){
+            return this.description;
+        }
+        public void setDescription(String e){
+            this.description = e;
+        }
+        public int getHindex(){
+            return paper_collection.getHIndex();
+        }
+        public void setHindex(int h){
+            paper_collection.setHIndex(h);
+        }
+        public int getIIndex(){
+            return paper_collection.getIIndex();
+        }
+        public void setIIndex(int i){
+            paper_collection.setIIndex(i);
+        }
 }
