@@ -181,17 +181,19 @@ public class DisplayMaster {
         new Thread() {
             @Override
             public void run() {
-                queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), QueryHandler.getInstance().getQueryResult(new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).build()));
+                Query q = new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).build();
+                QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
+                if (queryResult instanceof AuthorResult)
+                {
+                    queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(),queryResult);
+                    renderProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(),(Author)queryResult.getContents());
+                }
+                else
+                {
+                    Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Author Details.");
+                }
             }
         }.start();
-        
-        new Thread() {
-            @Override
-            public void run() {
-                renderProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), ((AuthorResult) QueryHandler.getInstance().getQueryResult(new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).build())).getContents());
-            }
-        }.start();
-        
     }
 
     //*****************************************************************************//
