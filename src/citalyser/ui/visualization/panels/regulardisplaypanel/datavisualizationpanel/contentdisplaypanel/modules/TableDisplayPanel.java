@@ -15,6 +15,7 @@ import citalyser.model.PaperCollection;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.util.CommonUtils;
 import java.io.File;
+import java.io.FileNotFoundException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
@@ -103,8 +104,14 @@ public class TableDisplayPanel extends javax.swing.JPanel {
         
         JFileChooser chooser=new JFileChooser();
         chooser.showSaveDialog(this);
-        File results=chooser.getSelectedFile();
-        CommonUtils.exportToCsv(tableModel, results);
+        //System.out.println("chooser:"+chooser.getSelectedFile().getName());
+        try{
+            File results=chooser.getSelectedFile();
+            CommonUtils.exportToCsv(tableModel, results);
+        }catch(NullPointerException npe){
+            
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
