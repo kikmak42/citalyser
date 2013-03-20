@@ -7,9 +7,11 @@ package citalyser.util;
 
 import citalyser.util.CProxy;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import org.apache.log4j.Logger;
@@ -65,7 +67,9 @@ public class CommonUtils {
 		}
 		System.out.println("Exiting write");
 		csvFile.close();
-	}catch(Exception e) { 
+	}catch(FileNotFoundException ex){
+            JOptionPane.showMessageDialog(null,"Permission Denied");
+        }catch(Exception e) { 
 		logger.info(e); 
 	}
     }
