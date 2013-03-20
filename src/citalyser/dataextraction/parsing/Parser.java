@@ -98,7 +98,7 @@ public class Parser {
         FileReader file = null;
 
         try {
-            file = new FileReader("/home/sahil/roughos/indentedrespose.html");
+            file = new FileReader("C:/input.html");
             BufferedReader reader = new BufferedReader(file);
             String line = "";
             while ((line = reader.readLine()) != null) {
@@ -118,8 +118,8 @@ public class Parser {
 
         QueryResult<ArrayList<Author>> a = new AuthorListResult();
         Parser p = new Parser();
-        a = p.getAuthors(returnValue);
-        logger.debug(a.getContents().size());
+
+        p.extractAuthorProfileInfo(returnValue);
 
     }
 
@@ -305,6 +305,7 @@ public class Parser {
         author.setGraphurl(graphurl);
         Elements items = doc.select("table.cit-table");
         String url = "http://scholar.google.com";
+        
         if (!items.isEmpty()) {
             for (Element item : items) {
                 //Elements rows = item.select("tr.cit-table item");
@@ -418,15 +419,239 @@ public class Parser {
 
 
         }
+        
+        
+        //this part extracts the hindex i index and chart src for an author
+        items = doc.select("#stats");
+        ArrayList<String> ar =  new ArrayList<>();
+        String imglink="";
+        String citations_all = "";
+        String citations_since_2008 = "";
+        String hindex_all = "";
+        String hindex_since_2008 = "";
+        String i10index_all = "";
+        String i10index_since_2008 = "";
+        if(!items.isEmpty()){
+            for (Element item : items){
+                Elements tds = item.select("td.cit-data");
+                if(!tds.isEmpty()){
+                //logger.debug(tds.text());
+                    for (Element td : tds){
+
+                        //logger.debug(td.text());
+                        ar.add(td.text());
+                    }
+                }
+            }
+
+            try{
+                citations_all = ar.get(0);
+                logger.debug("Citations (All)  :"+ar.get(0));
+                author.setTotalCitations(Integer.parseInt(citations_all));
+            }
+            catch(Exception e){
+                citations_all = "";
+            }
+            try{
+                citations_since_2008 = ar.get(1);
+                logger.debug("Citations (Since 2008)  :"+ar.get(1));
+            }
+            catch(Exception e){
+                citations_since_2008 = "";
+            }
+            try{
+                hindex_all = ar.get(2);
+                logger.debug("h-index (All)  :"+ar.get(2));
+                author.setHindex(Integer.parseInt(hindex_all));
+            }
+            catch(Exception e){
+                hindex_all = "";
+            }
+            try{
+                hindex_since_2008 = ar.get(3);
+                logger.debug("h-index (Since 2008)  :"+ar.get(3));
+            }
+            catch(Exception e){
+                hindex_since_2008 = "";
+            }
+            try{
+                i10index_all = ar.get(4);
+                logger.debug("i10-index (All)  :"+ar.get(4));
+                author.setIIndex(Integer.parseInt(i10index_all));
+            }
+            catch(Exception e){
+                i10index_all = "";
+            }
+            try{
+                i10index_since_2008 = ar.get(5);
+                logger.debug("i10-index (Since 2008)  :"+ar.get(5));
+            }
+            catch(Exception e){
+                i10index_since_2008 = "";
+            }
+            logger.debug("img src  :"+imglink);
+
+            items = doc.select("div.cit-lbb");
+            if (!items.isEmpty()) {
+                //logger.debug(items.isEmpty());
+                Elements tds = items.select("td");
+                logger.debug(tds);
+                if (!tds.isEmpty()) {
+                    for (Element td : tds) {
+                        Elements img_tags = td.select("img");
+                        if (!img_tags.isEmpty()) {
+                            try{
+                            Element img_tag = img_tags.get(0);
+                            imglink = img_tag.attr("src");
+                            logger.debug("img src "+imglink);
+                            }
+                            catch(Exception e){
+                                imglink = "";
+                                logger.debug(imglink);
+                            }
+                        }
+
+                    }
 
 
+                }
+            }
+        }
+        String email = "";
+        String affiliation = "";
+        String homepage_url = "";
+        String interests = "";
+        //this part extracts the author name and pesonal info
+        items = doc.select("div.cit-user-info");
+        String name = "";
+        if(!items.isEmpty()){
+            for (Element item : items){
+                //for extracting the author name
+                Elements name_spans = item.select("span#cit-name-read");
+                if (!name_spans.isEmpty()) {
+                    try {
+                        name = name_spans.get(0).text();
+                        logger.debug(name);
+                        author.setName(name);//setting the author name
+                    } catch (Exception e) {
+                        name = "";
+                    }
+                    
+                }
+                
+                //for extracting the affiliation
+                affiliation = "";
+                Elements aff_spans = item.select("span#cit-affiliation-read");
+                if (!aff_spans.isEmpty()) {
+                    try {
+                        affiliation = aff_spans.get(0).text();
+                        logger.debug(affiliation);
+                        
+                    } catch (Exception e) {
+                        affiliation = "";
+                    }
+                    
+                }
+                
+                 //for extracting the email of the author
+                
+                Elements email_spans = item.select("span#cit-domain-read");
+                if (!email_spans.isEmpty()) {
+                    try {
+                        String[] email_str = email_spans.get(0).text().split(" ");
+                        email = email_str[email_str.length - 1];//last element will be email
+                        logger.debug(email);
+                        author.setEmail(email);
+                    } catch (Exception e) {
+                        email = "";
+                    }
+                    
+                }
+                
+                //for extracting the homepage url of the author
+                
+                Elements homepage_spans = item.select("span#cit-homepage-read");
+                if (!homepage_spans.isEmpty()) {
+                    
+                        Elements a_tags = homepage_spans.get(0).select("a");
+                        if(!a_tags.isEmpty()){
+                            try{
+                                homepage_url = a_tags.get(0).attr("href");
+                                logger.debug(url);
+                                //author.setProfilelink(src);
+                            }
+                            catch(Exception e){
+                                homepage_url = "";
+                                
+                            }
+                        }
+                        
+                    
+                }
+                
+                //for extracting the research fields of the author
+                String fields = "";
+                ArrayList<String> author_interests = new ArrayList<>();
+                Elements field_spans = item.select("span#cit-int-read");
+                if (!field_spans.isEmpty()) {
+                    try {
+                        interests = field_spans.get(0).text();
+                        String[] fields_str = field_spans.get(0).text().split("-");
+                        for(String str : fields_str){
+                            author_interests.add(str);
+                            logger.debug(str);
+                        }
+                        author.setAuthorAreas(author_interests);
+                    } catch (Exception e) {
+                        fields = "";
+                    }
+                    
+                }
+                //extracting the author image link
+                String img_src = "";
+                Elements img_tags = item.select("img");
+                if(!img_tags.isEmpty()){
+                    try{
+                        img_src = url+img_tags.get(0).attr("src");
+                        logger.debug("image source "+img_src);
+                        author.setImagesrc(img_src);
+                    }
+                    catch(Exception e){
+                        img_src = "";
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        String Description = "";
+        if(affiliation!=null && !affiliation.equals("")){
+            Description = Description+affiliation;
+            
+        }
+        if(email!=null && !email.equals("")){
+            Description = Description+"<br>"+email;
+            
+        }
+        if(interests!=null && !interests.equals("")){
+            Description = Description+"<br>"+interests;
+            
+        }
+        if(homepage_url!=null && !homepage_url.equals("")){
+            Description = Description+"<br>"+homepage_url;
+            
+        }
+        logger.debug("desc "+Description);
+        author.setDescription(Description);
 
+        
         pc.setPapers(paperList);
         author.setPaperCollection(pc);
         author.setCoAuthors(co_author_list);
         qr_author_result.setContents(author);
         //qr_author_result.setContents(ar);
-
+        
         return qr_author_result;
 
 
@@ -472,7 +697,7 @@ public class Parser {
             //logger.debug("details =" + details);
             author.setName(name);
             author.setId(userid);
-            author.setUniversity(university);
+            author.setUniversityAndEmail(university);
             author.setTotalCitations(citations);
             author.setImagesrc(imglink);
             author.setProfilelink(url);

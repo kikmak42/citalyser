@@ -118,4 +118,13 @@ public class Paper implements Serializable {
     public void setAbstract(String t) {
         this.abstracttext = t;
     }
+
+    @Override
+    public String toString() {
+        String s = "<html><b>" + title + "</b><br />";
+        s += authors +", "
+           + year +"<br />";
+        s += "Cited by " + num_cites + "<br /><hr />";
+        return s;
+    }
 }

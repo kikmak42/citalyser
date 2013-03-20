@@ -54,14 +54,14 @@ public class CommonUtils {
 
 		for(int i = 0; i < model.getColumnCount(); i++){
 				csvFile.write(model.getColumnName(i) + ",");//for CSV
-				//csvFile.write(model.getColumnName(i) + ",");// for csvFile
+				//csvFile.write(model.getColumnName(i) + ",");// for excel file
 		}
 
 		csvFile.write("\n");
 		for(int i=0; i< model.getRowCount(); i++) {
 			for(int j=0; j < model.getColumnCount(); j++) {
-				csvFile.write("\""+model.getValueAt(i,j).toString() +"\",");// for CSV
-				//csvFile.write(model.getValueAt(i,j).toString() +"\t");// for csvFile
+				csvFile.write("\""+model.getValueAt(i,j).toString().replaceAll("\"","\"\"") +"\",");// for CSV
+				//csvFile.write(model.getValueAt(i,j).toString() +"\t");// for excel file
 			}
 			csvFile.write("\n");
 		}

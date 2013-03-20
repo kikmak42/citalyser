@@ -159,8 +159,7 @@ public class DisplayMaster {
             @Override
             public void run() {
                 Query q =new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl()).build();
-                QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
-                logger.debug(queryResult);
+                QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);                
                 if (queryResult != null) {
                     PaperCollection pc = (PaperCollection) queryResult.getContents();
                     if (myPaper != null) {
@@ -232,7 +231,7 @@ public class DisplayMaster {
 
     public void renderCitationsList(ContentRenderer contentRenderer, ArrayList<Paper> papers) {
         if (papers != null) {
-            contentRenderer.getListDisplayPanel().setList(ListModelHandler.getListModel(papers));
+            contentRenderer.getListDisplayPanel().setList(papers,ListModelHandler.getListModel(papers));
             contentRenderer.flipToListDisplayPanel();
         } else {
             Main.getDisplayController().displayErrorMessage("Null Citations List");
@@ -246,5 +245,26 @@ public class DisplayMaster {
         } else {
             Main.getDisplayController().displayErrorMessage("Null Author");
         }
+    }
+
+    public void citationListClicked(Paper paper) {
+        final Paper myPaper = paper;
+        new Thread() {
+
+            @Override
+            public void run() {
+                Query q =new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl()).build();
+                QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);                
+                if (queryResult != null) {
+                    PaperCollection pc = (PaperCollection) queryResult.getContents();
+                    if (myPaper != null) {
+                        renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
+                    }
+                } else {
+                    Main.getDisplayController().displayErrorMessage("Null QueryResult on Listclicked...");
+                }
+            }
+            
+        }.start();
     }
 }
