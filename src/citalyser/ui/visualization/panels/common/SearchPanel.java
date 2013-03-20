@@ -13,6 +13,8 @@ package citalyser.ui.visualization.panels.common;
 import citalyser.ui.control.DisplayMaster;
 import java.awt.Color;
 import java.util.Vector;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -42,6 +44,8 @@ public class SearchPanel extends javax.swing.JPanel {
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
 
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jTextField1.setForeground(new java.awt.Color(102, 102, 102));
         jTextField1.setText(" Enter Your Search Query Here");
         jTextField1.setMargin(new java.awt.Insets(2, 8, 2, 2));
@@ -58,6 +62,7 @@ public class SearchPanel extends javax.swing.JPanel {
                 jTextField1KeyPressed(evt);
             }
         });
+        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, 497, 48));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/SearchButtonIcon.PNG"))); // NOI18N
         jButton1.setBorder(null);
@@ -68,11 +73,11 @@ public class SearchPanel extends javax.swing.JPanel {
                 jButton1MouseClicked(evt);
             }
         });
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, -1, -1));
 
         ButtonPanel.setVisible(false);
 
         buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("Google Metrics");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton1ActionPerformed(evt);
@@ -80,7 +85,7 @@ public class SearchPanel extends javax.swing.JPanel {
         });
 
         buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Google Scholar");
+        jRadioButton2.setSelected(true);
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton2ActionPerformed(evt);
@@ -93,7 +98,7 @@ public class SearchPanel extends javax.swing.JPanel {
             ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ButtonPanelLayout.createSequentialGroup()
                 .addComponent(jRadioButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addComponent(jRadioButton1))
         );
         ButtonPanelLayout.setVerticalGroup(
@@ -103,33 +108,7 @@ public class SearchPanel extends javax.swing.JPanel {
                 .addComponent(jRadioButton1))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(ButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        add(ButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 66, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
@@ -177,7 +156,14 @@ public class SearchPanel extends javax.swing.JPanel {
 
     public void requestSearchFieldFocus() {
         this.jTextField1.requestFocus();
-    }    
+    }
+    
+    public JRadioButton getRadioButton1(){
+        return jRadioButton1;
+    }
+    public JRadioButton getRadioButton2(){
+        return jRadioButton2;
+    }
     public boolean getRadioButtonInfo(){
         if(jRadioButton2.isSelected()){
             return true;
@@ -185,8 +171,8 @@ public class SearchPanel extends javax.swing.JPanel {
             return false;
         }
     }
-    public void setButtonPanel(Boolean q){
-        this.ButtonPanel.setVisible(q);
+    public JPanel getButtonPanel(){
+        return ButtonPanel;
     }
     
     public void setSearchString(String searchString) {
