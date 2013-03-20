@@ -49,10 +49,21 @@ public class ListDisplayPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
+        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                citationClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void citationClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_citationClicked
+        displayMaster.citationListClicked();
+    }//GEN-LAST:event_citationClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<Paper> jList1;
     private javax.swing.JScrollPane jScrollPane1;

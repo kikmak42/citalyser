@@ -160,7 +160,6 @@ public class DisplayMaster {
             public void run() {
                 Query q =new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl()).build();
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
-                logger.debug(queryResult);
                 if (queryResult != null) {
                     PaperCollection pc = (PaperCollection) queryResult.getContents();
                     if (myPaper != null) {
@@ -246,5 +245,9 @@ public class DisplayMaster {
         } else {
             Main.getDisplayController().displayErrorMessage("Null Author");
         }
+    }
+
+    public void citationListClicked() {
+        System.out.println("Citation Clicked");
     }
 }
