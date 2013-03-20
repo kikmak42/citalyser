@@ -30,7 +30,7 @@ public class Manager {
         String html = HttpConnection.getUrlText(url);
 
         if (html != null) {
-            return parser.extractInfo(html);
+            return parser.extractGeneralQuery(html);
         } else {
             logger.info("null result form httpconnection");
             return null;
@@ -42,7 +42,7 @@ public class Manager {
         logger.info("GettingJournalPapers from Network - " + url);
         String html = HttpConnection.getUrlText(url);
         if (html != null) {
-            return parser.extractInfo(html);
+            return parser.extractGeneralQuery(html);
         } else {
             logger.info("null result form httpconnection");
             return null;
@@ -54,7 +54,7 @@ public class Manager {
         logger.info("GettingAuthorList from Network - " + url);
         String html = HttpConnection.getUrlText(url);
         if (html != null) {
-            return parser.getAuthors(html);
+            return parser.getAuthorList(html);
         } else {
             logger.info("null result from httpconnection");
             return null;
@@ -65,7 +65,7 @@ public class Manager {
     public QueryResult getJournalList(String url) {
         String html = HttpConnection.getUrlText(url);
         if (html != null) {
-            return parser.extractJournallist(html);
+            return parser.extractJournalListFromMetric(html);
         } else {
             logger.info("null result from httpconnection");
             return null;
@@ -86,7 +86,7 @@ public class Manager {
     public QueryResult getCompleteJournalFromMetric(String url) {
         String html = HttpConnection.getUrlText(url);
         if (html != null) {
-            return new Parser().extractJournalInfo(html);
+            return new Parser().extractMetricJournalInfo(html);
         } else {
             return null;
         }
@@ -109,7 +109,7 @@ public class Manager {
         logger.info("GettingCitationsList from Network - " + url);
         String html = HttpConnection.getUrlText(url);
         if (html != null) {
-            return parser.extractInfo(html);
+            return parser.extractGeneralQuery(html);
         } else {
             logger.info("null result from httpconnection");
             return null;
