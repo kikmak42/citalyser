@@ -67,7 +67,6 @@ public class SearchMaster {
             if (searchPanel.equals(mainFrame.getStartPanel().getAuthorSearchPanel())) {
                 ((java.awt.CardLayout) mainFrame.getContentPane().getLayout()).last(mainFrame.getContentPane());
                 mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().requestSearchFieldFocus();
-                
                 mainFrame.getRegularDisplayPanel().getHeaderPanel().setAuthorSearchMode(true);
             } else {
                 if (searchPanel.equals(mainFrame.getStartPanel().getJournalSearchPanel())) {

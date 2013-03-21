@@ -45,6 +45,8 @@ public class DisplayMaster {
     private SearchMaster searchMaster;
     private QueryResultRenderingHandler queryResultRenderingHandler;
     private static Logger logger = Logger.getLogger(DisplayMaster.class.getName());
+    
+    private int numberOfResults = 100;
 
     public DisplayMaster() {
         mainFrame = new MainFrame();
@@ -91,6 +93,14 @@ public class DisplayMaster {
             settingsDialog.setPreferredSize(new Dimension(width, height));
             settingsDialog.pack();
         }
+    }
+
+    public void setNumberOfResults(int numberOfResults) {
+        this.numberOfResults = numberOfResults;
+    }
+
+    public int getNumberOfResults() {
+        return numberOfResults;
     }
 
     public void authorModeClicked() {
