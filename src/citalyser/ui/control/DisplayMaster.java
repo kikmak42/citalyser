@@ -25,6 +25,7 @@ import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.ExternalPanel;
 import citalyser.ui.visualization.panels.common.SearchPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.griddisplaypanel.GridEntityPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.listdisplaypanel.ListEntityPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -254,8 +255,13 @@ public class DisplayMaster {
 
     public void renderCitationsList(ContentRenderer contentRenderer, ArrayList<Paper> papers) {
         if (papers != null) {
+            
             contentRenderer.getListDisplayPanel().setList(papers,ListModelHandler.getListModel(papers));
             contentRenderer.flipToListDisplayPanel();
+            /*
+            contentRenderer.getCollapsibleListDisplayPanel().addCollapsibleListEntityPanel(null);
+            contentRenderer.flipToCollapsibleListDisplayPanel();
+            * */
         } else {
             Main.getDisplayController().displayErrorMessage("Null Citations List");
         }

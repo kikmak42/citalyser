@@ -78,6 +78,7 @@ public class ListDisplayPanel extends javax.swing.JPanel {
         remove(jScrollPane1);
         setLayout(new java.awt.BorderLayout());
         jScrollPane1.setViewportView(jList1);
-        add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);        
+        
     }
 }
