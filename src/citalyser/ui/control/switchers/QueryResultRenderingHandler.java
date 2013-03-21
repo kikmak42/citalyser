@@ -6,6 +6,7 @@ package citalyser.ui.control.switchers;
 
 import citalyser.Main;
 import citalyser.model.Author;
+import citalyser.model.Journal;
 import citalyser.model.PaperCollection;
 import citalyser.model.query.queryresult.AuthorListResult;
 import citalyser.model.query.queryresult.AuthorResult;
@@ -38,9 +39,9 @@ public class QueryResultRenderingHandler {
         } else if (queryResult instanceof AuthorResult) {
             displayMaster.render(contentRenderer, (Author) queryResult.getContents());
         } else if (queryResult instanceof JournalListResult) {
-            
+            displayMaster.renderJournalMatrics(contentRenderer, (ArrayList<Journal>) queryResult.getContents());
         } else if (queryResult instanceof JournalResult) {
-            
+            //displayMaster.render(contentRenderer, (Journal) queryResult.getContents());
         } else if (queryResult instanceof PaperCollectionResult) {
             displayMaster.render(contentRenderer, (PaperCollection) queryResult.getContents());
         } else {

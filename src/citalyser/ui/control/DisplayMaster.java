@@ -6,6 +6,7 @@ package citalyser.ui.control;
 
 import citalyser.Main;
 import citalyser.model.Author;
+import citalyser.model.Journal;
 import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.model.query.Query;
@@ -210,6 +211,14 @@ public class DisplayMaster {
         }
     }
 
+    public void renderJournalMatrics(ContentRenderer contentRenderer, ArrayList<Journal> arrayList) {
+        if (arrayList != null) {
+            contentRenderer.getTableDisplayPanel().setJournalMetricsTable(arrayList, TableModelHandler.getTableModel(arrayList));
+            contentRenderer.flipToTableDisplayPanel();
+        } else {
+            Main.getDisplayController().displayErrorMessage("Null Journal List");
+        }
+    }
     public void render(ContentRenderer contentRenderer, Author author) {
         if (author != null) {
             contentRenderer.getTableDisplayPanel().setTable(author.getPaperCollection(), TableModelHandler.getTableModel(author.getPaperCollection()));
