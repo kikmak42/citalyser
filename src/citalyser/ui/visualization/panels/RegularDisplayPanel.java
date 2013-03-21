@@ -11,11 +11,8 @@
 package citalyser.ui.visualization.panels;
 
 import citalyser.ui.control.DisplayMaster;
-import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.regulardisplaypanel.DataVisualizationPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.StatusDisplayPanel;
-import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.ContentDisplayPanel;
-import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.HeaderPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.SidebarPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.ToolsPanel;
@@ -25,6 +22,21 @@ import citalyser.ui.visualization.panels.regulardisplaypanel.ToolsPanel;
  * @author Tanmay Patil
  */
 public class RegularDisplayPanel extends javax.swing.JPanel {
+    
+    private class PainterThread extends Thread {
+        
+        private int dividerLocation;
+
+        public PainterThread(int dividerLocation) {
+            this.dividerLocation = dividerLocation;
+        }
+
+        @Override
+        public void run() {
+            jSplitPane1.setDividerLocation(dividerLocation);
+        }
+        
+    }
 
     /** Creates new form RegularDisplayPanel */
     public RegularDisplayPanel() {
@@ -64,6 +76,8 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
     }
             
     private DisplayMaster displayMaster;
+    private boolean statusPanelVisible = false;
+    private boolean animating = false;
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -89,7 +103,13 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
         jSplitPane1.setDividerSize(0);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setToolTipText("");
+        jSplitPane1.setContinuousLayout(true);
         jSplitPane1.setOneTouchExpandable(true);
+        jSplitPane1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jSplitPane1ComponentResized(evt);
+            }
+        });
         jSplitPane1.setTopComponent(dataVisualizationPanel);
 
         javax.swing.GroupLayout statusDisplayPanelLayout = new javax.swing.GroupLayout(statusDisplayPanel);
@@ -129,6 +149,17 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
                     .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jSplitPane1ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jSplitPane1ComponentResized
+        if (!animating) {
+            if (statusPanelVisible) {
+                jSplitPane1.setDividerLocation(jSplitPane1.getHeight() - statusDisplayPanel.getPreferredSize().height);
+            } else {
+                jSplitPane1.setDividerLocation(jSplitPane1.getHeight());
+            }
+        }
+    }//GEN-LAST:event_jSplitPane1ComponentResized
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private citalyser.ui.visualization.panels.regulardisplaypanel.DataVisualizationPanel dataVisualizationPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.HeaderPanel headerPanel;
@@ -137,4 +168,48 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
     private citalyser.ui.visualization.panels.regulardisplaypanel.StatusDisplayPanel statusDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.ToolsPanel toolsPanel;
     // End of variables declaration//GEN-END:variables
+
+    /*public void showStatusPanel() {
+        if (!animating && !statusPanelVisible) {
+            statusPanelVisible = true;
+            new Thread() {
+
+                @Override
+                public void run() {
+                    PainterThread painterThread = new PainterThread(0);
+                    animating = true;
+                    for (int i = jSplitPane1.getHeight(); i > jSplitPane1.getHeight() - 30; i--) {
+                        if (!painterThread.isAlive()) {
+                            painterThread = new PainterThread(i);
+                            painterThread.start();
+                        }
+                        try {
+                           Thread.sleep(20);
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                    try {
+                        Thread.sleep(2500);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                    for (int i = jSplitPane1.getHeight() - 30; i < jSplitPane1.getHeight(); i++) {
+                        if (!painterThread.isAlive()) {
+                            painterThread = new PainterThread(i);
+                            painterThread.start();
+                        }
+                        try {
+                            Thread.sleep(20);
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                    displayMaster.clearStatusPanel();
+                    animating = false;
+                }
+            }.start();
+            statusPanelVisible = false;
+        }
+    }*/
 }

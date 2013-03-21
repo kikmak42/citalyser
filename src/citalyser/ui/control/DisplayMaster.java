@@ -135,7 +135,17 @@ public class DisplayMaster {
 
     public void displayErrorMessage(String message) {
         javax.swing.JOptionPane.showMessageDialog(mainFrame, message, "Error", javax.swing.JOptionPane.PLAIN_MESSAGE);
+        //mainFrame.getRegularDisplayPanel().getToolsPanel().displayErrorMessage(message);
     }
+
+    public void displayStatusMessage(String status) {
+        mainFrame.getRegularDisplayPanel().getToolsPanel().displayStatusMessage(status);
+    }
+
+    public void clearStatusPanel() {
+        mainFrame.getRegularDisplayPanel().getStatusDisplayPanel().displayStatus("");
+        mainFrame.getRegularDisplayPanel().getStatusDisplayPanel().displayError("");
+    }    
 
     public void addAutoCompleteSuggestions(Vector<String> suggestions) {
         searchMaster.addAutoCompleteSuggestions(suggestions);
@@ -176,6 +186,8 @@ public class DisplayMaster {
     }
 
     public void authorGridEntityClicked(String id) {
+        
+        displayStatusMessage("Hello World!!!");
 
         final String myId = id;
 

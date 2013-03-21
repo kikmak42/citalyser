@@ -26,7 +26,9 @@
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="1183" max="32767" attributes="0"/>
+              <EmptySpace pref="784" max="32767" attributes="0"/>
+              <Component id="jLabel1" min="-2" pref="389" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -35,6 +37,11 @@
           <Group type="103" alignment="1" groupAlignment="3" attributes="0">
               <Component id="jButton1" alignment="3" pref="36" max="32767" attributes="0"/>
               <Component id="jButton2" alignment="3" pref="37" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabel1" pref="15" max="32767" attributes="0"/>
+              <EmptySpace min="11" pref="11" max="11" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -64,6 +71,15 @@
         <Property name="text" type="java.lang.String" value="Button2"/>
         <Property name="borderPainted" type="boolean" value="false"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="11"/>
+        <Property name="text" type="java.lang.String" value=" "/>
       </Properties>
     </Component>
   </SubComponents>

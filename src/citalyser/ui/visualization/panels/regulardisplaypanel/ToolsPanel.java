@@ -26,6 +26,24 @@ public class ToolsPanel extends javax.swing.JPanel {
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
     }
+    
+    public void displayStatusMessage(String status) {
+        if (status != null) {
+            if (status.length() == 0) {
+                status = " ";
+            }
+            jLabel1.setText(status);
+        }
+    }
+
+    public void displayErrorMessage(String message) {
+        if (message != null) {
+            if (message.length() == 0) {
+                message = " ";
+            }
+            jLabel1.setText(message);
+        }
+    }
             
     private DisplayMaster displayMaster;
 
@@ -40,10 +58,11 @@ public class ToolsPanel extends javax.swing.JPanel {
 
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(50, 93, 167));
 
-        jButton1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Arial", 1, 11));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Button1");
         jButton1.setBorderPainted(false);
@@ -55,6 +74,10 @@ public class ToolsPanel extends javax.swing.JPanel {
         jButton2.setBorderPainted(false);
         jButton2.setContentAreaFilled(false);
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel1.setText(" ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -64,17 +87,24 @@ public class ToolsPanel extends javax.swing.JPanel {
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(1183, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 784, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 15, Short.MAX_VALUE)
+                .addGap(11, 11, 11))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

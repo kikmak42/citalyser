@@ -63,8 +63,12 @@
         <Property name="dividerSize" type="int" value="0"/>
         <Property name="orientation" type="int" value="0"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="continuousLayout" type="boolean" value="true"/>
         <Property name="oneTouchExpandable" type="boolean" value="true"/>
       </Properties>
+      <Events>
+        <EventHandler event="componentResized" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="jSplitPane1ComponentResized"/>
+      </Events>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
       <SubComponents>
