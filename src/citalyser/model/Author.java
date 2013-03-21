@@ -25,6 +25,8 @@ public class Author implements Serializable {
         private String email;
         private String university;
         private String description;
+        private int hindex;
+        private int i10index;
     @Override
     public String toString() {
         return name;
@@ -41,6 +43,9 @@ public class Author implements Serializable {
             this.email = null;
             this.university = null;
             this.description = null;
+            this.hindex = 0;
+            this.i10index = 0;
+            
         }
         public void setGraphurl(String url){
             this.graphurl = url;
@@ -142,15 +147,15 @@ public class Author implements Serializable {
             this.description = e;
         }
         public int getHindex(){
-            return paper_collection.getHIndex();
+            return this.hindex;
         }
         public void setHindex(int h){
-            paper_collection.setHIndex(h);
+            this.hindex = h;
         }
         public int getIIndex(){
-            return paper_collection.getIIndex();
+            return this.i10index;
         }
         public void setIIndex(int i){
-            paper_collection.setIIndex(i);
+            this.i10index = i;
         }
 }
