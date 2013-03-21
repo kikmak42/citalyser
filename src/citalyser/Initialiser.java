@@ -4,7 +4,10 @@
  *****************************************************************/
 package citalyser;
 
+import citalyser.dataextraction.cache.CacheCleaner;
+import citalyser.util.Config;
 import java.io.File;
+import java.util.Timer;
 import org.apache.log4j.Logger;
 
 public class Initialiser {
@@ -12,6 +15,14 @@ public class Initialiser {
     static Logger logger = Logger.getLogger(Initialiser.class.getName());
     
     public static void init()
+    {
+        initAppDirectory();
+        initCache();
+        initCacheCleaner();
+    }
+    
+    /* Initialise the .citalyser folder in the User Home directory*/
+    public static void initAppDirectory()
     {
         logger.info("Initialising App directory");
         String userHome = System.getProperty("user.home");
@@ -33,9 +44,10 @@ public class Initialiser {
         else
             logger.info("App Directory already present at  " + Main.settingsDirectory.getAbsolutePath());
         
-        initCache();
+        
     }
     
+    /* Initialise the Cache Directory inside the .citalyser folder*/
     public static void initCache()
     {
         Main.CacheDirectory = new File(Main.settingsDirectory,"Cache");
@@ -55,6 +67,11 @@ public class Initialiser {
         
     }
     
-    
+    /* Start the Cache Cleaner process */
+    public static void initCacheCleaner()
+    {
+        Timer cacheCleanSchedule = new Timer("CacheCleanScheduler");
+        cacheCleanSchedule.schedule(new CacheCleaner(),5000, Config.CacheCleanerPeriod);
+    }
     
 }
