@@ -13,6 +13,8 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.LowerDetailsDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.UpperDetailsDisplayPanel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 /**
  *
@@ -38,8 +40,67 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
     public LowerDetailsDisplayPanel getLowerDetailsDisplayPanel() {
         return lowerDetailsDisplayPanel;
     }
+
+    public void flipToUpperDetailsDisplayPanel() {
+        if (!upperVisible && !animating) {
+            upperVisible = true;
+            final JButton myButton = jButton1;
+            new Thread() {
+
+                @Override
+                public void run() {
+                    myButton.setText("Displaying Citations List");
+                    int target = lowerAvailable ? jSplitPane1.getHeight() - 16 : jSplitPane1.getHeight();
+                    animating = true;
+                    for (int i = 0; i < target; i++) {
+                        jSplitPane1.setDividerLocation(i);
+                        try {
+                            Thread.sleep(1);
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                    animating = false;
+                    myButton.setText("Display Citations List");
+                }
+            }.start();
+        }
+    }
+
+    public void flipToLowerDetailsDisplayPanel() {
+        lowerAvailable = true;
+        if (upperVisible && !animating) {
+            upperVisible = false;
+            final JButton myButton = jButton1;
+            new Thread() {
+
+                @Override
+                public void run() {
+                    myButton.setText("Displaying Author Profile");
+                    animating = true;
+                    for (int i = jSplitPane1.getHeight(); i > 0; i--) {
+                        jSplitPane1.setDividerLocation(i);
+                        try {
+                            Thread.sleep(1);
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                    animating = false;
+                    myButton.setText("Display Author Profile");
+                }
+            }.start();
+        }
+    }
+
+    public void setLowerAvailable(boolean lowerAvailable) {
+        this.lowerAvailable = lowerAvailable;
+    }
             
     private DisplayMaster displayMaster;
+    private boolean upperVisible = true;
+    private boolean animating = false;
+    private boolean lowerAvailable = false;
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -52,20 +113,64 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
 
         jSplitPane1 = new javax.swing.JSplitPane();
         upperDetailsDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.UpperDetailsDisplayPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         lowerDetailsDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.LowerDetailsDisplayPanel();
 
         setBackground(new java.awt.Color(153, 153, 255));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
         setLayout(new java.awt.BorderLayout());
 
-        jSplitPane1.setDividerLocation(200);
-        jSplitPane1.setDividerSize(20);
+        jSplitPane1.setDividerLocation(0);
+        jSplitPane1.setDividerSize(0);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setTopComponent(upperDetailsDisplayPanel);
-        jSplitPane1.setRightComponent(lowerDetailsDisplayPanel);
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        jButton1.setText("Show Author Profile");
+        jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 5, 2, 5));
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setFocusPainted(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, java.awt.BorderLayout.PAGE_START);
+        jPanel1.add(lowerDetailsDisplayPanel, java.awt.BorderLayout.CENTER);
+
+        jSplitPane1.setRightComponent(jPanel1);
 
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        if (upperVisible) {
+            if (lowerAvailable) {
+                jSplitPane1.setDividerLocation(jSplitPane1.getHeight() - 16);
+            } else {
+                jSplitPane1.setDividerLocation(jSplitPane1.getHeight());
+            }
+        }
+    }//GEN-LAST:event_formComponentResized
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (upperVisible) {
+            flipToLowerDetailsDisplayPanel();
+        } else {
+            flipToUpperDetailsDisplayPanel();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JSplitPane jSplitPane1;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.LowerDetailsDisplayPanel lowerDetailsDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.UpperDetailsDisplayPanel upperDetailsDisplayPanel;
