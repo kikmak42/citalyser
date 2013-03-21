@@ -42,7 +42,7 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
     }
     
     public void showResults(QueryResult queryResult) {
-        
+        throw new UnsupportedOperationException();
     }
             
     private DisplayMaster displayMaster;

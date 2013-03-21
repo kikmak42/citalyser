@@ -47,6 +47,8 @@ public class DisplayMaster {
     private SearchMaster searchMaster;
     private QueryResultRenderingHandler queryResultRenderingHandler;
     private static Logger logger = Logger.getLogger(DisplayMaster.class.getName());
+    
+    private int numberOfResults = 100;
 
     public DisplayMaster() {
         mainFrame = new MainFrame();
@@ -95,6 +97,14 @@ public class DisplayMaster {
         }
     }
 
+    public void setNumberOfResults(int numberOfResults) {
+        this.numberOfResults = numberOfResults;
+    }
+
+    public int getNumberOfResults() {
+        return numberOfResults;
+    }
+
     public void authorModeClicked() {
         ((java.awt.CardLayout) mainFrame.getContentPane().getLayout()).last(mainFrame.getContentPane());
         mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().requestSearchFieldFocus();
@@ -137,7 +147,17 @@ public class DisplayMaster {
 
     public void displayErrorMessage(String message) {
         javax.swing.JOptionPane.showMessageDialog(mainFrame, message, "Error", javax.swing.JOptionPane.PLAIN_MESSAGE);
+        //mainFrame.getRegularDisplayPanel().getToolsPanel().displayErrorMessage(message);
     }
+
+    public void displayStatusMessage(String status) {
+        mainFrame.getRegularDisplayPanel().getToolsPanel().displayStatusMessage(status);
+    }
+
+    public void clearStatusPanel() {
+        mainFrame.getRegularDisplayPanel().getStatusDisplayPanel().displayStatus("");
+        mainFrame.getRegularDisplayPanel().getStatusDisplayPanel().displayError("");
+    }    
 
     public void addAutoCompleteSuggestions(Vector<String> suggestions) {
         searchMaster.addAutoCompleteSuggestions(suggestions);
@@ -176,6 +196,8 @@ public class DisplayMaster {
     }
 
     public void authorGridEntityClicked(String id) {
+        
+        displayStatusMessage("Hello World!!!");
 
         final String myId = id;
 
