@@ -5,6 +5,7 @@
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules;
 
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.listdisplaypanel.CollapsibleListEntityPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.listdisplaypanel.ListEntityPanel;
 import java.util.Vector;
 
@@ -18,24 +19,24 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
      * Creates new form CollapsibleListDisplayPanel
      */
     public CollapsibleListDisplayPanel() {
-        listEntityPanels = new Vector<>();
+        collapsibleListEntityPanels = new Vector<>();
         initComponents();
     }
     
-    public void addCollapsibleListEntityPanel(ListEntityPanel listEntityPanel) {
-        listEntityPanel.setDisplayMaster(displayMaster);
-        listEntityPanels.add(listEntityPanel);
-        jPanel1.add(listEntityPanel);
+    public void addCollapsibleListEntityPanel(CollapsibleListEntityPanel collapsibleListEntityPanel) {
+        collapsibleListEntityPanel.setDisplayMaster(displayMaster);
+        collapsibleListEntityPanels.add(collapsibleListEntityPanel);
+        jPanel1.add(collapsibleListEntityPanel);
     }
 
-    public Vector<ListEntityPanel> getListEntityPanels() {
-        return listEntityPanels;
+    public Vector<CollapsibleListEntityPanel> getListEntityPanels() {
+        return collapsibleListEntityPanels;
     }
 
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
-        for (ListEntityPanel listEntityPanel : listEntityPanels) {
-            listEntityPanel.setDisplayMaster(displayMaster);
+        for (CollapsibleListEntityPanel collapsiblelistEntityPanel : collapsibleListEntityPanels) {
+            collapsiblelistEntityPanel.setDisplayMaster(displayMaster);
         }
     }
 
@@ -44,7 +45,7 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
     }
     
     private DisplayMaster displayMaster;
-    private Vector<ListEntityPanel> listEntityPanels;
+    private Vector<CollapsibleListEntityPanel> collapsibleListEntityPanels;
 
     /**
      * This method is called from within the constructor to initialize the form.
