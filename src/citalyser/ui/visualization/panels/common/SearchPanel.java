@@ -204,7 +204,6 @@ public class SearchPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1FocusLost
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
-        // TODO add your handling code here:
         displayMaster.searchKeyPressed(this, evt.getKeyChar());
     }//GEN-LAST:event_jTextField1KeyPressed
 
@@ -231,6 +230,11 @@ public class SearchPanel extends javax.swing.JPanel {
             return false;
         } 
     }
+
+    public void setButtonEnabled(boolean value) {
+        jButton1.setEnabled(value);
+    }    
+    
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
     }

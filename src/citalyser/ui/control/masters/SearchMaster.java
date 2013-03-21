@@ -60,7 +60,9 @@ public class SearchMaster {
 
                 @Override
                 public void run() {
+                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(false);
                     displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel)));
+                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(true);
                 }
             }.start();
         } else {
