@@ -164,6 +164,7 @@ public class DisplayMaster {
                     PaperCollection pc = (PaperCollection) queryResult.getContents();
                     if (myPaper != null) {
                         renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
+                        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
                     }
                 } else {
                     Main.getDisplayController().displayErrorMessage("Null QueryResult on Tableclicked...");
@@ -192,6 +193,28 @@ public class DisplayMaster {
                     Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Author Details.");
                 }
             }
+        }.start();
+    }
+
+    public void citationListClicked(Paper paper) {
+        final Paper myPaper = paper;
+        new Thread() {
+
+            @Override
+            public void run() {
+                Query q =new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl()).build();
+                QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);                
+                if (queryResult != null) {
+                    PaperCollection pc = (PaperCollection) queryResult.getContents();
+                    if (myPaper != null) {
+                        renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
+                        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
+                    }
+                } else {
+                    Main.getDisplayController().displayErrorMessage("Null QueryResult on Listclicked...");
+                }
+            }
+            
         }.start();
     }
 
@@ -245,26 +268,5 @@ public class DisplayMaster {
         } else {
             Main.getDisplayController().displayErrorMessage("Null Author");
         }
-    }
-
-    public void citationListClicked(Paper paper) {
-        final Paper myPaper = paper;
-        new Thread() {
-
-            @Override
-            public void run() {
-                Query q =new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl()).build();
-                QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);                
-                if (queryResult != null) {
-                    PaperCollection pc = (PaperCollection) queryResult.getContents();
-                    if (myPaper != null) {
-                        renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
-                    }
-                } else {
-                    Main.getDisplayController().displayErrorMessage("Null QueryResult on Listclicked...");
-                }
-            }
-            
-        }.start();
     }
 }

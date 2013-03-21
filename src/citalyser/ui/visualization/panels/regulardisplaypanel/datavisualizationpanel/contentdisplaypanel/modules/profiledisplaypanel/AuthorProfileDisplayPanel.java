@@ -37,11 +37,13 @@ public class AuthorProfileDisplayPanel extends javax.swing.JPanel {
     public void displayAuthor(Author author) {
         logger.debug("Author name : " + author.getName());
         jLabel3.setText(author.getName());
-        jLabel2.setText(author.getUniversityAndEmail());
+        jLabel2.setText("<html>"+author.getDescription()+"<html>");
+        jLabel5.setText("H - Index : " + author.getHindex());
+        jLabel6.setText("I10 - Index : " + author.getIIndex());
         jLabel7.setText("Citations/Year :"+author.getCitesPerYear());
         jLabel8.setText("Citations/Paper :"+author.getCitesPerPaper());
-        ImageHandler.displayImage(jLabel4, author.getGraphurl());
-        ImageHandler.displayImage(jLabel1, author.getImageSrc());
+        ImageHandler.displayImage(jLabel4, author.getGraphurl(),375,100);
+        ImageHandler.displayImage(jLabel1, author.getImageSrc(),134,136);
     }
     
     private DisplayMaster displayMaster;
