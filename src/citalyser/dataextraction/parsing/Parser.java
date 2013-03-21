@@ -173,7 +173,6 @@ public class Parser {
     
     /* Query_Type : AUTH_PROF*/
     public QueryResult<Author> extractAuthorProfileInfo(String src) {
-        logger.debug("Extract Called : " + src);
         QueryResult<Author> qr_author_result = new AuthorResult();
         //AuthorResult ar =new AuthorResult();
         Author author = new Author(null);
