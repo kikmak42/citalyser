@@ -606,6 +606,20 @@ public class Parser {
                     }
                     
                 }
+                //extracting the author image link
+                String img_src = "";
+                Elements img_tags = item.select("img");
+                if(!img_tags.isEmpty()){
+                    try{
+                        img_src = url+img_tags.get(0).attr("src");
+                        logger.debug("image source "+img_src);
+                        author.setImagesrc(img_src);
+                    }
+                    catch(Exception e){
+                        img_src = "";
+                    }
+                    
+                }
                 
             }
             
