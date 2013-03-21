@@ -12,6 +12,7 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.model.ContentRenderer;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.CollapsibleListDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.GridDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ListDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ProfileDisplayPanel;
@@ -35,6 +36,7 @@ public class CentralContentDisplayPanel extends javax.swing.JPanel implements Co
         listDisplayPanel.setDisplayMaster(displayMaster);
         profileDisplayPanel.setDisplayMaster(displayMaster);
         tableDisplayPanel.setDisplayMaster(displayMaster);
+        collapsibleListDisplayPanel.setDisplayMaster(displayMaster);
     }
 
     public DisplayMaster getDisplayMaster() {
@@ -61,6 +63,16 @@ public class CentralContentDisplayPanel extends javax.swing.JPanel implements Co
         return tableDisplayPanel;
     }
 
+    @Override
+    public CollapsibleListDisplayPanel getCollapsibleListDisplayPanel() {
+        return collapsibleListDisplayPanel;
+    }
+
+    @Override
+    public void flipToCollapsibleListDisplayPanel() {
+        ((java.awt.CardLayout) this.getLayout()).show(this, "card6");
+    }
+    
     @Override
     public void flipToGridDisplayPanel() {
         ((java.awt.CardLayout) this.getLayout()).first(this);
@@ -95,6 +107,7 @@ public class CentralContentDisplayPanel extends javax.swing.JPanel implements Co
         gridDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.GridDisplayPanel();
         listDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ListDisplayPanel();
         profileDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ProfileDisplayPanel();
+        collapsibleListDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.CollapsibleListDisplayPanel();
         tableDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel();
 
         setLayout(new java.awt.CardLayout());
@@ -125,9 +138,11 @@ public class CentralContentDisplayPanel extends javax.swing.JPanel implements Co
         );
 
         add(profileDisplayPanel, "card5");
-        add(tableDisplayPanel, "card5");
+        add(collapsibleListDisplayPanel, "card6");
+        add(tableDisplayPanel, "card7");
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.CollapsibleListDisplayPanel collapsibleListDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.GridDisplayPanel gridDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ListDisplayPanel listDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ProfileDisplayPanel profileDisplayPanel;
