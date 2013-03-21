@@ -50,7 +50,7 @@ public class QueryHandler {
                 return cacheHandler.getAuthorList(queryUrl);
             case MET_JOURN:
                 queryUrl = UrlComposer.getMetJournUrl(q);
-                logger.debug("@@##$$"+queryUrl);
+               // logger.debug("@@##$$"+queryUrl);
                 return cacheHandler.getJournalList(queryUrl);
             case AUTH_PROF:
                 queryUrl = UrlComposer.getAuthProfUrl(q);
