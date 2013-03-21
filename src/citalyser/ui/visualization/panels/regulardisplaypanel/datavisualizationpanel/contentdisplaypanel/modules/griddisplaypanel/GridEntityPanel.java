@@ -27,7 +27,7 @@ public class GridEntityPanel extends javax.swing.JPanel {
     public GridEntityPanel(Author author) {
         initComponents();
         this.author = author;
-        ImageHandler.displayImage(jLabel1, author.getImageSrc(),134,136);
+        ImageHandler.displayImage(jLabel1, author.getImageSrc(), 134, 136);
         jLabel2.setText(author.getName());
         jLabel3.setText("<html>" + author.getUniversityAndEmail());
         jLabel4.setText("Cited by: " + author.getTotalCitations());
