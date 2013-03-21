@@ -59,6 +59,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         proxyListPanel = new citalyser.ui.visualization.panels.external.settingspanel.ProxyListPanel();
         proxyPanel = new citalyser.ui.visualization.panels.external.settingspanel.ProxyPanel();
+        jPanel2 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
@@ -71,6 +72,19 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Proxy Settings", jPanel1);
 
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 423, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 247, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Cache Settings", jPanel2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -78,8 +92,8 @@ public class SettingsPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(297, Short.MAX_VALUE))
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,6 +106,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private citalyser.ui.visualization.panels.external.settingspanel.ProxyListPanel proxyListPanel;
     private citalyser.ui.visualization.panels.external.settingspanel.ProxyPanel proxyPanel;
