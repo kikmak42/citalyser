@@ -4,6 +4,7 @@
  */
 package citalyser.ui.model;
 
+import citalyser.model.Journal;
 import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel;
@@ -33,6 +34,21 @@ public class TableModelHandler {
             } else {
                 data[i][5] = papers.get(i).getJournals().get(0).getName();
             }
+        }
+
+        TableModel tableModel = new DefaultTableModel(data, columnNames);
+
+        return tableModel;
+    }
+    
+    public static TableModel getTableModel(ArrayList<Journal> journal) {
+        String[] columnNames = {"S.No.", "Name Of Journal", "h5-index", "h5-median"};
+        Object[][] data = new Object[journal.size()][columnNames.length];
+        for (int i = 0; i < journal.size(); i++) {
+            data[i][0] = i + 1;
+            data[i][1] = journal.get(i).getName();
+            data[i][2] = journal.get(i).getH5index();
+            data[i][3] = journal.get(i).getH5median();
         }
 
         TableModel tableModel = new DefaultTableModel(data, columnNames);

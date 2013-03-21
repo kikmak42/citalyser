@@ -11,6 +11,7 @@
 package citalyser.ui.visualization.panels.regulardisplaypanel;
 
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.RangeSlider;
 
 /**
  *
@@ -26,6 +27,10 @@ public class SidebarPanel extends javax.swing.JPanel {
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
     }
+
+    public RangeSlider getRangeSlider() {
+        return rangeSlider;
+    }
             
     private DisplayMaster displayMaster;
 
@@ -38,41 +43,40 @@ public class SidebarPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        rangeSlider1 = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.RangeSlider();
+        rangeSlider = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.RangeSlider();
 
         setBackground(new java.awt.Color(153, 153, 255));
 
-        rangeSlider1.setBackground(new java.awt.Color(153, 153, 255));
-        rangeSlider1.setForeground(new java.awt.Color(255, 255, 255));
-        rangeSlider1.setMajorTickSpacing(2);
-        rangeSlider1.setMaximum(2015);
-        rangeSlider1.setMinimum(1995);
-        rangeSlider1.setOrientation(javax.swing.JSlider.VERTICAL);
-        rangeSlider1.setPaintLabels(true);
-        rangeSlider1.setPaintTicks(true);
-        rangeSlider1.setSnapToTicks(true);
-        rangeSlider1.setValue(2001);
-        rangeSlider1.setFocusable(false);
-        rangeSlider1.setUpperValue(2010);
+        rangeSlider.setBackground(new java.awt.Color(153, 153, 255));
+        rangeSlider.setMajorTickSpacing(4);
+        rangeSlider.setMaximum(2014);
+        rangeSlider.setMinimum(1980);
+        rangeSlider.setMinorTickSpacing(1);
+        rangeSlider.setOrientation(javax.swing.JSlider.VERTICAL);
+        rangeSlider.setPaintLabels(true);
+        rangeSlider.setPaintTicks(true);
+        rangeSlider.setSnapToTicks(true);
+        rangeSlider.setValue(1985);
+        rangeSlider.setUpperValue(2012);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(rangeSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addGap(76, 76, 76)
+                .addComponent(rangeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(101, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(rangeSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addGap(83, 83, 83)
+                .addComponent(rangeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(112, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.RangeSlider rangeSlider1;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.RangeSlider rangeSlider;
     // End of variables declaration//GEN-END:variables
 }
