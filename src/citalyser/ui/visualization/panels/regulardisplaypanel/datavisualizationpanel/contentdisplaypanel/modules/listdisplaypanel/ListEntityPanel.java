@@ -4,6 +4,7 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.listdisplaypanel;
 
+import citalyser.model.Paper;
 import citalyser.ui.control.DisplayMaster;
 
 /**
@@ -15,16 +16,16 @@ public class ListEntityPanel extends javax.swing.JPanel {
     /**
      * Creates new form ListEntityPanel
      */
-    public ListEntityPanel() {
+    public ListEntityPanel(Paper paper) {
         initComponents();
-        jXTaskPane1.setTitle("Name");
-        jXTaskPane1.add(jXLabel1);
+        jXTaskPane1.setTitle(paper.getTitle());
+        
     }
     
     
     public void setPanelData(){
         jXTaskPane1.setTitle("Name");
-        jXTaskPane1.add(jXLabel1);
+        
     }
     
     
@@ -49,29 +50,13 @@ public class ListEntityPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jXTaskPane1 = new org.jdesktop.swingx.JXTaskPane();
-        jXLabel1 = new org.jdesktop.swingx.JXLabel();
 
-        jXLabel1.setText("jXLabel1");
+        setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jXLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(360, Short.MAX_VALUE))
-            .addComponent(jXTaskPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jXTaskPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jXLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jXTaskPane1.setCollapsed(true);
+        add(jXTaskPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.jdesktop.swingx.JXLabel jXLabel1;
     private org.jdesktop.swingx.JXTaskPane jXTaskPane1;
     // End of variables declaration//GEN-END:variables
 }
