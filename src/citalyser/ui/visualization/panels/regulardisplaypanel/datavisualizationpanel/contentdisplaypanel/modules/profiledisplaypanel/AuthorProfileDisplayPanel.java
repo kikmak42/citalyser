@@ -34,7 +34,7 @@ public class AuthorProfileDisplayPanel extends javax.swing.JPanel {
     
     public void displayAuthor(Author author) {
         jLabel3.setText(author.getName());
-        jLabel2.setText(author.getUniversity());
+        jLabel2.setText(author.getUniversityAndEmail());
         jLabel7.setText("Citations/Year :"+author.getCitesPerYear());
         jLabel8.setText("Citations/Paper :"+author.getCitesPerPaper());
     }
