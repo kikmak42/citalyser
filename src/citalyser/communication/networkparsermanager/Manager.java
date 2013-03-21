@@ -63,6 +63,7 @@ public class Manager {
 
     /* Query Case - MET_JOURN */
     public QueryResult getJournalList(String url) {
+        logger.info("GettingJournalList from Network - " + url);
         String html = HttpConnection.getUrlText(url);
         if (html != null) {
             return parser.extractJournalListFromMetric(html);

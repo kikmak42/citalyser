@@ -84,7 +84,8 @@ public class HttpConnection {
                     if(responseCode == Constants.OK_Response_Code)
                     {
                         /* update ProxyList */
-                        updateProxyList(proxies,i);
+                        if(i!=0)
+                            updateProxyList(proxies,i);
                         /* Saving the html content */
                         DataInputStream response = new DataInputStream(connection.getInputStream());
                         BufferedReader reader = new BufferedReader(new InputStreamReader(response));

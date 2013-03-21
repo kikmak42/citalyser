@@ -29,7 +29,7 @@ import org.jsoup.select.Elements;
  */
 public class Parser {
 
-    private Logger logger = Logger.getLogger(Parser.class.getName());
+    private static Logger logger = Logger.getLogger(Parser.class.getName());
     public String source;
     Document doc;
     private PaperCollection extractedPapers;
@@ -173,7 +173,6 @@ public class Parser {
     
     /* Query_Type : AUTH_PROF*/
     public QueryResult<Author> extractAuthorProfileInfo(String src) {
-        logger.debug("Extract Called : " + src);
         QueryResult<Author> qr_author_result = new AuthorResult();
         //AuthorResult ar =new AuthorResult();
         Author author = new Author(null);
@@ -185,7 +184,7 @@ public class Parser {
         if (!it.isEmpty()) {
             graphurl = it.select("img").get(0).attr("src");
         }
-        logger.debug("@@@##"+graphurl);
+        //logger.debug("@@@##"+graphurl);
         author.setGraphurl(graphurl);
         Elements items = doc.select("table.cit-table");
         String url = "http://scholar.google.com";
@@ -299,7 +298,7 @@ public class Parser {
 
                 }
             } catch (Exception e) {
-                logger.debug("Error getting author profile info");
+                //logger.debug("Error getting author profile info");
             }
 
 
@@ -331,7 +330,7 @@ public class Parser {
 
             try{
                 citations_all = ar.get(0);
-                logger.debug("Citations (All)  :"+ar.get(0));
+                //logger.debug("Citations (All)  :"+ar.get(0));
                 author.setTotalCitations(Integer.parseInt(citations_all));
             }
             catch(Exception e){
@@ -339,48 +338,52 @@ public class Parser {
             }
             try{
                 citations_since_2008 = ar.get(1);
-                logger.debug("Citations (Since 2008)  :"+ar.get(1));
+                //logger.debug("Citations (Since 2008)  :"+ar.get(1));
             }
             catch(Exception e){
                 citations_since_2008 = "";
             }
             try{
                 hindex_all = ar.get(2);
-                logger.debug("h-index (All)  :"+ar.get(2));
+                //logger.debug("h-index (All)  :"+ar.get(2));
+                //logger.debug("hindex from author object"+author.getHindex());
                 author.setHindex(Integer.parseInt(hindex_all));
+                //logger.debug("hindex from author object"+author.getHindex());
             }
             catch(Exception e){
                 hindex_all = "";
+                //logger.debug("in exception");
             }
             try{
                 hindex_since_2008 = ar.get(3);
-                logger.debug("h-index (Since 2008)  :"+ar.get(3));
+                //logger.debug("h-index (Since 2008)  :"+ar.get(3));
             }
             catch(Exception e){
                 hindex_since_2008 = "";
             }
             try{
                 i10index_all = ar.get(4);
-                logger.debug("i10-index (All)  :"+ar.get(4));
+                //logger.debug("i10-index (All)  :"+ar.get(4));
                 author.setIIndex(Integer.parseInt(i10index_all));
+                //logger.debug("Iindex from author object"+author.getIIndex());
             }
             catch(Exception e){
                 i10index_all = "";
             }
             try{
                 i10index_since_2008 = ar.get(5);
-                logger.debug("i10-index (Since 2008)  :"+ar.get(5));
+                //logger.debug("i10-index (Since 2008)  :"+ar.get(5));
             }
             catch(Exception e){
                 i10index_since_2008 = "";
             }
-            logger.debug("img src  :"+imglink);
+            //logger.debug("img src  :"+imglink);
 
             items = doc.select("div.cit-lbb");
             if (!items.isEmpty()) {
                 //logger.debug(items.isEmpty());
                 Elements tds = items.select("td");
-                logger.debug(tds);
+                //logger.debug(tds);
                 if (!tds.isEmpty()) {
                     for (Element td : tds) {
                         Elements img_tags = td.select("img");
@@ -388,11 +391,11 @@ public class Parser {
                             try{
                             Element img_tag = img_tags.get(0);
                             imglink = img_tag.attr("src");
-                            logger.debug("img src "+imglink);
+                            //logger.debug("img src "+imglink);
                             }
                             catch(Exception e){
                                 imglink = "";
-                                logger.debug(imglink);
+                                //logger.debug(imglink);
                             }
                         }
 
@@ -416,7 +419,7 @@ public class Parser {
                 if (!name_spans.isEmpty()) {
                     try {
                         name = name_spans.get(0).text();
-                        logger.debug(name);
+                        //logger.debug(name);
                         author.setName(name);//setting the author name
                     } catch (Exception e) {
                         name = "";
@@ -430,7 +433,7 @@ public class Parser {
                 if (!aff_spans.isEmpty()) {
                     try {
                         affiliation = aff_spans.get(0).text();
-                        logger.debug(affiliation);
+                        //logger.debug(affiliation);
                         
                     } catch (Exception e) {
                         affiliation = "";
@@ -445,7 +448,7 @@ public class Parser {
                     try {
                         String[] email_str = email_spans.get(0).text().split(" ");
                         email = email_str[email_str.length - 1];//last element will be email
-                        logger.debug(email);
+                        //logger.debug(email);
                         author.setEmail(email);
                     } catch (Exception e) {
                         email = "";
@@ -462,7 +465,7 @@ public class Parser {
                         if(!a_tags.isEmpty()){
                             try{
                                 homepage_url = a_tags.get(0).attr("href");
-                                logger.debug(url);
+                                //logger.debug(url);
                                 //author.setProfilelink(src);
                             }
                             catch(Exception e){
@@ -527,7 +530,7 @@ public class Parser {
             Description = Description+"<br>"+homepage_url;
             
         }
-        logger.debug("desc "+Description);
+        //logger.debug("desc "+Description);
         author.setDescription(Description);
 
         

@@ -10,12 +10,14 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules;
 
+import citalyser.model.Journal;
 import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.util.CommonUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
@@ -48,8 +50,11 @@ public class TableDisplayPanel extends javax.swing.JPanel {
         jTable1.setModel(tm);
         jTable1.repaint();
     }
-    public TableModel getTableModel(){
-        return tableModel;
+    
+    public void setJournalMetricsTable(ArrayList<Journal> journal,TableModel tm){
+        tableModel=tm;
+        jTable1.setModel(tm);
+        jTable1.repaint();
     }
     
     private DisplayMaster displayMaster;

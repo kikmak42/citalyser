@@ -131,8 +131,8 @@ public class HeaderPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (authorSearchMode) {
             modeSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_2.png")));
-            this.searchPanel.getRadioButton1().setText("Google Metrics");
-            this.searchPanel.getRadioButton2().setText("Google Scholar");
+            this.searchPanel.getRadioButton1().setText("Google Scholar");
+            this.searchPanel.getRadioButton2().setText("Google Metrics");
             authorSearchMode = false;
         } else {
             modeSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_1.png")));
@@ -166,8 +166,8 @@ public class HeaderPanel extends javax.swing.JPanel {
             authorSearchMode = false;
         } else {
             modeSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_2.png")));
-            this.searchPanel.getRadioButton1().setText("Google Metrics");
-            this.searchPanel.getRadioButton2().setText("Google Scholar");
+            this.searchPanel.getRadioButton1().setText("Google Scholar");
+            this.searchPanel.getRadioButton2().setText("Google Metrics");
             this.searchPanel.getButtonPanel().setVisible(true);
             authorSearchMode = true;
         }
