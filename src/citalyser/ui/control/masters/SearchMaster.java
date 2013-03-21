@@ -112,14 +112,15 @@ public class SearchMaster {
             if(searchPanel.getRadioButtonInfo()){
                 return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_AUTH).numResult(20).minYear(1900).maxYear(2013).build();
             }else{
-                return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_AUTH).numResult(20).minYear(1900).maxYear(2013).build();
+                
+                return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_AUTH).numResult(20).minYear(1900).maxYear(2013).sortFlag(searchPanel.getComboSelection()).build();
             }
         } else {
             if(searchPanel.getRadioButtonInfo()){
-                return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_JOURN).numResult(20).minYear(1900).maxYear(2013).build();
+                return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_JOURN).numResult(20).minYear(1900).maxYear(2013).build();
             }else{
-                //return null; // Uncomment next Line after handling MET_JOURN querytype
-               return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_JOURN).numResult(20).minYear(1900).maxYear(2013).build();
+                return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_JOURN).numResult(20).minYear(1900).maxYear(2013).sortFlag(searchPanel.getComboSelection()).build();
+               
             }
         }
     }
