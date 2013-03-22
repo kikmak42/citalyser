@@ -65,7 +65,8 @@ public class SearchMaster {
                 QueryResult<?> temp;
 
                 @Override
-                public void run() {                    
+                public void run() {
+                    mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
                     mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(false);
                     int totalCount = mainFrame.getRegularDisplayPanel().getToolsPanel().getNumResults();
                     int start = 0,count = 10;

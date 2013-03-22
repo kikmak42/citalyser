@@ -26,6 +26,10 @@ public interface ContentRenderer {
     
     public CollapsibleListDisplayPanel getCollapsibleListDisplayPanel();
     
+    public void showLoading();
+    
+    public void clearAll();
+    
     public void flipToCollapsibleListDisplayPanel();
     
     public void flipToGridDisplayPanel();
