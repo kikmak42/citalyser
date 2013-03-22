@@ -7,6 +7,8 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 import citalyser.model.Paper;
 import citalyser.ui.control.DisplayMaster;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JEditorPane;
 import org.jdesktop.swingx.JXTaskPane;
 
@@ -20,7 +22,16 @@ public class CollapsibleListEntityPanel extends JXTaskPane {
         this.paper = paper;
         this.setTitle(paper.getTitle());
         this.setCollapsed(true);
-        this.add(new JEditorPane("text/html", "<html>Hello</html>"));
+        final Paper p = paper;
+        JEditorPane pane = new JEditorPane();
+        pane.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                displayMaster.citationListClicked(p);
+            }
+        });
+        pane.setText("<html>Hello</html>");
+        this.add(pane);
 
     }
   

@@ -22,6 +22,7 @@ public class CitationListHistory {
     }
 
     public void addPaper(Paper paper) {
+        currentPaperPosition++;
         papers.add(paper);
     }
 
@@ -34,9 +35,14 @@ public class CitationListHistory {
         return this.papers.get(currentPaperPosition);
     }
 
-    public Paper gotoPreviousPaper() {
-        currentPaperPosition--;
-        return this.papers.get(currentPaperPosition);
+    public Paper gotoPreviousPaper() 
+    {
+        if(currentPaperPosition > 0)
+        {
+            currentPaperPosition--;
+            return this.papers.get(currentPaperPosition);
+        }
+        return null;
     }
 
     public Paper getPaperAtPosition(int position) {
@@ -48,7 +54,7 @@ public class CitationListHistory {
     }
 
     public void printPapers() {
-        for (int i = 0; i <= currentPaperPosition; i++) {
+        for (int i = 0; i < papers.size(); i++) {
             System.out.println(papers.get(i).getTitle());
             System.out.println(currentPaperPosition);
         }
