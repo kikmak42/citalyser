@@ -6,8 +6,6 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.listdisplaypanel.CollapsibleListEntityPanel;
-import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.listdisplaypanel.ListEntityPanel;
-import java.awt.Dimension;
 import java.util.Vector;
 import javax.swing.plaf.DimensionUIResource;
 

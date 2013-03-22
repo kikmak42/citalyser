@@ -47,6 +47,7 @@ public class DisplayMaster {
     private static Logger logger = Logger.getLogger(DisplayMaster.class.getName());
     
     private int numberOfResults = 100;
+    private Vector<Thread> threads = new Vector<>();
 
     public DisplayMaster() {
         mainFrame = new MainFrame();
@@ -173,9 +174,26 @@ public class DisplayMaster {
         return mainFrame.getRegularDisplayPanel().getHeaderPanel().isAuthorSearchMode();
     }
 
+    public void cancelButtonClicked() {
+        for (Thread thread : threads) {
+            if (thread != null) {
+                if (thread.isAlive()) {
+                    thread.interrupt();
+                }
+            }
+            threads.remove(thread);
+        }
+    }
+
+    public void addThread(Thread thread) {
+        if (thread != null) {
+            threads.add(thread);
+        }
+    }    
+
     public void tableClicked(Paper paper) {
         final Paper myPaper = paper;
-        new Thread() {
+        Thread thread = new Thread() {
             @Override
             public void run() {
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
@@ -191,7 +209,9 @@ public class DisplayMaster {
                     Main.getDisplayController().displayErrorMessage("Null QueryResult on Tableclicked...");
                 }
             }
-        }.start();
+        };
+        thread.start();
+        threads.add(thread);
     }
 
     public void authorGridEntityClicked(String id) {
