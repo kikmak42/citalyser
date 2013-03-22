@@ -14,6 +14,7 @@ import citalyser.model.query.QueryResult;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.CentralContentDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel;
+import javax.swing.plaf.basic.BasicSplitPaneDivider;
 
 /**
  *
@@ -41,7 +42,7 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
     }
     
     public void showResults(QueryResult queryResult) {
-        
+        throw new UnsupportedOperationException();
     }
             
     private DisplayMaster displayMaster;
@@ -59,12 +60,20 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
         centralContentDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.CentralContentDisplayPanel();
         detailsDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new java.awt.BorderLayout());
 
+        jSplitPane1.setBackground(new java.awt.Color(255, 255, 255));
         jSplitPane1.setDividerLocation(400);
+        jSplitPane1.setDividerSize(20);
+        jSplitPane1.setContinuousLayout(true);
+        jSplitPane1.setOneTouchExpandable(true);
         jSplitPane1.setLeftComponent(centralContentDisplayPanel);
         jSplitPane1.setRightComponent(detailsDisplayPanel);
 
+        BasicSplitPaneDivider divider = (BasicSplitPaneDivider) jSplitPane1.getComponent(0);
+        divider.setBackground(java.awt.Color.WHITE);
+        divider.setBorder(null);
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables

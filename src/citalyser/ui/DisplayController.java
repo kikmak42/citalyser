@@ -14,7 +14,9 @@ public interface DisplayController {
     
     public void initializeDisplay();
     
-    public void displayErrorMessage(String Message);
+    public void displayErrorMessage(String error);
+    
+    public void displayStatusMessage(String status);
     
     public void addAutoCompleteSuggestions(Vector<String> suggestions);
     

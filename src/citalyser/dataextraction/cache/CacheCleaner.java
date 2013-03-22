@@ -18,29 +18,28 @@ import org.apache.log4j.Logger;
  *
  * @author KRISHNA
  */
-public class CacheCleaner extends TimerTask
-{
+public class CacheCleaner extends TimerTask {
+
     static Logger logger = Logger.getLogger(CacheCleaner.class.getName());
-    
+
     @Override
     public void run() {
         logger.info("cacheCleaner invoked");
         File folder = Main.CacheDirectory;
         File[] list = folder.listFiles();
-        for(File file : list){
+        for (File file : list) {
             try {
-                logger.debug("Filename :" +file.getAbsolutePath());
+
                 Path filePath = file.toPath();
-                BasicFileAttributes attr = Files.readAttributes(filePath,BasicFileAttributes.class);
-                if((new Date().getTime() - attr.lastAccessTime().toMillis() ) > (long)Config.CachePersistentTime*24*60*60*1000) {
-                   if(file.delete()) {
-                       logger.info("cache file deleted: "+file.getName());
+                BasicFileAttributes attr = Files.readAttributes(filePath, BasicFileAttributes.class);
+                if ((new Date().getTime() - attr.lastAccessTime().toMillis()) > (long) Config.CachePersistentTime * 24 * 60 * 60 * 1000) {
+                    if (file.delete()) {
+                        logger.info("cache file deleted: " + file.getName());
                     } else {
-                       logger.info("cache file deletion failed: "+file.getName());
+                        logger.info("cache file deletion failed: " + file.getName());
                     }
                 }
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 logger.info("Exception while cleaning cache.");
                 //Logger.getLogger(cacheCleaner.class.getName()).log(Level.SEVERE, null, ex);
             }

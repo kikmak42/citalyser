@@ -38,5 +38,10 @@ public class DisplayControllerImpl implements citalyser.ui.DisplayController {
     public void emptyAutoCompleteSuggestions() {
         displayMaster.emptyAutoCompleteSuggestions();
     }
+
+    @Override
+    public void displayStatusMessage(String status) {
+        displayMaster.displayStatusMessage(status);
+    }
     
 }

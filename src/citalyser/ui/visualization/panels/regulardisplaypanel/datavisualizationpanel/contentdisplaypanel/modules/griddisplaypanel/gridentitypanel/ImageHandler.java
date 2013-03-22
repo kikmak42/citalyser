@@ -19,9 +19,11 @@ public class ImageHandler {
     
     static Logger logger = Logger.getLogger(ImageHandler.class.getName());
     
-    public static void displayImage(javax.swing.JLabel jLabel, String imageSource,final int width, final int height) {
+    public static void displayImage(javax.swing.JLabel jLabel, String imageSource, int width, int height) {
         final JLabel myLabel = jLabel;
         final String myImgSource = imageSource;
+        final int myWidth = width;
+        final int myHeight = height;
         try {
             new Thread() {
                 @Override
@@ -39,9 +41,9 @@ public class ImageHandler {
                             //                                Constants.RESOURCE_FOLDER_PATH + "user.jpg")));
                             img = new ImageIcon("user.jpg");                        
                         }
-                        BufferedImage img1 = new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
+                        BufferedImage img1 = new BufferedImage(myWidth, myHeight, BufferedImage.TYPE_INT_ARGB);
                         Graphics2D g = img1.createGraphics();
-                        g.drawImage(img.getImage(),0,0,width,height, myLabel);
+                        g.drawImage(img.getImage(), 0, 0, myWidth, myHeight, myLabel);
                         g.dispose();
                         myLabel.setIcon(new ImageIcon(img1));
                     }
