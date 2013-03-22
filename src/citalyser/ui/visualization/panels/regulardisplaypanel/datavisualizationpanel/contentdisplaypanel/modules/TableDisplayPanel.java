@@ -49,16 +49,19 @@ public class TableDisplayPanel extends javax.swing.JPanel {
         this.paperCollection = paperCollection;
         jTable1.setModel(tm);
         jTable1.repaint();
+        displayMaster.renderJournal(displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), this.paperCollection);
     }
     
     public void setJournalMetricsTable(ArrayList<Journal> journal,TableModel tm){
         tableModel=tm;
         jTable1.setModel(tm);
         jTable1.repaint();
+        journals=journal;
     }
     
     private DisplayMaster displayMaster;
     private PaperCollection paperCollection;
+    private ArrayList<Journal> journals;
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -120,7 +123,7 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        displayMaster.tableClicked(paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint())));
+              displayMaster.tableClicked(paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint())));
     }//GEN-LAST:event_jTable1MouseClicked
 
 

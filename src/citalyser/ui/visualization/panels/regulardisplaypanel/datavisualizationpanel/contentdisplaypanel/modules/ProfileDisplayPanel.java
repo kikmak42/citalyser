@@ -6,6 +6,7 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 
 import citalyser.model.Author;
 import citalyser.model.Journal;
+import citalyser.model.PaperCollection;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.AuthorProfileDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.JournalProfileDisplayPanel;
@@ -47,8 +48,8 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
         ((java.awt.CardLayout) jPanel1.getLayout()).first(jPanel1);
     }
 
-    public void displayJournalProfile(Journal journal) {
-        journalProfileDisplayPanel.displayJournal(journal);
+    public void displayJournalProfile(PaperCollection papercollection) {
+        journalProfileDisplayPanel.displayJournal(papercollection);
         ((java.awt.CardLayout) jPanel1.getLayout()).last(jPanel1);
     }
 

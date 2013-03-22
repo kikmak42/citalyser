@@ -39,7 +39,7 @@ public class QueryResultRenderingHandler {
         } else if (queryResult instanceof AuthorResult) {
             displayMaster.render(contentRenderer, (Author) queryResult.getContents());
         } else if (queryResult instanceof JournalListResult) {
-            displayMaster.renderJournalMatrics(contentRenderer, (ArrayList<Journal>) queryResult.getContents());
+            displayMaster.renderJournalMetrics(contentRenderer, (ArrayList<Journal>) queryResult.getContents());
         } else if (queryResult instanceof JournalResult) {
             //displayMaster.render(contentRenderer, (Journal) queryResult.getContents());
         } else if (queryResult instanceof PaperCollectionResult) {

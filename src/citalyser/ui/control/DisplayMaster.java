@@ -14,6 +14,7 @@ import citalyser.model.query.QueryHandler;
 import citalyser.model.query.QueryResult;
 import citalyser.model.query.QueryType;
 import citalyser.model.query.queryresult.AuthorResult;
+import citalyser.model.query.queryresult.JournalResult;
 import citalyser.ui.control.masters.SearchMaster;
 import citalyser.ui.control.masters.SettingsMaster;
 import citalyser.ui.control.switchers.QueryResultRenderingHandler;
@@ -218,6 +219,28 @@ public class DisplayMaster {
             
         }.start();
     }
+    
+ /*   public void journalProfile(String id) {
+        
+        final String myId = id;
+
+        new Thread() {
+            @Override
+            public void run() {
+                Query q = new Query.Builder("").flag(QueryType.JOURN_PROF).ID(myId).build();
+                QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
+                if (queryResult instanceof JournalResult)
+                {
+                    queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(),queryResult);
+                    renderJournal(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(),(Journal)queryResult.getContents());
+                }
+                else
+                {
+                    Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Journal Details.");
+                }
+            }
+        }.start();
+    }*/
 
     //*****************************************************************************//
     //**************************** Rendering Functions ****************************//
@@ -234,7 +257,7 @@ public class DisplayMaster {
         }
     }
 
-    public void renderJournalMatrics(ContentRenderer contentRenderer, ArrayList<Journal> arrayList) {
+    public void renderJournalMetrics(ContentRenderer contentRenderer, ArrayList<Journal> arrayList) {
         if (arrayList != null) {
             contentRenderer.getTableDisplayPanel().setJournalMetricsTable(arrayList, TableModelHandler.getTableModel(arrayList));
             contentRenderer.flipToTableDisplayPanel();
@@ -278,4 +301,14 @@ public class DisplayMaster {
             Main.getDisplayController().displayErrorMessage("Null Author");
         }
     }
+    
+    public void renderJournal(ContentRenderer contentRenderer, PaperCollection papercollection) {
+        if (papercollection != null) {
+            contentRenderer.getProfileDisplayPanel().displayJournalProfile(papercollection);
+            contentRenderer.flipToProfileDisplayPanel();
+        } else {
+            Main.getDisplayController().displayErrorMessage("Null Journal");
+        }
+    }
+    
 }
