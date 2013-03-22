@@ -29,7 +29,7 @@ public class JournalProfileDisplayPanel extends javax.swing.JPanel {
     }
     
     public void displayJournal(Journal journal) {
-        
+        throw new UnsupportedOperationException("Not yet implemented");
     }
     
     private DisplayMaster displayMaster;
@@ -67,5 +67,9 @@ public class JournalProfileDisplayPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
+    public void clear() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 
 }
