@@ -17,7 +17,6 @@ import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpa
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ListDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ProfileDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel;
-import java.awt.BorderLayout;
 
 /**
  *
@@ -70,7 +69,7 @@ public class CentralContentDisplayPanel extends javax.swing.JPanel implements Co
 
     @Override
     public void flipToCollapsibleListDisplayPanel() {
-        ((java.awt.CardLayout) this.getLayout()).show(this, "card6");
+        ((java.awt.CardLayout) this.getLayout()).show(this, "collapsibleListDisplayPanelCard");
     }
     
     @Override
@@ -80,12 +79,12 @@ public class CentralContentDisplayPanel extends javax.swing.JPanel implements Co
     
     @Override
     public void flipToListDisplayPanel() {
-        ((java.awt.CardLayout) this.getLayout()).show(this, "card3");
+        ((java.awt.CardLayout) this.getLayout()).show(this, "listDisplayPanelCard");
     }
     
     @Override
     public void flipToProfileDisplayPanel() {
-        ((java.awt.CardLayout) this.getLayout()).show(this, "card5");
+        ((java.awt.CardLayout) this.getLayout()).show(this, "profileDisplayPanelCard");
     }
     
     @Override
@@ -108,10 +107,11 @@ public class CentralContentDisplayPanel extends javax.swing.JPanel implements Co
         listDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ListDisplayPanel();
         profileDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ProfileDisplayPanel();
         collapsibleListDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.CollapsibleListDisplayPanel();
+        loadingDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.LoadingDisplayPanel();
         tableDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel();
 
         setLayout(new java.awt.CardLayout());
-        add(gridDisplayPanel, "card2");
+        add(gridDisplayPanel, "gridDisplayPanelCard");
 
         javax.swing.GroupLayout listDisplayPanelLayout = new javax.swing.GroupLayout(listDisplayPanel);
         listDisplayPanel.setLayout(listDisplayPanelLayout);
@@ -124,7 +124,7 @@ public class CentralContentDisplayPanel extends javax.swing.JPanel implements Co
             .addGap(0, 425, Short.MAX_VALUE)
         );
 
-        add(listDisplayPanel, "card3");
+        add(listDisplayPanel, "listDisplayPanelCard");
 
         javax.swing.GroupLayout profileDisplayPanelLayout = new javax.swing.GroupLayout(profileDisplayPanel);
         profileDisplayPanel.setLayout(profileDisplayPanelLayout);
@@ -137,15 +137,44 @@ public class CentralContentDisplayPanel extends javax.swing.JPanel implements Co
             .addGap(0, 425, Short.MAX_VALUE)
         );
 
-        add(profileDisplayPanel, "card5");
-        add(collapsibleListDisplayPanel, "card6");
-        add(tableDisplayPanel, "card7");
+        add(profileDisplayPanel, "profileDisplayPanelCard");
+        add(collapsibleListDisplayPanel, "collapsibleListDisplayPanelCard");
+
+        javax.swing.GroupLayout loadingDisplayPanelLayout = new javax.swing.GroupLayout(loadingDisplayPanel);
+        loadingDisplayPanel.setLayout(loadingDisplayPanelLayout);
+        loadingDisplayPanelLayout.setHorizontalGroup(
+            loadingDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        loadingDisplayPanelLayout.setVerticalGroup(
+            loadingDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 425, Short.MAX_VALUE)
+        );
+
+        add(loadingDisplayPanel, "loadingDisplayPanelCard");
+        add(tableDisplayPanel, "tableDisplayPanelCard");
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.CollapsibleListDisplayPanel collapsibleListDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.GridDisplayPanel gridDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ListDisplayPanel listDisplayPanel;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.LoadingDisplayPanel loadingDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ProfileDisplayPanel profileDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel tableDisplayPanel;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void showLoading() {
+        ((java.awt.CardLayout) this.getLayout()).show(this, "loadingDisplayPanelCard");
+        loadingDisplayPanel.reload();
+    }
+
+    @Override
+    public void clearAll() {
+        gridDisplayPanel.clear();
+        tableDisplayPanel.clear();
+        listDisplayPanel.clear();
+        collapsibleListDisplayPanel.clear();
+        profileDisplayPanel.clear();
+    }
 }
