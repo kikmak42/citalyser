@@ -61,20 +61,30 @@ public class SearchMaster {
         final SearchPanel mySearchPanel = searchPanel;
         if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
             new Thread() {
-                private ArrayList<QueryResult<?>> result;
-                QueryResult<?> temp;
 
                 @Override
                 public void run() {
                     mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
                     mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(false);
+                    QueryResult globalResult = null,currResult;
                     int totalCount = mainFrame.getRegularDisplayPanel().getToolsPanel().getNumResults();
-                    int start = 0,count = 10;
-                    while(true) {
+                    int count = 10,start = 0;
+                    while(true) {                        
+                        if(start+count > totalCount ){
+                            currResult = QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel,start,totalCount-start));
+                            globalResult.appendContents(currResult.getContents());
+                            displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), globalResult);
+                            break;
+                        }
+                        currResult = QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel,start,count));
+                        if(start == 0) {
+                            globalResult = currResult;
+                        }
+                        else {
+                            globalResult.appendContents(currResult.getContents());
+                        }
+                        displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), globalResult);
                         start += count;
-                        if(start > totalCount) break;
-                        temp = QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel,start,count));
-                        displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), temp);
                     }
                     mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(true);
                 }

@@ -242,7 +242,7 @@ public class DisplayMaster {
     //*****************************************************************************//
     public void render(ContentRenderer contentRenderer, ArrayList<Author> arrayList) {
         if (arrayList != null) {
-            contentRenderer.getGridDisplayPanel().clear();
+            //contentRenderer.getGridDisplayPanel().clear();
             for (Author author : arrayList) {
                 contentRenderer.getGridDisplayPanel().addGridEntityPanel(new GridEntityPanel(author));
             }
