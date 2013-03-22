@@ -18,6 +18,7 @@ import citalyser.model.query.queryresult.JournalResult;
 import citalyser.ui.control.masters.SearchMaster;
 import citalyser.ui.control.masters.SettingsMaster;
 import citalyser.ui.control.switchers.QueryResultRenderingHandler;
+import citalyser.ui.model.CitationListHistory;
 import citalyser.ui.model.ContentRenderer;
 import citalyser.ui.model.TableModelHandler;
 import citalyser.util.CProxy;
@@ -46,7 +47,7 @@ public class DisplayMaster {
     private SearchMaster searchMaster;
     private QueryResultRenderingHandler queryResultRenderingHandler;
     private static Logger logger = Logger.getLogger(DisplayMaster.class.getName());
-    
+    private CitationListHistory citationListHistory;
     private int numberOfResults = 100;
 
     public DisplayMaster() {
@@ -66,6 +67,7 @@ public class DisplayMaster {
         settingsDialog.setBackground(new Color(0, 0, 0, 0));
         settingsDialog.pack();
         queryResultRenderingHandler = new QueryResultRenderingHandler(this);
+        citationListHistory = new CitationListHistory();
     }
 
     public MainFrame getMainFrame() {
@@ -156,7 +158,7 @@ public class DisplayMaster {
     public void clearStatusPanel() {
         mainFrame.getRegularDisplayPanel().getStatusDisplayPanel().displayStatus("");
         mainFrame.getRegularDisplayPanel().getStatusDisplayPanel().displayError("");
-    }    
+    }
 
     public void addAutoCompleteSuggestions(Vector<String> suggestions) {
         searchMaster.addAutoCompleteSuggestions(suggestions);
@@ -220,6 +222,7 @@ public class DisplayMaster {
 
     public void citationListClicked(Paper paper) {
         final Paper myPaper = paper;
+        citationListHistory.addPaper(paper);
         new Thread() {
             @Override
             public void run() {
@@ -238,29 +241,28 @@ public class DisplayMaster {
             }
         }.start();
     }
-    
- /*   public void journalProfile(String id) {
+
+    /*   public void journalProfile(String id) {
         
-        final String myId = id;
+     final String myId = id;
 
-        new Thread() {
-            @Override
-            public void run() {
-                Query q = new Query.Builder("").flag(QueryType.JOURN_PROF).ID(myId).build();
-                QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
-                if (queryResult instanceof JournalResult)
-                {
-                    queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(),queryResult);
-                    renderJournal(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(),(Journal)queryResult.getContents());
-                }
-                else
-                {
-                    Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Journal Details.");
-                }
-            }
-        }.start();
-    }*/
-
+     new Thread() {
+     @Override
+     public void run() {
+     Query q = new Query.Builder("").flag(QueryType.JOURN_PROF).ID(myId).build();
+     QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
+     if (queryResult instanceof JournalResult)
+     {
+     queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(),queryResult);
+     renderJournal(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(),(Journal)queryResult.getContents());
+     }
+     else
+     {
+     Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Journal Details.");
+     }
+     }
+     }.start();
+     }*/
     //*****************************************************************************//
     //**************************** Rendering Functions ****************************//
     //*****************************************************************************//
@@ -314,6 +316,7 @@ public class DisplayMaster {
              contentRenderer.getListDisplayPanel().setList(papers,ListModelHandler.getListModel(papers));
              contentRenderer.flipToListDisplayPanel();
              */
+            contentRenderer.getCollapsibleListDisplayPanel().clear();
             for (Paper p : papers) {
                 contentRenderer.getCollapsibleListDisplayPanel().addCollapsibleListEntityPanel(new CollapsibleListEntityPanel(p));
             }
@@ -333,7 +336,7 @@ public class DisplayMaster {
             Main.getDisplayController().displayErrorMessage("Null Author");
         }
     }
-    
+
     public void renderJournal(ContentRenderer contentRenderer, PaperCollection papercollection) {
         if (papercollection != null) {
             contentRenderer.getProfileDisplayPanel().displayJournalProfile(papercollection);
@@ -342,5 +345,4 @@ public class DisplayMaster {
             Main.getDisplayController().displayErrorMessage("Null Journal");
         }
     }
-    
 }
