@@ -21,7 +21,7 @@ public class CollapsibleListEntityPanel extends JXTaskPane {
         this.setTitle(paper.getTitle());
         this.setCollapsed(true);
       //  this.setPreferredSize(new Dimension(20,0));
-        this.add(new JEditorPane("text/html", "<html>Hello</html>"));
+        //this.add(new JEditorPane("text/html", "<html>Hello</html>"));
 
     }
 
