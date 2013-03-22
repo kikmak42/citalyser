@@ -69,7 +69,7 @@ public class JournalProfileDisplayPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void clear() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        
     }
 
 }

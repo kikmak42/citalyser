@@ -242,7 +242,7 @@ public class DisplayMaster {
     //*****************************************************************************//
     public void render(ContentRenderer contentRenderer, ArrayList<Author> arrayList) {
         if (arrayList != null) {
-            contentRenderer.getGridDisplayPanel().clear();
+            contentRenderer.clearAll();
             for (Author author : arrayList) {
                 contentRenderer.getGridDisplayPanel().addGridEntityPanel(new GridEntityPanel(author));
             }
@@ -254,6 +254,7 @@ public class DisplayMaster {
 
     public void renderJournalMatrics(ContentRenderer contentRenderer, ArrayList<Journal> arrayList) {
         if (arrayList != null) {
+            contentRenderer.clearAll();
             contentRenderer.getTableDisplayPanel().setJournalMetricsTable(arrayList, TableModelHandler.getTableModel(arrayList));
             contentRenderer.flipToTableDisplayPanel();
         } else {
@@ -263,6 +264,7 @@ public class DisplayMaster {
 
     public void render(ContentRenderer contentRenderer, Author author) {
         if (author != null) {
+            contentRenderer.clearAll();
             contentRenderer.getTableDisplayPanel().setTable(author.getPaperCollection(), TableModelHandler.getTableModel(author.getPaperCollection()));
             contentRenderer.flipToTableDisplayPanel();
         } else {
@@ -272,6 +274,7 @@ public class DisplayMaster {
 
     public void render(ContentRenderer contentRenderer, PaperCollection paperCollection) {
         if (paperCollection != null) {
+            contentRenderer.clearAll();
             contentRenderer.getTableDisplayPanel().setTable(paperCollection, TableModelHandler.getTableModel(paperCollection));
             contentRenderer.flipToTableDisplayPanel();
         } else {
@@ -282,6 +285,7 @@ public class DisplayMaster {
 
     public void renderCitationsList(ContentRenderer contentRenderer, ArrayList<Paper> papers) {
         if (papers != null) {
+            contentRenderer.clearAll();
             /*
              contentRenderer.getListDisplayPanel().setList(papers,ListModelHandler.getListModel(papers));
              contentRenderer.flipToListDisplayPanel();
@@ -298,6 +302,7 @@ public class DisplayMaster {
 
     public void renderProfile(ContentRenderer contentRenderer, Author author) {
         if (author != null) {
+            contentRenderer.clearAll();
             contentRenderer.getProfileDisplayPanel().displayAuthorProfile(author);
             contentRenderer.flipToProfileDisplayPanel();
         } else {

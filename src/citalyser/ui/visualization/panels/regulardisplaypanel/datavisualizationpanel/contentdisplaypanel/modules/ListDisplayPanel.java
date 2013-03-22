@@ -83,9 +83,11 @@ public class ListDisplayPanel extends javax.swing.JPanel {
     }
 
     public void clear() {
-        while (!papers.isEmpty()) {
-            papers.remove(0);
+        if (papers != null) {
+            while (!papers.isEmpty()) {
+                papers.remove(0);
+            }
+            jList1.removeAll();
         }
-        jList1.removeAll();
     }
 }
