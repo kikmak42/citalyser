@@ -37,13 +37,14 @@ public class UiUtils {
                 {
                     label.setText(m);
                     try {
+                        logger.debug("Thread going to sleep : ");
                         Thread.sleep(t);
                         label.setText("");
                     } catch (InterruptedException ex) {
                         logger.debug("Error in thread while sleeping : " + ex.getMessage());
                     }
                 }
-            };
+            }.start();
         }catch(Exception ex){
             logger.debug("Error in thread for displaying Message : " + ex.getMessage());
         }
