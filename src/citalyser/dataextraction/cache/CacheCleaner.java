@@ -45,4 +45,18 @@ public class CacheCleaner extends TimerTask {
             }
         }
     }
+    
+    public static void deleteAllCacheFiles(){
+        logger.info("deleteAllCacheFiles function invoked");
+        File folder = Main.CacheDirectory;
+        File[] list = folder.listFiles();
+        
+        for(File file : list){
+                   if(file.delete()) {
+                       logger.info("deleteAllCacheFiles: cache file deleted: "+file.getName());
+                    } else {
+                       logger.info("deleteAllCacheFiles: cache file deletion failed: "+file.getName());
+                    }
+        }
+    }
 }
