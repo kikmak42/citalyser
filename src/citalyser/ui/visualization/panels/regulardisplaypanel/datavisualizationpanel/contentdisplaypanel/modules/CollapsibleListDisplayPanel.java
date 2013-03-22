@@ -118,5 +118,6 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
         while (!collapsibleListEntityPanels.isEmpty()) {
             collapsibleListEntityPanels.remove(0);
         }
+        jXTaskPaneContainer.removeAll();
     }
 }
