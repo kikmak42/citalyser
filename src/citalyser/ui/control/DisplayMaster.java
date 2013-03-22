@@ -18,7 +18,6 @@ import citalyser.ui.control.masters.SearchMaster;
 import citalyser.ui.control.masters.SettingsMaster;
 import citalyser.ui.control.switchers.QueryResultRenderingHandler;
 import citalyser.ui.model.ContentRenderer;
-import citalyser.ui.model.ListModelHandler;
 import citalyser.ui.model.TableModelHandler;
 import citalyser.util.CProxy;
 
@@ -27,7 +26,6 @@ import citalyser.ui.visualization.panels.ExternalPanel;
 import citalyser.ui.visualization.panels.common.SearchPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.griddisplaypanel.GridEntityPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.listdisplaypanel.CollapsibleListEntityPanel;
-import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.listdisplaypanel.ListEntityPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -197,14 +195,13 @@ public class DisplayMaster {
     }
 
     public void authorGridEntityClicked(String id) {
-        
-        displayStatusMessage("Hello World!!!");
 
         final String myId = id;
 
         new Thread() {
             @Override
             public void run() {
+                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel().showLoading();
                 Query q = new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).build();
@@ -303,7 +300,6 @@ public class DisplayMaster {
         if (author != null) {
             contentRenderer.getProfileDisplayPanel().displayAuthorProfile(author);
             contentRenderer.flipToProfileDisplayPanel();
-            System.out.println("############################################################");
         } else {
             Main.getDisplayController().displayErrorMessage("Null Author");
         }
