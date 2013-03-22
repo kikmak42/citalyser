@@ -6,6 +6,7 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.listdisplaypanel.CollapsibleListEntityPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.listdisplaypanel.ListEntityPanel;
 import java.util.Vector;
 import javax.swing.plaf.DimensionUIResource;
 
@@ -27,10 +28,9 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
         collapsibleListEntityPanel.setDisplayMaster(displayMaster);
         collapsibleListEntityPanels.add(collapsibleListEntityPanel);
         //jPanel1.add(collapsibleListEntityPanel);
-
+        // jXTaskPaneContainer.add(collapsibleListEntityPanel);
         jXTaskPaneContainer.add(collapsibleListEntityPanel);
-        jXTaskPaneContainer.setMinimumSize(new DimensionUIResource(40, 40));
-
+        jXTaskPaneContainer.setMinimumSize(new DimensionUIResource(40, 1540));
     }
 
     public Vector<CollapsibleListEntityPanel> getListEntityPanels() {
@@ -60,51 +60,61 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
         jXTaskPaneContainer = new org.jdesktop.swingx.JXTaskPaneContainer();
 
         setLayout(new java.awt.BorderLayout());
-
-        jLabel1.setText("jLabel1");
 
         jButton1.setText("jButton1");
 
         jButton2.setText("jButton2");
 
+        jLabel1.setText("jLabel1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(4, 4, 4)
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addGap(2, 2, 2)));
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2))
+        );
         jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jButton1)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jButton2)
-                .addComponent(jLabel1)));
+                .addComponent(jButton2))
+        );
 
         add(jPanel1, java.awt.BorderLayout.NORTH);
-        add(jXTaskPaneContainer, java.awt.BorderLayout.CENTER);
+
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        jScrollPane1.setViewportView(jXTaskPaneContainer);
+
+        jPanel2.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private org.jdesktop.swingx.JXTaskPaneContainer jXTaskPaneContainer;
     // End of variables declaration//GEN-END:variables
-
     public void clear() {
-        jPanel1.removeAll();
+        //jPanel1.removeAll();
         while (!collapsibleListEntityPanels.isEmpty()) {
             collapsibleListEntityPanels.remove(0);
         }
