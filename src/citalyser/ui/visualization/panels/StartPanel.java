@@ -58,13 +58,13 @@ public class StartPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
 
         jLabel1.setBackground(new java.awt.Color(19, 55, 131));
-        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 36));
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/logo.png"))); // NOI18N
         jLabel1.setOpaque(true);
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 36));
         jLabel2.setForeground(new java.awt.Color(0, 0, 153));
         jLabel2.setText("Search Author");
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -82,7 +82,7 @@ public class StartPanel extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addGap(30, 30, 30)
                 .addComponent(authorSearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(199, Short.MAX_VALUE))
+                .addContainerGap(181, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,7 +99,7 @@ public class StartPanel extends javax.swing.JPanel {
 
         jPanel2.setPreferredSize(new java.awt.Dimension(1349, 190));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 36));
         jLabel3.setForeground(new java.awt.Color(0, 0, 153));
         jLabel3.setText("Search Journal");
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -117,7 +117,7 @@ public class StartPanel extends javax.swing.JPanel {
                 .addComponent(journalSearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addContainerGap(231, Short.MAX_VALUE))
+                .addContainerGap(213, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

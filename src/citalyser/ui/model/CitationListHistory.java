@@ -46,4 +46,12 @@ public class CitationListHistory {
     public void clear() {
         this.papers.clear();
     }
+
+    public void printPapers() {
+        for (int i = 0; i <= currentPaperPosition; i++) {
+            System.out.println(papers.get(i).getTitle());
+            System.out.println(currentPaperPosition);
+        }
+
+    }
 }

@@ -20,6 +20,11 @@ import javax.swing.JButton;
  * @author Tanmay Patil
  */
 public class DetailsDisplayPanel extends javax.swing.JPanel {
+
+    public void clearAll() {
+        upperDetailsDisplayPanel.clearAll();
+        lowerDetailsDisplayPanel.clearAll();
+    }
     
     private class PainterThread extends Thread {
         
