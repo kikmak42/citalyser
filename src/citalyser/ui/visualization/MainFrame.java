@@ -73,19 +73,35 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
-        displayMaster.mainFrameChanged(getX() + getRootPane().getX(), getY() + getRootPane().getY(), getContentPane().getWidth(), getContentPane().getHeight());
+        try {
+            displayMaster.mainFrameChanged(getX() + getRootPane().getX(), getY() + getRootPane().getY(), getContentPane().getWidth(), getContentPane().getHeight());
+        } catch(NullPointerException ex) {
+            
+        }
     }//GEN-LAST:event_formWindowStateChanged
 
     private void formComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentMoved
-        displayMaster.mainFrameChanged(getX() + getRootPane().getX(), getY() + getRootPane().getY(), getContentPane().getWidth(), getContentPane().getHeight());
+        try {
+            displayMaster.mainFrameChanged(getX() + getRootPane().getX(), getY() + getRootPane().getY(), getContentPane().getWidth(), getContentPane().getHeight());
+        } catch(NullPointerException ex) {
+            
+        }
     }//GEN-LAST:event_formComponentMoved
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-        displayMaster.mainFrameChanged(getX() + getRootPane().getX(), getY() + getRootPane().getY(), getContentPane().getWidth(), getContentPane().getHeight());
+        try {
+            displayMaster.mainFrameChanged(getX() + getRootPane().getX(), getY() + getRootPane().getY(), getContentPane().getWidth(), getContentPane().getHeight());
+        } catch(NullPointerException ex) {
+            
+        }
     }//GEN-LAST:event_formComponentResized
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        displayMaster.mainFrameChanged(getX() + getRootPane().getX(), getY() + getRootPane().getY(), getContentPane().getWidth(), getContentPane().getHeight());
+        try {
+            displayMaster.mainFrameChanged(getX() + getRootPane().getX(), getY() + getRootPane().getY(), getContentPane().getWidth(), getContentPane().getHeight());
+        } catch(NullPointerException ex) {
+            
+        }
     }//GEN-LAST:event_formWindowActivated
 
     static {

@@ -77,6 +77,7 @@ public class HttpConnection {
             for(int j = 0;j<Constants.userAgents.length; j++)
             {
                 logger.debug("Proxy : " + proxies.get(i).toString() +" UserAgent : "+Constants.userAgents[j]);
+                Main.getDisplayController().displayStatusMessage("Trying Proxy " + proxies.get(i).toString());
                 try{
                     HttpURLConnection connection = connectUrl(url,proxies.get(i),Constants.userAgents[j]);
                     responseCode = connection.getResponseCode();

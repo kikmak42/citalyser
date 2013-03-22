@@ -14,13 +14,27 @@ import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.LowerDetailsDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.UpperDetailsDisplayPanel;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 
 /**
  *
  * @author Tanmay Patil
  */
 public class DetailsDisplayPanel extends javax.swing.JPanel {
+    
+    private class PainterThread extends Thread {
+        
+        private int dividerLocation;
+
+        public PainterThread(int dividerLocation) {
+            this.dividerLocation = dividerLocation;
+        }
+
+        @Override
+        public void run() {
+            jSplitPane1.setDividerLocation(dividerLocation);
+        }
+        
+    }
 
     /** Creates new form DetailsDisplayPanel */
     public DetailsDisplayPanel() {
@@ -49,11 +63,16 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
 
                 @Override
                 public void run() {
-                    myButton.setText("Displaying Citations List");
+                    PainterThread painterThread = new PainterThread(0);
+                    
+                    myButton.setText("Displaying Author Profile");
                     int target = lowerAvailable ? jSplitPane1.getHeight() - 16 : jSplitPane1.getHeight();
                     animating = true;
                     for (int i = 0; i < target; i++) {
-                        jSplitPane1.setDividerLocation(i);
+                        if (!painterThread.isAlive()) {
+                            painterThread = new PainterThread(i);
+                            painterThread.start();
+                        }
                         try {
                             Thread.sleep(1);
                         } catch (InterruptedException ex) {
@@ -76,12 +95,17 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
 
                 @Override
                 public void run() {
-                    myButton.setText("Displaying Author Profile");
+                    PainterThread painterThread = new PainterThread(0);
+                    
+                    myButton.setText("Displaying Citations List");
                     animating = true;
                     for (int i = jSplitPane1.getHeight(); i > 0; i--) {
-                        jSplitPane1.setDividerLocation(i);
+                        if (!painterThread.isAlive()) {
+                            painterThread = new PainterThread(i);
+                            painterThread.start();
+                        }
                         try {
-                            Thread.sleep(1);
+                           Thread.sleep(1);
                         } catch (InterruptedException ex) {
                             ex.printStackTrace();
                         }

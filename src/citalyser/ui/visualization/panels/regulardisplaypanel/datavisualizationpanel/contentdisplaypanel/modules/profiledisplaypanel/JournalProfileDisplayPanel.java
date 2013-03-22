@@ -7,7 +7,6 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 import citalyser.model.Journal;
 import citalyser.model.PaperCollection;
 import citalyser.ui.control.DisplayMaster;
-import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.griddisplaypanel.gridentitypanel.ImageHandler;
 import org.apache.log4j.Logger;
 /**
  *
@@ -31,13 +30,9 @@ public class JournalProfileDisplayPanel extends javax.swing.JPanel {
     public void displayJournal(PaperCollection papercollection) {
         logger.debug("Journal name : " + this.displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getSearchString());
         jLabel3.setText(this.displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getSearchString());
-        //jLabel2.setText("<html>"+journal.getDescription()+"<html>");
         jLabel5.setText("H - Index : " + papercollection.getHIndex() );
         jLabel6.setText("i10 - median : " + papercollection.getIIndex());
-       // jLabel7.setText("Papers/Author :"+ journal.getPapersPerAuthor());
-       // jLabel8.setText("Citations/Author :"+journal.getCitesPerAuthor());
     }
-    
     private DisplayMaster displayMaster;
 
     /**
@@ -110,5 +105,9 @@ public class JournalProfileDisplayPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
+
+    public void clear() {
+        
+    }
 
 }
