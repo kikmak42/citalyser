@@ -198,7 +198,6 @@ public class DisplayMaster {
 
     public void authorGridEntityClicked(String id) {
         
-        displayStatusMessage("Hello World!!!");
 
         final String myId = id;
 

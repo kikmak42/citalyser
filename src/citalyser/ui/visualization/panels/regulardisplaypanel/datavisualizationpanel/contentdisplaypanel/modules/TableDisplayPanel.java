@@ -31,7 +31,7 @@ public class TableDisplayPanel extends javax.swing.JPanel {
 
     /** Creates new form TableDisplayPanel */
     public TableDisplayPanel() {
-        initComponents();
+        initComponents();        
     }
 
     public void setDisplayMaster(DisplayMaster displayMaster) {
@@ -44,7 +44,7 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     
     public void setTable(PaperCollection paperCollection, TableModel tm)
     {
-
+        
         tableModel=tm;
 
         this.paperCollection = paperCollection;
