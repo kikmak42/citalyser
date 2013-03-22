@@ -204,11 +204,15 @@ public class SearchPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1FocusLost
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
-        displayMaster.searchKeyPressed(this, evt.getKeyChar());
+        if(this.getForeground().equals(Color.BLACK) && !this.getSearchString().equals("")){
+            displayMaster.searchKeyPressed(this, evt.getKeyChar());
+        }
     }//GEN-LAST:event_jTextField1KeyPressed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        displayMaster.searchButtonClicked(this);
+        if(this.getForeground().equals(Color.BLACK) && !this.getSearchString().equals("")){
+            displayMaster.searchButtonClicked(this);
+        }
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
