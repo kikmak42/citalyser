@@ -17,14 +17,13 @@ import org.jdesktop.swingx.JXTaskPane;
 public class CollapsibleListEntityPanel extends JXTaskPane {
 
     public CollapsibleListEntityPanel(Paper paper) {
-
+        this.paper = paper;
         this.setTitle(paper.getTitle());
         this.setCollapsed(true);
-      //  this.setPreferredSize(new Dimension(20,0));
-        //this.add(new JEditorPane("text/html", "<html>Hello</html>"));
+        this.add(new JEditorPane("text/html", "<html>Hello</html>"));
 
     }
-
+  
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
     }
@@ -32,5 +31,7 @@ public class CollapsibleListEntityPanel extends JXTaskPane {
     public DisplayMaster getDisplayMaster() {
         return displayMaster;
     }
+    
     private DisplayMaster displayMaster;
+    private Paper paper;
 }
