@@ -70,4 +70,11 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    public void clear() {
+        jPanel1.removeAll();
+        while (!collapsibleListEntityPanels.isEmpty()) {
+            collapsibleListEntityPanels.remove(0);
+        }
+    }
 }

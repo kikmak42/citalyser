@@ -81,4 +81,11 @@ public class ListDisplayPanel extends javax.swing.JPanel {
         add(jScrollPane1, java.awt.BorderLayout.CENTER);        
         
     }
+
+    public void clear() {
+        while (!papers.isEmpty()) {
+            papers.remove(0);
+        }
+        jList1.removeAll();
+    }
 }

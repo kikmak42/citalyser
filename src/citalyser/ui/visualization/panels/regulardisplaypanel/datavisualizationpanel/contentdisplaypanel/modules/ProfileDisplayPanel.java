@@ -96,4 +96,9 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.JournalProfileDisplayPanel journalProfileDisplayPanel;
     // End of variables declaration//GEN-END:variables
+
+    public void clear() {
+        authorProfileDisplayPanel.clear();
+        journalProfileDisplayPanel.clear();
+    }
 }

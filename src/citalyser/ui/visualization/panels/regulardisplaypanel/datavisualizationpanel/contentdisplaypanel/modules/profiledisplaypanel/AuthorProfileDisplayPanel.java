@@ -151,4 +151,15 @@ public class AuthorProfileDisplayPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     // End of variables declaration//GEN-END:variables
+
+    public void clear() {
+        jLabel1.setText("");
+        jLabel2.setText("");
+        jLabel3.setText("");
+        jLabel4.setText("");
+        jLabel5.setText("");
+        jLabel6.setText("");
+        jLabel7.setText("");
+        jLabel8.setText("");
+    }
 }

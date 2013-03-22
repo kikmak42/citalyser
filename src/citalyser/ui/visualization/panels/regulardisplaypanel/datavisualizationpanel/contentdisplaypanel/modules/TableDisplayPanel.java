@@ -20,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 /**
@@ -130,4 +131,11 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
     private TableModel tableModel;
+
+    public void clear() {
+        while (jTable1.getModel().getRowCount() > 0) {
+            ((DefaultTableModel) jTable1.getModel()).removeRow(0);
+        }
+        tableModel = jTable1.getModel();
+    }
 }
