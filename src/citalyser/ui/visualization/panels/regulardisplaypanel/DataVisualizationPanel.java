@@ -73,4 +73,8 @@ public class DataVisualizationPanel extends javax.swing.JPanel {
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.ContentDisplayPanel contentDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.GraphViewPanel graphViewPanel;
     // End of variables declaration//GEN-END:variables
+
+    public void clearAll() {
+        contentDisplayPanel.clearAll();
+    }
 }
