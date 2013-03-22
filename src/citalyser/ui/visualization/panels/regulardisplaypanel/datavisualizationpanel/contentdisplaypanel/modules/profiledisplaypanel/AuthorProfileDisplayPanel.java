@@ -12,7 +12,7 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 
 import citalyser.model.Author;
 import citalyser.ui.control.DisplayMaster;
-import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.griddisplaypanel.gridentitypanel.ImageHandler;
+import citalyser.ui.utils.UiUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -42,8 +42,8 @@ public class AuthorProfileDisplayPanel extends javax.swing.JPanel {
         jLabel6.setText("I10 - Index : " + author.getIIndex());
         jLabel7.setText("Citations/Year :"+author.getCitesPerYear());
         jLabel8.setText("Citations/Paper :"+author.getCitesPerPaper());
-        ImageHandler.displayImage(jLabel4, author.getGraphurl(),375,100);
-        ImageHandler.displayImage(jLabel1, author.getImageSrc(),134,136);
+        UiUtils.displayImage(jLabel4, author.getGraphurl(),375,100);
+        UiUtils.displayImage(jLabel1, author.getImageSrc(),134,136);
     }
     
     private DisplayMaster displayMaster;

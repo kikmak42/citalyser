@@ -12,7 +12,7 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 
 import citalyser.model.Author;
 import citalyser.ui.control.DisplayMaster;
-import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.griddisplaypanel.gridentitypanel.ImageHandler;
+import citalyser.ui.utils.UiUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -27,7 +27,7 @@ public class GridEntityPanel extends javax.swing.JPanel {
     public GridEntityPanel(Author author) {
         initComponents();
         this.author = author;
-        ImageHandler.displayImage(jLabel1, author.getImageSrc(), 134, 136);
+        UiUtils.displayImage(jLabel1, author.getImageSrc(), 134, 136);
         jLabel2.setText(author.getName());
         jLabel3.setText("<html>" + author.getUniversityAndEmail());
         jLabel4.setText("Cited by: " + author.getTotalCitations());
