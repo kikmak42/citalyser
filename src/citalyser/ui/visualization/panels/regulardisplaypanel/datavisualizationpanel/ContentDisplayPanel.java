@@ -40,12 +40,22 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
     public DetailsDisplayPanel getDetailsDisplayPanel() {
         return detailsDisplayPanel;
     }
+
+    public void displayDetailsDisplayPanel(boolean value) {
+        if (value) {
+            jSplitPane1.setDividerLocation(jSplitPane1.getWidth()/2);
+        } else {
+            jSplitPane1.setDividerLocation(jSplitPane1.getWidth() - 20);
+        }
+    }
     
-    public void showResults(QueryResult queryResult) {
-        throw new UnsupportedOperationException();
+
+    public void setDetailsDisplayPanelVisible(boolean detailsDisplayPanelVisible) {
+        this.detailsDisplayPanelVisible = detailsDisplayPanelVisible;
     }
             
     private DisplayMaster displayMaster;
+    private boolean detailsDisplayPanelVisible = false;
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -64,10 +74,15 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         jSplitPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jSplitPane1.setDividerLocation(400);
+        jSplitPane1.setDividerLocation(806);
         jSplitPane1.setDividerSize(20);
         jSplitPane1.setContinuousLayout(true);
         jSplitPane1.setOneTouchExpandable(true);
+        jSplitPane1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jSplitPane1ComponentResized(evt);
+            }
+        });
         jSplitPane1.setLeftComponent(centralContentDisplayPanel);
         jSplitPane1.setRightComponent(detailsDisplayPanel);
 
@@ -76,6 +91,13 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
         divider.setBorder(null);
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jSplitPane1ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jSplitPane1ComponentResized
+        if (!detailsDisplayPanelVisible) {
+            jSplitPane1.setDividerLocation(jSplitPane1.getWidth() - 20);
+        }
+    }//GEN-LAST:event_jSplitPane1ComponentResized
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.CentralContentDisplayPanel centralContentDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel detailsDisplayPanel;

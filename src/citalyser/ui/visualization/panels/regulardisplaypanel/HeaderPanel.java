@@ -81,9 +81,7 @@ public class HeaderPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.weightx = 1.0;
         jPanel1.add(jPanel2, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.weightx = 1000.0;
-        jPanel1.add(searchPanel, gridBagConstraints);
+        jPanel1.add(searchPanel, new java.awt.GridBagConstraints());
 
         jPanel3.setPreferredSize(new java.awt.Dimension(0, 53));
 

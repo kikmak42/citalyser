@@ -99,7 +99,7 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
 
         jSplitPane1.setBackground(new java.awt.Color(255, 255, 255));
         jSplitPane1.setBorder(null);
-        jSplitPane1.setDividerLocation(500);
+        jSplitPane1.setDividerLocation(536);
         jSplitPane1.setDividerSize(0);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setToolTipText("");
@@ -120,7 +120,7 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
         );
         statusDisplayPanelLayout.setVerticalGroup(
             statusDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jSplitPane1.setRightComponent(statusDisplayPanel);
