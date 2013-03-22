@@ -27,6 +27,7 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
         collapsibleListEntityPanel.setDisplayMaster(displayMaster);
         collapsibleListEntityPanels.add(collapsibleListEntityPanel);
         jPanel1.add(collapsibleListEntityPanel);
+       // jXTaskPaneContainer.add(collapsibleListEntityPanel);
     }
 
     public Vector<CollapsibleListEntityPanel> getListEntityPanels() {
@@ -61,7 +62,6 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.PAGE_AXIS));
         jScrollPane1.setViewportView(jPanel1);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
