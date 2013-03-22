@@ -16,7 +16,7 @@ public class Query{
     public int min_year;
     public int start_result;
     public int num_results;
-    public boolean sort_flag;
+    public int sort_flag;
     public boolean h_idx;
     public boolean i_idx;
     public String url;
@@ -43,7 +43,7 @@ public class Query{
         private int min_year;
         private int start_result;
         private int num_results;
-        private boolean sort_flag;
+        private int sort_flag;
         private boolean h_idx;
         private boolean i_idx;
         private String url;
@@ -83,8 +83,13 @@ public class Query{
         }
 
         public Builder sortFlag(boolean sortFlag) {
-            this.sort_flag = sortFlag;
+            if(sortFlag){
+                this.sort_flag=1;
+            }else{
+                this.sort_flag=0;
+            }
             return this;
+            
         }
 
         public Builder hIndex(boolean hIndex) {
