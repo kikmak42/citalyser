@@ -16,22 +16,23 @@ import citalyser.model.PaperCollection;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.util.CommonUtils;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Tanmay Patil
  */
 public class TableDisplayPanel extends javax.swing.JPanel {
-
+    
+    private static Logger logger = Logger.getLogger(DisplayMaster.class.getName());
     /** Creates new form TableDisplayPanel */
     public TableDisplayPanel() {
-        initComponents();        
+        initComponents();
     }
 
     public void setDisplayMaster(DisplayMaster displayMaster) {
@@ -41,25 +42,39 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     public DisplayMaster getDisplayMaster() {
         return displayMaster;
     }
-    
-    public void setTable(PaperCollection paperCollection, TableModel tm)
-    {
-        
-        tableModel=tm;
 
-        this.paperCollection = paperCollection;
-        jTable1.setModel(tm);
+    public void setTable(PaperCollection paperCollection, TableModel tm) {
+
+        for (int i = 0; i < tm.getRowCount(); i++) {
+            Vector row = ((Vector) (((DefaultTableModel) tm).getDataVector().elementAt(i)));
+            if (this.paperCollection != null) {
+                row.set(0, new Integer(this.paperCollection.getPapers().size() + (Integer) row.elementAt(0)));
+            }
+            ((DefaultTableModel) jTable1.getModel()).addRow(row);
+        }
+        tableModel = jTable1.getModel();
+
+        if (this.paperCollection != null) {
+            for (Paper paper : paperCollection.getPapers()) {
+                this.paperCollection.addPaper(paper);
+            }
+        } else {
+            this.paperCollection = paperCollection;
+        }
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(33);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(32);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(65);
         jTable1.repaint();
         displayMaster.renderJournal(displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), this.paperCollection);
     }
-    
-    public void setJournalMetricsTable(ArrayList<Journal> journal,TableModel tm){
-        tableModel=tm;
+
+    public void setJournalMetricsTable(ArrayList<Journal> journal, TableModel tm) {
+        tableModel = tm;
         jTable1.setModel(tm);
         jTable1.repaint();
-        journals=journal;
+        journals = journal;
     }
-    
     private DisplayMaster displayMaster;
     private PaperCollection paperCollection;
     private ArrayList<Journal> journals;
@@ -79,18 +94,37 @@ public class TableDisplayPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
+        jTable1.setAutoCreateRowSorter(true);
+        jTable1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jTable1.setForeground(new java.awt.Color(51, 51, 51));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "S.No.", "Title", "Year", "#Citations", "Authors", "Journals"
             }
-        ));
-        jTable1.setRowSelectionAllowed(true);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.setGridColor(new java.awt.Color(204, 204, 255));
+        jTable1.setIntercellSpacing(new java.awt.Dimension(4, 5));
+        jTable1.setRowHeight(25);
+        jTable1.setSelectionBackground(new java.awt.Color(50, 93, 167));
+        jTable1.setShowVerticalLines(false);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -110,24 +144,29 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        JFileChooser chooser=new JFileChooser();
+
+        JFileChooser chooser = new JFileChooser();
         chooser.showSaveDialog(this);
         //System.out.println("chooser:"+chooser.getSelectedFile().getName());
-        try{
-            File results=chooser.getSelectedFile();
+        try {
+            File results = chooser.getSelectedFile();
             CommonUtils.exportToCsv(tableModel, results);
-        }catch(NullPointerException npe){
-            
+        } catch (NullPointerException npe) {
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-              displayMaster.tableClicked(paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint())));
+         logger.info("jModel1MouseClicked"+jTable1.rowAtPoint(evt.getPoint()));
+        if(journals !=null){
+            displayMaster.tableClicked(journals.get(jTable1.rowAtPoint(evt.getPoint())));
+            journals=null;
+        }else{ 
+        if (jTable1.rowAtPoint(evt.getPoint()) > -1) {
+            displayMaster.tableClicked(paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint())));
+        }
+        }
     }//GEN-LAST:event_jTable1MouseClicked
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -136,6 +175,7 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     private TableModel tableModel;
 
     public void clear() {
+        paperCollection = null;
         while (jTable1.getModel().getRowCount() > 0) {
             ((DefaultTableModel) jTable1.getModel()).removeRow(0);
         }

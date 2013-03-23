@@ -19,22 +19,15 @@ import org.jdesktop.swingx.JXTaskPane;
  * @author kaushik
  */
 public class CollapsibleListEntityPanel extends JXTaskPane {
+    private PaperDetailsPanel paperPanel;
 
     public CollapsibleListEntityPanel(Paper paper) {
         this.paper = paper;
         this.setTitle(paper.getTitle());
         this.setCollapsed(true);
         final Paper p = paper;
-        PaperDetailsPanel paperPanel = new PaperDetailsPanel();
-        paperPanel.setPaperTitle(paper.getTitle());
-        paperPanel.setPaperAbstract(paper.getAbstract());
-        paperPanel.setPaperCitations(paper.getNumCites());
-        if(paper.getNumCites() > 0)
-        {
-            
-        }
-        //paperPanel.setPaperInfo("");
-        //paperPanel.setPaperInfo(paper.getInfo);
+        paperPanel = new PaperDetailsPanel(paper);
+        paperPanel.render();
         this.add(paperPanel);
 //        JLabel contentLabel = new JLabel();
 //        JLabel titleLabel = new JLabel();
@@ -51,15 +44,15 @@ public class CollapsibleListEntityPanel extends JXTaskPane {
 //        this.add(contentLabel);
 
     }
-  
+
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
+        paperPanel.setDisplayMaster(displayMaster);
     }
 
     public DisplayMaster getDisplayMaster() {
         return displayMaster;
     }
-    
     private DisplayMaster displayMaster;
     private Paper paper;
 }

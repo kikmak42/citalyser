@@ -4,6 +4,7 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules;
 
+import citalyser.model.Paper;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.listdisplaypanel.CollapsibleListEntityPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.listdisplaypanel.ListEntityPanel;
@@ -24,6 +25,31 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
         initComponents();
     }
 
+    public void addListTitle(Paper paper) {
+        jLabel1.setText("<html>" + paper.getTitle());
+        jButton1.setText("< Previous List");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                previousButtonClicked(evt);
+            }
+        });
+
+        jButton2.setText("Next List >");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                nextButtonClicked(evt);
+            }
+        });
+    }
+
+    public void previousButtonClicked(java.awt.event.MouseEvent evt) {
+        displayMaster.displayStatusMessage("Previous Button Clicked");
+    }
+
+    public void nextButtonClicked(java.awt.event.MouseEvent evt) {
+        displayMaster.displayStatusMessage("Next Button Clicked");
+    }
+    
     public void addCollapsibleListEntityPanel(CollapsibleListEntityPanel collapsibleListEntityPanel) {
         collapsibleListEntityPanel.setDisplayMaster(displayMaster);
         collapsibleListEntityPanels.add(collapsibleListEntityPanel);
@@ -66,6 +92,8 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jXTaskPaneContainer = new org.jdesktop.swingx.JXTaskPaneContainer();
+        
+        jXTaskPaneContainer.setBackground(new java.awt.Color(153, 153, 255));
 
         setLayout(new java.awt.BorderLayout());
 
@@ -78,21 +106,19 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2))
-        );
+                .addComponent(jButton2)));
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jButton1)
-                .addComponent(jButton2))
-        );
+                .addComponent(jButton2)));
 
         add(jPanel1, java.awt.BorderLayout.NORTH);
 
@@ -113,6 +139,7 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private org.jdesktop.swingx.JXTaskPaneContainer jXTaskPaneContainer;
     // End of variables declaration//GEN-END:variables
+
     public void clear() {
         //jPanel1.removeAll();
         while (!collapsibleListEntityPanels.isEmpty()) {

@@ -23,7 +23,7 @@ public class RenderMaster {
     
     public void render(ContentRenderer contentRenderer, ArrayList<Author> arrayList) {
         if (arrayList != null) {
-            contentRenderer.clearAll();
+            //contentRenderer.clearAll();
             for (Author author : arrayList) {
                 contentRenderer.getGridDisplayPanel().addGridEntityPanel(new GridEntityPanel(author));
             }
@@ -37,7 +37,7 @@ public class RenderMaster {
         if (arrayList != null) {
             contentRenderer.clearAll();
             contentRenderer.getTableDisplayPanel().setJournalMetricsTable(arrayList, TableModelHandler.getTableModel(arrayList));
-            contentRenderer.flipToTableDisplayPanel();
+            contentRenderer.flipToTableDisplayPanel()   ;
         } else {
             Main.getDisplayController().displayErrorMessage("Null Journal List");
         }
@@ -55,7 +55,7 @@ public class RenderMaster {
 
     public void render(ContentRenderer contentRenderer, PaperCollection paperCollection) {
         if (paperCollection != null) {
-            contentRenderer.clearAll();
+            //contentRenderer.clearAll();
             contentRenderer.getTableDisplayPanel().setTable(paperCollection, TableModelHandler.getTableModel(paperCollection));
             contentRenderer.flipToTableDisplayPanel();
         } else {

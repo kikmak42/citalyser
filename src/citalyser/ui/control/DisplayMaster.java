@@ -28,6 +28,7 @@ import citalyser.ui.visualization.panels.common.SearchPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Vector;
 import org.apache.log4j.Logger;
 
@@ -177,13 +178,17 @@ public class DisplayMaster {
     }
 
     public void cancelButtonClicked() {
-        for (Thread thread : threads) {
-            if (thread != null) {
-                if (thread.isAlive()) {
-                    thread.interrupt();
+        try {
+            for (Thread thread : threads) {
+                if (thread != null) {
+                    if (thread.isAlive()) {
+                        thread.interrupt();
+                    }
                 }
+                threads.remove(thread);
             }
-            threads.remove(thread);
+        } catch (ConcurrentModificationException ex) {
+            
         }
     }
 
@@ -198,6 +203,7 @@ public class DisplayMaster {
         citationListHistory.clear();
         citationListHistory.addPaper(paper);
         citationListHistory.printPapers();
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().addListTitle(paper);
         Thread thread = new Thread() {
             @Override
             public void run() {
@@ -208,7 +214,32 @@ public class DisplayMaster {
                 if (queryResult != null) {
                     PaperCollection pc = (PaperCollection) queryResult.getContents();
                     if (myPaper != null) {
+                        logger.info("Paper Size:"+pc.getPapers().size());
                         renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
+                    }
+                } else {
+                    Main.getDisplayController().displayErrorMessage("Null QueryResult on Tableclicked...");
+                }
+            }
+        };
+        thread.start();
+        threads.add(thread);
+    }
+    
+    public void tableClicked(Journal journal) {
+        final Journal myJournal = journal;
+        //citationListHistory.clear();
+        //citationListHistory.addPaper(paper);
+        //citationListHistory.printPapers();
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                Query q = new Query.Builder("").flag(QueryType.JOURN_PROF).Url(myJournal.getH5Link()).build();
+                QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
+                if (queryResult != null) {
+                    Journal journ = (Journal) queryResult.getContents();
+                    if (myJournal != null) {
+                        render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), (Journal)queryResult.getContents());
                     }
                 } else {
                     Main.getDisplayController().displayErrorMessage("Null QueryResult on Tableclicked...");
@@ -304,6 +335,10 @@ public class DisplayMaster {
     public void render(ContentRenderer contentRenderer, PaperCollection paperCollection) {
         renderMaster.render(contentRenderer, paperCollection);
     }
+    
+    public void render(ContentRenderer contentRenderer, Journal journal) {
+        renderMaster.render(contentRenderer, journal.getPaperCollection());
+    }
 
     public void renderCitationsList(ContentRenderer contentRenderer, ArrayList<Paper> papers) {
         renderMaster.renderCitationsList(contentRenderer, papers);
@@ -317,7 +352,7 @@ public class DisplayMaster {
         renderMaster.renderJournal(contentRenderer, papercollection);
     }
 
-    public void clearCItationHistory() {
+    public void clearCitationHistory() {
       //  citationListHistory.clear();
     }
 }

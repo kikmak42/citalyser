@@ -63,7 +63,6 @@ public class UiUtils {
                     ImageIcon img;
                     if(q instanceof ImageResult)
                     {
-                        logger.debug("Rendering Image");
                         img = (ImageIcon)q.getContents();
                         if(img == null)
                         {    
