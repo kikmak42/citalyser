@@ -214,7 +214,7 @@ public class DisplayMaster {
                 if (queryResult != null) {
                     PaperCollection pc = (PaperCollection) queryResult.getContents();
                     if (myPaper != null) {
-                        logger.info("Paper Size:"+pc.getPapers().size());
+                        logger.info("Paper Size:" + pc.getPapers().size());
                         renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
                     }
                 } else {
@@ -238,8 +238,8 @@ public class DisplayMaster {
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
                 if (queryResult != null) {
                     Journal journ = (Journal) queryResult.getContents();
-                    if (myJournal != null) {
-                        render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), (Journal)queryResult.getContents());
+                    if (journ != null) {
+                        render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), journ);
                     }
                 } else {
                     Main.getDisplayController().displayErrorMessage("Null QueryResult on Tableclicked...");

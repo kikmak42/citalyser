@@ -74,7 +74,11 @@ public class TableModelHandler {
             }
 
             public Class getColumnClass(int c) {
-                return getValueAt(0, c).getClass();
+                if (getRowCount() > 0) {
+                    return getValueAt(0, c).getClass();
+                } else {
+                    return Object.class;
+                }
             }
         };
 
