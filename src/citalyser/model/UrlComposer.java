@@ -65,8 +65,6 @@ public class UrlComposer {
         URL = "http://scholar.google.co.in/citations?hl=en&";
         URL += "view_op=search_authors";
         URL += "&mauthors=" + query_name;
-        URL += "&after_author=" + q.after_author;
-        URL += "&astart=" + q.start_result;
         logger.debug(URL);
         return URL;
     }
