@@ -66,6 +66,8 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jXTaskPaneContainer = new org.jdesktop.swingx.JXTaskPaneContainer();
+        
+        jXTaskPaneContainer.setBackground(new java.awt.Color(153, 153, 255));
 
         setLayout(new java.awt.BorderLayout());
 
