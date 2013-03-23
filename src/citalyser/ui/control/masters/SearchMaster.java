@@ -120,10 +120,10 @@ public class SearchMaster {
                 int totalCount = numResults;
                 int count = maxResultsAtOneTime;
                 int start = 0;
-                //logger.debug("Count : "+count);
+                logger.debug("TotalCount : "+totalCount);
                 while (!Thread.interrupted()) 
                 {
-                    logger.debug("Start : " + start);
+                    logger.debug("Start : " + start + "--  Count : " + count);
                     if (start >= totalCount) {
                        // currResult = QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel, start, totalCount - start));
                        // globalResult.appendContents(currResult.getContents());
@@ -134,16 +134,22 @@ public class SearchMaster {
                     q.num_results = Math.min(count,totalCount - start);
                     currResult = QueryHandler.getInstance().getQueryResult(q);
                     if(currResult == null)
+                    {
+                        logger.debug("Curr Result is null");
                         break;
+                    }
                     if (start == 0) {
                         globalResult = currResult;
                     } else {
                         globalResult.appendContents(currResult.getContents());
                     }
-                    if(q.flag == QueryType.MET_AUTH && currResult.getContents() instanceof AuthorListResult)
+                    logger.debug("Flag : " + q.flag);
+                    logger.debug("Curr Result Type : " + currResult.getClass().getName());
+                    if(q.flag == QueryType.MET_AUTH && currResult instanceof AuthorListResult)
                     {
                         ArrayList<Author> authors = (ArrayList<Author>)(currResult.getContents());
-                        //q.url = authors.get(0).getNextLink();
+                        q.url = authors.get(0).getNextLink();
+                        logger.debug("Url : " + q.url);
                     }
                     displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), currResult);
                     start += count;
