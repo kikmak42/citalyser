@@ -32,6 +32,7 @@ public class UrlComposer {
         URL +="num=" + q.num_results + "&";
         URL += "scisbd=" + q.sort_flag + "&";
         URL +="btnG=&hl=en&as_sdt=1%2C5&as_vis=1";
+        logger.debug(URL);
         return URL;
     }
     
@@ -53,6 +54,7 @@ public class UrlComposer {
         URL +="num=" + q.num_results + "&";
         URL += "scisbd=" + q.sort_flag + "&";
         URL +="btnG=&hl=en&as_sdt=1%2C5&as_vis=1";
+        logger.debug(URL);
         return URL;
     }
     
@@ -63,6 +65,7 @@ public class UrlComposer {
         URL = "http://scholar.google.co.in/citations?hl=en&";
         URL += "view_op=search_authors";
         URL += "&mauthors=" + query_name;
+        logger.debug(URL);
         return URL;
     }
     
@@ -73,6 +76,7 @@ public class UrlComposer {
         URL = "http://scholar.google.co.in/citations?hl=en&";
         URL += "view_op=search_venues";
         URL += "&vq=" + query_name;
+        logger.debug(URL);
         return URL;
     }
     
@@ -80,8 +84,9 @@ public class UrlComposer {
     {
         String URL = new String();
         URL = "http://scholar.google.co.in/citations?hl=en&";
-        URL += "view_op=list_works&pagesize=100";
+        URL += "view_op=list_works&pagesize="+q.num_results;
         URL += "&user=" + q.ID;
+        logger.debug(URL);
         return URL;
     }
     
@@ -92,6 +97,7 @@ public class UrlComposer {
         URL  = "http://scholar.google.co.in/citations?hl=en&";
         URL += "vq=en&view_op=list_hcore&";
         URL += "venue=" + q.ID;
+        logger.debug(URL);
         return URL;
     }
     

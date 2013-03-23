@@ -36,6 +36,7 @@ public class AuthorListResult extends QueryResult<ArrayList<Author>> implements 
     
     @Override
     public void appendContents(ArrayList<Author> a){
-        
+        for(Author author : a)
+            this.authorList.add(author);
     }
 }
