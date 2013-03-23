@@ -20,7 +20,6 @@ import citalyser.ui.control.masters.SettingsMaster;
 import citalyser.ui.control.switchers.QueryResultRenderingHandler;
 import citalyser.ui.model.CitationListHistory;
 import citalyser.ui.model.ContentRenderer;
-import citalyser.ui.model.TableModelHandler;
 import citalyser.util.CProxy;
 
 import citalyser.ui.visualization.MainFrame;
@@ -29,6 +28,7 @@ import citalyser.ui.visualization.panels.common.SearchPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Vector;
 import org.apache.log4j.Logger;
 
@@ -178,13 +178,17 @@ public class DisplayMaster {
     }
 
     public void cancelButtonClicked() {
-        for (Thread thread : threads) {
-            if (thread != null) {
-                if (thread.isAlive()) {
-                    thread.interrupt();
+        try {
+            for (Thread thread : threads) {
+                if (thread != null) {
+                    if (thread.isAlive()) {
+                        thread.interrupt();
+                    }
                 }
+                threads.remove(thread);
             }
-            threads.remove(thread);
+        } catch (ConcurrentModificationException ex) {
+            
         }
     }
 
@@ -199,6 +203,7 @@ public class DisplayMaster {
         citationListHistory.clear();
         citationListHistory.addPaper(paper);
         citationListHistory.printPapers();
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().addListTitle(paper);
         Thread thread = new Thread() {
             @Override
             public void run() {
@@ -347,7 +352,7 @@ public class DisplayMaster {
         renderMaster.renderJournal(contentRenderer, papercollection);
     }
 
-    public void clearCItationHistory() {
+    public void clearCitationHistory() {
       //  citationListHistory.clear();
     }
 }
