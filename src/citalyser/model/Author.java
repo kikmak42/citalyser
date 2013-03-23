@@ -37,6 +37,7 @@ public class Author implements Serializable {
             this.co_authors=null;
             this.paper_collection = null;
             this.name = name;
+            this.next_link = null;
             this.imgsrc=null;
             this.proilelink=null;
             this.univandemail=null;
