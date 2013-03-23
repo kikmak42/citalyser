@@ -11,6 +11,7 @@
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules;
 
 import citalyser.model.Journal;
+import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.util.CommonUtils;
@@ -43,11 +44,23 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     public void setTable(PaperCollection paperCollection, TableModel tm) {
 
         for (int i = 0; i < tm.getRowCount(); i++) {
-            ((DefaultTableModel) jTable1.getModel()).addRow(((Vector) (((DefaultTableModel) tm).getDataVector().elementAt(i))));
+            Vector row = ((Vector) (((DefaultTableModel) tm).getDataVector().elementAt(i)));
+            if (row != null) {
+                if (this.paperCollection != null) {
+                    row.set(0, new Integer(this.paperCollection.getPapers().size() + (Integer) row.elementAt(0)));
+                }
+            }
+            ((DefaultTableModel) jTable1.getModel()).addRow(row);
         }
         tableModel = jTable1.getModel();
 
-        this.paperCollection = paperCollection;
+        if (this.paperCollection != null) {
+            for (Paper paper : paperCollection.getPapers()) {
+                this.paperCollection.addPaper(paper);
+            }
+        } else {
+            this.paperCollection = paperCollection;
+        }
         jTable1.getColumnModel().getColumn(0).setPreferredWidth(33);
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(32);

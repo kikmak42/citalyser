@@ -12,7 +12,6 @@ import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.common.SearchPanel;
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.Vector;
 import org.apache.log4j.Logger;
 
@@ -60,7 +59,7 @@ public class SearchMaster {
     public void searchButtonClicked(SearchPanel searchPanel) {
         final SearchPanel mySearchPanel = searchPanel;
         if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
-            if (searchPanel.getForeground().equals(Color.BLACK) && !searchPanel.getSearchString().equals("")) {
+            if (!searchPanel.getSearchString().equals(" Enter Your Search Query Here") && !searchPanel.getSearchString().equals("")) {
                 Thread thread = new Thread() {
 
                     @Override

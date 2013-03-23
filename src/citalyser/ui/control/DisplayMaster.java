@@ -28,6 +28,7 @@ import citalyser.ui.visualization.panels.common.SearchPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Vector;
 import org.apache.log4j.Logger;
 
@@ -177,13 +178,17 @@ public class DisplayMaster {
     }
 
     public void cancelButtonClicked() {
-        for (Thread thread : threads) {
-            if (thread != null) {
-                if (thread.isAlive()) {
-                    thread.interrupt();
+        try {
+            for (Thread thread : threads) {
+                if (thread != null) {
+                    if (thread.isAlive()) {
+                        thread.interrupt();
+                    }
                 }
+                threads.remove(thread);
             }
-            threads.remove(thread);
+        } catch (ConcurrentModificationException ex) {
+            
         }
     }
 
