@@ -166,7 +166,7 @@ public class HttpConnection {
                 logger.error("Error fetching Image : " + ex.getMessage());
             }
         }
-        logger.debug("Returning null as image.");
+        //logger.debug("Returning null as image.");
         return null;
     }
     

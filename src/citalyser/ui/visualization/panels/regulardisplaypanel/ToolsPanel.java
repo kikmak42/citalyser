@@ -90,7 +90,7 @@ public class ToolsPanel extends javax.swing.JPanel {
         jLabel1.setText(" ");
 
         numResults.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        numResults.setText("100");
+        numResults.setText("10");
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Number of Results");
@@ -121,7 +121,7 @@ public class ToolsPanel extends javax.swing.JPanel {
                     .addComponent(numResults, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jButton1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
 

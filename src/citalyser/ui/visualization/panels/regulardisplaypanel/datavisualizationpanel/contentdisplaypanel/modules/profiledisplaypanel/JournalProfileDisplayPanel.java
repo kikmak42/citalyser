@@ -30,8 +30,8 @@ public class JournalProfileDisplayPanel extends javax.swing.JPanel {
     public void displayJournal(PaperCollection papercollection) {
         logger.debug("Journal name : " + this.displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getSearchString());
         //jLabel3.setText(this.displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getSearchString());
-       // jLabel5.setText("H - Index : " + papercollection.getHIndex() );
-       // jLabel6.setText("i10 - median : " + papercollection.getIIndex());
+       jLabel5.setText("H - Index : " + papercollection.getHIndex() );
+       jLabel6.setText("i10 - median : " + papercollection.getIIndex());
     }
     private DisplayMaster displayMaster;
 

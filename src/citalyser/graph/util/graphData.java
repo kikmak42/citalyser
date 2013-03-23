@@ -55,29 +55,24 @@ public class graphData {
             }
         }
         
-        graphData g = new graphData();
-        for(graphObject o :g.getNodeArray())
-        {
-            logger.debug(o.EntireInfo);
-        }
+        
          
         
     }
     
-    public ArrayList<graphObject> getNodeArray(){
-        ArrayList<graphObject> arr = new ArrayList<>();
-        PaperCollection p= new PaperCollection();
-        Parser parse = new Parser();
-        p = (PaperCollection) parse.extractGeneralQuery(returnValue).getContents();
+    public graphObject getNodeArray(PaperCollection p){
+        graphObject obj = new graphObject();
+        ArrayList<nodeInfo> arr = new ArrayList<>();       
         for (Paper paper:p.getPapers()){
-            graphObject g = new graphObject();
+            nodeInfo g = new nodeInfo();
             g.Title = paper.getTitle();
             g.EntireInfo = "<html><head></head><body><B>"+paper.getTitle()+"</B><br>"+paper.getInfo()+"</body></html>";
             g.id = this.id;
             this.id+=1;
             arr.add(g);
-        }              
-        return arr;
+        }         
+        obj.arr = arr;
+        return obj;
     }
 }
 

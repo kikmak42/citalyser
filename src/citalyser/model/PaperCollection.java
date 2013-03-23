@@ -25,6 +25,7 @@ public class PaperCollection implements Serializable {
     }
 
     public int getHIndex() {
+        this.calcHIndex();
         return this.h_index;
     }
 
@@ -33,6 +34,7 @@ public class PaperCollection implements Serializable {
     }
     
     public int getIIndex() {
+        this.calcIIndex();
         return this.i_index;
     }
 
@@ -158,12 +160,14 @@ public class PaperCollection implements Serializable {
 
         Collections.sort(list);
         Collections.reverse(list);
-
+        
+        
         int h;
         for (h = 0; h < size; h++) {
-            if (list.get(h) < h + 1) {
-                this.h_index = h;
-            } else {
+            if (list.get(h) >= h + 1) {
+                this.h_index = h + 1;
+            } 
+            else {
                 break;
             }
         }
@@ -179,6 +183,9 @@ public class PaperCollection implements Serializable {
         for (i = 0; i < size; i++) {
             if (papers.get(i).getNumCites() >= 10) {
                 this.i_index++;
+            }
+            else{
+                break;
             }
         }
     }
