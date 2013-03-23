@@ -71,6 +71,7 @@ public class SearchMaster {
                         int count = Constants.MaxResultsNum.AUTHOR_LIST.getValue(), start = 0;
                         logger.debug("Count : "+count);
                         while (!Thread.interrupted()) {
+                            logger.debug("Start : " + start);
                             if (start >= totalCount) {
                                // currResult = QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel, start, totalCount - start));
                                // globalResult.appendContents(currResult.getContents());
@@ -79,6 +80,8 @@ public class SearchMaster {
                             }
                             currResult = QueryHandler.getInstance().getQueryResult(createQuery
                                             (mySearchPanel, start, Math.min(count,totalCount - start)));
+                            if(currResult == null)
+                                break;
                             if (start == 0) {
                                 globalResult = currResult;
                             } else {
@@ -152,4 +155,22 @@ public class SearchMaster {
             }
         }
     }
+ /*   
+    public Query handleUserQuery(SearchPanel searchPanel, int start, int count)
+    {
+        if (displayMaster.checkAuthorMode()) {
+            if (searchPanel.getRadioButtonInfo()) {
+                //Search for Metrics Author 
+                return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_AUTH).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).build();
+            } else {
+                return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_AUTH).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).build();
+            }
+        } else {
+            if (searchPanel.getRadioButtonInfo()) {
+                return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_JOURN).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).build();
+            } else {
+                return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_JOURN).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).sortFlag(searchPanel.getComboSelection()).build();
+            }
+        }
+    }*/
 }
