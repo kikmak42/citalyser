@@ -22,13 +22,15 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Tanmay Patil
  */
 public class TableDisplayPanel extends javax.swing.JPanel {
-
+    
+    private static Logger logger = Logger.getLogger(DisplayMaster.class.getName());
     /** Creates new form TableDisplayPanel */
     public TableDisplayPanel() {
         initComponents();        
@@ -44,9 +46,8 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     
     public void setTable(PaperCollection paperCollection, TableModel tm)
     {
-        
+        clear();
         tableModel=tm;
-
         this.paperCollection = paperCollection;
         jTable1.setModel(tm);
         jTable1.repaint();
@@ -124,7 +125,13 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-              displayMaster.tableClicked(paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint())));
+         logger.info("jModel1MouseClicked"+jTable1.rowAtPoint(evt.getPoint()));
+        if(journals !=null){
+            displayMaster.tableClicked(journals.get(jTable1.rowAtPoint(evt.getPoint())));
+            journals=null;
+        }else{ 
+        displayMaster.tableClicked(paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint())));
+        }
     }//GEN-LAST:event_jTable1MouseClicked
 
 

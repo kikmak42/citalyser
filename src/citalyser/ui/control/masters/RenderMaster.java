@@ -37,7 +37,7 @@ public class RenderMaster {
         if (arrayList != null) {
             contentRenderer.clearAll();
             contentRenderer.getTableDisplayPanel().setJournalMetricsTable(arrayList, TableModelHandler.getTableModel(arrayList));
-            contentRenderer.flipToTableDisplayPanel();
+            contentRenderer.flipToTableDisplayPanel()   ;
         } else {
             Main.getDisplayController().displayErrorMessage("Null Journal List");
         }

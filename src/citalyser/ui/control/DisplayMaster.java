@@ -20,6 +20,7 @@ import citalyser.ui.control.masters.SettingsMaster;
 import citalyser.ui.control.switchers.QueryResultRenderingHandler;
 import citalyser.ui.model.CitationListHistory;
 import citalyser.ui.model.ContentRenderer;
+import citalyser.ui.model.TableModelHandler;
 import citalyser.util.CProxy;
 
 import citalyser.ui.visualization.MainFrame;
@@ -208,7 +209,32 @@ public class DisplayMaster {
                 if (queryResult != null) {
                     PaperCollection pc = (PaperCollection) queryResult.getContents();
                     if (myPaper != null) {
+                        logger.info("Paper Size:"+pc.getPapers().size());
                         renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
+                    }
+                } else {
+                    Main.getDisplayController().displayErrorMessage("Null QueryResult on Tableclicked...");
+                }
+            }
+        };
+        thread.start();
+        threads.add(thread);
+    }
+    
+    public void tableClicked(Journal journal) {
+        final Journal myJournal = journal;
+        //citationListHistory.clear();
+        //citationListHistory.addPaper(paper);
+        //citationListHistory.printPapers();
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                Query q = new Query.Builder("").flag(QueryType.JOURN_PROF).Url(myJournal.getH5Link()).build();
+                QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
+                if (queryResult != null) {
+                    Journal journ = (Journal) queryResult.getContents();
+                    if (myJournal != null) {
+                        render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), (Journal)queryResult.getContents());
                     }
                 } else {
                     Main.getDisplayController().displayErrorMessage("Null QueryResult on Tableclicked...");
@@ -303,6 +329,10 @@ public class DisplayMaster {
 
     public void render(ContentRenderer contentRenderer, PaperCollection paperCollection) {
         renderMaster.render(contentRenderer, paperCollection);
+    }
+    
+    public void render(ContentRenderer contentRenderer, Journal journal) {
+        renderMaster.render(contentRenderer, journal.getPaperCollection());
     }
 
     public void renderCitationsList(ContentRenderer contentRenderer, ArrayList<Paper> papers) {
