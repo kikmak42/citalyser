@@ -4,6 +4,7 @@
  */
 package citalyser.ui.control.masters;
 
+import citalyser.Constants;
 import citalyser.model.query.Query;
 import citalyser.model.query.QueryHandler;
 import citalyser.model.query.QueryResult;
@@ -32,7 +33,6 @@ public class SearchMaster {
     }
 
     public void searchKeyPressed(SearchPanel searchPanel, char key) {
-        logger.debug("Key Pressed : " + key);
         if (key == java.awt.event.KeyEvent.VK_ENTER) {
             searchButtonClicked(searchPanel);
         }
@@ -60,7 +60,7 @@ public class SearchMaster {
     public void searchButtonClicked(SearchPanel searchPanel) {
         final SearchPanel mySearchPanel = searchPanel;
         if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
-            if (searchPanel.getForeground().equals(Color.BLACK) && !searchPanel.getSearchString().equals("")) {
+            if (!searchPanel.getSearchString().equals("")) {
                 Thread thread = new Thread() {
 
                     @Override
@@ -69,9 +69,10 @@ public class SearchMaster {
                         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(false);
                         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
                         mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(false);
+                        
                         QueryResult globalResult = null, currResult;
                         int totalCount = mainFrame.getRegularDisplayPanel().getToolsPanel().getNumResults();
-                        int count = 10, start = 0;
+                        int count = Constants.MaxResultsNum.AUTHOR_LIST.getValue(), start = 0;
                         while (!Thread.interrupted()) {
                             if (start + count > totalCount) {
                                 currResult = QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel, start, totalCount - start));
@@ -88,6 +89,7 @@ public class SearchMaster {
                             displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), currResult);
                             start += count;
                         }
+                        logger.debug("Total Count :" + start);
                         mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(true);
                     }
                 };
