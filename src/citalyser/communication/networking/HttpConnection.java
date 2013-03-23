@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 
 public class HttpConnection {
 
+    static HttpURLConnection connection;
     private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(HttpConnection.class.getName());
     //@constants
     
@@ -33,8 +34,6 @@ public class HttpConnection {
      */
     public static HttpURLConnection connectUrl(String requestURL,CProxy cproxy,String agentname)
         throws IOException, URISyntaxException {
-        
-        HttpURLConnection connection;
         //requestURL = URLEncoder.encode(requestURL,"UTF-8");
         logger.debug("Request Url : " + requestURL);
         URL url = new URL(requestURL);

@@ -212,7 +212,7 @@ public class DisplayMaster {
                 Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl()).build();
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
                 if (queryResult != null) {
-                    PaperCollection pc = (PaperCollection) queryResult.getContents();
+                PaperCollection pc = (PaperCollection) queryResult.getContents();
                     if (myPaper != null) {
                         logger.info("Paper Size:"+pc.getPapers().size());
                         renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
