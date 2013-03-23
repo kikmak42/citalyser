@@ -4,19 +4,18 @@
  */
 package citalyser.graph.util;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author milindtahalani1
  */
 public class graphObject {
-    public int id;
-    public String EntireInfo;
-    public String Title;
-
+    public ArrayList<nodeInfo> arr;
+    public nodeInfo baseInfo;
     public graphObject() {
-        this.id = -1;
-        this.Title = "";
-        this.EntireInfo="";
+        this.arr = new ArrayList<>();
+        this.baseInfo = new nodeInfo();
     }
     
     
