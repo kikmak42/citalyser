@@ -1,6 +1,7 @@
 package citalyser;
 
 //import citalyser.networking.hall;
+import citalyser.communication.networking.HttpClient;
 import citalyser.util.Config;
 import citalyser.ui.DisplayController;
 import citalyser.ui.control.DisplayControllerImpl;
@@ -34,6 +35,11 @@ public class Main {
         displayController = new DisplayControllerImpl();
         displayController.initializeDisplay();
         
+          /* Login to Google*/
+        HttpClient.init();
+        //String html = HttpClient.getUrlText("https://accounts.google.com/ServiceLogin?hl=en&service=alerts&continue=http://www.google.com/alerts/manage");
+        //HttpClient.loginToGoogle(html, "alcalucent123", "alcalucent123");
+       
     }
     
 

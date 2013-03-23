@@ -198,14 +198,6 @@ public class SearchMaster {
         } else {
             // Journal Query
             if (isMetricQuery) {
-                //Fetch Journals from Metric
-                 maxResults = Constants.MaxResultsNum.JOURNAL_LIST.getValue();
-                 q = new Query.Builder(searchQuery)
-                          .flag(QueryType.GEN_JOURN)
-                          .minYear(minYear)
-                          .maxYear(maxYear)
-                          .build();
-            } else {
                 //Fetch Journal Papers from Metric
                 maxResults = Constants.MaxResultsNum.METRICS_JOURNAL_PAPERS.getValue();
                 q = new Query.Builder(searchQuery)
@@ -213,6 +205,14 @@ public class SearchMaster {
                        .minYear(minYear)
                        .maxYear(maxYear)
                        .sortFlag(sortByYear).build();
+            } else {
+                //Fetch Journals from Metric
+                 maxResults = Constants.MaxResultsNum.JOURNAL_LIST.getValue();
+                 q = new Query.Builder(searchQuery)
+                          .flag(QueryType.GEN_JOURN)
+                          .minYear(minYear)
+                          .maxYear(maxYear)
+                          .build();
             }
         }
         fetchResults(q, maxResults, numResults);
