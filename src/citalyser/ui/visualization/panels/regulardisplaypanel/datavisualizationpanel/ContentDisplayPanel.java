@@ -70,6 +70,7 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         jSplitPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jSplitPane1.setBorder(null);
         jSplitPane1.setDividerLocation(806);
         jSplitPane1.setDividerSize(20);
         jSplitPane1.setContinuousLayout(true);
