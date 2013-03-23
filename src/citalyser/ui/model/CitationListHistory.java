@@ -66,6 +66,7 @@ public class CitationListHistory {
 
     public void clear() {
         this.papers.clear();
+        currentPaperPosition =0;
     }
 
     public void printPapers() {
