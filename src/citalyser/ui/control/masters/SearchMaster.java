@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package citalyser.ui.control.masters;
 
 import citalyser.Constants;
@@ -72,14 +69,16 @@ public class SearchMaster {
                         QueryResult globalResult = null, currResult;
                         int totalCount = mainFrame.getRegularDisplayPanel().getToolsPanel().getNumResults();
                         int count = Constants.MaxResultsNum.AUTHOR_LIST.getValue(), start = 0;
+                        logger.debug("Count : "+count);
                         while (!Thread.interrupted()) {
-                            if (start + count > totalCount) {
-                                currResult = QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel, start, totalCount - start));
-                                globalResult.appendContents(currResult.getContents());
-                                displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), currResult);
+                            if (start >= totalCount) {
+                               // currResult = QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel, start, totalCount - start));
+                               // globalResult.appendContents(currResult.getContents());
+                               // displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), currResult);
                                 break;
                             }
-                            currResult = QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel, start, count));
+                            currResult = QueryHandler.getInstance().getQueryResult(createQuery
+                                            (mySearchPanel, start, Math.min(count,totalCount - start)));
                             if (start == 0) {
                                 globalResult = currResult;
                             } else {
@@ -88,7 +87,6 @@ public class SearchMaster {
                             displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), currResult);
                             start += count;
                         }
-                        logger.debug("Total Count :" + start);
                         mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(true);
                     }
                 };
