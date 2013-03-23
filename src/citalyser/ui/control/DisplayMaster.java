@@ -198,6 +198,7 @@ public class DisplayMaster {
         citationListHistory.clear();
         citationListHistory.addPaper(paper);
         citationListHistory.printPapers();
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().addListTitle(paper);
         Thread thread = new Thread() {
             @Override
             public void run() {
