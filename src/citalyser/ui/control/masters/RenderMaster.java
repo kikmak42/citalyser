@@ -35,8 +35,8 @@ public class RenderMaster {
 
     public void renderJournalMetrics(ContentRenderer contentRenderer, ArrayList<Journal> arrayList) {
         if (arrayList != null) {
-            contentRenderer.clearAll();
-            contentRenderer.getTableDisplayPanel().setJournalMetricsTable(arrayList, TableModelHandler.getTableModel(arrayList));
+            //contentRenderer.clearAll();
+            contentRenderer.getTableDisplayPanel().setJournalTable(arrayList);
             contentRenderer.flipToTableDisplayPanel()   ;
         } else {
             Main.getDisplayController().displayErrorMessage("Null Journal List");
@@ -46,7 +46,7 @@ public class RenderMaster {
     public void render(ContentRenderer contentRenderer, Author author) {
         if (author != null) {
             contentRenderer.clearAll();
-            contentRenderer.getTableDisplayPanel().setTable(author.getPaperCollection(), TableModelHandler.getTableModel(author.getPaperCollection()));
+            contentRenderer.getTableDisplayPanel().setTable(author.getPaperCollection());
             contentRenderer.flipToTableDisplayPanel();
         } else {
             Main.getDisplayController().displayErrorMessage("Null Author");
@@ -56,7 +56,7 @@ public class RenderMaster {
     public void render(ContentRenderer contentRenderer, PaperCollection paperCollection) {
         if (paperCollection != null) {
             //contentRenderer.clearAll();
-            contentRenderer.getTableDisplayPanel().setTable(paperCollection, TableModelHandler.getTableModel(paperCollection));
+            contentRenderer.getTableDisplayPanel().setTable(paperCollection);
             contentRenderer.flipToTableDisplayPanel();
         } else {
             //TODO: Need to call api back
