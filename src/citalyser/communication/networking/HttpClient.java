@@ -5,8 +5,11 @@ import citalyser.Main;
 import citalyser.util.CProxy;
 import citalyser.util.Config;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -37,6 +40,7 @@ public class HttpClient {
 	private static HttpContext localContext;
 	private static CookieStore cookiestore;
 	private static HttpHost proxy;
+        
 	//Constructor
 	public static void init()
 	{
@@ -52,46 +56,58 @@ public class HttpClient {
 	public static String getUrlText(String url)
 	{
 		HttpGet request;
-		HttpResponse response;
-		HttpEntity entity;
+		HttpResponse response = null;
+		HttpEntity entity = null;
 		String content = "";
-		try
-		{
+		
                     List<CProxy> proxies = Config.getProxylist();
                     for(int i = 0;i<proxies.size(); i++)
-                    {          
-                        CProxy cproxy = proxies.get(i);
-                        Main.getDisplayController().displayStatusMessage("Trying Proxy " + proxies.get(i).toString());
-                        proxy = new HttpHost(cproxy.getHostName(),cproxy.getPort());
-        		client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
-
-			request = new HttpGet(url);
-			//System.out.println("Fetching " + url);
-			response = client.execute(request,localContext);
-			int rcode = response.getStatusLine().getStatusCode();
-                        if(rcode == Constants.OK_Response_Code)
+                    {   
+                        try
                         {
-			
-                            //System.out.println("Initial set of cookies:");
-                            List<Cookie> cookies = client.getCookieStore().getCookies();
-                            /*if (cookies.isEmpty()) {
-                                System.out.println("None");
-                            } else {
-                                for (int i = 0; i < cookies.size(); i++) {
-                                    System.out.println("- " + cookies.get(i).toString());
-                                }
-                            }*/
-                            return EntityUtils.toString(response.getEntity());
+                            CProxy cproxy = proxies.get(i);
+                            System.out.println("Proxy : " + cproxy.toString());
+                            Main.getDisplayController().displayStatusMessage("Trying Proxy " + proxies.get(i).toString());
+                            proxy = new HttpHost(cproxy.getHostName(),cproxy.getPort());
+                            client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+
+                            request = new HttpGet(url);
+                            //System.out.println("Fetching " + url);
+                            response = client.execute(request,localContext);
+                            int rcode = response.getStatusLine().getStatusCode();
+                            System.out.println("Response Code : " + rcode);
+                            entity = response.getEntity();
+                            if(rcode == Constants.OK_Response_Code)
+                            {
+
+                                //System.out.println("Initial set of cookies:");
+                                List<Cookie> cookies = client.getCookieStore().getCookies();
+                                /*if (cookies.isEmpty()) {
+                                    System.out.println("None");
+                                } else {
+                                    for (int i = 0; i < cookies.size(); i++) {
+                                        System.out.println("- " + cookies.get(i).toString());
+                                    }
+                                }*/
+                                return EntityUtils.toString(response.getEntity());
+                            }
+                        }
+                        catch(Exception e)
+                        {
+                            e.printStackTrace();
+                            e.printStackTrace();
+                            try {
+                                EntityUtils.consume(entity);
+                            } catch (IOException ex) {
+                                Logger.getLogger(HttpClient.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            continue;
                         }
                     }
                     return null;
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			return null;
-		}
-	}
+        }
+		
+	
 	
 	public static String loginToGoogle(String html,String username,String password)
 	{
@@ -110,10 +126,10 @@ public class HttpClient {
 	        List<Cookie> cookies = client.getCookieStore().getCookies();
 		    cookies = client.getCookieStore().getCookies();
 	        if (cookies.isEmpty()) {
-	            System.out.println("None");
+	            //System.out.println("None");
 	        } else {
 	            for (int i = 0; i < cookies.size(); i++) {
-	                System.out.println("- " + cookies.get(i).toString());
+	                //System.out.println("- " + cookies.get(i).toString());
 	            }
 	        }
                 Main.getDisplayController().displayStatusMessage("Logging Done");
@@ -187,6 +203,6 @@ public class HttpClient {
         //Dispose the client
 	public static void close()
 	{
-		client.getConnectionManager().shutdown();
+            client.getConnectionManager().shutdown();
 	}
 }

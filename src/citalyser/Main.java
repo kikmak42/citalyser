@@ -35,10 +35,11 @@ public class Main {
         displayController = new DisplayControllerImpl();
         displayController.initializeDisplay();
         
-        /* Login to Google*/
+          /* Login to Google*/
         HttpClient.init();
-        String html = HttpClient.getUrlText("https://accounts.google.com/ServiceLogin?hl=en&service=alerts&continue=http://www.google.com/alerts/manage");
-        HttpClient.loginToGoogle(html, "alcalucent123", "alcalucent123");
+        //String html = HttpClient.getUrlText("https://accounts.google.com/ServiceLogin?hl=en&service=alerts&continue=http://www.google.com/alerts/manage");
+        //HttpClient.loginToGoogle(html, "alcalucent123", "alcalucent123");
+       
     }
     
 

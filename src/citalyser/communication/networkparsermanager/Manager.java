@@ -26,102 +26,9 @@ public class Manager {
         parser = new Parser();
     }
 
-    public QueryResult getAuthorPapersFromScholar(String url) {
-        logger.info("GettingAuthorPapers from Network - " + url);
-        String html = HttpClient.getUrlText(url);
-
-        if (html != null) {
-            return parser.extractGeneralQuery(html);
-        } else {
-            logger.info("null result form httpconnection");
-            return null;
-        }
-    }
-
-    /* Query Case - GEN_JOURN */
-    public QueryResult getJournalPapersFromScholar(String url) {
-        logger.info("GettingJournalPapers from Network - " + url);
-        String html = HttpClient.getUrlText(url);
-        if (html != null) {
-            return parser.extractGeneralQuery(html);
-        } else {
-            logger.info("null result form httpconnection");
-            return null;
-        }
-    }
-
-    /* Query Case - MET_AUTH */
-    public QueryResult getAuthorList(String url) {
-        logger.info("GettingAuthorList from Network - " + url);
-        String html = HttpClient.getUrlText(url);
-        if (html != null) {
-            return parser.getAuthorList(html);
-        } else {
-            logger.info("null result from httpconnection");
-            return null;
-        }
-    }
-
-    /* Query Case - MET_JOURN */
-    public QueryResult getJournalList(String url) {
-        logger.info("GettingJournalList from Network - " + url);
-        String html = HttpClient.getUrlText(url);
-        if (html != null) {
-            return parser.extractJournalListFromMetric(html);
-        } else {
-            logger.info("null result from httpconnection");
-            return null;
-        }
-    }
-
-    /* Query Case - AUTH_PROF */
-    public QueryResult getCompleteAuthorFromMetric(String url) {
-        String html = HttpClient.getUrlText(url);
-        if (html != null) {
-            return new Parser().extractAuthorProfileInfo(html);
-        } else {
-            return null;
-        }
-    }
-
-    /* Query Case - JOURN_PROF */
-    public QueryResult getCompleteJournalFromMetric(String url) {
-        String html = HttpClient.getUrlText(url);
-        if (html != null) {
-            return new Parser().extractMetricJournalInfo(html);
-        } else {
-            return null;
-        }
-    }
-
-    /* Query Case - IMAGE_FROM_LINK */
-    public QueryResult getImageFromLink(String url) {
-        BufferedImage img = HttpClient.getImageFromUrl(url);
-        if (img != null) {
-            QueryResult<ImageIcon> q = new ImageResult();
-            q.setContents(new ImageIcon(img));
-            return q;
-        }
-        return null;
-
-    }
-
-    /* Query Case - CITATIONS_LIST */
-    public QueryResult getCitationsList(String url) {
-        logger.info("GettingCitationsList from Network - " + url);
-        String html = HttpClient.getUrlText(url);
-        if (html != null) {
-            return parser.extractGeneralQuery(html);
-        } else {
-            logger.info("null result from httpconnection");
-            return null;
-        }
-    }
-
-    /* ----------------Original Functions --------------*/
 //    public QueryResult getAuthorPapersFromScholar(String url) {
 //        logger.info("GettingAuthorPapers from Network - " + url);
-//        String html = HttpConnection.getUrlText(url);
+//        String html = HttpClient.getUrlText(url);
 //
 //        if (html != null) {
 //            return parser.extractGeneralQuery(html);
@@ -134,7 +41,7 @@ public class Manager {
 //    /* Query Case - GEN_JOURN */
 //    public QueryResult getJournalPapersFromScholar(String url) {
 //        logger.info("GettingJournalPapers from Network - " + url);
-//        String html = HttpConnection.getUrlText(url);
+//        String html = HttpClient.getUrlText(url);
 //        if (html != null) {
 //            return parser.extractGeneralQuery(html);
 //        } else {
@@ -146,7 +53,7 @@ public class Manager {
 //    /* Query Case - MET_AUTH */
 //    public QueryResult getAuthorList(String url) {
 //        logger.info("GettingAuthorList from Network - " + url);
-//        String html = HttpConnection.getUrlText(url);
+//        String html = HttpClient.getUrlText(url);
 //        if (html != null) {
 //            return parser.getAuthorList(html);
 //        } else {
@@ -158,7 +65,7 @@ public class Manager {
 //    /* Query Case - MET_JOURN */
 //    public QueryResult getJournalList(String url) {
 //        logger.info("GettingJournalList from Network - " + url);
-//        String html = HttpConnection.getUrlText(url);
+//        String html = HttpClient.getUrlText(url);
 //        if (html != null) {
 //            return parser.extractJournalListFromMetric(html);
 //        } else {
@@ -169,7 +76,7 @@ public class Manager {
 //
 //    /* Query Case - AUTH_PROF */
 //    public QueryResult getCompleteAuthorFromMetric(String url) {
-//        String html = HttpConnection.getUrlText(url);
+//        String html = HttpClient.getUrlText(url);
 //        if (html != null) {
 //            return new Parser().extractAuthorProfileInfo(html);
 //        } else {
@@ -179,7 +86,7 @@ public class Manager {
 //
 //    /* Query Case - JOURN_PROF */
 //    public QueryResult getCompleteJournalFromMetric(String url) {
-//        String html = HttpConnection.getUrlText(url);
+//        String html = HttpClient.getUrlText(url);
 //        if (html != null) {
 //            return new Parser().extractMetricJournalInfo(html);
 //        } else {
@@ -189,7 +96,7 @@ public class Manager {
 //
 //    /* Query Case - IMAGE_FROM_LINK */
 //    public QueryResult getImageFromLink(String url) {
-//        BufferedImage img = HttpConnection.getImageFromUrl(url);
+//        BufferedImage img = HttpClient.getImageFromUrl(url);
 //        if (img != null) {
 //            QueryResult<ImageIcon> q = new ImageResult();
 //            q.setContents(new ImageIcon(img));
@@ -202,7 +109,7 @@ public class Manager {
 //    /* Query Case - CITATIONS_LIST */
 //    public QueryResult getCitationsList(String url) {
 //        logger.info("GettingCitationsList from Network - " + url);
-//        String html = HttpConnection.getUrlText(url);
+//        String html = HttpClient.getUrlText(url);
 //        if (html != null) {
 //            return parser.extractGeneralQuery(html);
 //        } else {
@@ -210,4 +117,97 @@ public class Manager {
 //            return null;
 //        }
 //    }
+
+    /* ----------------Original Functions --------------*/
+    public QueryResult getAuthorPapersFromScholar(String url) {
+        logger.info("GettingAuthorPapers from Network - " + url);
+        String html = HttpConnection.getUrlText(url);
+
+        if (html != null) {
+            return parser.extractGeneralQuery(html);
+        } else {
+            logger.info("null result form httpconnection");
+            return null;
+        }
+    }
+
+    /* Query Case - GEN_JOURN */
+    public QueryResult getJournalPapersFromScholar(String url) {
+        logger.info("GettingJournalPapers from Network - " + url);
+        String html = HttpConnection.getUrlText(url);
+        if (html != null) {
+            return parser.extractGeneralQuery(html);
+        } else {
+            logger.info("null result form httpconnection");
+            return null;
+        }
+    }
+
+    /* Query Case - MET_AUTH */
+    public QueryResult getAuthorList(String url) {
+        logger.info("GettingAuthorList from Network - " + url);
+        String html = HttpConnection.getUrlText(url);
+        if (html != null) {
+            return parser.getAuthorList(html);
+        } else {
+            logger.info("null result from httpconnection");
+            return null;
+        }
+    }
+
+    /* Query Case - MET_JOURN */
+    public QueryResult getJournalList(String url) {
+        logger.info("GettingJournalList from Network - " + url);
+        String html = HttpConnection.getUrlText(url);
+        if (html != null) {
+            return parser.extractJournalListFromMetric(html);
+        } else {
+            logger.info("null result from httpconnection");
+            return null;
+        }
+    }
+
+    /* Query Case - AUTH_PROF */
+    public QueryResult getCompleteAuthorFromMetric(String url) {
+        String html = HttpConnection.getUrlText(url);
+        if (html != null) {
+            return new Parser().extractAuthorProfileInfo(html);
+        } else {
+            return null;
+        }
+    }
+
+    /* Query Case - JOURN_PROF */
+    public QueryResult getCompleteJournalFromMetric(String url) {
+        String html = HttpConnection.getUrlText(url);
+        if (html != null) {
+            return new Parser().extractMetricJournalInfo(html);
+        } else {
+            return null;
+        }
+    }
+
+    /* Query Case - IMAGE_FROM_LINK */
+    public QueryResult getImageFromLink(String url) {
+        BufferedImage img = HttpConnection.getImageFromUrl(url);
+        if (img != null) {
+            QueryResult<ImageIcon> q = new ImageResult();
+            q.setContents(new ImageIcon(img));
+            return q;
+        }
+        return null;
+
+    }
+
+    /* Query Case - CITATIONS_LIST */
+    public QueryResult getCitationsList(String url) {
+        logger.info("GettingCitationsList from Network - " + url);
+        String html = HttpConnection.getUrlText(url);
+        if (html != null) {
+            return parser.extractGeneralQuery(html);
+        } else {
+            logger.info("null result from httpconnection");
+            return null;
+        }
+    }
 }
