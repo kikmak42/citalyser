@@ -27,10 +27,11 @@ public class Constants {
     };
     
     public enum MaxResultsNum {  
-        AUTHOR_LIST(10),    // Max number of author results retrieved at one time
-        AUTHOR_PAPERS(20),  // Max number of author papers retrieved at one time from Scholar
+        AUTHOR_LIST(10),     // Max number of author results retrieved at one time
+        AUTHOR_PAPERS(20),   // Max number of author papers retrieved at one time from Scholar
         JOURNAL_LIST(10),     // Max number of results in a journal list from Metric
-        GENERAL_LIST(20);     // Max number of results in a genral paper collection result
+        GENERAL_LIST(20),     // Max number of results in a genral paper collection result
+        METRICS_JOURNAL_PAPERS(20); // Max number of results of papers for a particular journal in Metrics.
         private final int num;
         MaxResultsNum(int id) { this.num = id; }
         public int getValue() { return num; }
