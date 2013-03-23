@@ -42,16 +42,12 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
     }
 
     public void displayDetailsDisplayPanel(boolean value) {
+        this.detailsDisplayPanelVisible = value;
         if (value) {
             jSplitPane1.setDividerLocation(jSplitPane1.getWidth()/2);
         } else {
             jSplitPane1.setDividerLocation(jSplitPane1.getWidth() - 20);
         }
-    }
-    
-
-    public void setDetailsDisplayPanelVisible(boolean detailsDisplayPanelVisible) {
-        this.detailsDisplayPanelVisible = detailsDisplayPanelVisible;
     }
             
     private DisplayMaster displayMaster;
@@ -110,5 +106,10 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
 
     public void flipToTableDisplayPanel() {
         ((java.awt.CardLayout) this.getLayout()).first(this);
+    }
+
+    public void clearAll() {
+        centralContentDisplayPanel.clearAll();
+        detailsDisplayPanel.clearAll();
     }
 }

@@ -13,6 +13,7 @@ import java.util.*;
 
 public class Paper implements Serializable {
 
+    private String info;
     private String url;
     private String cited_by_url;
     private String title;
@@ -45,6 +46,14 @@ public class Paper implements Serializable {
         this.abstracttext = null;
     }
 
+    public String getInfo() {
+        return this.info;
+    }
+
+    public void setInfo(String str) {
+        this.info = str;
+    }
+
     public String getcitedByUrl() {
         return this.cited_by_url;
     }
@@ -52,8 +61,7 @@ public class Paper implements Serializable {
     public void setCitedByUrl(String t) {
         this.cited_by_url = t;
     }
-    
-    
+
     public String getUrl() {
         return this.url;
     }
@@ -61,8 +69,7 @@ public class Paper implements Serializable {
     public void setUrl(String t) {
         this.url = t;
     }
-    
-       
+
     public String getTitle() {
         return this.title;
     }
@@ -121,9 +128,9 @@ public class Paper implements Serializable {
 
     @Override
     public String toString() {
-        String s = "<html><b>" + title + "</b><br />";
-        s += authors +", "
-           + year +"<br />";
+        String s = "<html>Title : <b>" + title + "</b><br />";
+        s += authors + ", "
+                + year + "<br />";
         s += "Cited by " + num_cites + "<br /><hr />";
         return s;
     }

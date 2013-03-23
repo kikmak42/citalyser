@@ -43,7 +43,7 @@ public class UiUtils {
                         logger.debug("Error in thread while sleeping : " + ex.getMessage());
                     }
                 }
-            };
+            }.start();
         }catch(Exception ex){
             logger.debug("Error in thread for displaying Message : " + ex.getMessage());
         }
