@@ -39,6 +39,7 @@ public class Query{
         private QueryType flag;
         private String name;
         private String ID;
+        private String after_author;
         private int max_year;
         private int min_year;
         private int start_result;

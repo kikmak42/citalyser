@@ -558,9 +558,58 @@ public class Parser {
         String details="", university="";
         String[] parseddetails;
         doc = Jsoup.parse(input, "UTF-8");
+        String URL = "http://scholar.google.com";
+        
+        //this section extracts the next link from each page
+        Elements items = doc.select("div.cit-dgb");
+        String next_link="";
+        if(!items.isEmpty()){
+            try{
+                Element div_section = items.get(0);
+                Elements a_tags = div_section.select("a");
+                if(!a_tags.isEmpty()){
+                    try{
+                        Element a_tag = a_tags.get(1);
+                        String text = a_tag.text().split(">")[0].trim();
+                        if(text.equals("Next")){
+                            next_link = URL+a_tag.attr("href");
+                            //logger.debug("next link is "+next_link);
+                        }
+                    }
+                    catch(Exception e){
+                        try{
+                            Element a_tag = a_tags.get(0);
+                            //logger.debug("into next link try\n");
+                            String text = a_tag.text().split(">")[0].trim();
+                            //logger.debug("compareison of "+text.equals("Next"));
+                            //logger.debug(a_tag.text().trim().split(">")[0]);
+                            if(text.equals("Next")){
+                                //logger.debug("into if condition\n");
+                                next_link = URL+a_tag.attr("href");
+                                //logger.debug("next link is "+next_link);
+                            }
+                            else next_link = "";
+                        }
+                        catch(Exception e1){
+                            next_link = "";
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            catch(Exception e){
+                
+                
+            }
+            
+        }
+        
         Elements elements = doc.select("div.g-unit");
         for (Element item : elements) {
             Author author = new Author("");
+            author.setNextLink(next_link);
            // logger.debug(item.html());
             university = item.html();
             university = university.split("<td")[2].split("hl=en\">")[1].split("Cited|<form|<input")[0];
@@ -593,6 +642,8 @@ public class Parser {
             author.setProfilelink(url);
             authorList.add(author);
         }
+        
+        
         q.setContents(authorList);
         return q;
     }
