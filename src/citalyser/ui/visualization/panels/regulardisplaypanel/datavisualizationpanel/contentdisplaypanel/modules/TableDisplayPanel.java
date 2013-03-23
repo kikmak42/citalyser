@@ -159,18 +159,15 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-//<<<<<<< HEAD
          logger.info("jModel1MouseClicked"+jTable1.rowAtPoint(evt.getPoint()));
         if(journals !=null){
             displayMaster.tableClicked(journals.get(jTable1.rowAtPoint(evt.getPoint())));
             journals=null;
         }else{ 
-  //      displayMaster.tableClicked(paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint())));
-//=======
         if (jTable1.rowAtPoint(evt.getPoint()) > -1) {
             displayMaster.tableClicked(paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint())));
-//>>>>>>> e41abd1eaec0c7db901f6fe0228289422dd7e98c
-        }}
+        }
+        }
     }//GEN-LAST:event_jTable1MouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
