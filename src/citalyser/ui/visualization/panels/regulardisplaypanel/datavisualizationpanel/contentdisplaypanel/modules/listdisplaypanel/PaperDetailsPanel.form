@@ -34,7 +34,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="paperCitedByLbl" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="218" max="32767" attributes="0"/>
+                      <EmptySpace pref="241" max="32767" attributes="0"/>
                       <Component id="viewCitationsLbl" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>
@@ -104,7 +104,7 @@
     </Component>
     <Component class="org.jdesktop.swingx.JXLabel" name="viewCitationsLbl">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jXLabel1"/>
+        <Property name="text" type="java.lang.String" value="View"/>
       </Properties>
     </Component>
   </SubComponents>

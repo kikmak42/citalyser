@@ -26,15 +26,7 @@ public class CollapsibleListEntityPanel extends JXTaskPane {
         this.setCollapsed(true);
         final Paper p = paper;
         PaperDetailsPanel paperPanel = new PaperDetailsPanel();
-        paperPanel.setPaperTitle(paper.getTitle());
-        paperPanel.setPaperAbstract(paper.getAbstract());
-        paperPanel.setPaperCitations(paper.getNumCites());
-        if(paper.getNumCites() > 0)
-        {
-            
-        }
-        //paperPanel.setPaperInfo("");
-        //paperPanel.setPaperInfo(paper.getInfo);
+        paperPanel.render(paper);
         this.add(paperPanel);
 //        JLabel contentLabel = new JLabel();
 //        JLabel titleLabel = new JLabel();

@@ -1,5 +1,6 @@
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.listdisplaypanel;
 
+import citalyser.model.Paper;
 import citalyser.ui.control.DisplayMaster;
 
 /**
@@ -14,37 +15,25 @@ public class PaperDetailsPanel extends javax.swing.JPanel {
     private DisplayMaster displayMaster;
     public PaperDetailsPanel() {
         initComponents();
+        this.viewCitationsLbl.setVisible(false);
     }
     
-    public void setDisplayMaster(DisplayMaster displayMaster)
+    public void render(Paper p)
+    {
+        this.paperTitleLbl.setText(p.getTitle());
+        //this.paperinfolbl.setText();
+        this.paperAbstractLbl.setText(p.getAbstract());
+        this.paperCitedByLbl.setText("Cited By : " + p.getNumCites());
+        if(p.getNumCites() > 0)
+        {
+            this.viewCitationsLbl.setVisible(true);
+        }
+    }
+    private void setDisplayMaster(DisplayMaster displayMaster)
     {
         this.displayMaster = displayMaster;
     }
     
-    public void setPaperAbstract(String paperabstract)
-    {
-        this.paperAbstractLbl.setText(paperabstract);
-    }
-    
-    public void setPaperTitle(String title)
-    {
-        this.paperTitleLbl.setText(title);
-    }
-    
-    public void setPaperInfo(String info)
-    {
-        this.paperinfolbl.setText(info);
-    }
-    
-    public void setPaperCitations(int num)
-    {
-        this.paperCitedByLbl.setText("Cited By : " + num);
-    }
-    
-    public void showCitationsLink()
-    {
-        
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -80,7 +69,7 @@ public class PaperDetailsPanel extends javax.swing.JPanel {
         paperCitedByLbl.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         paperCitedByLbl.setLineWrap(true);
 
-        viewCitationsLbl.setText("jXLabel1");
+        viewCitationsLbl.setText("View");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -97,7 +86,7 @@ public class PaperDetailsPanel extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(paperCitedByLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 241, Short.MAX_VALUE)
                         .addComponent(viewCitationsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50))))
         );
