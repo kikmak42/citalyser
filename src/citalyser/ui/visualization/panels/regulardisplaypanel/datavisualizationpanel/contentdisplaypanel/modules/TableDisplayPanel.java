@@ -11,21 +11,25 @@
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules;
 
 import citalyser.model.Journal;
+import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.util.CommonUtils;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Tanmay Patil
  */
 public class TableDisplayPanel extends javax.swing.JPanel {
-
+    
+    private static Logger logger = Logger.getLogger(DisplayMaster.class.getName());
     /** Creates new form TableDisplayPanel */
     public TableDisplayPanel() {
         initComponents();
@@ -41,10 +45,24 @@ public class TableDisplayPanel extends javax.swing.JPanel {
 
     public void setTable(PaperCollection paperCollection, TableModel tm) {
 
-        tableModel = tm;
+        for (int i = 0; i < tm.getRowCount(); i++) {
+            Vector row = ((Vector) (((DefaultTableModel) tm).getDataVector().elementAt(i)));
+            if (row != null) {
+                if (this.paperCollection != null) {
+                    row.set(0, new Integer(this.paperCollection.getPapers().size() + (Integer) row.elementAt(0)));
+                }
+            }
+            ((DefaultTableModel) jTable1.getModel()).addRow(row);
+        }
+        tableModel = jTable1.getModel();
 
-        this.paperCollection = paperCollection;
-        jTable1.setModel(tm);
+        if (this.paperCollection != null) {
+            for (Paper paper : paperCollection.getPapers()) {
+                this.paperCollection.addPaper(paper);
+            }
+        } else {
+            this.paperCollection = paperCollection;
+        }
         jTable1.getColumnModel().getColumn(0).setPreferredWidth(33);
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(32);
@@ -141,8 +159,14 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+         logger.info("jModel1MouseClicked"+jTable1.rowAtPoint(evt.getPoint()));
+        if(journals !=null){
+            displayMaster.tableClicked(journals.get(jTable1.rowAtPoint(evt.getPoint())));
+            journals=null;
+        }else{ 
         if (jTable1.rowAtPoint(evt.getPoint()) > -1) {
             displayMaster.tableClicked(paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint())));
+        }
         }
     }//GEN-LAST:event_jTable1MouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables

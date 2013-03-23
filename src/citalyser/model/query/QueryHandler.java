@@ -56,7 +56,7 @@ public class QueryHandler {
                 queryUrl = UrlComposer.getAuthProfUrl(q);
                 return cacheHandler.getCompleteAuthorFromMetric(queryUrl);
             case JOURN_PROF:
-                queryUrl = UrlComposer.getJournProfUrl(q);
+                queryUrl = q.url;
                 return cacheHandler.getCompleteJournalFromMetric(queryUrl);
             case IMAGE_FROM_LINK:
                 queryUrl = q.url;
