@@ -15,25 +15,27 @@ public class PaperDetailsPanel extends javax.swing.JPanel {
      * Creates new form PaperDetailsPanel
      */
     private DisplayMaster displayMaster;
-    public PaperDetailsPanel() {
+    private Paper paper;
+    public PaperDetailsPanel(Paper p) {
+        this.paper = p;
         initComponents();
         this.viewCitationsLbl.setCursor(new Cursor(Cursor.HAND_CURSOR));
         this.viewCitationsLbl.setText("<html><a>View Citations</a></html>");
         this.viewCitationsLbl.setVisible(false);
     }
     
-    public void render(Paper p)
+    public void render()
     {
-        this.paperTitleLbl.setText(p.getTitle());
-        this.paperinfolbl.setText(p.getInfo());
-        this.paperAbstractLbl.setText(p.getAbstract());
-        this.paperCitedByLbl.setText("Cited By : " + p.getNumCites());
-        if(p.getNumCites() > 0)
+        this.paperTitleLbl.setText(paper.getTitle());
+        this.paperinfolbl.setText(paper.getInfo());
+        this.paperAbstractLbl.setText(paper.getAbstract());
+        this.paperCitedByLbl.setText("Cited By : " + paper.getNumCites());
+        if(paper.getNumCites() > 0)
         {
             this.viewCitationsLbl.setVisible(true);
         }
     }
-    private void setDisplayMaster(DisplayMaster displayMaster)
+    public void setDisplayMaster(DisplayMaster displayMaster)
     {
         this.displayMaster = displayMaster;
     }
@@ -75,6 +77,11 @@ public class PaperDetailsPanel extends javax.swing.JPanel {
 
         viewCitationsLbl.setForeground(new java.awt.Color(51, 0, 255));
         viewCitationsLbl.setText("View Citations");
+        viewCitationsLbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                viewCitationsLblMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -108,6 +115,11 @@ public class PaperDetailsPanel extends javax.swing.JPanel {
                 .addContainerGap(10, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void viewCitationsLblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewCitationsLblMouseClicked
+        displayMaster.citationListClicked(paper);
+    }//GEN-LAST:event_viewCitationsLblMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdesktop.swingx.JXLabel paperAbstractLbl;
     private org.jdesktop.swingx.JXLabel paperCitedByLbl;
