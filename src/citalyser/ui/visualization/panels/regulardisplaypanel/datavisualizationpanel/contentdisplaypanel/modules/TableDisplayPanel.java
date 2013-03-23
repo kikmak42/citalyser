@@ -26,7 +26,7 @@ import org.apache.log4j.Logger;
  */
 public class TableDisplayPanel extends javax.swing.JPanel {
 
-    private static Logger logger = Logger.getLogger(DisplayMaster.class.getName());
+    private static Logger logger = Logger.getLogger(TableDisplayPanel.class.getName());
 
     /** Creates new form TableDisplayPanel */
     public TableDisplayPanel() {

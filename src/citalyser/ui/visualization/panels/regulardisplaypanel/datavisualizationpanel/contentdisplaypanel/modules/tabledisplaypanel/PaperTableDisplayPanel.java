@@ -27,7 +27,7 @@ import org.apache.log4j.Logger;
  */
 public class PaperTableDisplayPanel extends javax.swing.JPanel {
 
-    private static Logger logger = Logger.getLogger(DisplayMaster.class.getName());
+    private static Logger logger = Logger.getLogger(PaperTableDisplayPanel.class.getName());
 
     /** Creates new form TableDisplayPanel */
     public PaperTableDisplayPanel() {
@@ -45,6 +45,7 @@ public class PaperTableDisplayPanel extends javax.swing.JPanel {
     public void setTable(PaperCollection paperCollection, TableModel tm) {
 
         if (jTable1.getModel().getRowCount() == 0) {
+            disabledRow = -1;
             jTable1.setModel(tm);
         } else {
             for (int i = 0; i < tm.getRowCount(); i++) {
@@ -73,6 +74,7 @@ public class PaperTableDisplayPanel extends javax.swing.JPanel {
     
     private DisplayMaster displayMaster;
     private PaperCollection paperCollection;
+    private int disabledRow;
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -152,7 +154,9 @@ public class PaperTableDisplayPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        if (jTable1.rowAtPoint(evt.getPoint()) > -1) {
+        if (jTable1.rowAtPoint(evt.getPoint()) > -1 && jTable1.rowAtPoint(evt.getPoint()) != disabledRow) {
+            logger.debug("CLICKED");
+            disabledRow = jTable1.rowAtPoint(evt.getPoint());
             displayMaster.tableClicked(paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint())));
         }
     }//GEN-LAST:event_jTable1MouseClicked
