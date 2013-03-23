@@ -10,6 +10,7 @@ package citalyser.graph.util;
  */
 public class nodeInfo {
     public int id;
+    public String citationurl;
     public String EntireInfo;
     public String Title;
 
@@ -17,5 +18,6 @@ public class nodeInfo {
         this.id = -1;
         this.Title = "";
         this.EntireInfo="";
+        this.citationurl = "";
     }
 }

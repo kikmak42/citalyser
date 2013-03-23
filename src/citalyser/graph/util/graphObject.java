@@ -11,8 +11,8 @@ import java.util.ArrayList;
  * @author milindtahalani1
  */
 public class graphObject {
-    ArrayList<nodeInfo> arr;
-    nodeInfo baseInfo;
+    public ArrayList<nodeInfo> arr;
+    public nodeInfo baseInfo;
     public graphObject() {
         this.arr = new ArrayList<>();
         this.baseInfo = new nodeInfo();

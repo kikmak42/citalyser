@@ -55,21 +55,14 @@ public class graphData {
             }
         }
         
-        graphData g = new graphData();
-        for(nodeInfo o :g.getNodeArray().arr)
-        {
-            logger.debug(o.EntireInfo);
-        }
+        
          
         
     }
     
-    public graphObject getNodeArray(){
+    public graphObject getNodeArray(PaperCollection p){
         graphObject obj = new graphObject();
-        ArrayList<nodeInfo> arr = new ArrayList<>();
-        PaperCollection p= new PaperCollection();
-        Parser parse = new Parser();
-        p = (PaperCollection) parse.extractGeneralQuery(returnValue).getContents();
+        ArrayList<nodeInfo> arr = new ArrayList<>();       
         for (Paper paper:p.getPapers()){
             nodeInfo g = new nodeInfo();
             g.Title = paper.getTitle();
