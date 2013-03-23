@@ -71,7 +71,7 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
                     PainterThread painterThread = new PainterThread(0);
                     
                     myButton.setText("Displaying Author Profile");
-                    int target = lowerAvailable ? jSplitPane1.getHeight() - 16 : jSplitPane1.getHeight();
+                    int target = lowerAvailable ? jSplitPane1.getHeight() - 24 : jSplitPane1.getHeight();
                     animating = true;
                     for (int i = 0; i < target; i++) {
                         if (!painterThread.isAlive()) {
@@ -154,6 +154,7 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
         });
         setLayout(new java.awt.BorderLayout());
 
+        jSplitPane1.setBorder(null);
         jSplitPane1.setDividerLocation(0);
         jSplitPane1.setDividerSize(0);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
@@ -162,8 +163,7 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jButton1.setText("Show Author Profile");
-        jButton1.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 0, 102), new java.awt.Color(153, 153, 255))));
-        jButton1.setContentAreaFilled(false);
+        jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 1, 5, 1));
         jButton1.setFocusPainted(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,7 +181,7 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
         if (upperVisible) {
             if (lowerAvailable) {
-                jSplitPane1.setDividerLocation(jSplitPane1.getHeight() - 16);
+                jSplitPane1.setDividerLocation(jSplitPane1.getHeight() - 24);
             } else {
                 jSplitPane1.setDividerLocation(jSplitPane1.getHeight());
             }

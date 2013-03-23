@@ -13,6 +13,7 @@ package citalyser.ui.visualization.panels.external;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.external.settingspanel.ProxyListPanel;
 import citalyser.ui.visualization.panels.external.settingspanel.ProxyPanel;
+import java.awt.BorderLayout;
 
 /**
  *
@@ -23,6 +24,8 @@ public class SettingsPanel extends javax.swing.JPanel {
     /** Creates new form SettingsPanel */
     public SettingsPanel() {
         initComponents();
+        cachePanel = new citalyser.ui.visualization.panels.external.settingspanel.CachePanel();
+        jPanel2.add(cachePanel, BorderLayout.CENTER);
     }
 
     public void flip() {
@@ -41,7 +44,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         this.displayMaster = displayMaster;
         proxyListPanel.setDisplayMaster(displayMaster);
         proxyPanel.setDisplayMaster(displayMaster);
-        cachePanel1.setDisplayMaster(displayMaster);
+        cachePanel.setDisplayMaster(displayMaster);
     }
             
     private DisplayMaster displayMaster;
@@ -60,8 +63,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         proxyListPanel = new citalyser.ui.visualization.panels.external.settingspanel.ProxyListPanel();
         proxyPanel = new citalyser.ui.visualization.panels.external.settingspanel.ProxyPanel();
-        jPanel3 = new javax.swing.JPanel();
-        cachePanel1 = new citalyser.ui.visualization.panels.external.settingspanel.CachePanel();
+        jPanel2 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
@@ -72,12 +74,10 @@ public class SettingsPanel extends javax.swing.JPanel {
         jPanel1.add(proxyListPanel, "card2");
         jPanel1.add(proxyPanel, "card3");
 
-        jTabbedPane1.addTab("Proxy Settings", jPanel1);
+        jTabbedPane1.addTab("Proxy", jPanel1);
 
-        jPanel3.setLayout(new java.awt.BorderLayout());
-        jPanel3.add(cachePanel1, java.awt.BorderLayout.CENTER);
-
-        jTabbedPane1.addTab("Cache Settings", jPanel3);
+        jPanel2.setLayout(new java.awt.BorderLayout());
+        jTabbedPane1.addTab("Cache", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -86,23 +86,24 @@ public class SettingsPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap())
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                .addContainerGap(248, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private citalyser.ui.visualization.panels.external.settingspanel.CachePanel cachePanel;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private citalyser.ui.visualization.panels.external.settingspanel.CachePanel cachePanel1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private citalyser.ui.visualization.panels.external.settingspanel.ProxyListPanel proxyListPanel;
     private citalyser.ui.visualization.panels.external.settingspanel.ProxyPanel proxyPanel;
