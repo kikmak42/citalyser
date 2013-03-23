@@ -37,7 +37,6 @@ public class UiUtils {
                 {
                     label.setText(m);
                     try {
-                        logger.debug("Thread going to sleep : ");
                         Thread.sleep(t);
                         label.setText("");
                     } catch (InterruptedException ex) {

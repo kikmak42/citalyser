@@ -156,7 +156,7 @@ public class CachePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelCachebtnActionPerformed
 
     private void jSpinner1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner1StateChanged
-        logger.debug("Spinner state changed..");
+
         if((Integer)jSpinner1.getValue() < 1)
             jSpinner1.setValue(1);
         jSpinner1.setBorder(new LineBorder(Color.RED));

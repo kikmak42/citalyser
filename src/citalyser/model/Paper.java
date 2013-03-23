@@ -13,6 +13,7 @@ import java.util.*;
 
 public class Paper implements Serializable {
 
+    private String info;
     private String url;
     private String cited_by_url;
     private String title;
@@ -121,10 +122,15 @@ public class Paper implements Serializable {
 
     @Override
     public String toString() {
-        String s = "<html><b>" + title + "</b><br />";
+        String s = "<html>Title : <b>" + title + "</b><br />";
         s += authors +", "
            + year +"<br />";
         s += "Cited by " + num_cites + "<br /><hr />";
         return s;
+    }
+    
+    public String getInfo()
+    {
+        return this.info;
     }
 }
