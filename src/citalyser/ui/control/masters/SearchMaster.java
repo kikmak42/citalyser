@@ -31,7 +31,6 @@ public class SearchMaster {
     }
 
     public void searchKeyPressed(SearchPanel searchPanel, char key) {
-        logger.debug("Key Pressed : " + key);
         if (key == java.awt.event.KeyEvent.VK_ENTER) {
             searchButtonClicked(searchPanel);
         }

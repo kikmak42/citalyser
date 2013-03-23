@@ -45,10 +45,8 @@ public class TableDisplayPanel extends javax.swing.JPanel {
 
         for (int i = 0; i < tm.getRowCount(); i++) {
             Vector row = ((Vector) (((DefaultTableModel) tm).getDataVector().elementAt(i)));
-            if (row != null) {
-                if (this.paperCollection != null) {
-                    row.set(0, new Integer(this.paperCollection.getPapers().size() + (Integer) row.elementAt(0)));
-                }
+            if (this.paperCollection != null) {
+                row.set(0, new Integer(this.paperCollection.getPapers().size() + (Integer) row.elementAt(0)));
             }
             ((DefaultTableModel) jTable1.getModel()).addRow(row);
         }
@@ -169,6 +167,7 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     private TableModel tableModel;
 
     public void clear() {
+        paperCollection = null;
         while (jTable1.getModel().getRowCount() > 0) {
             ((DefaultTableModel) jTable1.getModel()).removeRow(0);
         }
