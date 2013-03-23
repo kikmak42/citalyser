@@ -60,7 +60,7 @@ public class DataVisualizationPanel extends javax.swing.JPanel {
         graphViewPanel.setLayout(graphViewPanelLayout);
         graphViewPanelLayout.setHorizontalGroup(
             graphViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 849, Short.MAX_VALUE)
+            .addGap(0, 657, Short.MAX_VALUE)
         );
         graphViewPanelLayout.setVerticalGroup(
             graphViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

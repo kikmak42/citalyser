@@ -60,7 +60,7 @@ public class StatusDisplayPanel extends javax.swing.JPanel {
                 formPropertyChange(evt);
             }
         });
-        setLayout(new java.awt.GridLayout());
+        setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
         add(jLabel1);

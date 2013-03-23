@@ -162,8 +162,7 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jButton1.setText("Show Author Profile");
-        jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 5, 2, 5));
-        jButton1.setBorderPainted(false);
+        jButton1.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 0, 102), new java.awt.Color(153, 153, 255))));
         jButton1.setContentAreaFilled(false);
         jButton1.setFocusPainted(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
