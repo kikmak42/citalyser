@@ -56,7 +56,7 @@ public class graphData {
         }
         
         graphData g = new graphData();
-        for(graphObject o :g.getNodeArray())
+        for(nodeInfo o :g.getNodeArray().arr)
         {
             logger.debug(o.EntireInfo);
         }
@@ -64,20 +64,22 @@ public class graphData {
         
     }
     
-    public ArrayList<graphObject> getNodeArray(){
-        ArrayList<graphObject> arr = new ArrayList<>();
+    public graphObject getNodeArray(){
+        graphObject obj = new graphObject();
+        ArrayList<nodeInfo> arr = new ArrayList<>();
         PaperCollection p= new PaperCollection();
         Parser parse = new Parser();
         p = (PaperCollection) parse.extractGeneralQuery(returnValue).getContents();
         for (Paper paper:p.getPapers()){
-            graphObject g = new graphObject();
+            nodeInfo g = new nodeInfo();
             g.Title = paper.getTitle();
             g.EntireInfo = "<html><head></head><body><B>"+paper.getTitle()+"</B><br>"+paper.getInfo()+"</body></html>";
             g.id = this.id;
             this.id+=1;
             arr.add(g);
-        }              
-        return arr;
+        }         
+        obj.arr = arr;
+        return obj;
     }
 }
 
