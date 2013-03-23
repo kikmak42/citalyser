@@ -17,6 +17,7 @@ public class Author implements Serializable {
         private String imgsrc;
         private String proilelink;
         private String univandemail;
+        private String next_link;
         private int totalcitaions;
         private String graphurl;
         private PaperCollection paper_collection;
@@ -46,6 +47,12 @@ public class Author implements Serializable {
             this.hindex = 0;
             this.i10index = 0;
             
+        }
+        public void setNextLink(String s){
+            this.next_link = s;
+        }
+        public String getNextLink(){
+            return this.next_link;
         }
         public void setGraphurl(String url){
             this.graphurl = url;
@@ -147,15 +154,20 @@ public class Author implements Serializable {
             this.description = e;
         }
         public int getHindex(){
+            this.paper_collection.calcHIndex();
+            this.hindex = this.paper_collection.getHIndex();
             return this.hindex;
         }
         public void setHindex(int h){
             this.hindex = h;
         }
         public int getIIndex(){
+            this.paper_collection.calcIIndex();
+            this.hindex = this.paper_collection.getIIndex();
             return this.i10index;
         }
         public void setIIndex(int i){
             this.i10index = i;
         }
+        
 }
