@@ -32,7 +32,7 @@ public class SearchMaster {
     }
 
     public void searchKeyPressed(SearchPanel searchPanel, char key) {
-        
+        logger.debug("Key Pressed : " + key);
         if (key == java.awt.event.KeyEvent.VK_ENTER) {
             searchButtonClicked(searchPanel);
         }
@@ -60,37 +60,40 @@ public class SearchMaster {
     public void searchButtonClicked(SearchPanel searchPanel) {
         final SearchPanel mySearchPanel = searchPanel;
         if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
-            new Thread() {
+            if (searchPanel.getForeground().equals(Color.BLACK) && !searchPanel.getSearchString().equals("")) {
+                Thread thread = new Thread() {
 
-                @Override
-                public void run() {
-                    mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().clearAll();
-                    mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(false);
-                    mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
-                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(false);
-                    QueryResult globalResult = null,currResult;
-                    int totalCount = mainFrame.getRegularDisplayPanel().getToolsPanel().getNumResults();
-                    int count = 10,start = 0;
-                    while(true) {                        
-                        if(start+count > totalCount ){
-                            currResult = QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel,start,totalCount-start));
-                            globalResult.appendContents(currResult.getContents());
-                            displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), globalResult);
-                            break;
+                    @Override
+                    public void run() {
+                        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().clearAll();
+                        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(false);
+                        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
+                        mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(false);
+                        QueryResult globalResult = null, currResult;
+                        int totalCount = mainFrame.getRegularDisplayPanel().getToolsPanel().getNumResults();
+                        int count = 10, start = 0;
+                        while (!Thread.interrupted()) {
+                            if (start + count > totalCount) {
+                                currResult = QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel, start, totalCount - start));
+                                globalResult.appendContents(currResult.getContents());
+                                displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), currResult);
+                                break;
+                            }
+                            currResult = QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel, start, count));
+                            if (start == 0) {
+                                globalResult = currResult;
+                            } else {
+                                globalResult.appendContents(currResult.getContents());
+                            }
+                            displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), currResult);
+                            start += count;
                         }
-                        currResult = QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel,start,count));
-                        if(start == 0) {
-                            globalResult = currResult;
-                        }
-                        else {
-                            globalResult.appendContents(currResult.getContents());
-                        }
-                        displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), globalResult);
-                        start += count;
+                        mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(true);
                     }
-                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(true);
-                }
-            }.start();
+                };
+                thread.start();
+                displayMaster.addThread(thread);
+            }
         } else {
             if (searchPanel.equals(mainFrame.getStartPanel().getAuthorSearchPanel())) {
                 ((java.awt.CardLayout) mainFrame.getContentPane().getLayout()).last(mainFrame.getContentPane());
@@ -119,7 +122,7 @@ public class SearchMaster {
             }
         }
     }
-    
+
     public void addAutoCompleteSuggestion(String suggestion) {
         if (mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().isVisible()) {
             if (suggestion != null) {
@@ -134,18 +137,18 @@ public class SearchMaster {
         }
     }
 
-    public Query createQuery(SearchPanel searchPanel,int start,int count) {
-        
+    public Query createQuery(SearchPanel searchPanel, int start, int count) {
+
         if (displayMaster.checkAuthorMode()) {
-            if(searchPanel.getRadioButtonInfo()){
+            if (searchPanel.getRadioButtonInfo()) {
                 return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_AUTH).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).build();
-            }else{
+            } else {
                 return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_AUTH).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).build();
             }
         } else {
-            if(searchPanel.getRadioButtonInfo()){
+            if (searchPanel.getRadioButtonInfo()) {
                 return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_JOURN).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).build();
-            }else{
+            } else {
                 return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_JOURN).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).sortFlag(searchPanel.getComboSelection()).build();
             }
         }

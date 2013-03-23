@@ -317,7 +317,7 @@ public class DisplayMaster {
         renderMaster.renderJournal(contentRenderer, papercollection);
     }
 
-    public void clearCItationHistory() {
+    public void clearCitationHistory() {
       //  citationListHistory.clear();
     }
 }

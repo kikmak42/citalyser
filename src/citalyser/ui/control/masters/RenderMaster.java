@@ -23,7 +23,7 @@ public class RenderMaster {
     
     public void render(ContentRenderer contentRenderer, ArrayList<Author> arrayList) {
         if (arrayList != null) {
-            contentRenderer.clearAll();
+            //contentRenderer.clearAll();
             for (Author author : arrayList) {
                 contentRenderer.getGridDisplayPanel().addGridEntityPanel(new GridEntityPanel(author));
             }
