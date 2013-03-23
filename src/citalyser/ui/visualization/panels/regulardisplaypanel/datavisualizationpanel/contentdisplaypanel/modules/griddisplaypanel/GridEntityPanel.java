@@ -25,6 +25,7 @@ public class GridEntityPanel extends javax.swing.JPanel {
 
     /** Creates new form GridEntityPanel */
     public GridEntityPanel(Author author) {
+        System.out.println("Next Link: " + author.getNextLink());
         initComponents();
         this.author = author;
         UiUtils.displayImage(jLabel1, author.getImageSrc(), 134, 136);
