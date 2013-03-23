@@ -23,18 +23,12 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
     public CollapsibleListDisplayPanel() {
         collapsibleListEntityPanels = new Vector<>();
         initComponents();
-    }
-
-    public void addListTitle(Paper paper) {
-        jLabel1.setText("<html>" + paper.getTitle());
-        jButton1.setText("< Previous List");
+        jPanel3 = new javax.swing.JPanel();
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt){
                 previousButtonClicked(evt);
             }
         });
-
-        jButton2.setText("Next List >");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt){
                 nextButtonClicked(evt);
@@ -42,12 +36,19 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
         });
     }
 
+    public void addListTitle(int number, String title) {
+        jLabel1.setText("<html> [List:" + number +"] "+title);
+        jButton1.setText("< Previous List");
+        jButton2.setText("Next List >");
+        
+    }
+
     public void previousButtonClicked(java.awt.event.MouseEvent evt) {
-        displayMaster.displayStatusMessage("Previous Button Clicked");
+        displayMaster.citationListPrevious();
     }
 
     public void nextButtonClicked(java.awt.event.MouseEvent evt) {
-        displayMaster.displayStatusMessage("Next Button Clicked");
+        displayMaster.citationListNext();
     }
     
     public void addCollapsibleListEntityPanel(CollapsibleListEntityPanel collapsibleListEntityPanel) {
@@ -136,6 +137,7 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private org.jdesktop.swingx.JXTaskPaneContainer jXTaskPaneContainer;
     // End of variables declaration//GEN-END:variables
