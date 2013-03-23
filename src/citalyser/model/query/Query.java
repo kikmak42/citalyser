@@ -12,7 +12,6 @@ public class Query{
     public QueryType flag;
     public String name;
     public String ID;
-    public String after_author;
     public int max_year;
     public int min_year;
     public int start_result;
@@ -26,7 +25,6 @@ public class Query{
         flag = builder.flag;
         name = builder.name;
         ID = builder.ID;
-        after_author = builder.after_author;
         max_year = builder.max_year;
         min_year = builder.min_year;
         start_result = builder.start_result;
@@ -62,11 +60,6 @@ public class Query{
 
         public Builder ID(String ID) {
             this.ID = ID;
-            return this;
-        }
-        
-        public Builder after_author(String after_author) {
-            this.after_author = after_author;
             return this;
         }
 

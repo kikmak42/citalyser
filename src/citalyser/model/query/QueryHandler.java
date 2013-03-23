@@ -46,9 +46,12 @@ public class QueryHandler {
                 queryUrl = UrlComposer.getGenJournUrl(q);
                 return cacheHandler.getJournalPapersFromScholar(queryUrl);
             case MET_AUTH:
-                if(q.start_result>0 && (q.after_author!=null || !"".equals(q.after_author)))
+                if(q.start_result>0 && (q.url==null || "".equals(q.url)))
                     return null;
-                queryUrl = UrlComposer.getMetAuthUrl(q);
+                else if(q.start_result > 0)
+                    queryUrl = q.url;
+                else
+                    queryUrl = UrlComposer.getMetAuthUrl(q);
                 return cacheHandler.getAuthorList(queryUrl);
             case MET_JOURN:
                 queryUrl = UrlComposer.getMetJournUrl(q);
