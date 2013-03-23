@@ -9,6 +9,7 @@ import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpa
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.listdisplaypanel.ListEntityPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.util.Vector;
 import javax.swing.SwingConstants;
 import javax.swing.plaf.DimensionUIResource;
@@ -19,12 +20,16 @@ import javax.swing.plaf.DimensionUIResource;
  */
 public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
 
+    private int entityCount;
     /**
      * Creates new form CollapsibleListDisplayPanel
      */
     public CollapsibleListDisplayPanel() {
+        entityCount = 0;
         collapsibleListEntityPanels = new Vector<>();
         initComponents();
+        jLabel2.setVisible(false);
+        jLabel3.setVisible(false);
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 previousButtonClicked(evt);
@@ -49,6 +54,22 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
         jLabel4.setText("<html> HI ");
     }
 
+    public void hidePreviousButton() {
+        jLabel2.setVisible(false);
+    }
+
+    public void hideNextButton() {
+        jLabel3.setVisible(false);
+    }
+
+    public void showPreviousButton() {
+        jLabel2.setVisible(true);
+    }
+
+    public void showNextButton() {
+        jLabel3.setVisible(true);
+    }
+
     public void previousButtonClicked(java.awt.event.MouseEvent evt) {
         displayMaster.citationListPrevious();
     }
@@ -59,6 +80,7 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
 
     public void moreButtonClicked(java.awt.event.MouseEvent evt) {
         displayMaster.displayStatusMessage("More Button Pressed");
+        displayMaster.citationListMoreButtonClicked(entityCount);
     }
 
     public void addCollapsibleListEntityPanel(CollapsibleListEntityPanel collapsibleListEntityPanel) {
@@ -68,6 +90,7 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
         // jXTaskPaneContainer.add(collapsibleListEntityPanel);
         jXTaskPaneContainer1.add(collapsibleListEntityPanel);
         jXTaskPaneContainer1.setMinimumSize(new DimensionUIResource(40, 1540));
+        entityCount++;
     }
 
     public Vector<CollapsibleListEntityPanel> getListEntityPanels() {
@@ -112,6 +135,7 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
         jXTaskPaneContainer1.setBackground(new java.awt.Color(153, 153, 255));
 
+
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Title");
 
@@ -127,9 +151,11 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE)));
 
         jLabel2.setText(" < Previous ");
+        jLabel2.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel3.setText(" Next > ");
+        jLabel3.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         jLabel4.setText(" List ");
         jLabel4.setHorizontalAlignment(SwingConstants.CENTER);
@@ -182,6 +208,7 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("More >>");
+        jLabel5.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

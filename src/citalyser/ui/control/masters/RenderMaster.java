@@ -66,7 +66,6 @@ public class RenderMaster {
 
     public void renderCitationsList(ContentRenderer contentRenderer, ArrayList<Paper> papers) {
         if (papers != null) {
-            contentRenderer.clearAll();
             /*
              contentRenderer.getListDisplayPanel().setList(papers,ListModelHandler.getListModel(papers));
              contentRenderer.flipToListDisplayPanel();

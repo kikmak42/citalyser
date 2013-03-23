@@ -67,7 +67,7 @@ public class QueryHandler {
                 queryUrl = q.url;
                 return cacheHandler.getImageFromLink(queryUrl);
             case CITATIONS_LIST:
-                queryUrl = q.url;
+                queryUrl = q.url+"&start="+q.start_result+"&num="+q.num_results;
                 return cacheHandler.getCitationsList(queryUrl);
             default : 
                 return null;

@@ -38,7 +38,7 @@ public class CitationListHistory {
     }
 
     public Paper getCurrentPaper() {
-        return this.papers.get(currentPaperPosition);
+        return this.papers.get(currentPaperPosition-1);
     }
 
     public Paper gotoNextPaper() {
@@ -79,5 +79,19 @@ public class CitationListHistory {
 
     public int getCurrentPosition() {
         return currentPaperPosition;
+    }
+
+    public boolean isCurrentPositionFirst() {
+        if(currentPaperPosition==1)
+            return true;
+        else
+            return false;
+    }
+
+    public boolean isCurrentPositionLast() {
+        if(currentPaperPosition==papers.size())
+            return true;
+        else
+            return false;
     }
 }
