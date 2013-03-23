@@ -16,6 +16,7 @@ import citalyser.ui.control.DisplayMaster;
 import citalyser.util.CommonUtils;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -41,10 +42,12 @@ public class TableDisplayPanel extends javax.swing.JPanel {
 
     public void setTable(PaperCollection paperCollection, TableModel tm) {
 
-        tableModel = tm;
+        for (int i = 0; i < tm.getRowCount(); i++) {
+            ((DefaultTableModel) jTable1.getModel()).addRow(((Vector) (((DefaultTableModel) tm).getDataVector().elementAt(i))));
+        }
+        tableModel = jTable1.getModel();
 
         this.paperCollection = paperCollection;
-        jTable1.setModel(tm);
         jTable1.getColumnModel().getColumn(0).setPreferredWidth(33);
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(32);

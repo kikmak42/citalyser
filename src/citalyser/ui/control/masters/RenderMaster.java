@@ -55,7 +55,7 @@ public class RenderMaster {
 
     public void render(ContentRenderer contentRenderer, PaperCollection paperCollection) {
         if (paperCollection != null) {
-            contentRenderer.clearAll();
+            //contentRenderer.clearAll();
             contentRenderer.getTableDisplayPanel().setTable(paperCollection, TableModelHandler.getTableModel(paperCollection));
             contentRenderer.flipToTableDisplayPanel();
         } else {
