@@ -6,13 +6,17 @@ package citalyser.ui.model.history;
 
 import citalyser.model.query.Query;
 import java.util.HashMap;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Tanmay Patil
  */
 public class SearchHistory {
+    
     private HashMap<String, Query> history;
+    
+    static final Logger logger = Logger.getLogger(SearchHistory.class.getName());
 
     public SearchHistory() {
         history = new HashMap<>();
