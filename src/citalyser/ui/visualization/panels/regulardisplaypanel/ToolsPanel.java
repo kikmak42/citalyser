@@ -96,6 +96,7 @@ public class ToolsPanel extends javax.swing.JPanel {
         jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setSelected(true);
         jCheckBox1.setText("Show Paper Preview");
+        jCheckBox1.setOpaque(false);
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox1ActionPerformed(evt);
