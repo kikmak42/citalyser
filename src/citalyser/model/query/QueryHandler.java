@@ -69,6 +69,9 @@ public class QueryHandler {
             case CITATIONS_LIST:
                 queryUrl = q.url+"&start="+q.start_result+"&num="+q.num_results;
                 return cacheHandler.getCitationsList(queryUrl);
+            case CITATIONS_LIST_METRIC:
+                queryUrl = q.url+"&cstart="+q.start_result;
+                return cacheHandler.getCitationsListFromMetric(queryUrl);
             default : 
                 return null;
         }
