@@ -171,6 +171,9 @@ public class DisplayMaster {
     public void displayStatusMessage(String status) {
         mainFrame.getRegularDisplayPanel().getToolsPanel().displayStatusMessage(status);
     }
+    public void displayInfoMessage(String info) {
+        mainFrame.getRegularDisplayPanel().getToolsPanel().displayInfoMessage(info);
+    }
 
     public void clearStatusPanel() {
         mainFrame.getRegularDisplayPanel().getStatusDisplayPanel().displayStatus("");
@@ -295,6 +298,7 @@ public class DisplayMaster {
                     PaperCollection pc = (PaperCollection) queryResult.getContents();
                     if (myPaper != null) {
                         logger.info("Paper Size:" + pc.getPapers().size());
+                        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().addEntityCount(pc.getPapers().size());
                         renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
                     }
                 } else {
@@ -419,6 +423,7 @@ public class DisplayMaster {
                 if (queryResult != null) {
                     PaperCollection pc = (PaperCollection) queryResult.getContents();
                     if (myPaper != null) {
+                        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().addEntityCount(pc.getPapers().size());
                         renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
                         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
                     }
@@ -591,5 +596,9 @@ public class DisplayMaster {
 
     public void setDisplayPreview(boolean selected) {
         showPaperPreview = selected;
+    }
+
+    public void setProgress(int i) {
+        mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setProgress(i);
     }
 }

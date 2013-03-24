@@ -87,8 +87,8 @@ public class RenderMaster {
         if (papers != null) {
             //contentRenderer.clearAll();
             /*
-            contentRenderer.getListDisplayPanel().setList(papers,ListModelHandler.getListModel(papers));
-            contentRenderer.flipToListDisplayPanel();
+             contentRenderer.getListDisplayPanel().setList(papers,ListModelHandler.getListModel(papers));
+             contentRenderer.flipToListDisplayPanel();
              */
             if (papers.isEmpty()) {
                 contentRenderer.displayMessage("Could not fetch citations list");
@@ -99,6 +99,7 @@ public class RenderMaster {
                 }
                 contentRenderer.getCollapsibleListDisplayPanel().addCollapsibleListEntityPanel(new CollapsibleListEntityPanel(p));
             }
+            contentRenderer.getCollapsibleListDisplayPanel().addMoreButton();
             contentRenderer.flipToCollapsibleListDisplayPanel();
 
         } else {
