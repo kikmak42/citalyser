@@ -70,6 +70,7 @@ public class AuthorProfileDisplayPanel extends javax.swing.JPanel {
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setToolTipText("Photo");
         jLabel1.setOpaque(true);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -82,6 +83,7 @@ public class AuthorProfileDisplayPanel extends javax.swing.JPanel {
 
         jLabel4.setBackground(new java.awt.Color(232, 244, 247));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setToolTipText("Graph");
         jLabel4.setOpaque(true);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N

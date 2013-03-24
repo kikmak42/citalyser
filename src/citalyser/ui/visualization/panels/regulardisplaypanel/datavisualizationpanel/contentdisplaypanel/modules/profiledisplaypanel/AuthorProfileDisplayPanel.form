@@ -76,6 +76,7 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="toolTipText" type="java.lang.String" value="Photo"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
     </Component>
@@ -105,6 +106,7 @@
           <Color blue="f7" green="f4" red="e8" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="toolTipText" type="java.lang.String" value="Graph"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
     </Component>
