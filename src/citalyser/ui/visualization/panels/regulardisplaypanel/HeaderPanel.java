@@ -182,7 +182,6 @@ public class HeaderPanel extends javax.swing.JPanel {
             this.searchPanel.getRadioButton1().setText("Author Papers");
             this.searchPanel.getRadioButton2().setText("Author List");
             this.searchPanel.getButtonPanel().setVisible(true);
-            
             authorSearchMode = false;
         } else {
             modeSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_2.png")));
