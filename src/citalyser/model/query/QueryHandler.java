@@ -64,6 +64,7 @@ public class QueryHandler {
                 queryUrl = q.url;
                 return cacheHandler.getCompleteJournalFromMetric(queryUrl);
             case IMAGE_FROM_LINK:
+                logger.debug("Url : " + q.url);
                 queryUrl = q.url;
                 return cacheHandler.getImageFromLink(queryUrl);
             case CITATIONS_LIST:

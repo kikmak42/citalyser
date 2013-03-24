@@ -13,6 +13,7 @@ package citalyser.ui.visualization.panels.external;
 import citalyser.model.Author;
 import citalyser.model.Paper;
 import java.awt.Color;
+import java.awt.Dimension;
 
 /**
  *
@@ -30,7 +31,19 @@ public class AbstractDisplayPanel extends javax.swing.JPanel {
     }
 
     public void setPaper(Paper paper) {
-        jLabel1.setText("<html>" + paper.getAbstract());
+        if(paper.getAbstract() != null)
+        {
+            jLabel1.setText("<html>" + paper.getAbstract());
+        }
+        else{
+            this.remove(jLabel1);
+//            jLabel1.setVisible(false);
+//            setPreferredSize(new Dimension(400, 200));
+//            this.validate();
+////            jLabel1.setPreferredSize(new Dimension(400,0));
+//            this.validate();
+//            jLabel1.repaint();
+        }
         jLabel2.setText("<html>" + paper.getTitle());
         jLabel3.setText("Cited by: " + paper.getNumCites());
         jLabel4.setText("Year: " + paper.getYear());
@@ -67,7 +80,7 @@ public class AbstractDisplayPanel extends javax.swing.JPanel {
         jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
         jLabel1.setOpaque(true);
         jLabel1.setPreferredSize(new java.awt.Dimension(400, 56));
-        add(jLabel1, java.awt.BorderLayout.CENTER);
+        add(jLabel1, java.awt.BorderLayout.LINE_END);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 5));
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 56));
