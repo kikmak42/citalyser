@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules;
 
 import citalyser.ui.control.DisplayMaster;
@@ -90,7 +86,7 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
         // jXTaskPaneContainer.add(collapsibleListEntityPanel);
         jXTaskPaneContainer1.add(collapsibleListEntityPanel);
         jXTaskPaneContainer1.setMinimumSize(new DimensionUIResource(40, 1540));
-        entityCount++;
+        //entityCount++;
     }
 
     public Vector<CollapsibleListEntityPanel> getListEntityPanels() {
@@ -208,6 +204,9 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("More >>");
+        jLabel5.setPreferredSize(new DimensionUIResource((int)jLabel5.getPreferredSize().getWidth(),20));
+        jLabel5.setBackground(new Color(240, 240, 240));
+        jLabel5.setOpaque(true);
         jLabel5.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -219,7 +218,7 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
                 jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE));
 
-        add(jPanel3, java.awt.BorderLayout.SOUTH);
+      //  add(jPanel3, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -242,5 +241,13 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
             collapsibleListEntityPanels.remove(0);
         }
         jXTaskPaneContainer1.removeAll();
+    }
+
+    public void addMoreButton() {
+          jXTaskPaneContainer1.add(jLabel5);
+    }
+
+    public void addEntityCount(int num) {
+        entityCount=+num;
     }
 }

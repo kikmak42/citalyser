@@ -290,6 +290,7 @@ public class DisplayMaster {
                     PaperCollection pc = (PaperCollection) queryResult.getContents();
                     if (myPaper != null) {
                         logger.info("Paper Size:" + pc.getPapers().size());
+                        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().addEntityCount(pc.getPapers().size());
                         renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
                     }
                 } else {
@@ -414,6 +415,7 @@ public class DisplayMaster {
                 if (queryResult != null) {
                     PaperCollection pc = (PaperCollection) queryResult.getContents();
                     if (myPaper != null) {
+                        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().addEntityCount(pc.getPapers().size());
                         renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
                         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
                     }
