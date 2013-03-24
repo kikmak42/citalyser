@@ -51,7 +51,7 @@
                   <Component id="paperCitedByLbl" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="viewCitationsLbl" alignment="3" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="8" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
