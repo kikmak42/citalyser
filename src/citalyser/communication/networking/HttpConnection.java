@@ -35,10 +35,14 @@ public class HttpConnection {
         throws IOException, URISyntaxException {
         
         HttpURLConnection connection;
-        URL url = new URI(requestURL).toURL();
+        //requestURL = URLEncoder.encode(requestURL,"UTF-8");
+        logger.debug("Request Url : " + requestURL);
+        URL url = new URL(requestURL);
+        URI uri = new URI(url.getProtocol(), url.getHost(), url.getPath(), url.getQuery(),null);
+        //URL url = new URI(requestURL).toURL();
         Proxy proxy = CommonUtils.getJavaProxyFromCProxy(cproxy);
         
-        connection = (HttpURLConnection) (url.openConnection(proxy)); 
+        connection = (HttpURLConnection) (uri.toURL().openConnection(proxy)); 
         //connection.setInstanceFollowRedirects(true);
         connection.setDoInput(true);
         connection.setDoOutput(false);
@@ -73,6 +77,7 @@ public class HttpConnection {
             for(int j = 0;j<Constants.userAgents.length; j++)
             {
                 logger.debug("Proxy : " + proxies.get(i).toString() +" UserAgent : "+Constants.userAgents[j]);
+                Main.getDisplayController().displayStatusMessage("Trying Proxy " + proxies.get(i).toString());
                 try{
                     HttpURLConnection connection = connectUrl(url,proxies.get(i),Constants.userAgents[j]);
                     responseCode = connection.getResponseCode();
@@ -80,7 +85,8 @@ public class HttpConnection {
                     if(responseCode == Constants.OK_Response_Code)
                     {
                         /* update ProxyList */
-                        updateProxyList(proxies,i);
+                        if(i!=0)
+                            updateProxyList(proxies,i);
                         /* Saving the html content */
                         DataInputStream response = new DataInputStream(connection.getInputStream());
                         BufferedReader reader = new BufferedReader(new InputStreamReader(response));

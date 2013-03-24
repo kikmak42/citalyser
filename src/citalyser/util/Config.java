@@ -24,13 +24,14 @@ public class Config
     
     private static Properties properties;
     private static List<CProxy> proxyList;
-  
+    public static int CachePersistentTime = 7;
+    public static int CacheCleanerPeriod = 7200000;
     private static File configFile = null;
      
     public static void init(File settingsDir)
     {
         properties = new Properties();
-        configFile = new File("Settings.txt");
+        configFile = new File(Main.settingsDirectory,"Settings.txt");
         if(configFile.exists())
         {
             /*Settings Directory exists. Read the config info. */
@@ -60,6 +61,8 @@ public class Config
         try
         {
             properties.load(new FileInputStream(configFile));
+            CachePersistentTime = getInteger(CachePersistentTime,properties.getProperty("CachePersistentTime"));
+            CacheCleanerPeriod = getInteger(CacheCleanerPeriod,properties.getProperty("CacheCleanerPeriod"));
             return 0;
         }
         catch(Exception ex)
@@ -74,6 +77,9 @@ public class Config
     {
         try
         { 
+            properties.setProperty("CachePersistentTime", Integer.toString(CachePersistentTime));
+            properties.setProperty("CacheCleanerPeriod", Integer.toString(CacheCleanerPeriod));
+            
             properties.store(new FileOutputStream(configFile), null);
             return 0;
         }
@@ -84,7 +90,7 @@ public class Config
         }
     }
     
-    private static int updateConfigFile()
+    public static int updateConfigFile()
     {
         int wresult = writeConfigFile();
         int rresult = readConfigFile();

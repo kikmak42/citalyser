@@ -29,7 +29,7 @@ import org.jsoup.select.Elements;
  */
 public class Parser {
 
-    private Logger logger = Logger.getLogger(Parser.class.getName());
+    private static Logger logger = Logger.getLogger(Parser.class.getName());
     public String source;
     Document doc;
     private PaperCollection extractedPapers;
@@ -37,93 +37,9 @@ public class Parser {
     public ArrayList<String> citedbyList;
     private String names;
 
-    private String splitjournal_year(String string, int type) {
-        String[] splitarr;
-        int flag = 0;
-
-        try {
-            splitarr = string.split("…, ");
-            flag = 1;
-            if (splitarr.length == 1) {
-                splitarr = string.split(", ");
-                Integer.parseInt(splitarr[1]);
-                flag = 0;
-            }
-        } catch (Exception e) {
-            splitarr = string.split(", ");
-        }
-        if (type == 1) {
-            if (splitarr.length == 2) {
-                if (flag == 1) {
-                    return splitarr[0] + "…";
-                } else {
-                    try {
-                        Integer.parseInt(splitarr[1]);
-                        return splitarr[0];
-                    } catch (Exception e) {
-                        return splitarr[0] + splitarr[1];
-                    }
-                }
-            }
-
-            if (splitarr.length == 1) {
-                try {
-                    Integer.parseInt(splitarr[0]);
-                    return "";
-                } catch (Exception e) {
-                    return splitarr[0];
-                }
-            }
-        }
-
-        if (type == 2) {
-            {
-                try {
-                    Integer.parseInt(splitarr[splitarr.length - 1]);
-                    return splitarr[splitarr.length - 1];
-                } catch (Exception e) {
-                    return "0";
-                }
-
-            }
-
-        }
-        return null;
-    }
-
-    public static void main(String args[]) {
-        PropertyConfigurator.configure("log4j.properties");
-
-        String returnValue = "";
-        FileReader file = null;
-
-        try {
-            file = new FileReader("/home/sahil/roughos/indentedrespose.html");
-            BufferedReader reader = new BufferedReader(file);
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                returnValue += line + "\n";
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (file != null) {
-                try {
-                    file.close();
-                } catch (IOException e) {
-                    // Ignore issues during closing 
-                }
-            }
-        }
-
-
-        Parser p = new Parser();
-        p.extractJournalInfo(returnValue);
-
-    }
-
     //this function takes the title of a paper and the source string and returns an arraylist of authors of that paper
-    public QueryResult<PaperCollection> extractInfo(String source) {
+    /* Query Types : GEN_AUTH, GEN_JOURN */
+    public QueryResult<PaperCollection> extractGeneralQuery(String source) {
         QueryResult<PaperCollection> q = new PaperCollectionResult();
         this.source = source;
         extractedPapers = new PaperCollection();
@@ -160,6 +76,7 @@ public class Parser {
             if (!author_section_b.isEmpty()) {
                 Element section = author_section_b.get(0);
                 String section_text = section.text();
+                insertInextractedpapers.setInfo(section_text);
                 String[] list = section_text.split(" - … ,? | - ");
                 int len = list.length;
 
@@ -167,11 +84,11 @@ public class Parser {
 
                     names = list[0];
                     // = list[1].split(", ")[0];
-                    jrnl = splitjournal_year(list[1], 1);
+                    jrnl = ParserUtils.splitjournal_year(list[1], 1);
                     journalinpaper.setName(jrnl);
                     journalsinPaper.add(journalinpaper);
                     insertInextractedpapers.setJournals(journalsinPaper);
-                    year = splitjournal_year(list[1], 2);
+                    year = ParserUtils.splitjournal_year(list[1], 2);
                     yearint = Integer.parseInt(year);
                     String[] author_names = names.split(",|…");
                     for (String nameinarray : author_names) {
@@ -249,54 +166,30 @@ public class Parser {
 
         }
         extractedPapers.setPapers(papers);
-        
+
         q.setContents(extractedPapers);
         return q;
 
     }
-
-    public void extractProfileInfo(String file) {
-        doc = Jsoup.parse(file, "UTF-8");
-        Elements items = doc.select("div.gs_r");
-
-        if (!items.isEmpty()) {
-
-            for (Element item : items) {
-
-                Elements author_section = item.select("h4.gs_rt2");
-                if (!author_section.isEmpty()) {
-                    for (Element section : author_section) {
-
-                        Elements author_tags = section.select("a");
-                        for (Element author_tag : author_tags) {
-                            String author_name = author_tag.text();
-                            String url = "http://scholar.google.com";
-                            String author_link = url + author_tag.attr("href");
-                        }
-                    }
-
-
-                }
-
-
-            }
-
-
-        }
-
-
-
-    }
-
+    
+    /* Query_Type : AUTH_PROF*/
     public QueryResult<Author> extractAuthorProfileInfo(String src) {
         QueryResult<Author> qr_author_result = new AuthorResult();
         //AuthorResult ar =new AuthorResult();
         Author author = new Author(null);
         PaperCollection pc = new PaperCollection();
         ArrayList<Paper> paperList = new ArrayList<>();
+        String graphurl = "";
         doc = Jsoup.parse(src, "UTF-8");
+        Elements it = doc.select("div.cit-lbb");
+        if (!it.isEmpty()) {
+            graphurl = it.select("img").get(0).attr("src");
+        }
+        //logger.debug("@@@##"+graphurl);
+        author.setGraphurl(graphurl);
         Elements items = doc.select("table.cit-table");
         String url = "http://scholar.google.com";
+        
         if (!items.isEmpty()) {
             for (Element item : items) {
                 //Elements rows = item.select("tr.cit-table item");
@@ -406,13 +299,242 @@ public class Parser {
 
                 }
             } catch (Exception e) {
+                //logger.debug("Error getting author profile info");
             }
 
 
         }
+        
+        
+        //this part extracts the hindex i index and chart src for an author
+        items = doc.select("#stats");
+        ArrayList<String> ar =  new ArrayList<>();
+        String imglink="";
+        String citations_all = "";
+        String citations_since_2008 = "";
+        String hindex_all = "";
+        String hindex_since_2008 = "";
+        String i10index_all = "";
+        String i10index_since_2008 = "";
+        if(!items.isEmpty()){
+            for (Element item : items){
+                Elements tds = item.select("td.cit-data");
+                if(!tds.isEmpty()){
+                //logger.debug(tds.text());
+                    for (Element td : tds){
+
+                        //logger.debug(td.text());
+                        ar.add(td.text());
+                    }
+                }
+            }
+
+            try{
+                citations_all = ar.get(0);
+                //logger.debug("Citations (All)  :"+ar.get(0));
+                author.setTotalCitations(Integer.parseInt(citations_all));
+            }
+            catch(Exception e){
+                citations_all = "";
+            }
+            try{
+                citations_since_2008 = ar.get(1);
+                //logger.debug("Citations (Since 2008)  :"+ar.get(1));
+            }
+            catch(Exception e){
+                citations_since_2008 = "";
+            }
+            try{
+                hindex_all = ar.get(2);
+                //logger.debug("h-index (All)  :"+ar.get(2));
+                //logger.debug("hindex from author object"+author.getHindex());
+                author.setHindex(Integer.parseInt(hindex_all));
+                //logger.debug("hindex from author object"+author.getHindex());
+            }
+            catch(Exception e){
+                hindex_all = "";
+                //logger.debug("in exception");
+            }
+            try{
+                hindex_since_2008 = ar.get(3);
+                //logger.debug("h-index (Since 2008)  :"+ar.get(3));
+            }
+            catch(Exception e){
+                hindex_since_2008 = "";
+            }
+            try{
+                i10index_all = ar.get(4);
+                //logger.debug("i10-index (All)  :"+ar.get(4));
+                author.setIIndex(Integer.parseInt(i10index_all));
+                //logger.debug("Iindex from author object"+author.getIIndex());
+            }
+            catch(Exception e){
+                i10index_all = "";
+            }
+            try{
+                i10index_since_2008 = ar.get(5);
+                //logger.debug("i10-index (Since 2008)  :"+ar.get(5));
+            }
+            catch(Exception e){
+                i10index_since_2008 = "";
+            }
+            //logger.debug("img src  :"+imglink);
+
+            items = doc.select("div.cit-lbb");
+            if (!items.isEmpty()) {
+                //logger.debug(items.isEmpty());
+                Elements tds = items.select("td");
+                //logger.debug(tds);
+                if (!tds.isEmpty()) {
+                    for (Element td : tds) {
+                        Elements img_tags = td.select("img");
+                        if (!img_tags.isEmpty()) {
+                            try{
+                            Element img_tag = img_tags.get(0);
+                            imglink = img_tag.attr("src");
+                            //logger.debug("img src "+imglink);
+                            }
+                            catch(Exception e){
+                                imglink = "";
+                                //logger.debug(imglink);
+                            }
+                        }
+
+                    }
 
 
+                }
+            }
+        }
+        String email = "";
+        String affiliation = "";
+        String homepage_url = "";
+        String interests = "";
+        //this part extracts the author name and pesonal info
+        items = doc.select("div.cit-user-info");
+        String name = "";
+        if(!items.isEmpty()){
+            for (Element item : items){
+                //for extracting the author name
+                Elements name_spans = item.select("span#cit-name-read");
+                if (!name_spans.isEmpty()) {
+                    try {
+                        name = name_spans.get(0).text();
+                        //logger.debug(name);
+                        author.setName(name);//setting the author name
+                    } catch (Exception e) {
+                        name = "";
+                    }
+                    
+                }
+                
+                //for extracting the affiliation
+                affiliation = "";
+                Elements aff_spans = item.select("span#cit-affiliation-read");
+                if (!aff_spans.isEmpty()) {
+                    try {
+                        affiliation = aff_spans.get(0).text();
+                        //logger.debug(affiliation);
+                        
+                    } catch (Exception e) {
+                        affiliation = "";
+                    }
+                    
+                }
+                
+                 //for extracting the email of the author
+                
+                Elements email_spans = item.select("span#cit-domain-read");
+                if (!email_spans.isEmpty()) {
+                    try {
+                        String[] email_str = email_spans.get(0).text().split(" ");
+                        email = email_str[email_str.length - 1];//last element will be email
+                        //logger.debug(email);
+                        author.setEmail(email);
+                    } catch (Exception e) {
+                        email = "";
+                    }
+                    
+                }
+                
+                //for extracting the homepage url of the author
+                
+                Elements homepage_spans = item.select("span#cit-homepage-read");
+                if (!homepage_spans.isEmpty()) {
+                    
+                        Elements a_tags = homepage_spans.get(0).select("a");
+                        if(!a_tags.isEmpty()){
+                            try{
+                                homepage_url = a_tags.get(0).attr("href");
+                                //logger.debug(url);
+                                //author.setProfilelink(src);
+                            }
+                            catch(Exception e){
+                                homepage_url = "";
+                                
+                            }
+                        }
+                        
+                    
+                }
+                
+                //for extracting the research fields of the author
+                String fields = "";
+                ArrayList<String> author_interests = new ArrayList<>();
+                Elements field_spans = item.select("span#cit-int-read");
+                if (!field_spans.isEmpty()) {
+                    try {
+                        interests = field_spans.get(0).text();
+                        String[] fields_str = field_spans.get(0).text().split("-");
+                        for(String str : fields_str){
+                            author_interests.add(str);
+                            logger.debug(str);
+                        }
+                        author.setAuthorAreas(author_interests);
+                    } catch (Exception e) {
+                        fields = "";
+                    }
+                    
+                }
+                //extracting the author image link
+                String img_src = "";
+                Elements img_tags = item.select("img");
+                if(!img_tags.isEmpty()){
+                    try{
+                        img_src = url+img_tags.get(0).attr("src");
+                        logger.debug("image source "+img_src);
+                        author.setImagesrc(img_src);
+                    }
+                    catch(Exception e){
+                        img_src = "";
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        String Description = "";
+        if(affiliation!=null && !affiliation.equals("")){
+            Description = Description+affiliation;
+            
+        }
+        if(email!=null && !email.equals("")){
+            Description = Description+"<br>"+email;
+            
+        }
+        if(interests!=null && !interests.equals("")){
+            Description = Description+"<br>"+interests;
+            
+        }
+        if(homepage_url!=null && !homepage_url.equals("")){
+            Description = Description+"<br>"+homepage_url;
+            
+        }
+        //logger.debug("desc "+Description);
+        author.setDescription(Description);
 
+        
         pc.setPapers(paperList);
         author.setPaperCollection(pc);
         author.setCoAuthors(co_author_list);
@@ -424,7 +546,8 @@ public class Parser {
 
     }
 
-    public QueryResult<ArrayList<Author>> getAuthors(String input) {
+    /* Query_Type : MET_AUTH */
+    public QueryResult<ArrayList<Author>> getAuthorList(String input) {
 
         QueryResult<ArrayList<Author>> q = new AuthorListResult();
         //AuthorResult alr = new AuthorResult();
@@ -432,15 +555,19 @@ public class Parser {
         int citations;
         String name, imglink;
         String url, userid;
-        String details, university;
+        String details="", university="";
         String[] parseddetails;
         doc = Jsoup.parse(input, "UTF-8");
         Elements elements = doc.select("div.g-unit");
         for (Element item : elements) {
             Author author = new Author("");
-            logger.debug(item.html());
+           // logger.debug(item.html());
+            university = item.html();
+            university = university.split("<td")[2].split("hl=en\">")[1].split("Cited|<form|<input")[0];
+       
             details = item.text();
-            logger.debug("\n@@@@:" + item.select("a.cit-dark-large-link").outerHtml());
+          // logger.debug(university);
+           // logger.debug("\n@@@@:" + item.select("a.cit-dark-large-link").outerHtml());
             imglink = Constants.SCHOLAR_BASE_URL + item.select("img").get(0).attr("src");
             Elements links = item.select("a.cit-dark-large-link");
             Element link = links.get(0);
@@ -449,32 +576,29 @@ public class Parser {
             parseddetails = details.split(" ");
             try {
                 citations = Integer.parseInt(parseddetails[parseddetails.length - 1]);
-                university = details.substring(name.length(), details.length() - 9 - Integer.toString(citations).length());
+                //university = details.substring(name.length(), details.length());
             } catch (Exception e) {
                 citations = 0;
-                university = details.substring(details.length() - name.length());
+                //university = details.substring(details.length() - name.length());
             }
             String str;
             str = url.split("user=")[1];
             userid = str.split("&")[0];
-            logger.debug("details =" + details);
+            //logger.debug("details =" + details);
             author.setName(name);
             author.setId(userid);
-            author.setUniversity(university);
+            author.setUniversityAndEmail(university);
             author.setTotalCitations(citations);
             author.setImagesrc(imglink);
             author.setProfilelink(url);
             authorList.add(author);
         }
-
-        //alr.setContents(authorList);
-
-
         q.setContents(authorList);
         return q;
     }
 
-    public QueryResult<Journal> extractJournalInfo(String src) {
+    /* Query_Type : JOURN_PROF*/
+    public QueryResult<Journal> extractMetricJournalInfo(String src) {
         doc = Jsoup.parse(src, "UTF-8");
         QueryResult<Journal> qj = new JournalResult();
         Journal journal = new Journal("");
@@ -625,5 +749,64 @@ public class Parser {
 //            logger.debug("##:" + p.getJournals().get(0).getName());
 //        }
         return qj;
+    }
+    
+    /* Query_Type : Met_JOURN*/
+    public QueryResult<ArrayList<Journal>> extractJournalListFromMetric(String src) {
+        QueryResult<ArrayList<Journal>> qjl = new JournalListResult();
+        ArrayList<Journal> alj = new ArrayList<>();
+        doc = Jsoup.parse(src, "UTF-8");
+        String title ="";
+        String h5link = "";
+        String h5i = "0";
+        String h5m = "0";
+        Elements items = doc.select("table#gs_cit_list_table");
+        if (!items.isEmpty()) {
+            for (Element item : items) {
+                //Elements rows = item.select("tr.cit-table item");
+                Elements rows = item.select("tr");  //extract all the rows in each such table
+                int count = 0;
+                if (!rows.isEmpty()) {
+                    for (Element row : rows) {
+                        count++;
+                        if (count == 1) {
+                            continue;   //if first row then skip because it contains just the headers
+                        }
+                        title = row.select("td.gs_title").get(0).text();
+                        try{
+                        h5i = row.select("td.gs_num").get(0).text();
+                        }
+                        catch(Exception e){
+                            
+                        }
+                        try{
+                        h5link = Constants.SCHOLAR_BASE_URL+row.select("td.gs_num").get(0).select("a").get(0).attr("href");
+                        }
+                        catch(Exception e){
+                            
+                        }
+                        try{
+                        h5m = row.select("td.gs_num").get(1).text();
+                        }
+                        catch(Exception e){
+                            
+                        }
+                        Journal jour = new Journal(title);
+                        jour.setH5Link(h5link);
+                        jour.setH5index(Integer.parseInt(h5i));
+                        jour.setH5median(Integer.parseInt(h5m));
+                        alj.add(jour);
+                    }
+
+                }
+            }
+        }
+        qjl.setContents(alj);
+//        for(Journal j:alj){
+//            logger.debug(j.getName());
+//            logger.debug(j.getH5index()+"-"+j.getH5Link());
+//            logger.debug(j.getH5median());
+//        }
+        return qjl;
     }
 }

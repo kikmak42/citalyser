@@ -12,31 +12,38 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 
 import citalyser.model.Author;
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.utils.UiUtils;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Tanmay Patil
  */
 public class AuthorProfileDisplayPanel extends javax.swing.JPanel {
-
+    static Logger logger = Logger.getLogger(AuthorProfileDisplayPanel.class.getName());
     /** Creates new form AuthorProfileDisplayPanel */
     public AuthorProfileDisplayPanel() {
         initComponents();
     }
 
-    public void AuthorProfileDisplayPanel(DisplayMaster displayMaster) {
-        this.displayMaster = displayMaster;
-    }
-
     public DisplayMaster getDisplayMaster() {
         return displayMaster;
     }
+        
+    public void setDisplayMaster(DisplayMaster displayMaster) {
+        this.displayMaster = displayMaster;
+    }
     
     public void displayAuthor(Author author) {
+        logger.debug("Author name : " + author.getName());
         jLabel3.setText(author.getName());
-        jLabel2.setText(author.getUniversity());
+        jLabel2.setText("<html>"+author.getDescription()+"<html>");
+        jLabel5.setText("H - Index : " + author.getHindex());
+        jLabel6.setText("I10 - Index : " + author.getIIndex());
         jLabel7.setText("Citations/Year :"+author.getCitesPerYear());
         jLabel8.setText("Citations/Paper :"+author.getCitesPerPaper());
+        UiUtils.displayImage(jLabel4, author.getGraphurl(),375,100);
+        UiUtils.displayImage(jLabel1, author.getImageSrc(),134,136);
     }
     
     private DisplayMaster displayMaster;
@@ -144,4 +151,15 @@ public class AuthorProfileDisplayPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     // End of variables declaration//GEN-END:variables
+
+    public void clear() {
+        jLabel1.setText("");
+        jLabel2.setText("");
+        jLabel3.setText("");
+        jLabel4.setText("");
+        jLabel5.setText("");
+        jLabel6.setText("");
+        jLabel7.setText("");
+        jLabel8.setText("");
+    }
 }

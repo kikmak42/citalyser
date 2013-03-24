@@ -4,12 +4,13 @@
  */
 package citalyser.ui.model;
 
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.CollapsibleListDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.GridDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ListDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ProfileDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel;
 
-/**
+/**AuthorProfile
  *
  * @author Tanmay Patil
  */
@@ -22,6 +23,14 @@ public interface ContentRenderer {
     public ProfileDisplayPanel getProfileDisplayPanel();
     
     public TableDisplayPanel getTableDisplayPanel();
+    
+    public CollapsibleListDisplayPanel getCollapsibleListDisplayPanel();
+    
+    public void showLoading();
+    
+    public void clearAll();
+    
+    public void flipToCollapsibleListDisplayPanel();
     
     public void flipToGridDisplayPanel();
     

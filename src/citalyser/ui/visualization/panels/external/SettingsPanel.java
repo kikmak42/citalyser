@@ -41,6 +41,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         this.displayMaster = displayMaster;
         proxyListPanel.setDisplayMaster(displayMaster);
         proxyPanel.setDisplayMaster(displayMaster);
+        cachePanel1.setDisplayMaster(displayMaster);
     }
             
     private DisplayMaster displayMaster;
@@ -59,6 +60,8 @@ public class SettingsPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         proxyListPanel = new citalyser.ui.visualization.panels.external.settingspanel.ProxyListPanel();
         proxyPanel = new citalyser.ui.visualization.panels.external.settingspanel.ProxyPanel();
+        jPanel3 = new javax.swing.JPanel();
+        cachePanel1 = new citalyser.ui.visualization.panels.external.settingspanel.CachePanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
@@ -71,6 +74,11 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Proxy Settings", jPanel1);
 
+        jPanel3.setLayout(new java.awt.BorderLayout());
+        jPanel3.add(cachePanel1, java.awt.BorderLayout.CENTER);
+
+        jTabbedPane1.addTab("Cache Settings", jPanel3);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -78,20 +86,23 @@ public class SettingsPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(297, Short.MAX_VALUE))
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private citalyser.ui.visualization.panels.external.settingspanel.CachePanel cachePanel1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private citalyser.ui.visualization.panels.external.settingspanel.ProxyListPanel proxyListPanel;
     private citalyser.ui.visualization.panels.external.settingspanel.ProxyPanel proxyPanel;

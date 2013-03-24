@@ -50,6 +50,7 @@ public class QueryHandler {
                 return cacheHandler.getAuthorList(queryUrl);
             case MET_JOURN:
                 queryUrl = UrlComposer.getMetJournUrl(q);
+               // logger.debug("@@##$$"+queryUrl);
                 return cacheHandler.getJournalList(queryUrl);
             case AUTH_PROF:
                 queryUrl = UrlComposer.getAuthProfUrl(q);
@@ -60,6 +61,9 @@ public class QueryHandler {
             case IMAGE_FROM_LINK:
                 queryUrl = q.url;
                 return cacheHandler.getImageFromLink(queryUrl);
+            case CITATIONS_LIST:
+                queryUrl = q.url;
+                return cacheHandler.getCitationsList(queryUrl);
             default : 
                 return null;
         }

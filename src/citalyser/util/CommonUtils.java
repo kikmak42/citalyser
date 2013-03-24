@@ -6,8 +6,14 @@
 package citalyser.util;
 
 import citalyser.util.CProxy;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.TableModel;
 import org.apache.log4j.Logger;
 
 public class CommonUtils {
@@ -36,5 +42,35 @@ public class CommonUtils {
     {
         CProxy cproxy = Config.getProxylist().get(0);
         return getJavaProxyFromCProxy(cproxy);
+    }
+    
+    public static void exportToCsv(TableModel model, File file){
+	try{
+		logger.info("Writing tables contents to CSV file: " + file.getAbsolutePath());
+		//TableModel model = table.getModel();
+
+		 //if(!file.canWrite()) file.setWritable(true);
+		FileWriter csvFile = new FileWriter(file,false);
+
+		for(int i = 0; i < model.getColumnCount(); i++){
+				csvFile.write(model.getColumnName(i) + ",");//for CSV
+				//csvFile.write(model.getColumnName(i) + ",");// for excel file
+		}
+
+		csvFile.write("\n");
+		for(int i=0; i< model.getRowCount(); i++) {
+			for(int j=0; j < model.getColumnCount(); j++) {
+				csvFile.write("\""+model.getValueAt(i,j).toString().replaceAll("\"","\"\"") +"\",");// for CSV
+				//csvFile.write(model.getValueAt(i,j).toString() +"\t");// for excel file
+			}
+			csvFile.write("\n");
+		}
+		System.out.println("Exiting write");
+		csvFile.close();
+	}catch(FileNotFoundException ex){
+            JOptionPane.showMessageDialog(null,"Permission Denied");
+        }catch(Exception e) { 
+		logger.info(e); 
+	}
     }
 }
