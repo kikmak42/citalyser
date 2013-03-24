@@ -28,10 +28,6 @@ public class ToolsPanel extends javax.swing.JPanel {
         initComponents();
     }
     
-    public int getNumResults(){
-        return Integer.parseInt(numResults.getText());
-    }
-    
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
     }
@@ -74,8 +70,6 @@ public class ToolsPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        numResults = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
 
@@ -85,17 +79,11 @@ public class ToolsPanel extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel1.setText(" ");
 
-        numResults.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        numResults.setText("10");
-
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Number of Results");
-
         jCheckBox1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
         jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setSelected(true);
         jCheckBox1.setText("Show Paper Preview");
+        jCheckBox1.setOpaque(false);
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox1ActionPerformed(evt);
@@ -114,11 +102,7 @@ public class ToolsPanel extends javax.swing.JPanel {
                 .addComponent(jCheckBox1)
                 .addGap(29, 29, 29)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(numResults, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -128,30 +112,11 @@ public class ToolsPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(numResults, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
                     .addComponent(jCheckBox1)
                     .addComponent(jLabel3))
                 .addContainerGap())
         );
-
-        numResults.getDocument().addDocumentListener( new DocumentListener()
-            {
-                public void changedUpdate(DocumentEvent e) { textChanged(e); }
-                public void insertUpdate(DocumentEvent e) { textChanged(e); }
-                public void removeUpdate(DocumentEvent e) { textChanged(e); }
-                private void textChanged(DocumentEvent e)
-                {
-                    try {
-                        displayMaster.setNumberOfResults(Integer.parseInt(numResults.getText()));
-                        displayMaster.displayStatusMessage(" ");
-                    } catch (NumberFormatException ex) {
-                        displayMaster.setNumberOfResults(100);
-                        displayMaster.displayStatusMessage("Please enter a valid integer");
-                    }
-                }
-            } );
-        }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         displayMaster.setDisplayPreview(jCheckBox1.isSelected());
@@ -160,8 +125,6 @@ public class ToolsPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField numResults;
     // End of variables declaration//GEN-END:variables
 }
