@@ -890,6 +890,7 @@ public class Parser {
                         String authors_list = "";
                         String authorNames = "";
                         String desc = "";
+                        String deta= "";
                         String cited_by_count = "0";
                         String cited_by_link = "";
                         String year = "0";
@@ -940,6 +941,7 @@ public class Parser {
                                 paper_authors.add(paper_author);
                             }
                         }
+                        deta+=authors_list;
                         papr.setAuthors(paper_authors); //extracting the names of the authors
                         Elements desc_section = row.select("span.gs_pub");
                         if (!desc_section.isEmpty()) {
@@ -951,6 +953,7 @@ public class Parser {
                             }
                         }
                         Journal j = new Journal(desc);
+                        
                         jrnl.add(j);
                         papr.setJournals(jrnl);
                         //extracting the citation count and citedby link and year for the paper published in this journal
@@ -982,6 +985,10 @@ public class Parser {
                                 year = "0";
                             }
                         }
+                        if(!year.equals("0"))
+                            deta+="-"+year;
+                        deta+="-"+desc;
+                        papr.setInfo(deta);
                         papr.setYear(Integer.parseInt(year));
                         papr.setCitedByUrl(cited_by_link);
                         papr.setNumCites(Integer.parseInt(cited_by_count));
