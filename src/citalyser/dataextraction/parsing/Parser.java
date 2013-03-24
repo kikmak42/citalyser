@@ -984,14 +984,14 @@ public class Parser {
             }
         }
         qj.setContents(pc);
-//        for (Paper p : qj.getContents().getPaperCollection().getPapers()) {
-//            logger.debug("@@@@:" + p.getTitle());
-//            logger.debug("####:" + p.getAuthors().get(0).getName());
-//            logger.debug("@@@:" + p.getcitedByUrl());
-//            logger.debug("###:" + p.getYear());
-//            logger.debug("@@:" + p.getNumCites());
-//            logger.debug("##:" + p.getJournals().get(0).getName());
-//        }
+        for (Paper p : qj.getContents().getPapers()) {
+            logger.debug("@@@@:" + p.getTitle());
+            logger.debug("####:" + p.getAuthors().get(0).getName());
+            logger.debug("@@@:" + p.getcitedByUrl());
+            logger.debug("###:" + p.getYear());
+            logger.debug("@@:" + p.getNumCites());
+            logger.debug("##:" + p.getJournals().get(0).getName());
+        }
         return qj;
 
     }
