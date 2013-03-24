@@ -81,7 +81,7 @@ public class GridDisplayPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void clear() {
-        gridEntityPanels.clear();
         jPanel1.removeAll();
+        gridEntityPanels.clear();
     }
 }

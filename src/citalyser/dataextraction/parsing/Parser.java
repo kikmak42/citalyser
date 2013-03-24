@@ -58,7 +58,7 @@ public class Parser {
             ArrayList<Journal> journalsinPaper = new ArrayList<>();
 
             Paper insertInextractedpapers = new Paper();
-            Journal journalinpaper = new Journal(null);
+            Journal journalinpaper = new Journal("");
 
 
             Elements title_section = item.select("h3>a");

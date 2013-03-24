@@ -14,6 +14,7 @@ import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.util.CommonUtils;
+import java.awt.Point;
 import java.io.File;
 import java.util.Vector;
 import javax.swing.JFileChooser;
@@ -74,7 +75,7 @@ public class PaperTableDisplayPanel extends javax.swing.JPanel {
     
     private DisplayMaster displayMaster;
     private PaperCollection paperCollection;
-    private int disabledRow;
+    private int disabledRow, previousRow = -1;
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -92,7 +93,7 @@ public class PaperTableDisplayPanel extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         jTable1.setAutoCreateRowSorter(true);
-        jTable1.setFont(new java.awt.Font("Arial", 0, 11));
+        jTable1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jTable1.setForeground(new java.awt.Color(51, 51, 51));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -125,6 +126,17 @@ public class PaperTableDisplayPanel extends javax.swing.JPanel {
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTable1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jTable1MouseExited(evt);
+            }
+        });
+        jTable1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jTable1MouseMoved(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -159,6 +171,32 @@ public class PaperTableDisplayPanel extends javax.swing.JPanel {
             displayMaster.tableClicked(paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint())));
         }
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTable1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseEntered
+        previousRow = jTable1.rowAtPoint(evt.getPoint());
+        if (previousRow > -1) {
+            displayMaster.showPaperInfo(paperCollection.getPapers().get(previousRow), new Point(evt.getLocationOnScreen().x + 10, evt.getLocationOnScreen().y + 10));
+        }
+    }//GEN-LAST:event_jTable1MouseEntered
+
+    private void jTable1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseExited
+        displayMaster.hidePaperInfo();
+        previousRow = -1;
+    }//GEN-LAST:event_jTable1MouseExited
+
+    private void jTable1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseMoved
+        //displayMaster.movePaperInfoTo(new Point(evt.getLocationOnScreen().x + 5, evt.getLocationOnScreen().y + 5));
+        int currentRow = jTable1.rowAtPoint(evt.getPoint());
+        if (currentRow > -1) {
+            if (currentRow != previousRow) {
+                displayMaster.showPaperInfo(paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint())), new Point(evt.getLocationOnScreen().x + 10, evt.getLocationOnScreen().y + 10));
+            } else {
+                displayMaster.movePaperInfoTo(new Point(evt.getLocationOnScreen().x + 10, evt.getLocationOnScreen().y + 10));
+            }
+            previousRow = currentRow;
+        }
+    }//GEN-LAST:event_jTable1MouseMoved
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;

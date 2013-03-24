@@ -31,7 +31,15 @@ public class TableModelHandler {
             if (papers.get(i).getJournals() == null) {
                 data[i][5] = "Empty";
             } else {
-                data[i][5] = papers.get(i).getJournals().get(0).getName();
+                if (papers.get(i).getJournals().isEmpty()) {
+                    data[i][5] = "Empty";
+                } else {
+                    if (papers.get(i).getJournals().get(0).getName() == null) {
+                        data[i][5] = "Empty";
+                    } else {
+                        data[i][5] = papers.get(i).getJournals().get(0).getName();
+                    }
+                }
             }
         }
 
@@ -45,6 +53,7 @@ public class TableModelHandler {
 
             public Class getColumnClass(int c) {
                 if (getRowCount() > 0) {
+                    System.out.println(c + ", " + getValueAt(0, c));
                     return getValueAt(0, c).getClass();
                 } else {
                     return Object.class;

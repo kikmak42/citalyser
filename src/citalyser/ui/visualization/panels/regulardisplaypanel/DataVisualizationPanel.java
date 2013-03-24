@@ -77,5 +77,6 @@ public class DataVisualizationPanel extends javax.swing.JPanel {
     public void clearAll() {
         contentDisplayPanel.clearAll();
         displayMaster.clearCitationHistory();
+        System.gc();
     }
 }

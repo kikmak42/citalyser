@@ -25,6 +25,9 @@ public class RenderMaster {
         if (arrayList != null) {
             //contentRenderer.clearAll();
             for (Author author : arrayList) {
+                if (Thread.interrupted()) {
+                    break;
+                }
                 contentRenderer.getGridDisplayPanel().addGridEntityPanel(new GridEntityPanel(author));
             }
             contentRenderer.flipToGridDisplayPanel();
@@ -45,7 +48,7 @@ public class RenderMaster {
 
     public void render(ContentRenderer contentRenderer, Author author) {
         if (author != null) {
-            contentRenderer.clearAll();
+            //contentRenderer.clearAll();
             contentRenderer.getTableDisplayPanel().setTable(author.getPaperCollection());
             contentRenderer.flipToTableDisplayPanel();
         } else {
@@ -66,12 +69,15 @@ public class RenderMaster {
 
     public void renderCitationsList(ContentRenderer contentRenderer, ArrayList<Paper> papers) {
         if (papers != null) {
-            contentRenderer.clearAll();
+            //contentRenderer.clearAll();
             /*
              contentRenderer.getListDisplayPanel().setList(papers,ListModelHandler.getListModel(papers));
              contentRenderer.flipToListDisplayPanel();
              */
             for (Paper p : papers) {
+                if (Thread.interrupted()) {
+                    break;
+                }
                 contentRenderer.getCollapsibleListDisplayPanel().addCollapsibleListEntityPanel(new CollapsibleListEntityPanel(p));
             }
             contentRenderer.flipToCollapsibleListDisplayPanel();
@@ -93,6 +99,7 @@ public class RenderMaster {
     
     public void renderJournal(ContentRenderer contentRenderer, PaperCollection papercollection) {
         if (papercollection != null) {
+            contentRenderer.clearAll();
             contentRenderer.getProfileDisplayPanel().displayJournalProfile(papercollection);
             contentRenderer.flipToProfileDisplayPanel();
         } else {

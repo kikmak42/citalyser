@@ -1,4 +1,3 @@
-
 package citalyser.ui.control.masters;
 
 import citalyser.Constants;
@@ -57,7 +56,6 @@ public class SearchMaster {
     }
 
     public void searchButtonClicked(SearchPanel searchPanel) {
-        final SearchPanel mySearchPanel = searchPanel;
         if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
             if (!searchPanel.getSearchString().equals(" Enter Your Search Query Here") && !searchPanel.getSearchString().equals("")) {
                 handleUserQuery(searchPanel);
@@ -105,8 +103,7 @@ public class SearchMaster {
         }
     }
 
-    private void fetchResults(final Query q,final int maxResultsAtOneTime,final int numResults)
-    {
+    private void fetchResults(final Query q, final int maxResultsAtOneTime, final int numResults) {
         Thread thread = new Thread() {
 
             @Override
@@ -120,21 +117,19 @@ public class SearchMaster {
                 int totalCount = numResults;
                 int count = maxResultsAtOneTime;
                 int start = 0;
-                logger.debug("TotalCount : "+totalCount);
-                while (!Thread.interrupted()) 
-                {
+                logger.debug("TotalCount : " + totalCount);
+                while (!Thread.interrupted()) {
                     logger.debug("Start : " + start + "--  Count : " + count);
                     if (start >= totalCount) {
-                       // currResult = QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel, start, totalCount - start));
-                       // globalResult.appendContents(currResult.getContents());
-                       // displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), currResult);
+                        // currResult = QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel, start, totalCount - start));
+                        // globalResult.appendContents(currResult.getContents());
+                        // displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), currResult);
                         break;
                     }
                     q.start_result = start;
-                    q.num_results = Math.min(count,totalCount - start);
+                    q.num_results = Math.min(count, totalCount - start);
                     currResult = QueryHandler.getInstance().getQueryResult(q);
-                    if(currResult == null)
-                    {
+                    if (currResult == null) {
                         logger.debug("Curr Result is null");
                         break;
                     }
@@ -145,11 +140,13 @@ public class SearchMaster {
                     }
                     logger.debug("Flag : " + q.flag);
                     logger.debug("Curr Result Type : " + currResult.getClass().getName());
-                    if(q.flag == QueryType.MET_AUTH && currResult instanceof AuthorListResult)
-                    {
-                        ArrayList<Author> authors = (ArrayList<Author>)(currResult.getContents());
+                    if (q.flag == QueryType.MET_AUTH && currResult instanceof AuthorListResult) {
+                        ArrayList<Author> authors = (ArrayList<Author>) (currResult.getContents());
                         q.url = authors.get(0).getNextLink();
                         logger.debug("Url : " + q.url);
+                    }
+                    if (Thread.interrupted()) {
+                        break;
                     }
                     displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), currResult);
                     start += count;
@@ -160,9 +157,8 @@ public class SearchMaster {
         thread.start();
         displayMaster.addThread(thread);
     }
-    
-    private void handleUserQuery(SearchPanel searchPanel)
-    {
+
+    private void handleUserQuery(SearchPanel searchPanel) {
         /* Input from the User Parameters */
         int maxResults;
         String searchQuery = searchPanel.getSearchString();
@@ -172,66 +168,48 @@ public class SearchMaster {
         boolean sortByYear = searchPanel.getComboSelection();
         boolean isAuthorQuery = displayMaster.checkAuthorMode();
         boolean isMetricQuery = searchPanel.getRadioButtonInfo();
-        
+
         /* Process the query*/
         Query q;
         if (isAuthorQuery) {
             if (isMetricQuery) {
                 //Search for Metrics Author
                 maxResults = Constants.MaxResultsNum.AUTHOR_LIST.getValue();
-                q = new Query.Builder(searchQuery)
-                            .flag(QueryType.MET_AUTH)
-                            .minYear(minYear)
-                            .maxYear(maxYear)
-                            .Url(null)
-                            .build();
+                q = new Query.Builder(searchQuery).flag(QueryType.MET_AUTH).minYear(minYear).maxYear(maxYear).Url(null).build();
             } else {
                 //Search for General Author papers
                 maxResults = Constants.MaxResultsNum.GENERAL_LIST.getValue();
-                q = new Query.Builder(searchQuery)
-                            .flag(QueryType.GEN_AUTH)
-                            .minYear(minYear)
-                            .maxYear(maxYear)
-                            .sortFlag(sortByYear)
-                            .build();
+                q = new Query.Builder(searchQuery).flag(QueryType.GEN_AUTH).minYear(minYear).maxYear(maxYear).sortFlag(sortByYear).build();
             }
         } else {
             // Journal Query
             if (isMetricQuery) {
                 //Fetch Journal Papers from Metric
                 maxResults = Constants.MaxResultsNum.METRICS_JOURNAL_PAPERS.getValue();
-                q = new Query.Builder(searchQuery)
-                       .flag(QueryType.MET_JOURN)
-                       .minYear(minYear)
-                       .maxYear(maxYear)
-                       .sortFlag(sortByYear).build();
+                q = new Query.Builder(searchQuery).flag(QueryType.MET_JOURN).minYear(minYear).maxYear(maxYear).sortFlag(sortByYear).build();
             } else {
                 //Fetch Journals from Metric
-                 maxResults = Constants.MaxResultsNum.JOURNAL_LIST.getValue();
-                 q = new Query.Builder(searchQuery)
-                          .flag(QueryType.GEN_JOURN)
-                          .minYear(minYear)
-                          .maxYear(maxYear)
-                          .build();
+                maxResults = Constants.MaxResultsNum.JOURNAL_LIST.getValue();
+                q = new Query.Builder(searchQuery).flag(QueryType.GEN_JOURN).minYear(minYear).maxYear(maxYear).build();
             }
         }
         fetchResults(q, maxResults, numResults);
     }
     /* This method has been deprecated now. Do not use this method.*/
- /*   public Query createQuery(SearchPanel searchPanel, int start, int count) {
-
-        if (displayMaster.checkAuthorMode()) {
-            if (searchPanel.getRadioButtonInfo()) {
-                return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_AUTH).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).build();
-            } else {
-                return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_AUTH).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).build();
-            }
-        } else {
-            if (searchPanel.getRadioButtonInfo()) {
-                return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_JOURN).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).build();
-            } else {
-                return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_JOURN).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).sortFlag(searchPanel.getComboSelection()).build();
-            }
-        }
+    /*   public Query createQuery(SearchPanel searchPanel, int start, int count) {
+    
+    if (displayMaster.checkAuthorMode()) {
+    if (searchPanel.getRadioButtonInfo()) {
+    return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_AUTH).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).build();
+    } else {
+    return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_AUTH).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).build();
+    }
+    } else {
+    if (searchPanel.getRadioButtonInfo()) {
+    return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_JOURN).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).build();
+    } else {
+    return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_JOURN).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).sortFlag(searchPanel.getComboSelection()).build();
+    }
+    }
     } */
 }
