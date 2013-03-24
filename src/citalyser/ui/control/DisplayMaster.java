@@ -577,4 +577,8 @@ public class DisplayMaster {
             }
         }.start();
     }
+
+    public void showLoading() {
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
+    }
 }

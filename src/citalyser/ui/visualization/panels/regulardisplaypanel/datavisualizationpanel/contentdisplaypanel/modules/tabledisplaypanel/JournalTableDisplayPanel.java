@@ -144,6 +144,7 @@ public class JournalTableDisplayPanel extends javax.swing.JPanel {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         if (jTable1.rowAtPoint(evt.getPoint()) > -1 && disabledRow != jTable1.rowAtPoint(evt.getPoint())) {
             disabledRow = jTable1.rowAtPoint(evt.getPoint());
+            displayMaster.showLoading();
             displayMaster.tableClicked(journals.get(jTable1.rowAtPoint(evt.getPoint())));
         }
     }//GEN-LAST:event_jTable1MouseClicked
