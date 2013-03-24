@@ -15,6 +15,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.util.Vector;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 
 /**
@@ -52,6 +53,8 @@ public class SearchPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jProgressBar1 = new javax.swing.JProgressBar();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -194,6 +197,27 @@ public class SearchPanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
         gridBagConstraints.weighty = 1.0;
         add(jPanel4, gridBagConstraints);
+
+        jPanel5.setMinimumSize(new java.awt.Dimension(180, 30));
+        jPanel5.setPreferredSize(new java.awt.Dimension(150, 20));
+        jPanel5.setVisible(false);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 30, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
+        );
+
+        add(jPanel5, new java.awt.GridBagConstraints());
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
@@ -274,7 +298,12 @@ public class SearchPanel extends javax.swing.JPanel {
     public JPanel getButtonPanel(){
         return ButtonPanel;
     }
-    
+    public JProgressBar getProgressBar(){
+        return jProgressBar1;
+    }
+    public JPanel getProgressBarPanel(){
+        return jPanel5;
+    }
     public void setSearchString(String searchString) {
         jTextField1.setForeground(Color.BLACK);
         jTextField1.setText(searchString);
@@ -303,6 +332,8 @@ public class SearchPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTextField jTextField1;

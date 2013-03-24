@@ -112,15 +112,18 @@ public class SearchMaster {
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(false);
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
                 mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(false);
-
+                displayMaster.displayInfoMessage("Fetching results for '"+mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getSearchString()+"'...");
                 QueryResult globalResult = null, currResult;
                 int totalCount = numResults;
                 int count = maxResultsAtOneTime;
                 int start = 0;
+                int state = 0;
                 logger.debug("TotalCount : " + totalCount);
                 while (!Thread.interrupted()) {
                     logger.debug("Start : " + start + "--  Count : " + count);
                     if (start >= totalCount) {
+                        mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getProgressBar().setValue(0);
+                        mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getProgressBarPanel().setVisible(false);
                         // currResult = QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel, start, totalCount - start));
                         // globalResult.appendContents(currResult.getContents());
                         // displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), currResult);
@@ -128,6 +131,9 @@ public class SearchMaster {
                     }
                     q.start_result = start;
                     q.num_results = Math.min(count, totalCount - start);
+                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getProgressBarPanel().setVisible(true);
+                    state=((start+count)/totalCount)*100;
+                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getProgressBar().setValue(state);
                     currResult = QueryHandler.getInstance().getQueryResult(q);
                     if (currResult == null) {
                         logger.debug("Curr Result is null");
@@ -158,6 +164,7 @@ public class SearchMaster {
                     start += count;
                 }
                 mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(true);
+                displayMaster.displayInfoMessage("Displaying "+totalCount+" results for '"+mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getSearchString()+"'");
             }
         };
         thread.start();
