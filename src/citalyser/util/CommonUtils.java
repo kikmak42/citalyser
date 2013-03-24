@@ -5,6 +5,7 @@
 
 package citalyser.util;
 
+import citalyser.model.query.QueryType;
 import citalyser.util.CProxy;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -72,5 +73,14 @@ public class CommonUtils {
         }catch(Exception e) { 
 		logger.info(e); 
 	}
+    }
+    
+    public static QueryType getQueryFlagFromUrl(String url)
+    {
+        String domain = url.split("?")[0];
+        if(domain.contains("citations"))
+            return QueryType.CITATIONS_LIST_METRIC;
+        else 
+            return QueryType.CITATIONS_LIST;
     }
 }
