@@ -91,7 +91,7 @@ public class RenderMaster {
             contentRenderer.flipToListDisplayPanel();
              */
             if (papers.isEmpty()) {
-                contentRenderer.displayMessage("Could not fetch citations list");
+                contentRenderer.displayMessage("Citation Count is 0. So No Citations to display.");
             }
             for (Paper p : papers) {
                 if (Thread.interrupted()) {
