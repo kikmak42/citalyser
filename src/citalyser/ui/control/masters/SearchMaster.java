@@ -176,7 +176,7 @@ public class SearchMaster {
         /* Input from the User Parameters */
         int maxResults;
         String searchQuery = searchPanel.getSearchString();
-        int numResults = mainFrame.getRegularDisplayPanel().getToolsPanel().getNumResults();
+        int numResults = mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getNumResults();
         int minYear = displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue();
         int maxYear = displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue();
         boolean sortByYear = searchPanel.getComboSelection();

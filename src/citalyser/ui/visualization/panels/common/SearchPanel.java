@@ -17,6 +17,8 @@ import java.util.Vector;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -28,6 +30,10 @@ public class SearchPanel extends javax.swing.JPanel {
     public SearchPanel() {
         autoCompleteSuggestions = new Vector<>();
         initComponents();
+    }
+    
+    public int getNumResults(){
+        return Integer.parseInt(numResults.getText());
     }
 
     /** This method is called from within the constructor to
@@ -59,6 +65,8 @@ public class SearchPanel extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
+        numResults = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -187,11 +195,11 @@ public class SearchPanel extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 127, Short.MAX_VALUE)
+            .addGap(0, 105, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 22, Short.MAX_VALUE)
+            .addGap(0, 20, Short.MAX_VALUE)
         );
 
         jPanel5.add(jPanel6, "card3");
@@ -199,35 +207,67 @@ public class SearchPanel extends javax.swing.JPanel {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sort By Year", "Sort By Citations" }));
         jPanel5.add(jComboBox1, "card2");
 
-        javax.swing.GroupLayout ButtonPanelLayout = new javax.swing.GroupLayout(ButtonPanel);
-        ButtonPanel.setLayout(ButtonPanelLayout);
-        ButtonPanelLayout.setHorizontalGroup(
-            ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ButtonPanelLayout.createSequentialGroup()
-                .addComponent(jRadioButton1)
-                .addGap(93, 93, 93)
-                .addComponent(jRadioButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(163, 163, 163))
-        );
-        ButtonPanelLayout.setVerticalGroup(
-            ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(ButtonPanelLayout.createSequentialGroup()
-                .addGroup(ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        numResults.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        numResults.setText("100");
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
-        gridBagConstraints.weighty = 1.0;
-        add(ButtonPanel, gridBagConstraints);
-    }// </editor-fold>//GEN-END:initComponents
+        jLabel2.setText("Number of Results");
+
+        numResults.getDocument().addDocumentListener( new DocumentListener()
+            {
+                @Override
+                public void changedUpdate(DocumentEvent e) { textChanged(e); }
+                @Override
+                public void insertUpdate(DocumentEvent e) { textChanged(e); }
+                @Override
+                public void removeUpdate(DocumentEvent e) { textChanged(e); }
+                private void textChanged(DocumentEvent e)
+                {
+                    try {
+                        displayMaster.setNumberOfResults(Integer.parseInt(numResults.getText()));
+                        displayMaster.displayStatusMessage(" ");
+                    } catch (NumberFormatException ex) {
+                        displayMaster.setNumberOfResults(100);
+                        displayMaster.displayStatusMessage("Please enter a valid integer");
+                    }
+                }
+            } );
+
+            javax.swing.GroupLayout ButtonPanelLayout = new javax.swing.GroupLayout(ButtonPanel);
+            ButtonPanel.setLayout(ButtonPanelLayout);
+            ButtonPanelLayout.setHorizontalGroup(
+                ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ButtonPanelLayout.createSequentialGroup()
+                    .addComponent(jRadioButton1)
+                    .addGap(93, 93, 93)
+                    .addComponent(jRadioButton2)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 219, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel2)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(numResults, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+            );
+            ButtonPanelLayout.setVerticalGroup(
+                ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(ButtonPanelLayout.createSequentialGroup()
+                    .addGroup(ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jRadioButton1)
+                        .addComponent(jRadioButton2)
+                        .addGroup(ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(numResults)
+                                .addComponent(jLabel2))))
+                    .addContainerGap())
+            );
+
+            gridBagConstraints = new java.awt.GridBagConstraints();
+            gridBagConstraints.gridx = 0;
+            gridBagConstraints.gridy = 0;
+            gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
+            gridBagConstraints.weighty = 1.0;
+            add(ButtonPanel, gridBagConstraints);
+        }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
         // TODO add your handling code here:
@@ -352,7 +392,6 @@ public class SearchPanel extends javax.swing.JPanel {
         }
     }
 
-
     private boolean empty = true;
     private DisplayMaster displayMaster;
     private Vector<String> autoCompleteSuggestions;
@@ -366,6 +405,7 @@ public class SearchPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -377,5 +417,6 @@ public class SearchPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField numResults;
     // End of variables declaration//GEN-END:variables
 }
