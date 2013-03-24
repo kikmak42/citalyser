@@ -90,6 +90,9 @@ public class RenderMaster {
             contentRenderer.getListDisplayPanel().setList(papers,ListModelHandler.getListModel(papers));
             contentRenderer.flipToListDisplayPanel();
              */
+            if (papers.isEmpty()) {
+                contentRenderer.displayMessage("Could not fetch citations list");
+            }
             for (Paper p : papers) {
                 if (Thread.interrupted()) {
                     break;
@@ -116,8 +119,16 @@ public class RenderMaster {
     public void renderJournal(ContentRenderer contentRenderer, PaperCollection papercollection) {
         if (papercollection != null) {
             contentRenderer.clearAll();
-            contentRenderer.getProfileDisplayPanel().displayJournalProfile(papercollection);
-            contentRenderer.flipToProfileDisplayPanel();
+            if (papercollection.getPapers() == null) {
+                contentRenderer.displayMessage("Could not fetch journal result");
+            } else {
+                if (papercollection.getPapers().isEmpty()) {
+                    contentRenderer.displayMessage("Could not fetch journal result");
+                } else {
+                    contentRenderer.getProfileDisplayPanel().displayJournalProfile(papercollection);
+                    contentRenderer.flipToProfileDisplayPanel();
+                }
+            }
         } else {
             contentRenderer.displayMessage("Could not fetch journal result");
         }

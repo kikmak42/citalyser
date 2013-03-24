@@ -329,8 +329,9 @@ public class DisplayMaster {
         }
     }
 
-    public void MetrictableClicked(Paper paper) {
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
+    public void metricTableClicked(Paper paper) {
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
         final Paper myPaper = paper;
         citationListHistory.clear();
         citationListHistory.addPaper(paper);
