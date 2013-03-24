@@ -168,7 +168,7 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         if (jTable1.rowAtPoint(evt.getPoint()) > -1 && jTable1.rowAtPoint(evt.getPoint()) != disabledRow) {
             disabledRow = jTable1.rowAtPoint(evt.getPoint());
-            displayMaster.tableClicked(paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint())));
+            displayMaster.MetrictableClicked(paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint())));
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
