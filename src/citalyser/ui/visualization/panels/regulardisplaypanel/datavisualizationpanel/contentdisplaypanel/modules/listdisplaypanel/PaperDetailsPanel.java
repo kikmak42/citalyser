@@ -8,9 +8,11 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 import citalyser.model.Paper;
 import citalyser.ui.control.DisplayMaster;
 import java.awt.Cursor;
+import org.apache.log4j.Logger;
 
 public class PaperDetailsPanel extends javax.swing.JPanel {
-
+    
+    static Logger logger = Logger.getLogger(PaperDetailsPanel.class);
     /**
      * Creates new form PaperDetailsPanel
      */
@@ -28,8 +30,10 @@ public class PaperDetailsPanel extends javax.swing.JPanel {
     {
         this.paperTitleLbl.setText("<html>"+paper.getTitle()+"</html>");
         this.paperinfolbl.setText("<html>"+paper.getInfo()+"<html>");
-        this.paperAbstractLbl.setText("<html>"+paper.getAbstract()+"<html>");
+        if(paper.getAbstract() != null)
+            this.paperAbstractLbl.setText("<html>"+paper.getAbstract()+"<html>");
         this.paperCitedByLbl.setText("Cited By : " + paper.getNumCites());
+        logger.debug("Citations : " + paper.getNumCites());
         if(paper.getNumCites() > 0)
         {
             this.viewCitationsLbl.setVisible(true);

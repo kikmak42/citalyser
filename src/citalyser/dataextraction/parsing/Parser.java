@@ -941,14 +941,13 @@ public class Parser {
                         Elements cited_year_section = row.select("td.gs_num");
                         if (!cited_year_section.isEmpty()) {
 
-                            Elements cited_by_tags;
+                            Elements cited_by_tags = new Elements();
                             try {
                                 cited_by_count = cited_year_section.get(0).text();
                                 cited_by_tags = cited_year_section.get(0).select("a");
                                 if(cited_by_tags.isEmpty())
                                     throw new Exception();
                             } catch (Exception e) {
-                                cited_by_tags = null;
                                 cited_by_count = "0";
                                 cited_by_link = "";
                             }
@@ -984,14 +983,14 @@ public class Parser {
             }
         }
         qj.setContents(pc);
-//        for (Paper p : qj.getContents().getPaperCollection().getPapers()) {
-//            logger.debug("@@@@:" + p.getTitle());
-//            logger.debug("####:" + p.getAuthors().get(0).getName());
-//            logger.debug("@@@:" + p.getcitedByUrl());
-//            logger.debug("###:" + p.getYear());
-//            logger.debug("@@:" + p.getNumCites());
-//            logger.debug("##:" + p.getJournals().get(0).getName());
-//        }
+        for (Paper p : qj.getContents().getPapers()) {
+            logger.debug("@@@@:" + p.getTitle());
+            logger.debug("####:" + p.getAuthors().get(0).getName());
+            logger.debug("@@@:" + p.getcitedByUrl());
+            logger.debug("###:" + p.getYear());
+            logger.debug("@@:" + p.getNumCites());
+            logger.debug("##:" + p.getJournals().get(0).getName());
+        }
         return qj;
 
     }
