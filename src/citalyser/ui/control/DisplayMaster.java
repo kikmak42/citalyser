@@ -468,10 +468,12 @@ public class DisplayMaster {
     }
 
     public void renderCitationsList(ContentRenderer contentRenderer, ArrayList<Paper> papers) {
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
         renderMaster.renderCitationsList(contentRenderer, papers);
     }
 
     public void renderProfile(ContentRenderer contentRenderer, Author author) {
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
         renderMaster.renderProfile(contentRenderer, author);
     }
 

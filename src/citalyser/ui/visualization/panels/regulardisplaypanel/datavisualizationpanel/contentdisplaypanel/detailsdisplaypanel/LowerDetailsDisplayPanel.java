@@ -106,6 +106,7 @@ public class LowerDetailsDisplayPanel extends javax.swing.JPanel implements Cont
         profileDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ProfileDisplayPanel();
         collapsibleListDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.CollapsibleListDisplayPanel();
         loadingDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.LoadingDisplayPanel();
+        messageDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.MessageDisplayPanel();
         tableDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel();
 
         setLayout(new java.awt.CardLayout());
@@ -142,14 +143,27 @@ public class LowerDetailsDisplayPanel extends javax.swing.JPanel implements Cont
         loadingDisplayPanel.setLayout(loadingDisplayPanelLayout);
         loadingDisplayPanelLayout.setHorizontalGroup(
             loadingDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+            .addGap(0, 418, Short.MAX_VALUE)
         );
         loadingDisplayPanelLayout.setVerticalGroup(
             loadingDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 311, Short.MAX_VALUE)
+            .addGap(0, 309, Short.MAX_VALUE)
         );
 
         add(loadingDisplayPanel, "loadingDisplayPanelCard");
+
+        javax.swing.GroupLayout messageDisplayPanelLayout = new javax.swing.GroupLayout(messageDisplayPanel);
+        messageDisplayPanel.setLayout(messageDisplayPanelLayout);
+        messageDisplayPanelLayout.setHorizontalGroup(
+            messageDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 420, Short.MAX_VALUE)
+        );
+        messageDisplayPanelLayout.setVerticalGroup(
+            messageDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 311, Short.MAX_VALUE)
+        );
+
+        add(messageDisplayPanel, "messageDisplayPanelCard");
         add(tableDisplayPanel, "tableDisplayPanelCard");
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -157,6 +171,7 @@ public class LowerDetailsDisplayPanel extends javax.swing.JPanel implements Cont
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.GridDisplayPanel gridDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ListDisplayPanel listDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.LoadingDisplayPanel loadingDisplayPanel;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.MessageDisplayPanel messageDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.ProfileDisplayPanel profileDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel tableDisplayPanel;
     // End of variables declaration//GEN-END:variables
@@ -174,5 +189,11 @@ public class LowerDetailsDisplayPanel extends javax.swing.JPanel implements Cont
         listDisplayPanel.clear();
         collapsibleListDisplayPanel.clear();
         profileDisplayPanel.clear();
+    }
+
+    @Override
+    public void displayMessage(String message) {
+        ((java.awt.CardLayout) this.getLayout()).show(this, "messageDisplayPanelCard");
+        messageDisplayPanel.setMessage(message);
     }
 }
