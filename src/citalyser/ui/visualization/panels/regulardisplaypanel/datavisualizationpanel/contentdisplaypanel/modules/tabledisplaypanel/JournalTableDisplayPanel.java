@@ -58,6 +58,10 @@ public class JournalTableDisplayPanel extends javax.swing.JPanel {
         } else {
             this.journals = journalList;
         }
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(35);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jTable1.getColumnModel().getColumn(2).setMaxWidth(65);
+        jTable1.getColumnModel().getColumn(3).setMaxWidth(65);
         jTable1.repaint();
     }
     private DisplayMaster displayMaster;

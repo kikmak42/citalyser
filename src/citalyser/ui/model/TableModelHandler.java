@@ -64,7 +64,7 @@ public class TableModelHandler {
     }
 
     public static TableModel getTableModel(ArrayList<Journal> journal) {
-        String[] columnNames = {"S.No.", "Name Of Journal", "h5-index", "h5-median"};
+        String[] columnNames = {"S.No", "Name Of Journal", "h5-index", "h5-median"};
         Object[][] data = new Object[journal.size()][columnNames.length];
         for (int i = 0; i < journal.size(); i++) {
             data[i][0] = i + 1;
