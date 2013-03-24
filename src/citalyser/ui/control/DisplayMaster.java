@@ -329,8 +329,9 @@ public class DisplayMaster {
         }
     }
 
-    public void MetrictableClicked(Paper paper) {
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
+    public void metricTableClicked(Paper paper) {
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
         final Paper myPaper = paper;
         citationListHistory.clear();
         citationListHistory.addPaper(paper);
@@ -467,10 +468,12 @@ public class DisplayMaster {
     }
 
     public void renderCitationsList(ContentRenderer contentRenderer, ArrayList<Paper> papers) {
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
         renderMaster.renderCitationsList(contentRenderer, papers);
     }
 
     public void renderProfile(ContentRenderer contentRenderer, Author author) {
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
         renderMaster.renderProfile(contentRenderer, author);
     }
 

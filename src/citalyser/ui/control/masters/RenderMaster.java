@@ -20,10 +20,14 @@ import java.util.ArrayList;
  * @author Tanmay Patil
  */
 public class RenderMaster {
-    
+
     public void render(ContentRenderer contentRenderer, ArrayList<Author> arrayList) {
         if (arrayList != null) {
             //contentRenderer.clearAll();
+            if (arrayList.isEmpty()) {
+                contentRenderer.displayMessage("<html>Did not find any author search results matching the search query. Try Author Papers Search");
+                return;
+            }
             for (Author author : arrayList) {
                 if (Thread.interrupted()) {
                     break;
@@ -32,17 +36,21 @@ public class RenderMaster {
             }
             contentRenderer.flipToGridDisplayPanel();
         } else {
-            Main.getDisplayController().displayErrorMessage("Null Author List");
+            contentRenderer.displayMessage("<html>Did not find any author search results matching the search query. Try Author Papers Search");
         }
     }
 
     public void renderJournalMetrics(ContentRenderer contentRenderer, ArrayList<Journal> arrayList) {
         if (arrayList != null) {
             //contentRenderer.clearAll();
+            if (arrayList.isEmpty()) {
+                contentRenderer.displayMessage("Could not fetch journals list");
+                return;
+            }
             contentRenderer.getTableDisplayPanel().setJournalTable(arrayList);
-            contentRenderer.flipToTableDisplayPanel()   ;
+            contentRenderer.flipToTableDisplayPanel();
         } else {
-            Main.getDisplayController().displayErrorMessage("Null Journal List");
+            contentRenderer.displayMessage("Could not fetch journals list");
         }
     }
 
@@ -52,18 +60,26 @@ public class RenderMaster {
             contentRenderer.getTableDisplayPanel().setTable(author.getPaperCollection());
             contentRenderer.flipToTableDisplayPanel();
         } else {
-            Main.getDisplayController().displayErrorMessage("Null Author");
+            contentRenderer.displayMessage("Could not fetch author papers result");
         }
     }
 
     public void render(ContentRenderer contentRenderer, PaperCollection paperCollection) {
         if (paperCollection != null) {
             //contentRenderer.clearAll();
-            contentRenderer.getTableDisplayPanel().setTable(paperCollection);
-            contentRenderer.flipToTableDisplayPanel();
+            if (paperCollection.getPapers() == null) {
+                contentRenderer.displayMessage("Could not fetch papers result");
+            } else {
+                if (paperCollection.getPapers().isEmpty()) {
+                    contentRenderer.displayMessage("Could not fetch papers result");
+                } else {
+                    contentRenderer.getTableDisplayPanel().setTable(paperCollection);
+                    contentRenderer.flipToTableDisplayPanel();
+                }
+            }
         } else {
             //TODO: Need to call api back
-            Main.getDisplayController().displayErrorMessage("Null Paper Collection");
+            contentRenderer.displayMessage("Could not fetch papers result");
         }
     }
 
@@ -71,9 +87,12 @@ public class RenderMaster {
         if (papers != null) {
             //contentRenderer.clearAll();
             /*
-             contentRenderer.getListDisplayPanel().setList(papers,ListModelHandler.getListModel(papers));
-             contentRenderer.flipToListDisplayPanel();
+            contentRenderer.getListDisplayPanel().setList(papers,ListModelHandler.getListModel(papers));
+            contentRenderer.flipToListDisplayPanel();
              */
+            if (papers.isEmpty()) {
+                contentRenderer.displayMessage("Could not fetch citations list");
+            }
             for (Paper p : papers) {
                 if (Thread.interrupted()) {
                     break;
@@ -83,7 +102,7 @@ public class RenderMaster {
             contentRenderer.flipToCollapsibleListDisplayPanel();
 
         } else {
-            Main.getDisplayController().displayErrorMessage("Null Citations List");
+            contentRenderer.displayMessage("Could not fetch citations list");
         }
     }
 
@@ -93,17 +112,25 @@ public class RenderMaster {
             contentRenderer.getProfileDisplayPanel().displayAuthorProfile(author);
             contentRenderer.flipToProfileDisplayPanel();
         } else {
-            Main.getDisplayController().displayErrorMessage("Null Author");
+            contentRenderer.displayMessage("Could not fetch author profile");
         }
     }
-    
+
     public void renderJournal(ContentRenderer contentRenderer, PaperCollection papercollection) {
         if (papercollection != null) {
             contentRenderer.clearAll();
-            contentRenderer.getProfileDisplayPanel().displayJournalProfile(papercollection);
-            contentRenderer.flipToProfileDisplayPanel();
+            if (papercollection.getPapers() == null) {
+                contentRenderer.displayMessage("Could not fetch journal result");
+            } else {
+                if (papercollection.getPapers().isEmpty()) {
+                    contentRenderer.displayMessage("Could not fetch journal result");
+                } else {
+                    contentRenderer.getProfileDisplayPanel().displayJournalProfile(papercollection);
+                    contentRenderer.flipToProfileDisplayPanel();
+                }
+            }
         } else {
-            Main.getDisplayController().displayErrorMessage("Null Journal");
+            contentRenderer.displayMessage("Could not fetch journal result");
         }
     }
 
@@ -114,7 +141,7 @@ public class RenderMaster {
             contentRenderer.flipToTableDisplayPanel();
         } else {
             //TODO: Need to call api back
-            Main.getDisplayController().displayErrorMessage("Null Paper Collection");
+            contentRenderer.displayMessage("Could not fetch papers result");
         }
     }
 }

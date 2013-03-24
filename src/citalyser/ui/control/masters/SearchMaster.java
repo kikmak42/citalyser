@@ -142,8 +142,12 @@ public class SearchMaster {
                     logger.debug("Curr Result Type : " + currResult.getClass().getName());
                     if (q.flag == QueryType.MET_AUTH && currResult instanceof AuthorListResult) {
                         ArrayList<Author> authors = (ArrayList<Author>) (currResult.getContents());
-                        if(authors.size() <= 0)
+                        if(authors.size() <= 0){
+                            if (start == 0) {
+                                displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), currResult);
+                            }
                             break;
+                        }
                         q.url = authors.get(0).getNextLink();
                         logger.debug("Url : " + q.url);
                     }
