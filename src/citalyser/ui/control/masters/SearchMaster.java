@@ -117,7 +117,7 @@ public class SearchMaster {
                 int totalCount = numResults;
                 int count = maxResultsAtOneTime;
                 int start = 0;
-                int state = 0;
+                //int state = 0;
                 logger.debug("TotalCount : " + totalCount);
                 while (!Thread.interrupted()) {
                     logger.debug("Start : " + start + "--  Count : " + count);
@@ -132,8 +132,8 @@ public class SearchMaster {
                     q.start_result = start;
                     q.num_results = Math.min(count, totalCount - start);
                     mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getProgressBarPanel().setVisible(true);
-                    state=((start+count)/totalCount)*100;
-                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getProgressBar().setValue(state);
+                    //state=((start+count)/totalCount)*100;
+                    //mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getProgressBar().setValue(state);
                     currResult = QueryHandler.getInstance().getQueryResult(q);
                     if (currResult == null) {
                         logger.debug("Curr Result is null");
