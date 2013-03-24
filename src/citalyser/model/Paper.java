@@ -23,6 +23,7 @@ public class Paper implements Serializable {
     private ArrayList<Journal> journals;
     private String abstracttext;
     private ArrayList<Paper> citations;
+    private boolean isFromMetric;
 
     public Paper() {
         this.cited_by_url = null;
@@ -33,6 +34,7 @@ public class Paper implements Serializable {
         this.journals = null;
         this.citations = null;
         this.abstracttext = null;
+        this.isFromMetric = false;
     }
 
     public Paper(String t) {
@@ -44,6 +46,7 @@ public class Paper implements Serializable {
         this.journals = null;
         this.citations = null;
         this.abstracttext = null;
+        this.isFromMetric = false;
     }
 
     public String getInfo() {
@@ -133,5 +136,15 @@ public class Paper implements Serializable {
                 + year + "<br />";
         s += "Cited by " + num_cites + "<br /><hr />";
         return s;
+    }
+    
+    public boolean getIsFromMetric()
+    {
+        return this.isFromMetric;
+    }
+    
+    public void setIsFromMetric(boolean value)
+    {
+        this.isFromMetric = value;
     }
 }

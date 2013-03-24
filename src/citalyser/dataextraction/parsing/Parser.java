@@ -866,6 +866,7 @@ public class Parser {
                         //extracting the paper title and link of paper
                         //creating a paper object
                         Paper papr = new Paper();
+                        papr.setIsFromMetric(true);
                         String title_link = "";
                         String title_name = "";
                         String authors_list = "";
