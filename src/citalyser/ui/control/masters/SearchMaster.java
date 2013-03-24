@@ -160,6 +160,7 @@ public class SearchMaster {
                     if (Thread.interrupted()) {
                         break;
                     }
+                    displayMaster.setProgress((start*100)/numResults);
                     displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), currResult);
                     start += count;
                 }

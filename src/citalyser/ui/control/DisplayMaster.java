@@ -601,4 +601,8 @@ public class DisplayMaster {
     public void setDisplayPreview(boolean selected) {
         showPaperPreview = selected;
     }
+
+    public void setProgress(int i) {
+        mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setProgress(i);
+    }
 }
