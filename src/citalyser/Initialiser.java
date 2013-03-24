@@ -18,7 +18,7 @@ public class Initialiser {
     {
         initAppDirectory();
         initCache();
-        initCacheCleaner();
+        //initCacheCleaner();
     }
     
     /* Initialise the .citalyser folder in the User Home directory*/

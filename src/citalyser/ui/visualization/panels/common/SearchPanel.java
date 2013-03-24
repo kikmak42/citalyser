@@ -1,13 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/*
- * SearchPanel.java
- *
- * Created on Mar 9, 2013, 3:40:12 AM
- */
 package citalyser.ui.visualization.panels.common;
 
 import citalyser.ui.control.DisplayMaster;
@@ -255,9 +246,8 @@ public class SearchPanel extends javax.swing.JPanel {
                         .addComponent(jRadioButton2)
                         .addGroup(ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(numResults)
-                                .addComponent(jLabel2))))
+                            .addComponent(numResults, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addContainerGap())
             );
 

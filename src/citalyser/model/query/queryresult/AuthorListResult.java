@@ -8,12 +8,14 @@ import citalyser.model.query.QueryResult;
 import citalyser.model.Author;
 import java.io.Serializable;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author KRISHNA
  */
 public class AuthorListResult extends QueryResult<ArrayList<Author>> implements Serializable {
+    static Logger logger= Logger.getLogger(AuthorListResult.class);
     private ArrayList<Author> authorList;
     
 //    public void setAuthorList(ArrayList<Author> authorlist){
@@ -34,6 +36,15 @@ public class AuthorListResult extends QueryResult<ArrayList<Author>> implements 
         return this.authorList;
     }
     
+    @Override
+    public int getNumContents(){
+        try{
+            return this.authorList.size();
+        }catch(Exception ex){
+            logger.debug("Error getting Size of result" + ex.getMessage());
+            return 0;
+        }
+    }
     @Override
     public void appendContents(ArrayList<Author> a){
         for(Author author : a)

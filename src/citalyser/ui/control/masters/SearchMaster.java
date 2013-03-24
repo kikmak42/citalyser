@@ -8,6 +8,7 @@ import citalyser.model.query.QueryResult;
 import citalyser.model.query.QueryType;
 import citalyser.model.query.queryresult.AuthorListResult;
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.utils.UiUtils;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.common.SearchPanel;
 import java.awt.Color;
@@ -112,21 +113,19 @@ public class SearchMaster {
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(false);
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
                 mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(false);
-                displayMaster.displayInfoMessage("Fetching results for '"+mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getSearchString()+"'...");
                 QueryResult globalResult = null, currResult;
                 int totalCount = numResults;
                 int count = maxResultsAtOneTime;
                 int start = 0;
+                int recvCount = 0;
                 //int state = 0;
                 logger.debug("TotalCount : " + totalCount);
-                while (!Thread.interrupted()) {
+                while (!Thread.interrupted()) 
+                {
                     logger.debug("Start : " + start + "--  Count : " + count);
                     if (start >= totalCount) {
                         mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getProgressBar().setValue(0);
                         mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getProgressBarPanel().setVisible(false);
-                        // currResult = QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel, start, totalCount - start));
-                        // globalResult.appendContents(currResult.getContents());
-                        // displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), currResult);
                         break;
                     }
                     q.start_result = start;
@@ -139,13 +138,13 @@ public class SearchMaster {
                         logger.debug("Curr Result is null");
                         break;
                     }
+                    recvCount+=currResult.getNumContents();
                     if (start == 0) {
                         globalResult = currResult;
                     } else {
                         globalResult.appendContents(currResult.getContents());
                     }
-                    logger.debug("Flag : " + q.flag);
-                    logger.debug("Curr Result Type : " + currResult.getClass().getName());
+                    /* Hack for further fetching of results in case of Author Grid*/
                     if (q.flag == QueryType.MET_AUTH && currResult instanceof AuthorListResult) {
                         ArrayList<Author> authors = (ArrayList<Author>) (currResult.getContents());
                         if(authors.size() <= 0){
@@ -165,7 +164,8 @@ public class SearchMaster {
                     start += count;
                 }
                 mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(true);
-                displayMaster.displayInfoMessage("Displaying "+totalCount+" results for '"+mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getSearchString()+"'");
+                //displayMaster.displayInfoMessage("Displaying "+totalCount+" results for '"+mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getSearchString()+"'");
+                displayMaster.displayInfoMessage(UiUtils.getQueryCompleteInfoMessage(q.flag,recvCount,q.name));
             }
         };
         thread.start();
@@ -190,10 +190,12 @@ public class SearchMaster {
                 //Search for Metrics Author
                 maxResults = Constants.MaxResultsNum.AUTHOR_LIST.getValue();
                 q = new Query.Builder(searchQuery).flag(QueryType.MET_AUTH).minYear(minYear).maxYear(maxYear).Url(null).build();
+                displayMaster.displayInfoMessage("Fetching results for Authors' name matching '"+searchQuery+"'...");
             } else {
                 //Search for General Author papers
                 maxResults = Constants.MaxResultsNum.GENERAL_LIST.getValue();
                 q = new Query.Builder(searchQuery).flag(QueryType.GEN_AUTH).minYear(minYear).maxYear(maxYear).sortFlag(sortByYear).build();
+                displayMaster.displayInfoMessage("Fetching results for papers of Authors with name matching '"+searchQuery+"' fro Goo");
             }
         } else {
             // Journal Query
@@ -201,10 +203,12 @@ public class SearchMaster {
                 //Fetch Journal Papers from Metric
                 maxResults = Constants.MaxResultsNum.METRICS_JOURNAL_PAPERS.getValue();
                 q = new Query.Builder(searchQuery).flag(QueryType.MET_JOURN).minYear(minYear).maxYear(maxYear).sortFlag(sortByYear).build();
+                displayMaster.displayInfoMessage("Fetching results for publications with name matching '"+searchQuery+"'...");
             } else {
                 //Fetch Journals from Metric
                 maxResults = Constants.MaxResultsNum.JOURNAL_LIST.getValue();
                 q = new Query.Builder(searchQuery).flag(QueryType.GEN_JOURN).minYear(minYear).maxYear(maxYear).build();
+                displayMaster.displayInfoMessage("Fetching results for papers in publications with name matching '"+searchQuery+"'...");
             }
         }
         fetchResults(q, maxResults, numResults);

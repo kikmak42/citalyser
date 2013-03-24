@@ -28,8 +28,8 @@
                   <Component id="paperinfolbl" max="32767" attributes="0"/>
                   <Component id="paperTitleLbl" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="paperCitedByLbl" min="-2" pref="77" max="-2" attributes="0"/>
-                      <EmptySpace pref="85" max="32767" attributes="0"/>
+                      <Component id="paperCitedByLbl" min="-2" pref="104" max="-2" attributes="0"/>
+                      <EmptySpace pref="58" max="32767" attributes="0"/>
                       <Component id="viewCitationsLbl" min="-2" pref="87" max="-2" attributes="0"/>
                   </Group>
               </Group>

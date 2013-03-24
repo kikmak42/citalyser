@@ -37,4 +37,8 @@ public class JournalResult extends QueryResult<Journal> implements Serializable 
             p.add(temp.get(i));
         }
     }
+    @Override
+    public int getNumContents(){
+        return 1;
+    }
 }

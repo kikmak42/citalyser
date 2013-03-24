@@ -95,6 +95,7 @@ public class HttpConnection {
                             urlResponse.append(line);
                         }
                         connection.disconnect();
+                        Main.getDisplayController().displayStatusMessage("");
                         return urlResponse.toString();
                         
                     }

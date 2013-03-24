@@ -27,7 +27,10 @@ public class ImageResult extends QueryResult<ImageIcon> implements Serializable 
     public ImageIcon getContents() {
         return this.image;
     }
-    
+     @Override
+    public int getNumContents(){
+        return 1;
+    }
     @Override
     public void appendContents(ImageIcon t) {
         logger.debug("Not Supported yet.");

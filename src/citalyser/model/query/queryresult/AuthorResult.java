@@ -30,6 +30,10 @@ public class AuthorResult extends QueryResult<Author> implements Serializable{
     }
     
     @Override
+    public int getNumContents(){
+        return 1;
+    }
+    @Override
     public void appendContents(Author a){
         ArrayList<Paper> p = this.author.getPaperCollection().getPapers();
         ArrayList<Paper> temp = a.getPaperCollection().getPapers();

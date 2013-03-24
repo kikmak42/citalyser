@@ -82,4 +82,25 @@ public class UiUtils {
         }
     }
 
+    public static String getQueryCompleteInfoMessage(QueryType qtype,int count, String searchQuery)
+    {
+        String result = "Displaying "+count+" results for";
+        switch(qtype)
+        {
+            case GEN_AUTH: 
+                return "Displaying "+count+" papers with authors matching '"+searchQuery+"' from Google Scholar...";
+            case GEN_JOURN:
+                return "Displaying "+count+" papers with publications matching '"+searchQuery+"' from Google Scholar...";
+            case MET_AUTH:
+                return "Displaying "+count+" results for Authors matching '"+searchQuery+"'...";
+            case MET_JOURN:
+                 return "Displaying Top "+count + " publications matching '" + searchQuery + " '...";
+            case AUTH_PROF:
+                return "Displaying "+count+" papers of Author : " + searchQuery  +"...";
+            case JOURN_PROF:
+                 return "Displaying "+count+" papers of Journal : " + searchQuery + "...";
+            default : 
+                return null;
+        }
+    }
 }

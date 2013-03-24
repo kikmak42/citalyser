@@ -170,9 +170,11 @@ public class DisplayMaster {
     }
 
     public void displayStatusMessage(String status) {
+        if(status!=null)
         mainFrame.getRegularDisplayPanel().getToolsPanel().displayStatusMessage(status);
     }
     public void displayInfoMessage(String info) {
+        if(info!=null)
         mainFrame.getRegularDisplayPanel().getToolsPanel().displayInfoMessage(info);
     }
 

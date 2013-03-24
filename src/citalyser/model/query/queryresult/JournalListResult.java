@@ -36,4 +36,8 @@ public class JournalListResult extends QueryResult<ArrayList<Journal>> implement
     public void appendContents(ArrayList<Journal> j){
         
     }
+     @Override
+    public int getNumContents(){
+        return this.journalList.size();
+    }
 }
