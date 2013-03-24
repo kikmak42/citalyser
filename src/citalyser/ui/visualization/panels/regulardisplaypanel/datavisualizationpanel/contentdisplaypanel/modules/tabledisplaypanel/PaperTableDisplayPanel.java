@@ -65,10 +65,10 @@ public class PaperTableDisplayPanel extends javax.swing.JPanel {
         } else {
             this.paperCollection = paperCollection;
         }
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(33);
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(33);
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(250);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(32);
-        jTable1.getColumnModel().getColumn(3).setPreferredWidth(65);
+        jTable1.getColumnModel().getColumn(2).setMaxWidth(32);
+        jTable1.getColumnModel().getColumn(3).setMaxWidth(65);
         jTable1.repaint();
         displayMaster.renderJournal(displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), this.paperCollection);
     }

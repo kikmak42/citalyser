@@ -55,6 +55,7 @@ public class DisplayMaster {
     private CitationListHistory citationListHistory;
     private int numberOfResults = 100;
     private final Vector<Thread> threads = new Vector<>();
+    private boolean showPaperPreview = true;
 
     public DisplayMaster() {
         mainFrame = new MainFrame();
@@ -231,10 +232,12 @@ public class DisplayMaster {
         }
         
         }.start();*/
-        abstractDisplayPanel.setPaper(paper);
-        abstractDialog.setLocation(point);
-        abstractDialog.setVisible(true);
-        abstractDialog.repaint();
+        if (showPaperPreview) {
+            abstractDisplayPanel.setPaper(paper);
+            abstractDialog.setLocation(point);
+            abstractDialog.setVisible(true);
+            abstractDialog.repaint();
+        }
     }
 
     public void hidePaperInfo() {
@@ -242,8 +245,10 @@ public class DisplayMaster {
     }
 
     public void movePaperInfoTo(Point point) {
-        abstractDialog.setLocation(point);
-        abstractDialog.repaint();
+        if (showPaperPreview) {
+            abstractDialog.setLocation(point);
+            abstractDialog.repaint();
+        }
     }
 
     public void cancelButtonClicked() {
@@ -584,5 +589,9 @@ public class DisplayMaster {
 
     public void showLoading() {
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
+    }
+
+    public void setDisplayPreview(boolean selected) {
+        showPaperPreview = selected;
     }
 }

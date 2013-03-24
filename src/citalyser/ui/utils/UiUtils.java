@@ -49,11 +49,8 @@ public class UiUtils {
         }
     }
     
-    public static void displayImage(javax.swing.JLabel jLabel, String imageSource, int width, int height) {
-        final JLabel myLabel = jLabel;
-        final String myImgSource = imageSource;
-        final int myWidth = width;
-        final int myHeight = height;
+    public static void displayImage(final javax.swing.JLabel myLabel,final String myImgSource,final int myWidth,final int myHeight) {
+    
         try {
             new Thread() {
                 @Override
@@ -74,11 +71,11 @@ public class UiUtils {
                         Graphics2D g = img1.createGraphics();
                         g.drawImage(img.getImage(), 0, 0, myWidth, myHeight, myLabel);
                         g.dispose();
+                        logger.debug("Setting image url : " + myImgSource + " at Label : " + myLabel.getToolTipText());
                         myLabel.setIcon(new ImageIcon(img1));
                     }
                }
-                
-            }.start();
+           }.start();
         } catch (Exception ex) {
             logger.error("Error creating thread for getting image... : " + ex.getMessage());
             ex.printStackTrace();
