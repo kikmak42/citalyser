@@ -17,6 +17,7 @@ import javax.swing.plaf.DimensionUIResource;
 public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
 
     private int entityCount;
+
     /**
      * Creates new form CollapsibleListDisplayPanel
      */
@@ -76,7 +77,7 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
 
     public void moreButtonClicked(java.awt.event.MouseEvent evt) {
         displayMaster.displayStatusMessage("More Button Pressed");
-        displayMaster.citationListMoreButtonClicked(entityCount);
+        displayMaster.citationListMoreButtonClicked(entityCount, jLabel5);
     }
 
     public void addCollapsibleListEntityPanel(CollapsibleListEntityPanel collapsibleListEntityPanel) {
@@ -203,8 +204,8 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
         add(jPanel2, java.awt.BorderLayout.CENTER);
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("More >>");
-        jLabel5.setPreferredSize(new DimensionUIResource((int)jLabel5.getPreferredSize().getWidth(),20));
+        jLabel5.setText("More");
+        jLabel5.setPreferredSize(new DimensionUIResource((int) jLabel5.getPreferredSize().getWidth(), 20));
         jLabel5.setBackground(new Color(240, 240, 240));
         jLabel5.setOpaque(true);
         jLabel5.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -218,7 +219,7 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
                 jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE));
 
-      //  add(jPanel3, java.awt.BorderLayout.SOUTH);
+        //  add(jPanel3, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -244,10 +245,25 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
     }
 
     public void addMoreButton() {
-          jXTaskPaneContainer1.add(jLabel5);
+        jXTaskPaneContainer1.add(jLabel5);
+    }
+
+    public void removeMoreButton() {
+        jXTaskPaneContainer1.remove(jLabel5);
     }
 
     public void addEntityCount(int num) {
-        entityCount=+num;
+        entityCount = +num;
+    }
+    
+    public void showLoadingMoreButton()
+    {
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/ajax-loader.gif")));
+        jLabel5.setText("");
+    }
+    public void showNormalMoreButton()
+    {
+        jLabel5.setText("More");
+        jLabel5.setIcon(null);
     }
 }

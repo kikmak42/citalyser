@@ -35,6 +35,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import org.apache.log4j.Logger;
 
 /**
@@ -559,14 +560,14 @@ public class DisplayMaster {
         }
     }
 
-    public void citationListMoreButtonClicked(int startMarker) {
+    public void citationListMoreButtonClicked(int startMarker,final JLabel jLabel) {
         final Paper myPaper = citationListHistory.getCurrentPaper();
         final int startMarker1 = startMarker;
         new Thread() {
 
             @Override
             public void run() {
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
+                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().showLoadingMoreButton();
                 QueryType queryFlag = CommonUtils.getQueryFlagFromUrl(myPaper.getcitedByUrl());
                 Query q = new Query.Builder("").flag(queryFlag)
                                                 .Url(myPaper.getcitedByUrl())
@@ -576,6 +577,8 @@ public class DisplayMaster {
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
                 if (queryResult != null) {
                     PaperCollection pc = (PaperCollection) queryResult.getContents();
+                    if(pc.getPapers().size() < Constants.MaxResultsNum.CITATION_LIST.getValue())
+                        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().removeMoreButton();
                     if (myPaper != null) {
                         renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
                         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
@@ -583,6 +586,7 @@ public class DisplayMaster {
                 } else {
                     Main.getDisplayController().displayErrorMessage("Null QueryResult on Listclicked...");
                 }
+                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().showNormalMoreButton();         
             }
         }.start();
     }
