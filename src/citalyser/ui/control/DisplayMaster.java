@@ -27,6 +27,7 @@ import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.ExternalPanel;
 import citalyser.ui.visualization.panels.common.SearchPanel;
 import citalyser.ui.visualization.panels.external.AbstractDisplayPanel;
+import citalyser.util.CommonUtils;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -344,7 +345,7 @@ public class DisplayMaster {
             public void run() {
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
-                Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl())
+                Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST_METRIC).Url(myPaper.getcitedByUrl())
                                                .startResult(0)
                                                .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
                                                .build();
@@ -559,7 +560,8 @@ public class DisplayMaster {
             @Override
             public void run() {
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
-                Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST)
+                QueryType queryFlag = CommonUtils.getQueryFlagFromUrl(myPaper.getcitedByUrl());
+                Query q = new Query.Builder("").flag(queryFlag)
                                                 .Url(myPaper.getcitedByUrl())
                                                 .startResult(startMarker1)
                                                 .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())

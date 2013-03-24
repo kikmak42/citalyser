@@ -73,8 +73,7 @@ public class SearchPanel extends javax.swing.JPanel {
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setSelected(true);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sort By Year", "Sort By Citations", " ", " " }));
-        jComboBox1.setSelectedIndex(1);
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sort By Year", "Sort By Citations" }));
 
         javax.swing.GroupLayout ButtonPanelLayout = new javax.swing.GroupLayout(ButtonPanel);
         ButtonPanel.setLayout(ButtonPanelLayout);
@@ -84,9 +83,9 @@ public class SearchPanel extends javax.swing.JPanel {
                 .addComponent(jRadioButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jRadioButton2)
-                .addGap(137, 137, 137)
+                .addGap(49, 49, 49)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         ButtonPanelLayout.setVerticalGroup(
             ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -94,7 +93,7 @@ public class SearchPanel extends javax.swing.JPanel {
                 .addGroup(ButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jRadioButton1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRadioButton2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -166,8 +165,8 @@ public class SearchPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
 
