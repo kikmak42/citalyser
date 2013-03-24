@@ -210,4 +210,16 @@ public class Manager {
             return null;
         }
     }
+    
+    /* Query Case - CITATIONS_LIST */
+    public QueryResult getCitationsListFromMetric(String url) {
+        logger.info("GettingCitationsList from Metric  - " + url);
+        String html = HttpConnection.getUrlText(url);
+        if (html != null) {
+            return parser.extractCitationResultFromMetric(html);
+        } else {
+            logger.info("null result from httpconnection");
+            return null;
+        }
+    }
 }

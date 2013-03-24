@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package citalyser.model.query;
 
 /**
@@ -16,5 +13,6 @@ public enum QueryType {
     AUTH_PROF,              // Get Complete Author Details from Google Author Search --AuthorResult
     JOURN_PROF,             // Get Complete Journal Details from Google Metrics Search --JournalResult
     IMAGE_FROM_LINK,         // Get BufferedImage from specified link --ImageResult
-    CITATIONS_LIST          // Get Citations list of a Paper -- PaperCollectionResult
+    CITATIONS_LIST,          // Get Citations list of a Paper -- PaperCollectionResult
+    CITATIONS_LIST_METRIC    // Get the Citations list of a paper from metric
 }

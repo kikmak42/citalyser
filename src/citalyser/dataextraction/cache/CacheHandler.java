@@ -204,4 +204,17 @@ public class CacheHandler {
         }
     }
     
+    public QueryResult getCitationsListFromMetric(String queryUrl) {
+        Object cacheResult = getObject(queryUrl);
+        if (cacheResult != null) {
+            logger.info("Getting CITATIONS_LIST FROM METRIC- Cache hit");
+            return (PaperCollectionResult)cacheResult;
+        } else {
+            logger.info("Getting CITATIONS_LIST FROM METRIC - Cache miss");
+            QueryResult q = manager.getCitationsListFromMetric(queryUrl);
+            logger.debug("Citation Result :" + q);
+            setObject(q, queryUrl);
+            return q;
+        }
+    }
 }
