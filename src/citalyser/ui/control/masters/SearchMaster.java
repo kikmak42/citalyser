@@ -125,10 +125,7 @@ public class SearchMaster {
                 {
                     logger.debug("Start : " + start + "--  Count : " + count);
                     if (start >= totalCount) {
-                       // currResult = QueryHandler.getInstance().getQueryResult(createQuery(mySearchPanel, start, totalCount - start));
-                       // globalResult.appendContents(currResult.getContents());
-                       // displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), currResult);
-                        break;
+                          break;
                     }
                     q.start_result = start;
                     q.num_results = Math.min(count,totalCount - start);

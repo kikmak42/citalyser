@@ -4,6 +4,7 @@
  */
 package citalyser.ui.control;
 
+import citalyser.Constants;
 import citalyser.Main;
 import citalyser.model.Author;
 import citalyser.model.Journal;
@@ -210,7 +211,10 @@ public class DisplayMaster {
             public void run() {
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
-                Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl()).build();
+                Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl())
+                                               .startResult(0)
+                                               .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
+                                               .build();
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
                 if (queryResult != null) {
                     PaperCollection pc = (PaperCollection) queryResult.getContents();
@@ -284,7 +288,10 @@ public class DisplayMaster {
             @Override
             public void run() {
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
-                Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl()).build();
+                Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl())
+                                                .startResult(0)
+                                                .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
+                                                .build();
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
                 if (queryResult != null) {
                     PaperCollection pc = (PaperCollection) queryResult.getContents();
@@ -369,7 +376,11 @@ public class DisplayMaster {
                 @Override
                 public void run() {
                     mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
-                    Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl()).build();
+                    Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST)
+                                                    .Url(myPaper.getcitedByUrl())
+                                                    .startResult(0)
+                                                    .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
+                                                    .build();
                     QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
                     if (queryResult != null) {
                         PaperCollection pc = (PaperCollection) queryResult.getContents();
@@ -399,7 +410,10 @@ public class DisplayMaster {
                 @Override
                 public void run() {
                     mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
-                    Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl()).build();
+                    Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST)
+                                                   .startResult(0)
+                                                   .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
+                                                   .Url(myPaper.getcitedByUrl()).build();
                     QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
                     if (queryResult != null) {
                         PaperCollection pc = (PaperCollection) queryResult.getContents();
@@ -425,7 +439,11 @@ public class DisplayMaster {
             @Override
             public void run() {
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
-                Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl()).startResult(startMarker1).numResult(20).build();
+                Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST)
+                                                .Url(myPaper.getcitedByUrl())
+                                                .startResult(startMarker1)
+                                                .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
+                                                .build();
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
                 if (queryResult != null) {
                     PaperCollection pc = (PaperCollection) queryResult.getContents();
