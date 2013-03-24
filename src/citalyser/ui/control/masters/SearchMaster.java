@@ -112,7 +112,7 @@ public class SearchMaster {
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(false);
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
                 mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(false);
-
+                displayMaster.displayInfoMessage("Fetching results for '"+mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getSearchString()+"'...");
                 QueryResult globalResult = null, currResult;
                 int totalCount = numResults;
                 int count = maxResultsAtOneTime;
@@ -158,6 +158,7 @@ public class SearchMaster {
                     start += count;
                 }
                 mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(true);
+                displayMaster.displayInfoMessage("Displaying "+totalCount+" results for '"+mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getSearchString()+"'");
             }
         };
         thread.start();
