@@ -53,6 +53,14 @@ public class ToolsPanel extends javax.swing.JPanel {
             jLabel1.setText(message);
         }
     }
+    public void displayInfoMessage(String info){
+        if (info != null) {
+            if (info.length() == 0) {
+                info = " ";
+            }
+            jLabel3.setText(info);
+        }
+    }
             
     private DisplayMaster displayMaster;
 
@@ -69,6 +77,7 @@ public class ToolsPanel extends javax.swing.JPanel {
         numResults = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
+        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(50, 93, 167));
 
@@ -87,12 +96,14 @@ public class ToolsPanel extends javax.swing.JPanel {
         jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setSelected(true);
         jCheckBox1.setText("Show Paper Preview");
-        jCheckBox1.setOpaque(false);
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox1ActionPerformed(evt);
             }
         });
+
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("idle");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -101,7 +112,9 @@ public class ToolsPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(numResults, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -117,7 +130,8 @@ public class ToolsPanel extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(numResults, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jCheckBox1))
+                    .addComponent(jCheckBox1)
+                    .addComponent(jLabel3))
                 .addContainerGap())
         );
 
@@ -147,6 +161,7 @@ public class ToolsPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField numResults;
     // End of variables declaration//GEN-END:variables
 }
