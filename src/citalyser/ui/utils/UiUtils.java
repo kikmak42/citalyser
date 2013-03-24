@@ -4,6 +4,7 @@
  */
 package citalyser.ui.utils;
 
+import citalyser.Main;
 import citalyser.model.query.Query;
 import citalyser.model.query.QueryHandler;
 import citalyser.model.query.QueryResult;
@@ -82,25 +83,61 @@ public class UiUtils {
         }
     }
 
-    public static String getQueryCompleteInfoMessage(QueryType qtype,int count, String searchQuery)
+    public static void displayQueryCompleteInfoMessage(QueryType qtype,int count, String searchQuery)
     {
-        String result = "Displaying "+count+" results for";
+        String result;
         switch(qtype)
         {
             case GEN_AUTH: 
-                return "Displaying "+count+" papers with authors matching '"+searchQuery+"' from Google Scholar...";
+                result =  "Displaying "+count+" papers with authors matching '"+searchQuery+"' from Google Scholar...";
+                break;
             case GEN_JOURN:
-                return "Displaying "+count+" papers with publications matching '"+searchQuery+"' from Google Scholar...";
+                result = "Displaying "+count+" papers with publications matching '"+searchQuery+"' from Google Scholar...";
+                break;
             case MET_AUTH:
-                return "Displaying "+count+" results for Authors matching '"+searchQuery+"'...";
+                result = "Displaying "+count+" results for Authors matching '"+searchQuery+"'...";
+                break;
             case MET_JOURN:
-                 return "Displaying Top "+count + " publications matching '" + searchQuery + " '...";
+                 result = "Displaying Top "+count + " publications matching '" + searchQuery + " '...";
+                 break;
             case AUTH_PROF:
-                return "Displaying "+count+" papers of Author : " + searchQuery  +"...";
+                result = "Displaying "+count+" papers of Author : " + searchQuery  +"...";
+                break;
             case JOURN_PROF:
-                 return "Displaying "+count+" papers of Journal : " + searchQuery + "...";
+                result = "Displaying "+count+" papers of Journal : " + searchQuery + "...";
+                break;
             default : 
-                return null;
+                result = "";
         }
+        Main.getDisplayController().displayInfoMessage(result);
+    }
+    
+    public static void displayQueryStartInfoMessage(QueryType qtype,String searchQuery)
+    {
+        String result;
+        switch(qtype)
+        {
+            case GEN_AUTH: 
+                result = "Fetching results for papers of Authors with name matching '"+searchQuery+"' from Google Scholar";
+                break;
+            case GEN_JOURN:
+                result =  "Fetching results for papers in publications with name matching '"+searchQuery+"'...";
+                break;
+            case MET_AUTH:
+                result =  "Fetching results for Authors' name matching '"+searchQuery+"'...";
+                break;
+            case MET_JOURN:
+                result = "Fetching results for publications with name matching '"+searchQuery+"'...";
+                break;
+            case AUTH_PROF:
+                result =  "Fetching profile of Author : " + searchQuery  +"...";
+                break;
+            case JOURN_PROF:
+                 result = "Fetching papers of Journal : " + searchQuery + "...";
+                 break;
+            default : 
+                result = "";
+        }
+        Main.getDisplayController().displayInfoMessage(result);
     }
 }

@@ -31,7 +31,11 @@ public class AuthorResult extends QueryResult<Author> implements Serializable{
     
     @Override
     public int getNumContents(){
-        return 1;
+        try{
+            return this.author.getPaperCollection().getPapers().size();
+        }catch(Exception ex){
+            return 0;
+        }
     }
     @Override
     public void appendContents(Author a){

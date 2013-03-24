@@ -23,6 +23,8 @@ public class PaperDetailsPanel extends javax.swing.JPanel {
         initComponents();
         this.viewCitationsLbl.setCursor(new Cursor(Cursor.HAND_CURSOR));
         this.viewCitationsLbl.setText("<html><a>View Citations</a></html>");
+        this.paperAbstractLbl.setText("");
+        this.paperCitedByLbl.setText("");
         this.viewCitationsLbl.setVisible(false);
     }
     
@@ -35,7 +37,7 @@ public class PaperDetailsPanel extends javax.swing.JPanel {
         if(!paper.getIsFromMetric())
             this.paperCitedByLbl.setText("Cited By : " + paper.getNumCites());
         
-        if(paper.getNumCites() > 0)
+        if(paper.getNumCites() > 0 && !paper.getIsFromMetric())
         {
             this.viewCitationsLbl.setVisible(true);
         }

@@ -111,8 +111,9 @@ public class GridEntityPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        logger.debug("Author Clicked ID : " + author.getId());
-        displayMaster.authorGridEntityClicked(author.getId());
+
+        //logger.debug("Author Clicked ID : " + author.getId());
+        displayMaster.authorGridEntityClicked(author);
     }//GEN-LAST:event_formMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

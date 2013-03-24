@@ -18,6 +18,8 @@ public interface DisplayController {
     
     public void displayStatusMessage(String status);
     
+    public void displayInfoMessage(String status);
+    
     public void addAutoCompleteSuggestions(Vector<String> suggestions);
     
     public void addAutoCompleteSuggestion(String suggestion);

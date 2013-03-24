@@ -21,6 +21,7 @@ import citalyser.ui.control.masters.SettingsMaster;
 import citalyser.ui.control.switchers.QueryResultRenderingHandler;
 import citalyser.ui.model.CitationListHistory;
 import citalyser.ui.model.ContentRenderer;
+import citalyser.ui.utils.UiUtils;
 import citalyser.util.CProxy;
 
 import citalyser.ui.visualization.MainFrame;
@@ -325,14 +326,16 @@ public class DisplayMaster {
             @Override
             public void run() {
                 Query q = new Query.Builder("").flag(QueryType.JOURN_PROF).Url(myJournal.getH5Link()).build();
+                UiUtils.displayQueryStartInfoMessage(q.flag, myJournal.getName());
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
                 if (queryResult != null) {
+                    UiUtils.displayQueryCompleteInfoMessage(q.flag,queryResult.getNumContents(),myJournal.getName());
                     Journal journ = (Journal) queryResult.getContents();
                     if (journ != null) {
                         render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), journ);
                     }
                 } else {
-                    Main.getDisplayController().displayErrorMessage("Null QueryResult on Tableclicked...");
+                    //Main.getDisplayController().displayErrorMessage("Null QueryResult on Tableclicked...");
                 }
             }
         };
@@ -379,11 +382,11 @@ public class DisplayMaster {
         }
     }
      
-    public void authorGridEntityClicked(String id) {
-
-
-        final String myId = id;
-
+    public void authorGridEntityClicked(Author author) {
+        
+        final String authorName = author.getName();
+        final String myId = author.getId();
+        final int numResults = Constants.MaxResultsNum.AUTHOR_PAPERS.getValue();        
         Thread thread = new Thread() {
 
             @Override
@@ -394,13 +397,15 @@ public class DisplayMaster {
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel().showLoading();
-                Query q = new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).build();
+                Query q = new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).numResult(numResults).build();
+                UiUtils.displayQueryStartInfoMessage(q.flag, authorName);
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
                 if (queryResult instanceof AuthorResult) {
+                    UiUtils.displayQueryCompleteInfoMessage(q.flag,queryResult.getNumContents(), authorName);
                     queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), queryResult);
                     renderProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), (Author) queryResult.getContents());
                 } else {
-                    Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Author Details.");
+                    //Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Author Details.");
                 }
             }
         };

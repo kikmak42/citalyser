@@ -165,7 +165,7 @@ public class SearchMaster {
                 }
                 mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(true);
                 //displayMaster.displayInfoMessage("Displaying "+totalCount+" results for '"+mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getSearchString()+"'");
-                displayMaster.displayInfoMessage(UiUtils.getQueryCompleteInfoMessage(q.flag,recvCount,q.name));
+                UiUtils.displayQueryCompleteInfoMessage(q.flag,recvCount,q.name);
             }
         };
         thread.start();
@@ -190,12 +190,11 @@ public class SearchMaster {
                 //Search for Metrics Author
                 maxResults = Constants.MaxResultsNum.AUTHOR_LIST.getValue();
                 q = new Query.Builder(searchQuery).flag(QueryType.MET_AUTH).minYear(minYear).maxYear(maxYear).Url(null).build();
-                displayMaster.displayInfoMessage("Fetching results for Authors' name matching '"+searchQuery+"'...");
             } else {
                 //Search for General Author papers
                 maxResults = Constants.MaxResultsNum.GENERAL_LIST.getValue();
                 q = new Query.Builder(searchQuery).flag(QueryType.GEN_AUTH).minYear(minYear).maxYear(maxYear).sortFlag(sortByYear).build();
-                displayMaster.displayInfoMessage("Fetching results for papers of Authors with name matching '"+searchQuery+"' fro Goo");
+                UiUtils.displayQueryStartInfoMessage(q.flag, searchQuery);
             }
         } else {
             // Journal Query
@@ -203,14 +202,13 @@ public class SearchMaster {
                 //Fetch Journal Papers from Metric
                 maxResults = Constants.MaxResultsNum.METRICS_JOURNAL_PAPERS.getValue();
                 q = new Query.Builder(searchQuery).flag(QueryType.MET_JOURN).minYear(minYear).maxYear(maxYear).sortFlag(sortByYear).build();
-                displayMaster.displayInfoMessage("Fetching results for publications with name matching '"+searchQuery+"'...");
             } else {
                 //Fetch Journals from Metric
                 maxResults = Constants.MaxResultsNum.JOURNAL_LIST.getValue();
                 q = new Query.Builder(searchQuery).flag(QueryType.GEN_JOURN).minYear(minYear).maxYear(maxYear).build();
-                displayMaster.displayInfoMessage("Fetching results for papers in publications with name matching '"+searchQuery+"'...");
             }
         }
+        UiUtils.displayQueryStartInfoMessage(q.flag, searchQuery);
         fetchResults(q, maxResults, numResults);
     }
     /* This method has been deprecated now. Do not use this method.*/

@@ -43,5 +43,10 @@ public class DisplayControllerImpl implements citalyser.ui.DisplayController {
     public void displayStatusMessage(String status) {
         displayMaster.displayStatusMessage(status);
     }
+
+    @Override
+    public void displayInfoMessage(String status) {
+        displayMaster.displayInfoMessage(status);
+    }
     
 }

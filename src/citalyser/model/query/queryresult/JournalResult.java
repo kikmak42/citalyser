@@ -39,6 +39,10 @@ public class JournalResult extends QueryResult<Journal> implements Serializable 
     }
     @Override
     public int getNumContents(){
-        return 1;
+        try{
+            return this.journal.getPaperCollection().getPapers().size();
+        }catch(Exception ex){
+            return 0;
+        }
     }
 }
