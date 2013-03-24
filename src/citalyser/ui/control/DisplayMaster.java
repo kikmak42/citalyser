@@ -329,6 +329,42 @@ public class DisplayMaster {
         }
     }
 
+    public void MetrictableClicked(Paper paper) {
+                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
+        final Paper myPaper = paper;
+        citationListHistory.clear();
+        citationListHistory.addPaper(paper);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().hidePreviousButton();
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().hideNextButton();
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().addListTitle(citationListHistory.getCurrentPosition(), myPaper.getTitle());
+        Thread thread = new Thread() {
+
+            @Override
+            public void run() {
+                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
+                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
+                Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl())
+                                               .startResult(0)
+                                               .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
+                                               .build();
+                QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
+                if (queryResult != null) {
+                    PaperCollection pc = (PaperCollection) queryResult.getContents();
+                    if (myPaper != null) {
+                        logger.info("Paper Size:" + pc.getPapers().size());
+                        renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
+                    }
+                } else {
+                    Main.getDisplayController().displayErrorMessage("Null QueryResult on Tableclicked...");
+                }
+            }
+        };
+        thread.start();
+        synchronized (threads) {
+            threads.add(thread);
+        }
+    }
+     
     public void authorGridEntityClicked(String id) {
 
 
