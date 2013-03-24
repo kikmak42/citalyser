@@ -32,8 +32,9 @@ public class PaperDetailsPanel extends javax.swing.JPanel {
         this.paperinfolbl.setText("<html>"+paper.getInfo()+"<html>");
         if(paper.getAbstract() != null)
             this.paperAbstractLbl.setText("<html>"+paper.getAbstract()+"<html>");
-        this.paperCitedByLbl.setText("Cited By : " + paper.getNumCites());
-        logger.debug("Citations : " + paper.getNumCites());
+        if(!paper.getIsFromMetric())
+            this.paperCitedByLbl.setText("Cited By : " + paper.getNumCites());
+        
         if(paper.getNumCites() > 0)
         {
             this.viewCitationsLbl.setVisible(true);
@@ -53,35 +54,36 @@ public class PaperDetailsPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        paperTitleLbl = new org.jdesktop.swingx.JXLabel();
-        paperinfolbl = new org.jdesktop.swingx.JXLabel();
-        paperAbstractLbl = new org.jdesktop.swingx.JXLabel();
-        paperCitedByLbl = new org.jdesktop.swingx.JXLabel();
         viewCitationsLbl = new org.jdesktop.swingx.JXLabel();
+        paperTitleLbl = new javax.swing.JLabel();
+        paperinfolbl = new javax.swing.JLabel();
+        paperAbstractLbl = new javax.swing.JLabel();
+        paperCitedByLbl = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        paperTitleLbl.setForeground(new java.awt.Color(0, 0, 204));
-        paperTitleLbl.setText("jXLabel1");
-
-        paperinfolbl.setForeground(new java.awt.Color(51, 153, 0));
-        paperinfolbl.setText("jXLabel1");
-        paperinfolbl.setToolTipText("");
-        paperinfolbl.setFont(new java.awt.Font("DejaVu Sans", 0, 9)); // NOI18N
-
-        paperAbstractLbl.setText("jXLabel1");
-        paperAbstractLbl.setFont(new java.awt.Font("DejaVu Sans", 0, 11)); // NOI18N
-
-        paperCitedByLbl.setText("jXLabel1");
-        paperCitedByLbl.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-
         viewCitationsLbl.setForeground(new java.awt.Color(51, 0, 255));
         viewCitationsLbl.setText("View Citations");
+        viewCitationsLbl.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         viewCitationsLbl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 viewCitationsLblMouseClicked(evt);
             }
         });
+
+        paperTitleLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        paperTitleLbl.setForeground(new java.awt.Color(0, 0, 255));
+        paperTitleLbl.setText("jLabel1");
+
+        paperinfolbl.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        paperinfolbl.setForeground(new java.awt.Color(0, 153, 51));
+        paperinfolbl.setText("jLabel1");
+
+        paperAbstractLbl.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        paperAbstractLbl.setText("jLabel1");
+
+        paperCitedByLbl.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        paperCitedByLbl.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -91,28 +93,28 @@ public class PaperDetailsPanel extends javax.swing.JPanel {
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(paperAbstractLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(paperinfolbl, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(paperTitleLbl, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(paperinfolbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(paperTitleLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(paperCitedByLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                        .addComponent(viewCitationsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(paperCitedByLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                        .addComponent(viewCitationsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(paperTitleLbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(paperinfolbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(paperAbstractLbl)
                 .addGap(12, 12, 12)
-                .addComponent(paperTitleLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
-                .addComponent(paperinfolbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(paperAbstractLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(paperCitedByLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(viewCitationsLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(8, Short.MAX_VALUE))
+                    .addComponent(viewCitationsLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(paperCitedByLbl))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -121,10 +123,10 @@ public class PaperDetailsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_viewCitationsLblMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.jdesktop.swingx.JXLabel paperAbstractLbl;
-    private org.jdesktop.swingx.JXLabel paperCitedByLbl;
-    private org.jdesktop.swingx.JXLabel paperTitleLbl;
-    private org.jdesktop.swingx.JXLabel paperinfolbl;
+    private javax.swing.JLabel paperAbstractLbl;
+    private javax.swing.JLabel paperCitedByLbl;
+    private javax.swing.JLabel paperTitleLbl;
+    private javax.swing.JLabel paperinfolbl;
     private org.jdesktop.swingx.JXLabel viewCitationsLbl;
     // End of variables declaration//GEN-END:variables
 }
