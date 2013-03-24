@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * TableDisplayPanel.java
  *
  * Created on Mar 15, 2013, 1:44:48 AM

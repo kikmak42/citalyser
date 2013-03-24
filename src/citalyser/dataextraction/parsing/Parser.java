@@ -860,4 +860,148 @@ public class Parser {
 //        }
         return qjl;
     }
+    
+    public QueryResult<PaperCollection> extractCitationResultFromMetric(String src){
+        doc = Jsoup.parse(src, "UTF-8");
+        QueryResult<PaperCollection> qj = new PaperCollectionResult();      
+        PaperCollection pc = new PaperCollection();
+        ArrayList<Paper> papcol = new ArrayList<Paper>();
+        
+        
+        Elements items = doc.select("table#gs_cit_list_table");
+        String url = "http://scholar.google.com";
+        if (!items.isEmpty()) {
+            for (Element item : items) {
+                //Elements rows = item.select("tr.cit-table item");
+                Elements rows = item.select("tr");  //extract all the rows in each such table
+                int count = 0;
+
+                if (!rows.isEmpty()) {
+                    for (Element row : rows) {
+                        count++;
+                        if (count == 1) {
+                            continue;   //if first row then skip because it contains just the headers
+                        }
+                        //extracting the paper title and link of paper
+                        //creating a paper object
+                        Paper papr = new Paper();
+                        String title_link = "";
+                        String title_name = "";
+                        String authors_list = "";
+                        String authorNames = "";
+                        String desc = "";
+                        String cited_by_count = "0";
+                        String cited_by_link = "";
+                        String year = "0";
+                        ArrayList<Journal> jrnl = new ArrayList<>();
+                        ArrayList<Author> paper_authors = new ArrayList<>();
+                        //this part is for extracting the journal title and link
+                        Elements title_section = row.select("td.gs_title");
+                        if (!title_section.isEmpty()) {
+                            Elements title_tags;
+                            try {
+                                title_tags = title_section.get(0).select("a");
+                            } catch (Exception e) {
+                                title_tags = null;
+                            }
+                            //this part extracts the title and the link of the publication
+                            if (!title_tags.isEmpty()) {
+
+                                try {
+                                    title_link = title_tags.get(0).attr("href");
+                                    title_name = title_tags.get(0).text();
+                                    papr.setTitle(title_name);
+                                    papr.setUrl(title_link);
+                                } catch (Exception e) {
+                                    title_link = "";
+                                    title_name = "";
+                                }
+                            }
+                        }
+                        papr.setTitle(title_name);
+                        papr.setUrl(title_link);
+                        //extracting the names of the authors
+                        Elements author_section = row.select("span.gs_authors");
+                        if (!author_section.isEmpty()) {
+
+
+                            try {
+                                authors_list = author_section.get(0).text();
+                                String[] author_names = authors_list.split(",");
+                                authorNames = Arrays.toString(author_names);
+                                for (String name : author_names) {
+                                    name = name.replaceAll("\\.+", " "); //to remove all leading or trailing dots from a name
+                                    Author paper_author = new Author(name);
+                                    paper_authors.add(paper_author);
+                                }
+                            } catch (Exception e) {
+                                authorNames = "";
+                                Author paper_author = new Author(authorNames);
+                                paper_authors.add(paper_author);
+                            }
+                        }
+                        papr.setAuthors(paper_authors); //extracting the names of the authors
+                        Elements desc_section = row.select("span.gs_pub");
+                        if (!desc_section.isEmpty()) {
+                            try {
+                                desc = desc_section.get(0).text();
+
+                            } catch (Exception e) {
+                                desc = "";
+                            }
+                        }
+                        Journal j = new Journal(desc);
+                        jrnl.add(j);
+                        papr.setJournals(jrnl);
+                        //extracting the citation count and citedby link and year for the paper published in this journal
+                        Elements cited_year_section = row.select("td.gs_num");
+                        if (!cited_year_section.isEmpty()) {
+
+                            Elements cited_by_tags;
+                            try {
+                                cited_by_count = cited_year_section.get(0).text();
+                                cited_by_tags = cited_year_section.get(0).select("a");
+                            } catch (Exception e) {
+                                cited_by_tags = null;
+                                cited_by_count = "0";
+                                cited_by_link = "";
+                            }
+                            //this part extracts the cited by link of the paper
+                            if (!cited_by_tags.isEmpty()) {
+                                try {
+                                    cited_by_link = url + cited_by_tags.get(0).attr("href");
+                                    //papr.setTitle(title_name);
+                                    //papr.setUrl(title_link);
+                                } catch (Exception e) {
+                                    cited_by_link = "";
+                                }
+                            }
+                            try {
+                                year = cited_year_section.get(1).text();
+                            } catch (Exception e) {
+                                year = "0";
+                            }
+                        }
+                        papr.setYear(Integer.parseInt(year));
+                        papr.setCitedByUrl(cited_by_link);
+                        papr.setNumCites(Integer.parseInt(cited_by_count));
+                        papcol.add(papr);
+                    }
+
+                }
+                pc.setPapers(papcol);
+            }
+        }
+        qj.setContents(pc);
+//        for (Paper p : qj.getContents().getPaperCollection().getPapers()) {
+//            logger.debug("@@@@:" + p.getTitle());
+//            logger.debug("####:" + p.getAuthors().get(0).getName());
+//            logger.debug("@@@:" + p.getcitedByUrl());
+//            logger.debug("###:" + p.getYear());
+//            logger.debug("@@:" + p.getNumCites());
+//            logger.debug("##:" + p.getJournals().get(0).getName());
+//        }
+        return qj;
+        
+    }
 }
