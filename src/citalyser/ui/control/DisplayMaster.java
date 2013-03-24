@@ -427,7 +427,7 @@ public class DisplayMaster {
     }
 
     public void render(ContentRenderer contentRenderer, Journal journal) {
-        renderMaster.render(contentRenderer, journal.getPaperCollection());
+        renderMaster.renderJournalPaperCollection(contentRenderer, journal.getPaperCollection());
     }
 
     public void renderCitationsList(ContentRenderer contentRenderer, ArrayList<Paper> papers) {

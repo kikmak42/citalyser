@@ -16,6 +16,7 @@ import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.model.TableModelHandler;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.JournalTableDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.PaperTableDisplayPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.PaperTableFromMetricDisplayPanel;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;
@@ -37,6 +38,7 @@ public class TableDisplayPanel extends javax.swing.JPanel {
         this.displayMaster = displayMaster;
         paperTableDisplayPanel.setDisplayMaster(displayMaster);
         journalTableDisplayPanel.setDisplayMaster(displayMaster);
+        paperTableFromMetricDisplayPanel.setDisplayMaster(displayMaster);
     }
 
     public PaperTableDisplayPanel getPaperTableDisplayPanel() {
@@ -47,8 +49,16 @@ public class TableDisplayPanel extends javax.swing.JPanel {
         return journalTableDisplayPanel;
     }
 
+    public PaperTableFromMetricDisplayPanel getPaperTableFromMetricDisplayPanel() {
+        return paperTableFromMetricDisplayPanel;
+    }
+
     public void flipToPaperTableDisplayPanel() {
         ((CardLayout) jPanel1.getLayout()).first(jPanel1);
+    }
+
+    public void flipToPaperTableFromMetricDisplayPanel() {
+        ((CardLayout) jPanel1.getLayout()).show(jPanel1, "paperTableFromMetricDisplayPanelCard");
     }
 
     public void flipToJournalTableDisplayPanel() {
@@ -72,10 +82,12 @@ public class TableDisplayPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         paperTableDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.PaperTableDisplayPanel();
+        paperTableFromMetricDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.PaperTableFromMetricDisplayPanel();
         journalTableDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.JournalTableDisplayPanel();
 
         jPanel1.setLayout(new java.awt.CardLayout());
         jPanel1.add(paperTableDisplayPanel, "paperTableDisplayPanelCard");
+        jPanel1.add(paperTableFromMetricDisplayPanel, "paperTableFromMetricDisplayPanelCard");
         jPanel1.add(journalTableDisplayPanel, "journalTableDisplayPanelCard");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -94,6 +106,7 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.JournalTableDisplayPanel journalTableDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.PaperTableDisplayPanel paperTableDisplayPanel;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.PaperTableFromMetricDisplayPanel paperTableFromMetricDisplayPanel;
     // End of variables declaration//GEN-END:variables
 
     public void clear() {
@@ -109,5 +122,10 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     public void setTable(PaperCollection paperCollection) {
         paperTableDisplayPanel.setTable(paperCollection, TableModelHandler.getTableModel(paperCollection));
         flipToPaperTableDisplayPanel();
+    }
+
+    public void setTable(PaperCollection paperCollection, boolean b) {
+        paperTableFromMetricDisplayPanel.setTable(paperCollection, TableModelHandler.getTableModel(paperCollection));
+        flipToPaperTableFromMetricDisplayPanel();
     }
 }

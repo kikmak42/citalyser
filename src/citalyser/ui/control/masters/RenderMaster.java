@@ -106,4 +106,15 @@ public class RenderMaster {
             Main.getDisplayController().displayErrorMessage("Null Journal");
         }
     }
+
+    public void renderJournalPaperCollection(ContentRenderer contentRenderer, PaperCollection paperCollection) {
+        if (paperCollection != null) {
+            //contentRenderer.clearAll();
+            contentRenderer.getTableDisplayPanel().setTable(paperCollection, true);
+            contentRenderer.flipToTableDisplayPanel();
+        } else {
+            //TODO: Need to call api back
+            Main.getDisplayController().displayErrorMessage("Null Paper Collection");
+        }
+    }
 }

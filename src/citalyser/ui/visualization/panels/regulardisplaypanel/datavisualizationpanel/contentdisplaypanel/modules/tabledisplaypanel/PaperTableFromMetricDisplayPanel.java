@@ -26,12 +26,12 @@ import org.apache.log4j.Logger;
  *
  * @author Tanmay Patil
  */
-public class PaperTableDisplayPanel extends javax.swing.JPanel {
+public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel {
 
-    private static Logger logger = Logger.getLogger(PaperTableDisplayPanel.class.getName());
+    private static Logger logger = Logger.getLogger(PaperTableFromMetricDisplayPanel.class.getName());
 
     /** Creates new form TableDisplayPanel */
-    public PaperTableDisplayPanel() {
+    public PaperTableFromMetricDisplayPanel() {
         initComponents();
     }
 
@@ -93,7 +93,7 @@ public class PaperTableDisplayPanel extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         jTable1.setAutoCreateRowSorter(true);
-        jTable1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jTable1.setFont(new java.awt.Font("Arial", 0, 11));
         jTable1.setForeground(new java.awt.Color(51, 51, 51));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -182,7 +182,6 @@ public class PaperTableDisplayPanel extends javax.swing.JPanel {
     private void jTable1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseExited
         displayMaster.hidePaperInfo();
         previousRow = -1;
-        
     }//GEN-LAST:event_jTable1MouseExited
 
     private void jTable1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseMoved

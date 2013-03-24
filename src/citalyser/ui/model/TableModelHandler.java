@@ -53,7 +53,6 @@ public class TableModelHandler {
 
             public Class getColumnClass(int c) {
                 if (getRowCount() > 0) {
-                    System.out.println(c + ", " + getValueAt(0, c));
                     return getValueAt(0, c).getClass();
                 } else {
                     return Object.class;
