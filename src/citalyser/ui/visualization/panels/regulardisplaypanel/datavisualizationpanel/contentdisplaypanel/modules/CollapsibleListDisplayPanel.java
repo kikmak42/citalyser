@@ -6,6 +6,7 @@ import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpa
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.util.Vector;
 import javax.swing.SwingConstants;
 import javax.swing.plaf.DimensionUIResource;
@@ -17,6 +18,7 @@ import javax.swing.plaf.DimensionUIResource;
 public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
 
     private int entityCount;
+
     /**
      * Creates new form CollapsibleListDisplayPanel
      */
@@ -44,10 +46,18 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
     }
 
     public void addListTitle(int number, String title) {
-        jLabel1.setText("<html><b> [List:" + number + "] " + title);
+        jLabel1.setText("<html>Displaying Citations for : <b>" + title);
+        jLabel1.setForeground(new Color(33, 89, 201));
+        jLabel1.setFont(new Font("Tahoma", Font.PLAIN, 13));
         jLabel1.setBackground(Color.white);
         jLabel1.setOpaque(true);
-        jLabel4.setText("<html> HI ");
+        StringBuilder n = new StringBuilder();
+        for (int i = 1; i < number; i++) {
+            n.append("[" + i + "] > ");   
+        }
+        n.append( "<b>[" + number + "]");
+        //jLabel4.setForeground(new Color(73, 179, 108));
+        jLabel4.setText("<html>"+n);
     }
 
     public void hidePreviousButton() {
@@ -146,14 +156,18 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE)));
 
-        jLabel2.setText(" < Previous ");
+        jLabel2.setText(" <Previous ");
+        //jLabel2.setForeground(new Color(30, 113, 57));
+        jLabel2.setFont(new Font("Tahoma",Font.BOLD,12));
         jLabel2.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel3.setText(" Next > ");
+        jLabel3.setText(" Next> ");
+        //jLabel3.setForeground(new Color(30, 113, 57));
+        jLabel3.setFont(new Font("Tahoma",Font.BOLD,12));
         jLabel3.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        jLabel4.setText(" List ");
+        jLabel4.setText("List");
         jLabel4.setHorizontalAlignment(SwingConstants.CENTER);
 
         jPanel5.setLayout(new BorderLayout());
@@ -204,7 +218,7 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("More >>");
-        jLabel5.setPreferredSize(new DimensionUIResource((int)jLabel5.getPreferredSize().getWidth(),20));
+        jLabel5.setPreferredSize(new DimensionUIResource((int) jLabel5.getPreferredSize().getWidth(), 20));
         jLabel5.setBackground(new Color(240, 240, 240));
         jLabel5.setOpaque(true);
         jLabel5.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -218,7 +232,7 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
                 jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE));
 
-      //  add(jPanel3, java.awt.BorderLayout.SOUTH);
+        //  add(jPanel3, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -244,10 +258,10 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
     }
 
     public void addMoreButton() {
-          jXTaskPaneContainer1.add(jLabel5);
+        jXTaskPaneContainer1.add(jLabel5);
     }
 
     public void addEntityCount(int num) {
-        entityCount=+num;
+        entityCount = +num;
     }
 }
