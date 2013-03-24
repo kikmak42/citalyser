@@ -28,6 +28,8 @@ public interface ContentRenderer {
     
     public void showLoading();
     
+    public void displayMessage(String message);
+    
     public void clearAll();
     
     public void flipToCollapsibleListDisplayPanel();
