@@ -71,6 +71,7 @@ class PopupGraphMousePlugin extends AbstractPopupGraphMousePlugin implements Mou
                     public void actionPerformed(ActionEvent e) {
                         System.out.println("person added");
                         Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(CreateGraph.baseNode.citationurl).build();
+                        
                     }
                 });//new abstraction
                 popup.show(CreateGraph.vv, e.getX(), e.getY());
