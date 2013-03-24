@@ -77,8 +77,7 @@ public class CommonUtils {
     
     public static QueryType getQueryFlagFromUrl(String url)
     {
-        String domain = url.split("?")[0];
-        if(domain.contains("citations"))
+        if(url.contains("citations?"))
             return QueryType.CITATIONS_LIST_METRIC;
         else 
             return QueryType.CITATIONS_LIST;
