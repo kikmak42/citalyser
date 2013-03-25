@@ -20,16 +20,16 @@ import org.apache.log4j.PropertyConfigurator;
  * @author milindtahalani1
  */
 public class graphData {
-    
+
     static Logger logger = Logger.getLogger(graphData.class.getName());
     static String returnValue;
-    static int id=0;
+    static int id = 0;
 
     public graphData() {
-    this.id =0;
+        this.id = 0;
     }
-    
-    public static void main(String args[]){
+
+    public static void main(String args[]) {
         PropertyConfigurator.configure("log4j.properties");
 
         returnValue = "";
@@ -41,7 +41,7 @@ public class graphData {
             String line = "";
             while ((line = reader.readLine()) != null) {
                 returnValue += line + "\n";
-            logger.debug("String : " + returnValue);
+                logger.debug("String : " + returnValue);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -54,25 +54,35 @@ public class graphData {
                 }
             }
         }
-        
-        
-         
-        
+
+
+
+
     }
-    
-    public graphObject getNodeArray(PaperCollection p){
+
+    public nodeInfo getbaseNode(Paper paper) {
+        nodeInfo g = new nodeInfo();
+        g.Title = paper.getTitle();
+        g.EntireInfo = "<html><head></head><body><B>" + paper.getTitle() + "</B><br>" + paper.getInfo() + "</body></html>";
+        g.id = this.id;
+        g.citationurl = paper.getcitedByUrl();
+        this.id += 1;
+        return g;
+    }
+
+    public graphObject getNodeArray(PaperCollection p) {
         graphObject obj = new graphObject();
-        ArrayList<nodeInfo> arr = new ArrayList<>();       
-        for (Paper paper:p.getPapers()){
+        ArrayList<nodeInfo> arr = new ArrayList<>();
+        for (Paper paper : p.getPapers()) {
             nodeInfo g = new nodeInfo();
             g.Title = paper.getTitle();
-            g.EntireInfo = "<html><head></head><body><B>"+paper.getTitle()+"</B><br>"+paper.getInfo()+"</body></html>";
+            g.EntireInfo = "<html><head></head><body><B>" + paper.getTitle() + "</B><br>" + paper.getInfo() + "</body></html>";
             g.id = this.id;
-            this.id+=1;
+            this.id += 1;
+            g.citationurl = paper.getcitedByUrl();
             arr.add(g);
-        }         
+        }
         obj.arr = arr;
         return obj;
     }
 }
-

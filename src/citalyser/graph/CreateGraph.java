@@ -8,8 +8,20 @@ package citalyser.graph;
  *
  * @author sahil
  */
+import citalyser.Initialiser;
+import citalyser.graph.util.graphData;
 import citalyser.graph.util.graphObject;
 import citalyser.graph.util.nodeInfo;
+import citalyser.model.Author;
+import citalyser.model.Paper;
+import citalyser.model.PaperCollection;
+import citalyser.model.query.Query;
+import citalyser.model.query.QueryHandler;
+import citalyser.model.query.QueryType;
+import citalyser.model.query.queryresult.PaperCollectionResult;
+import citalyser.ui.DisplayController;
+import citalyser.ui.control.DisplayControllerImpl;
+import citalyser.util.Config;
 import edu.uci.ics.jung.algorithms.layout.AggregateLayout;
 import edu.uci.ics.jung.algorithms.layout.BalloonLayout;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
@@ -48,23 +60,73 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Ellipse2D;
+import java.io.BufferedReader;
+import java.io.File;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import org.apache.commons.collections15.Transformer;
+import org.apache.log4j.PropertyConfigurator;
 
 public class CreateGraph {
 
+    static Logger logger = Logger.getLogger(CreateGraph.class.getName());
     public static VisualizationViewer<nodeInfo, String> vv;
     public static SimpleGraphView2 sgv;
     public static Layout<nodeInfo, String> layout;
     public static JFrame frame;
     public static nodeInfo baseNode;
+    public static graphData generateGraphObject;
+    public static File settingsDirectory;
+    public static File CacheDirectory;
+    private static DisplayController displayController;
 
-    public CreateGraph(nodeInfo n) {
-        this.baseNode = n;
+    public static DisplayController getDisplayController() {
+        return displayController;
+    }
+
+    public static void main(String args[]) {
+
+        PropertyConfigurator.configure("log4j.properties");
+
+        /* initialise the software */
+        Initialiser.init();
+
+        /* Load the Config File*/
+        Config.init(settingsDirectory);
+        displayController = new DisplayControllerImpl();
+        displayController.initializeDisplay();
+        Paper paper = new Paper();
+        paper.setTitle("Removal of Cr (VI) from aqueous solution: Electrocoagulation vs chemical coagulation");
+        Author a = new Author("AK Golder");
+        ArrayList<Author> arr = new ArrayList<>();
+        arr.add(a);
+        paper.setAuthors(arr);
+        paper.setInfo("AK Golder");
+        paper.setCitedByUrl("http://scholar.google.co.in/scholar?cites=1547993743289210385&as_sdt=2005&sciodt=0,5&hl=en");
+        CreateGraph cg = new CreateGraph(paper);
+    }
+
+    public CreateGraph(Paper paper) {
+        generateGraphObject = new graphData();
+        this.baseNode = generateGraphObject.getbaseNode(paper);
+        logger.debug("@@##$$:" + this.baseNode.citationurl);
+        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(this.baseNode.citationurl).build();
+//        QueryHandler.getInstance().getQueryResult(q);
+//        generateGraphObject.getNodeArray(((PaperCollectionResult)QueryHandler.getInstance().getQueryResult(q)).getContents());
+
         sgv = new SimpleGraphView2(); // This builds the graph
-// Layout<V, E>, BasicVisualizationServer<V,E>
+        //sgv
         layout = new SpringLayout<>(sgv.g2);
+
+        populateGraph(generateGraphObject.getNodeArray(((PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q)).getContents()));
+// Layout<V, E>, BasicVisualizationServer<V,E>
         layout.setSize(new Dimension(600, 600));
+        layout.setGraph(sgv.g2);
+
         vv = new VisualizationViewer<>(layout);
 
         vv.setPreferredSize(new Dimension(350, 350));
@@ -93,11 +155,11 @@ public class CreateGraph {
                 new Transformer<nodeInfo, String>() {
                     @Override
                     public String transform(nodeInfo i) {
-                        return i.Title.substring(0, 20)+"...";
+                        return i.Title.substring(0, 20) + "...";
                     }
                 };
-        
-        
+
+
         Transformer<nodeInfo, String> datatrans =
                 new Transformer<nodeInfo, String>() {
                     @Override
@@ -158,7 +220,5 @@ public class CreateGraph {
         for (nodeInfo i : go.arr) {
             sgv.g2.addEdge("" + i.id + "-" + go.baseInfo, go.baseInfo, i);
         }
-        layout.setGraph(sgv.g2);
-        frame.repaint();
     }
 }

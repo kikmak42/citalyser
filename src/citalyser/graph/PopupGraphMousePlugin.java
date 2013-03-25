@@ -6,7 +6,9 @@ package citalyser.graph;
 
 import citalyser.graph.util.nodeInfo;
 import citalyser.model.query.Query;
+import citalyser.model.query.QueryHandler;
 import citalyser.model.query.QueryType;
+import citalyser.model.query.queryresult.PaperCollectionResult;
 import edu.uci.ics.jung.visualization.control.GraphMousePlugin;
 
 /**
@@ -66,12 +68,15 @@ class PopupGraphMousePlugin extends AbstractPopupGraphMousePlugin implements Mou
             final nodeInfo pickV = pickSupport.getVertex(CreateGraph.vv.getGraphLayout(), ivp.getX(), ivp.getY());
             CreateGraph.baseNode = pickV;
             if (pickV != null) {
-               System.out.println(pickV.id);
+                System.out.println(pickV.id);
                 popup.add(new AbstractAction("Go to this") {
                     public void actionPerformed(ActionEvent e) {
                         System.out.println("person added");
-                        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(CreateGraph.baseNode.citationurl).build();
-                        
+                        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(pickV.citationurl).build();
+                        CreateGraph.baseNode = pickV;
+                        CreateGraph.populateGraph(CreateGraph.generateGraphObject.getNodeArray(((PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q)).getContents()));
+                        CreateGraph.layout.setGraph(CreateGraph.sgv.g2);
+                        CreateGraph.frame.repaint();
                     }
                 });//new abstraction
                 popup.show(CreateGraph.vv, e.getX(), e.getY());
