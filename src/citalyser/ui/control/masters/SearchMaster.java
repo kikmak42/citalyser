@@ -110,7 +110,7 @@ public class SearchMaster {
                 
         /* Clear all panels*/
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().clearAll();
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(false);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(false,0.0);
         /* Show Loading sign in the central panel*/
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
         /* Update the Search Panel on query Init*/
@@ -166,8 +166,18 @@ public class SearchMaster {
                     }
                     mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateProgressBar((start*100)/numResults);
                     displayMaster.getQueryResultRenderingHandler().render(contentRenderer, currResult);
-                    if(q.flag == QueryType.GEN_JOURN || q.flag == QueryType.GEN_AUTH)
+                    if(q.flag == QueryType.GEN_JOURN || q.flag == QueryType.GEN_AUTH){
                         displayMaster.renderGeneralProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(),(PaperCollection)globalResult.getContents());
+                        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.75);
+                        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToUpperDetailsDisplayPanel();
+                        if(q.flag == QueryType.GEN_JOURN){
+                            mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(true);
+                        }
+                        else{
+                            mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(false);
+                        }
+                    }     
+                    
                     start += count;
                     /* Results have finished . No need to fetch more results.*/
                     if(recvCount < start)

@@ -41,10 +41,10 @@ public class ContentDisplayPanel extends javax.swing.JPanel {
         return detailsDisplayPanel;
     }
 
-    public void displayDetailsDisplayPanel(boolean value) {
+    public void displayDetailsDisplayPanel(boolean value, double position) {
         this.detailsDisplayPanelVisible = value;
         if (value) {
-            jSplitPane1.setDividerLocation(jSplitPane1.getWidth()/2);
+            jSplitPane1.setDividerLocation((int)(jSplitPane1.getWidth()*position));
         } else {
             jSplitPane1.setDividerLocation(jSplitPane1.getWidth() - 20);
         }

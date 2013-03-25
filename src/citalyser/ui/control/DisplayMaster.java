@@ -294,7 +294,7 @@ public class DisplayMaster {
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel()
                 .getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
         /* Show the Side panel*/
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
 
         Thread thread = new Thread() {
             @Override
@@ -329,7 +329,7 @@ public class DisplayMaster {
 
     public void metricTableClicked(Paper paper) {
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
         final Paper myPaper = paper;
         /* initialise the citation panel and history*/
         citationListHistory.clear();
@@ -341,7 +341,7 @@ public class DisplayMaster {
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
         /* Show the side panel*/
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
         Thread thread = new Thread() {
             @Override
             public void run() {
@@ -375,6 +375,8 @@ public class DisplayMaster {
         //citationListHistory.clear();
         //citationListHistory.addPaper(paper);
         //citationListHistory.printPapers();
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.75);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(true);
         Thread thread = new Thread() {
             @Override
             public void run() {
@@ -415,7 +417,8 @@ public class DisplayMaster {
                 //cancelButtonClicked();
                 threads.add(this);
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().clearAll();
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
+                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
+                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(false);
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel().showLoading();
                 Query q = new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).numResult(numResults).build();
@@ -513,7 +516,7 @@ public class DisplayMaster {
     }
 
     public void renderProfile(ContentRenderer contentRenderer, Author author) {
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
         renderMaster.renderAuthorProfile(contentRenderer, author);
     }
     /* This method is not used anywhere. Deprecated.*/
