@@ -15,11 +15,13 @@ import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.utils.UiUtils;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel;
 import citalyser.util.CommonUtils;
 import java.awt.Point;
 import java.io.File;
 import java.util.Vector;
 import javax.swing.JFileChooser;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.apache.log4j.Logger;
@@ -29,7 +31,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author Tanmay Patil
  */
-public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel {
+public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements TableDisplayPanelInterface {
 
     private static Logger logger = Logger.getLogger(AuthorPaperTableDisplayPanel.class.getName());
 
@@ -100,20 +102,11 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-
-        jMenuItem1.setText("jMenuItem1");
-        jPopupMenu1.add(jMenuItem1);
-
-        jMenuItem2.setText("jMenuItem2");
-        jPopupMenu1.add(jMenuItem2);
 
         setLayout(new java.awt.BorderLayout());
 
@@ -210,13 +203,22 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        if (jTable1.rowAtPoint(evt.getPoint()) > -1 && jTable1.rowAtPoint(evt.getPoint()) != disabledRow) {
+        if (jTable1.rowAtPoint(evt.getPoint()) > -1) {
             disabledRow = jTable1.rowAtPoint(evt.getPoint());
             Paper clickedPaper = paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint()));
-            if(clickedPaper.getNumCites() > 0)
-                displayMaster.tableClicked(clickedPaper);
-            else
-               displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
+            if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+                if (jTable1.rowAtPoint(evt.getPoint()) != disabledRow) {
+                    if(clickedPaper.getNumCites() > 0) {
+                        displayMaster.tableClicked(clickedPaper);
+                    } else {
+                       displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
+                    }
+                }
+            } else {
+                ((TableDisplayPanel) ((JPanel) ((JPanel) this.getParent()).getParent())).setPopUpLocation(evt.getPoint());
+                ((TableDisplayPanel) ((JPanel) ((JPanel) this.getParent()).getParent())).setSelectedPaper(this, clickedPaper);
+                ((TableDisplayPanel) ((JPanel) ((JPanel) this.getParent()).getParent())).getTableRightClickedPopupMenu().show(evt.getComponent(), evt.getX(), evt.getY());
+            }
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -253,10 +255,7 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
@@ -265,6 +264,18 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel {
         paperCollection = null;
         while (jTable1.getModel().getRowCount() > 0) {
             ((DefaultTableModel) jTable1.getModel()).removeRow(0);
+        }
+    }
+
+    @Override
+    public void callLeftClickedEvent(Point point) {
+        if (jTable1.rowAtPoint(point) > -1) {
+            Paper clickedPaper = paperCollection.getPapers().get(jTable1.rowAtPoint(point));
+            if(clickedPaper.getNumCites() > 0) {
+                displayMaster.tableClicked(clickedPaper);
+            } else {
+               displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
+            }
         }
     }
 }
