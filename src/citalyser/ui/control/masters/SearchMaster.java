@@ -8,6 +8,7 @@ import citalyser.model.query.QueryResult;
 import citalyser.model.query.QueryType;
 import citalyser.model.query.queryresult.AuthorListResult;
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.model.ContentRenderer;
 import citalyser.ui.utils.UiUtils;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.common.SearchPanel;
@@ -118,6 +119,7 @@ public class SearchMaster {
                 int count = maxResultsAtOneTime;
                 int start = 0;
                 int recvCount = 0;
+                ContentRenderer contentRenderer = mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel();
                 //int state = 0;
                 logger.debug("TotalCount : " + totalCount);
                 while (!Thread.interrupted()) 
@@ -145,6 +147,7 @@ public class SearchMaster {
                         globalResult.appendContents(currResult.getContents());
                     }
                     /* Hack for further fetching of results in case of Author Grid*/
+                    //---------------------------------------------------------------------------------------
                     if (q.flag == QueryType.MET_AUTH && currResult instanceof AuthorListResult) {
                         ArrayList<Author> authors = (ArrayList<Author>) (currResult.getContents());
                         if(authors.size() <= 0){
@@ -156,16 +159,18 @@ public class SearchMaster {
                         q.url = authors.get(0).getNextLink();
                         logger.debug("Url : " + q.url);
                     }
+                    //-----------------------------------------------------------------------------------------
                     if (Thread.interrupted()) {
                         break;
                     }
                     displayMaster.setProgress((start*100)/numResults);
-                    displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), currResult);
+                    displayMaster.getQueryResultRenderingHandler().render(contentRenderer, currResult);
                     start += count;
                 }
                 mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(true);
-                //displayMaster.displayInfoMessage("Displaying "+totalCount+" results for '"+mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getSearchString()+"'");
                 UiUtils.displayQueryCompleteInfoMessage(q.flag,recvCount,q.name);
+                if(recvCount == 0)
+                    UiUtils.displayQueryEmptyMessage(contentRenderer,q.flag, q.name);
             }
         };
         thread.start();
@@ -211,6 +216,7 @@ public class SearchMaster {
         UiUtils.displayQueryStartInfoMessage(q.flag, searchQuery);
         fetchResults(q, maxResults, numResults);
     }
+    
     /* This method has been deprecated now. Do not use this method.*/
     /*   public Query createQuery(SearchPanel searchPanel, int start, int count) {
     

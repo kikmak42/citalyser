@@ -25,7 +25,7 @@ public class RenderMaster {
         if (arrayList != null) {
             //contentRenderer.clearAll();
             if (arrayList.isEmpty()) {
-                contentRenderer.displayMessage("<html>Did not find any author search results matching the search query. Try Author Papers Search");
+                contentRenderer.displayMessage("<html>We did not find any authors matching the search query. Try in Authors Papers search option.");
                 return;
             }
             for (Author author : arrayList) {
@@ -36,7 +36,7 @@ public class RenderMaster {
             }
             contentRenderer.flipToGridDisplayPanel();
         } else {
-            contentRenderer.displayMessage("<html>Did not find any author search results matching the search query. Try Author Papers Search");
+            //contentRenderer.displayMessage("<html>Did not find any author search results matching the search query. Try Author Papers Search");
         }
     }
 

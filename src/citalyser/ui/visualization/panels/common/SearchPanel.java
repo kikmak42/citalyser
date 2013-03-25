@@ -376,6 +376,12 @@ public class SearchPanel extends javax.swing.JPanel {
         return autoCompleteSuggestions;
     }
 
+    public void resetProgressBar()
+    {
+        jProgressBar1.setValue(0);
+        jProgressBar1.setVisible(false);
+    }
+    
     public void setProgress(int value) {
         if (value > -1 && value < 101) {
             jProgressBar1.setValue(value);

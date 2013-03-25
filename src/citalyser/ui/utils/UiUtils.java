@@ -10,6 +10,7 @@ import citalyser.model.query.QueryHandler;
 import citalyser.model.query.QueryResult;
 import citalyser.model.query.QueryType;
 import citalyser.model.query.queryresult.ImageResult;
+import citalyser.ui.model.ContentRenderer;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.logging.Level;
@@ -139,5 +140,34 @@ public class UiUtils {
                 result = "";
         }
         Main.getDisplayController().displayInfoMessage(result);
+    }
+    
+    public static void displayQueryEmptyMessage(ContentRenderer contentRenderer,QueryType qtype,String searchQuery)
+    {
+        String result;
+        switch(qtype)
+        {
+            case GEN_AUTH: 
+                result = "We did not find any results for papers with Authors matching '"+searchQuery+"' from Google Scholar";
+                break;
+            case GEN_JOURN:
+                result =  "We did not find any results for papers in publications with name matching '"+searchQuery+"'...";
+                break;
+            case MET_AUTH:
+                result = "We did not find any authors matching '" + searchQuery+"'";
+                break;
+            case MET_JOURN:
+                result = "We did not find any journals matching '" + searchQuery + "'";
+                break;
+            case AUTH_PROF:
+                result = "There was some error fetching profile of Author  : '"+searchQuery+"'...";
+                break;
+            case JOURN_PROF:
+                 result = "There was some error fetching publications of the journal '"+searchQuery+"'...";
+                 break;
+            default : 
+                return;
+        }
+        contentRenderer.displayMessage(result);
     }
 }
