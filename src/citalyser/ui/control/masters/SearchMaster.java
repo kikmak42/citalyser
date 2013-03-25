@@ -190,8 +190,22 @@ public class SearchMaster {
         int maxResults;
         String searchQuery = searchPanel.getSearchString();
         int numResults = mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getNumResults();
-        int minYear = displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue();
-        int maxYear = displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue();
+        int min_year = displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getMinYear();
+        int max_year = displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getMaxYear();
+        int minYear;
+        int maxYear;
+        if(min_year<=max_year){
+            minYear = min_year;
+            maxYear = max_year;
+            
+        }
+        else{
+            
+            minYear = max_year;
+            maxYear = min_year;
+            displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setMinYear(minYear);
+            displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setMaxYear(maxYear);
+        }
         boolean sortByYear = searchPanel.getComboSelection();
         boolean isAuthorQuery = displayMaster.checkAuthorMode();
         boolean isMetricQuery = searchPanel.getRadioButtonInfo();
