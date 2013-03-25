@@ -34,7 +34,7 @@ public class UrlComposer {
         URL +="btnG=&hl=en&as_sdt=1%2C5&as_vis=1";
         logger.debug(URL);
         return URL;
-    }
+   } 
     
     public static String getGenJournUrl(Query q)
     {
