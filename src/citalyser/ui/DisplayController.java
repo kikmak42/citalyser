@@ -4,6 +4,7 @@
  */
 package citalyser.ui;
 
+import citalyser.ui.visualization.MainFrame;
 import java.util.Vector;
 
 /**
@@ -25,5 +26,8 @@ public interface DisplayController {
     public void addAutoCompleteSuggestion(String suggestion);
     
     public void emptyAutoCompleteSuggestions();
+    
+    public MainFrame getMainFrame();
+
     
 }

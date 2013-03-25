@@ -1,10 +1,14 @@
 package citalyser;
 
 //import citalyser.networking.hall;
+import citalyser.graph.CreateGraph;
+import citalyser.model.Author;
+import citalyser.model.Paper;
 import citalyser.util.Config;
 import citalyser.ui.DisplayController;
 import citalyser.ui.control.DisplayControllerImpl;
 import java.io.File;
+import java.util.ArrayList;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -33,6 +37,16 @@ public class Main {
         
         displayController = new DisplayControllerImpl();
         displayController.initializeDisplay();
+//        Paper paper = new Paper();
+//        paper.setTitle("Removal of Cr (VI) from aqueous solution: Electrocoagulation vs chemical coagulation");
+//        Author a = new Author("AK Golder");
+//        ArrayList<Author> arr = new ArrayList<>();
+//        arr.add(a);
+//        paper.setAuthors(arr);
+//        paper.setInfo("AK Golder");
+//        paper.setCitedByUrl("http://scholar.google.co.in/scholar?cites=1547993743289210385&as_sdt=2005&sciodt=0,5&hl=en");
+//        getDisplayController().getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getGraphViewPanel().setPaper(paper);
+        
     }
     
 

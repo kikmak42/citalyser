@@ -10,7 +10,10 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel;
 
+import citalyser.graph.CreateGraph;
+import citalyser.model.Paper;
 import citalyser.ui.control.DisplayMaster;
+import java.awt.BorderLayout;
 
 /**
  *
@@ -26,6 +29,13 @@ public class GraphViewPanel extends javax.swing.JPanel {
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
     }
+    public void setPaper(Paper paper) {
+        CreateGraph cg = new CreateGraph(paper);
+        this.setLayout(new BorderLayout());
+        add(cg.getVisualizationViewer());
+        
+    }
+
     
     private DisplayMaster displayMaster;
 
@@ -38,16 +48,7 @@ public class GraphViewPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 437, Short.MAX_VALUE)
-        );
+        setLayout(new java.awt.BorderLayout());
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
