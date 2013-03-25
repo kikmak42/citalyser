@@ -634,4 +634,8 @@ public class DisplayMaster {
     public void setDisplayPreview(boolean selected) {
         showPaperPreview = selected;
     }
+
+    public void paperTableMoreButtonClicked() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 }
