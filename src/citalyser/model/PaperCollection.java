@@ -201,5 +201,4 @@ public class PaperCollection implements Serializable {
         }
         return false;
     }
-    
 }

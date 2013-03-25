@@ -63,11 +63,16 @@ public class Parser {
 
             Elements title_section = item.select("h3>a");
             if (!title_section.isEmpty()) {
+                try{
                 Element section = title_section.get(0);//getting the first element of this array
                 String title = section.text();
                 String href = section.attr("href");
                 insertInextractedpapers.setTitle(title);
-
+                insertInextractedpapers.setUrl(href);
+                }catch(Exception ex){
+                    insertInextractedpapers.setTitle("");
+                    insertInextractedpapers.setUrl("");
+                }
             }
 
 
