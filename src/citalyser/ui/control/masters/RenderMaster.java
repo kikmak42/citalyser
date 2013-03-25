@@ -9,6 +9,7 @@ import citalyser.model.Author;
 import citalyser.model.Journal;
 import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
+import citalyser.model.query.Query;
 import citalyser.ui.model.ContentRenderer;
 import citalyser.ui.model.TableModelHandler;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.griddisplaypanel.GridEntityPanel;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
  */
 public class RenderMaster {
 
-    public void render(ContentRenderer contentRenderer, ArrayList<Author> arrayList) {
+    public void render(ContentRenderer contentRenderer, Query query, ArrayList<Author> arrayList) {
         if (arrayList != null) {
             //contentRenderer.clearAll();
             for (Author author : arrayList) {
@@ -36,7 +37,7 @@ public class RenderMaster {
         }
     }
 
-    public void renderJournalMetrics(ContentRenderer contentRenderer, ArrayList<Journal> arrayList) {
+    public void renderJournalMetrics(ContentRenderer contentRenderer, Query query, ArrayList<Journal> arrayList) {
         //contentRenderer.clearAll();
         int numResults = arrayList.size();
         if (numResults > 0) {
@@ -45,7 +46,7 @@ public class RenderMaster {
         }
     }
 
-    public void render(ContentRenderer contentRenderer, Author author) {
+    public void render(ContentRenderer contentRenderer, Query query, Author author) {
         if (author != null) {
             //contentRenderer.clearAll();
             contentRenderer.getTableDisplayPanel().setTable(author.getPaperCollection());
@@ -56,12 +57,12 @@ public class RenderMaster {
         }
     }
 
-    public void render(ContentRenderer contentRenderer, PaperCollection paperCollection) {
+    public void render(ContentRenderer contentRenderer, Query query, PaperCollection paperCollection) {
         contentRenderer.getTableDisplayPanel().setTable(paperCollection);
         contentRenderer.flipToTableDisplayPanel();
     }
 
-    public void renderCitationsList(ContentRenderer contentRenderer, ArrayList<Paper> papers) {
+    public void renderCitationsList(ContentRenderer contentRenderer, Query query, ArrayList<Paper> papers) {
         if (papers == null) {
             return;
         }
@@ -76,7 +77,7 @@ public class RenderMaster {
 
     }
 
-    public void renderAuthorProfile(ContentRenderer contentRenderer, Author author) {
+    public void renderAuthorProfile(ContentRenderer contentRenderer, Query query, Author author) {
         if (author != null) {
             contentRenderer.clearAll();
             contentRenderer.getProfileDisplayPanel().displayAuthorProfile(author);
@@ -86,7 +87,7 @@ public class RenderMaster {
         }
     }
 
-    public void renderJournalPaperCollection(ContentRenderer contentRenderer, PaperCollection paperCollection) {
+    public void renderJournalPaperCollection(ContentRenderer contentRenderer, Query query, PaperCollection paperCollection) {
         if (paperCollection != null) {
             //contentRenderer.clearAll();
             contentRenderer.getTableDisplayPanel().setTable(paperCollection, true);
@@ -95,7 +96,7 @@ public class RenderMaster {
     }
 
     /* This method is not used anywhere. Deprecated*/
-    public void renderGeneralProfile(ContentRenderer contentRenderer, PaperCollection papercollection) {
+    public void renderGeneralProfile(ContentRenderer contentRenderer, Query query, PaperCollection papercollection) {
         if (papercollection != null) {
             contentRenderer.clearAll();
             if (papercollection.getPapers() == null) {
@@ -113,7 +114,7 @@ public class RenderMaster {
         }
     }
 
-    public void renderJournalProfile(ContentRenderer contentRenderer, Journal journal) {
+    public void renderJournalProfile(ContentRenderer contentRenderer, Query query, Journal journal) {
         if (journal != null) {
             contentRenderer.clearAll();
 

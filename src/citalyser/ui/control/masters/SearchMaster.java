@@ -165,9 +165,9 @@ public class SearchMaster {
                         break;
                     }
                     mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateProgressBar((start*100)/numResults);
-                    displayMaster.getQueryResultRenderingHandler().render(contentRenderer, currResult);
+                    displayMaster.getQueryResultRenderingHandler().render(contentRenderer, q, currResult);
                     if(q.flag == QueryType.GEN_JOURN || q.flag == QueryType.GEN_AUTH)
-                        displayMaster.renderGeneralProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(),(PaperCollection)globalResult.getContents());
+                        displayMaster.renderGeneralProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(),q, (PaperCollection)globalResult.getContents());
                     start += count;
                     /* Results have finished . No need to fetch more results.*/
                     if(recvCount < start)
