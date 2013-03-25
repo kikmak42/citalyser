@@ -13,6 +13,8 @@ import citalyser.model.query.queryresult.ImageResult;
 import citalyser.ui.model.ContentRenderer;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.logging.Level;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -142,7 +144,7 @@ public class UiUtils {
         Main.getDisplayController().displayInfoMessage(result);
     }
     
-    public static void displayQueryEmptyMessage(ContentRenderer contentRenderer,QueryType qtype,String searchQuery)
+    public static void displayQueryEmptyMessage(ContentRenderer contentRenderer,QueryType qtype,String searchQuery) 
     {
         String result;
         switch(qtype)
@@ -154,10 +156,12 @@ public class UiUtils {
                 result =  "We did not find any results for papers in publications with name matching '"+searchQuery+"'...";
                 break;
             case MET_AUTH:
-                result = "We did not find any authors matching '" + searchQuery+"'";
+                result = "We did not find any authors matching '" + searchQuery+"'. "
+                        + "Try searching choosing the Author Papers Option for results from Google Scholar Search.";
                 break;
             case MET_JOURN:
-                result = "We did not find any journals matching '" + searchQuery + "'";
+                result = "We did not find any journals matching '" + searchQuery + "' "
+                        + "Try searching choosing the Google Scholar Option for results from Google Scholar Search.";
                 break;
             case AUTH_PROF:
                 result = "There was some error fetching profile of Author  : '"+searchQuery+"'...";

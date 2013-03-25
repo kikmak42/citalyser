@@ -106,14 +106,20 @@ public class SearchMaster {
     }
 
     private void fetchResults(final Query q, final int maxResultsAtOneTime, final int numResults) {
+                
+                /* Clear all panels*/
+                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().clearAll();
+                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(false);
+                /* Show Loading sign in the central panel*/
+                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
+                /* Update the Search Panel on query Init*/
+                mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryInit();
+                
         Thread thread = new Thread() {
 
             @Override
             public void run() {
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().clearAll();
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(false);
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
-                mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(false);
+                String searchQuery = q.name;
                 QueryResult globalResult = null, currResult;
                 int totalCount = numResults;
                 int count = maxResultsAtOneTime;
@@ -125,52 +131,54 @@ public class SearchMaster {
                 while (!Thread.interrupted()) 
                 {
                     logger.debug("Start : " + start + "--  Count : " + count);
-                    if (start >= totalCount) {
-                        mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getProgressBar().setValue(0);
-                        mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getProgressBarPanel().setVisible(false);
+                    if (start >= totalCount) 
                         break;
-                    }
+              
                     q.start_result = start;
                     q.num_results = Math.min(count, totalCount - start);
-                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getProgressBarPanel().setVisible(true);
-                    //state=((start+count)/totalCount)*100;
-                    //mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getProgressBar().setValue(state);
+                    
                     currResult = QueryHandler.getInstance().getQueryResult(q);
                     if (currResult == null) {
                         logger.debug("Curr Result is null");
                         break;
                     }
-                    recvCount+=currResult.getNumContents();
+                    
                     if (start == 0) {
                         globalResult = currResult;
                     } else {
                         globalResult.appendContents(currResult.getContents());
                     }
+                    recvCount+=currResult.getNumContents();
+                    
                     /* Hack for further fetching of results in case of Author Grid*/
                     //---------------------------------------------------------------------------------------
                     if (q.flag == QueryType.MET_AUTH && currResult instanceof AuthorListResult) {
                         ArrayList<Author> authors = (ArrayList<Author>) (currResult.getContents());
-                        if(authors.size() <= 0){
-                            if (start == 0) {
-                                displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), currResult);
-                            }
-                            break;
-                        }
-                        q.url = authors.get(0).getNextLink();
-                        logger.debug("Url : " + q.url);
+                        int numResults = currResult.getNumContents();
+                        if(numResults > 0)
+                            q.url = authors.get(0).getNextLink();
+                        
                     }
                     //-----------------------------------------------------------------------------------------
                     if (Thread.interrupted()) {
                         break;
                     }
-                    displayMaster.setProgress((start*100)/numResults);
+                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateProgressBar((start*100)/numResults);
                     displayMaster.getQueryResultRenderingHandler().render(contentRenderer, currResult);
                     start += count;
+                    /* Results have finished . No need to fetch more results.*/
+                    if(recvCount < start)
+                        break;
                 }
-                mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(true);
-                UiUtils.displayQueryCompleteInfoMessage(q.flag,recvCount,q.name);
+                // Query Completed. 
+                /* Update the search panel*/
+                mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryComplete();
+                /* If no results, show EmptyResult Message */
                 if(recvCount == 0)
-                    UiUtils.displayQueryEmptyMessage(contentRenderer,q.flag, q.name);
+                    UiUtils.displayQueryEmptyMessage(contentRenderer,q.flag, searchQuery);
+                /* Show Query Completion Message*/
+                UiUtils.displayQueryCompleteInfoMessage(q.flag,recvCount,searchQuery);
+                
             }
         };
         thread.start();
@@ -206,6 +214,7 @@ public class SearchMaster {
             if (isMetricQuery) {
                 //Fetch Journal Papers from Metric
                 maxResults = Constants.MaxResultsNum.METRICS_JOURNAL_PAPERS.getValue();
+                numResults = maxResults;
                 q = new Query.Builder(searchQuery).flag(QueryType.MET_JOURN).minYear(minYear).maxYear(maxYear).sortFlag(sortByYear).build();
             } else {
                 //Fetch Journals from Metric

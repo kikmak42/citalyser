@@ -355,10 +355,6 @@ public class SearchPanel extends javax.swing.JPanel {
         return ButtonPanel;
     }
     
-    public JProgressBar getProgressBar(){
-        return jProgressBar1;
-    }
-    
     public JPanel getProgressBarPanel(){
         return jPanel5;
     }
@@ -376,18 +372,34 @@ public class SearchPanel extends javax.swing.JPanel {
         return autoCompleteSuggestions;
     }
 
-    public void resetProgressBar()
+    public void initProgressBar()
     {
         jProgressBar1.setValue(0);
-        jProgressBar1.setVisible(false);
+        getProgressBarPanel().setVisible(true);
     }
-    
-    public void setProgress(int value) {
+    public void uninitProgressBar()
+    {
+        getProgressBarPanel().setVisible(false);
+        jProgressBar1.setValue(0);
+    }
+    public void updateProgressBar(int value) {
         if (value > -1 && value < 101) {
             jProgressBar1.setValue(value);
         }
     }
 
+    public void updateOnQueryInit()
+    {
+        setButtonEnabled(false);
+        initProgressBar();
+    }
+    
+    public void updateOnQueryComplete()
+    {
+        uninitProgressBar();
+        setButtonEnabled(true);
+    }
+    
     private boolean empty = true;
     private DisplayMaster displayMaster;
     private Vector<String> autoCompleteSuggestions;

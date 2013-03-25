@@ -24,10 +24,6 @@ public class RenderMaster {
     public void render(ContentRenderer contentRenderer, ArrayList<Author> arrayList) {
         if (arrayList != null) {
             //contentRenderer.clearAll();
-            if (arrayList.isEmpty()) {
-                contentRenderer.displayMessage("<html>We did not find any authors matching the search query. Try in Authors Papers search option.");
-                return;
-            }
             for (Author author : arrayList) {
                 if (Thread.interrupted()) {
                     break;
@@ -41,16 +37,12 @@ public class RenderMaster {
     }
 
     public void renderJournalMetrics(ContentRenderer contentRenderer, ArrayList<Journal> arrayList) {
-        if (arrayList != null) {
-            //contentRenderer.clearAll();
-            if (arrayList.isEmpty()) {
-                contentRenderer.displayMessage("Could not fetch journals list");
-                return;
-            }
+        //contentRenderer.clearAll();
+        int numResults = arrayList.size();
+        if(numResults > 0)
+        {
             contentRenderer.getTableDisplayPanel().setJournalTable(arrayList);
             contentRenderer.flipToTableDisplayPanel();
-        } else {
-            contentRenderer.displayMessage("Could not fetch journals list");
         }
     }
 
@@ -65,22 +57,8 @@ public class RenderMaster {
     }
 
     public void render(ContentRenderer contentRenderer, PaperCollection paperCollection) {
-        if (paperCollection != null) {
-            //contentRenderer.clearAll();
-            if (paperCollection.getPapers() == null) {
-                contentRenderer.displayMessage("Could not fetch papers result");
-            } else {
-                if (paperCollection.getPapers().isEmpty()) {
-                    contentRenderer.displayMessage("Could not fetch papers result");
-                } else {
-                    contentRenderer.getTableDisplayPanel().setTable(paperCollection);
-                    contentRenderer.flipToTableDisplayPanel();
-                }
-            }
-        } else {
-            //TODO: Need to call api back
-            contentRenderer.displayMessage("Could not fetch papers result");
-        }
+        contentRenderer.getTableDisplayPanel().setTable(paperCollection);
+        contentRenderer.flipToTableDisplayPanel();
     }
 
     public void renderCitationsList(ContentRenderer contentRenderer, ArrayList<Paper> papers) {

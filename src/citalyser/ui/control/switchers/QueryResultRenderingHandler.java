@@ -45,7 +45,7 @@ public class QueryResultRenderingHandler {
         } else if (queryResult instanceof PaperCollectionResult) {
             displayMaster.render(contentRenderer, (PaperCollection) queryResult.getContents());
         } else {
-            Main.getDisplayController().displayErrorMessage("Oops!! Something went Wrong.We are sorry for your inconvenience.");
+            //Main.getDisplayController().displayErrorMessage("Oops!! Something went Wrong.We are sorry for your inconvenience.");
         }
     }
 
