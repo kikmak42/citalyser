@@ -201,5 +201,20 @@ public class PaperCollection implements Serializable {
         }
         return false;
     }
+
+    public int getCitationPerYear() {
+        //TODO:
+        return 0;
+    }
+
+    public int getCitationPerPaper() {
+        //TODO:
+        return 0;
+    }
+
+    public int getTotalNumberOfCitations() {
+        //TODO:
+        return 0;
+    }
     
 }

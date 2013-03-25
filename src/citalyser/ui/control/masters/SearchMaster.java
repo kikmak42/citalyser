@@ -243,4 +243,8 @@ public class SearchMaster {
     }
     }
     } */
+
+    public String getSearchString() {
+        return mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getSearchString();
+    }
 }

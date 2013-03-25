@@ -1,4 +1,3 @@
-
 package citalyser.ui.control;
 
 import citalyser.Constants;
@@ -168,12 +167,15 @@ public class DisplayMaster {
     }
 
     public void displayStatusMessage(String status) {
-        if(status!=null)
-        mainFrame.getRegularDisplayPanel().getToolsPanel().displayStatusMessage(status);
+        if (status != null) {
+            mainFrame.getRegularDisplayPanel().getToolsPanel().displayStatusMessage(status);
+        }
     }
+
     public void displayInfoMessage(String info) {
-        if(info!=null)
-        mainFrame.getRegularDisplayPanel().getToolsPanel().displayInfoMessage(info);
+        if (info != null) {
+            mainFrame.getRegularDisplayPanel().getToolsPanel().displayInfoMessage(info);
+        }
     }
 
     public void clearStatusPanel() {
@@ -199,43 +201,43 @@ public class DisplayMaster {
 
     public void showPaperInfo(Paper paper, Point point) {
         /*final Paper myPaper = paper;
-        final Point myPoint = point;
-        final Thread thread = new Thread() {
+         final Point myPoint = point;
+         final Thread thread = new Thread() {
         
-        @Override
-        public void run() {
-        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl()).build();
-        QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
-        if (queryResult != null) {
-        PaperCollection pc = (PaperCollection) queryResult.getContents();
-        if (myPaper != null) {
-        abstractDisplayPanel.setPaper(pc.maximumCitedPaper());
-        abstractDialog.setLocation(myPoint);
-        abstractDialog.setVisible(true);
-        abstractDialog.repaint();
-        }
-        } else {
-        abstractDialog.setVisible(false);
-        }
-        }
+         @Override
+         public void run() {
+         Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl()).build();
+         QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
+         if (queryResult != null) {
+         PaperCollection pc = (PaperCollection) queryResult.getContents();
+         if (myPaper != null) {
+         abstractDisplayPanel.setPaper(pc.maximumCitedPaper());
+         abstractDialog.setLocation(myPoint);
+         abstractDialog.setVisible(true);
+         abstractDialog.repaint();
+         }
+         } else {
+         abstractDialog.setVisible(false);
+         }
+         }
         
-        };
-        thread.start();
-        new Thread() {
+         };
+         thread.start();
+         new Thread() {
         
-        @Override
-        public void run() {
-        try {
-        Thread.sleep(100);
-        } catch (InterruptedException ex) {
-        ex.printStackTrace();
-        }
-        if (thread.isAlive()) {
-        thread.stop();
-        }
-        }
+         @Override
+         public void run() {
+         try {
+         Thread.sleep(100);
+         } catch (InterruptedException ex) {
+         ex.printStackTrace();
+         }
+         if (thread.isAlive()) {
+         thread.stop();
+         }
+         }
         
-        }.start();*/
+         }.start();*/
         if (showPaperPreview) {
             abstractDisplayPanel.setPaper(paper);
             abstractDialog.setLocation(point);
@@ -288,35 +290,34 @@ public class DisplayMaster {
                 .initPanel(citationListHistory.getCurrentPosition(), myPaper.getTitle());
         /* Show Loading sign in Citation panel*/
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel()
-                        .getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
+                .getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel()
                 .getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
         /* Show the Side panel*/
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);        
-        
-        Thread thread = new Thread() {
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
 
+        Thread thread = new Thread() {
             @Override
             public void run() {
                 ContentRenderer contentRenderer = mainFrame.getRegularDisplayPanel().getDataVisualizationPanel()
-                                .getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel();
-                
+                        .getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel();
+
                 Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl())
-                                               .startResult(0)
-                                               .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
-                                               .build();
+                        .startResult(0)
+                        .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
+                        .build();
                 UiUtils.displayQueryStartInfoMessage(q.flag, myPaper.getTitle());
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
-                UiUtils.displayQueryCompleteInfoMessage(q.flag,0,"");
+                UiUtils.displayQueryCompleteInfoMessage(q.flag, 0, "");
                 if (queryResult != null) {
-                    if(queryResult.getNumContents() > 0)
-                    {
+                    if (queryResult.getNumContents() > 0) {
                         PaperCollection pc = (PaperCollection) queryResult.getContents();
                         contentRenderer.getCollapsibleListDisplayPanel().addEntityCount(pc.getPapers().size());
                         renderCitationsList(contentRenderer, pc.getPapers());
-                    }else
-                        UiUtils.displayQueryEmptyMessage(contentRenderer,q.flag,myPaper.getTitle());
-                } 
+                    } else {
+                        UiUtils.displayQueryEmptyMessage(contentRenderer, q.flag, myPaper.getTitle());
+                    }
+                }
             }
         };
         thread.start();
@@ -325,6 +326,7 @@ public class DisplayMaster {
         }
     }
     /* This method is invoked to fetch the citations of a metric paper from google Metrics*/
+
     public void metricTableClicked(Paper paper) {
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
@@ -333,36 +335,33 @@ public class DisplayMaster {
         citationListHistory.clear();
         citationListHistory.addPaper(paper);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel()
-                                          .getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel()
-                                          .initPanel(citationListHistory.getCurrentPosition(), myPaper.getTitle());
+                .getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel()
+                .initPanel(citationListHistory.getCurrentPosition(), myPaper.getTitle());
         /* Show Loading sign in Citation panel*/
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
         /* Show the side panel*/
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
         Thread thread = new Thread() {
-
             @Override
             public void run() {
                 Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST_METRIC).Url(myPaper.getcitedByUrl())
-                                               .startResult(0)
-                                               .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
-                                               .build();
+                        .startResult(0)
+                        .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
+                        .build();
                 UiUtils.displayQueryStartInfoMessage(q.flag, myPaper.getTitle());
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
                 ContentRenderer contentRenderer = mainFrame.getRegularDisplayPanel().getDataVisualizationPanel()
-                                .getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel();
-                UiUtils.displayQueryCompleteInfoMessage(q.flag,0,"");
-                if (queryResult != null) 
-                {
-                    if(queryResult.getNumContents() > 0)
-                    {
+                        .getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel();
+                UiUtils.displayQueryCompleteInfoMessage(q.flag, 0, "");
+                if (queryResult != null) {
+                    if (queryResult.getNumContents() > 0) {
                         PaperCollection pc = (PaperCollection) queryResult.getContents();
                         renderCitationsList(contentRenderer, pc.getPapers());
+                    } else {
+                        UiUtils.displayQueryEmptyMessage(contentRenderer, q.flag, myPaper.getTitle());
                     }
-                    else
-                        UiUtils.displayQueryEmptyMessage(contentRenderer,q.flag,myPaper.getTitle());
-                }  
+                }
             }
         };
         thread.start();
@@ -377,26 +376,23 @@ public class DisplayMaster {
         //citationListHistory.addPaper(paper);
         //citationListHistory.printPapers();
         Thread thread = new Thread() {
-
             @Override
             public void run() {
                 Query q = new Query.Builder("").flag(QueryType.JOURN_PROF).Url(myJournal.getH5Link()).build();
                 UiUtils.displayQueryStartInfoMessage(q.flag, myJournal.getName());
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
-                if (queryResult != null) 
-                {
+                if (queryResult != null) {
                     ContentRenderer contentRenderer = mainFrame.getRegularDisplayPanel().getDataVisualizationPanel()
-                                                            .getContentDisplayPanel().getCentralContentDisplayPanel();
-                    UiUtils.displayQueryCompleteInfoMessage(q.flag,queryResult.getNumContents(),myJournal.getName());
+                            .getContentDisplayPanel().getCentralContentDisplayPanel();
+                    UiUtils.displayQueryCompleteInfoMessage(q.flag, queryResult.getNumContents(), myJournal.getName());
                     int numResults = queryResult.getNumContents();
-                    if(numResults > 0)
-                    {
+                    if (numResults > 0) {
                         Journal journ = (Journal) queryResult.getContents();
                         render(contentRenderer, journ);
-                        renderGeneralProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), journ.getPaperCollection());
-                    }
-                    else
+                        renderJournalProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), journ);
+                    } else {
                         UiUtils.displayQueryEmptyMessage(contentRenderer, q.flag, myJournal.getName());
+                    }
                 } else {
                     Main.getDisplayController().displayErrorMessage("Unknown Error while Fetching Journal Papers.");
                 }
@@ -407,14 +403,13 @@ public class DisplayMaster {
             threads.add(thread);
         }
     }
-     
+
     public void authorGridEntityClicked(Author author) {
-        
+
         final String authorName = author.getName();
         final String myId = author.getId();
-        final int numResults = Constants.MaxResultsNum.AUTHOR_PAPERS.getValue();        
+        final int numResults = Constants.MaxResultsNum.AUTHOR_PAPERS.getValue();
         Thread thread = new Thread() {
-
             @Override
             public void run() {
                 //cancelButtonClicked();
@@ -427,7 +422,7 @@ public class DisplayMaster {
                 UiUtils.displayQueryStartInfoMessage(q.flag, authorName);
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
                 if (queryResult instanceof AuthorResult) {
-                    UiUtils.displayQueryCompleteInfoMessage(q.flag,queryResult.getNumContents(), authorName);
+                    UiUtils.displayQueryCompleteInfoMessage(q.flag, queryResult.getNumContents(), authorName);
                     queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), queryResult);
                     renderProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), (Author) queryResult.getContents());
                 } else {
@@ -445,17 +440,16 @@ public class DisplayMaster {
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().showPreviousButton();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().addListTitle(citationListHistory.getCurrentPosition(), myPaper.getTitle());
         new Thread() {
-
             @Override
             public void run() {
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
                 Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl())
-                                                .startResult(0)
-                                                .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
-                                                .build();
-                UiUtils.displayQueryStartInfoMessage(q.flag,myPaper.getTitle());
+                        .startResult(0)
+                        .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
+                        .build();
+                UiUtils.displayQueryStartInfoMessage(q.flag, myPaper.getTitle());
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
-                UiUtils.displayQueryCompleteInfoMessage(q.flag,0,"");
+                UiUtils.displayQueryCompleteInfoMessage(q.flag, 0, "");
                 if (queryResult != null) {
                     PaperCollection pc = (PaperCollection) queryResult.getContents();
                     if (myPaper != null) {
@@ -472,25 +466,25 @@ public class DisplayMaster {
 
     /*   public void journalProfile(String id) {
     
-    final String myId = id;
+     final String myId = id;
     
-    new Thread() {
-    @Override
-    public void run() {
-    Query q = new Query.Builder("").flag(QueryType.JOURN_PROF).ID(myId).build();
-    QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
-    if (queryResult instanceof JournalResult)
-    {
-    queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(),queryResult);
-    renderGeneralProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(),(Journal)queryResult.getContents());
-    }
-    else
-    {
-    Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Journal Details.");
-    }
-    }
-    }.start();
-    }*/
+     new Thread() {
+     @Override
+     public void run() {
+     Query q = new Query.Builder("").flag(QueryType.JOURN_PROF).ID(myId).build();
+     QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
+     if (queryResult instanceof JournalResult)
+     {
+     queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(),queryResult);
+     renderGeneralProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(),(Journal)queryResult.getContents());
+     }
+     else
+     {
+     Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Journal Details.");
+     }
+     }
+     }.start();
+     }*/
     //*****************************************************************************//
     //**************************** Rendering Functions ****************************//
     //*****************************************************************************//
@@ -524,8 +518,13 @@ public class DisplayMaster {
         renderMaster.renderAuthorProfile(contentRenderer, author);
     }
     /* This method is not used anywhere. Deprecated.*/
+
     public void renderGeneralProfile(ContentRenderer contentRenderer, PaperCollection papercollection) {
         renderMaster.renderGeneralProfile(contentRenderer, papercollection);
+    }
+
+    public void renderJournalProfile(ContentRenderer contentRenderer, Journal journal) {
+        renderMaster.renderJournalProfile(contentRenderer, journal);
     }
 
     public void clearCitationHistory() {
@@ -543,10 +542,10 @@ public class DisplayMaster {
                 public void run() {
                     mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
                     Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST)
-                                                    .Url(myPaper.getcitedByUrl())
-                                                    .startResult(0)
-                                                    .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
-                                                    .build();
+                            .Url(myPaper.getcitedByUrl())
+                            .startResult(0)
+                            .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
+                            .build();
                     QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
                     if (queryResult != null) {
                         PaperCollection pc = (PaperCollection) queryResult.getContents();
@@ -577,9 +576,9 @@ public class DisplayMaster {
                 public void run() {
                     mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
                     Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST)
-                                                   .startResult(0)
-                                                   .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
-                                                   .Url(myPaper.getcitedByUrl()).build();
+                            .startResult(0)
+                            .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
+                            .Url(myPaper.getcitedByUrl()).build();
                     QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
                     if (queryResult != null) {
                         PaperCollection pc = (PaperCollection) queryResult.getContents();
@@ -598,25 +597,25 @@ public class DisplayMaster {
         }
     }
 
-    public void citationListMoreButtonClicked(int startMarker,final JLabel jLabel) {
+    public void citationListMoreButtonClicked(int startMarker, final JLabel jLabel) {
         final Paper myPaper = citationListHistory.getCurrentPaper();
         final int startMarker1 = startMarker;
         new Thread() {
-
             @Override
             public void run() {
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().showLoadingMoreButton();
                 QueryType queryFlag = CommonUtils.getQueryFlagFromUrl(myPaper.getcitedByUrl());
                 Query q = new Query.Builder("").flag(queryFlag)
-                                                .Url(myPaper.getcitedByUrl())
-                                                .startResult(startMarker1)
-                                                .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
-                                                .build();
+                        .Url(myPaper.getcitedByUrl())
+                        .startResult(startMarker1)
+                        .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
+                        .build();
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
                 if (queryResult != null) {
                     PaperCollection pc = (PaperCollection) queryResult.getContents();
-                    if(pc.getPapers().size() < Constants.MaxResultsNum.CITATION_LIST.getValue())
+                    if (pc.getPapers().size() < Constants.MaxResultsNum.CITATION_LIST.getValue()) {
                         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().removeMoreButton();
+                    }
                     if (myPaper != null) {
                         renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
                         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
@@ -624,7 +623,7 @@ public class DisplayMaster {
                 } else {
                     Main.getDisplayController().displayErrorMessage("Null QueryResult on Listclicked...");
                 }
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().showNormalMoreButton();         
+                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().showNormalMoreButton();
             }
         }.start();
     }
@@ -639,5 +638,9 @@ public class DisplayMaster {
 
     public void paperTableMoreButtonClicked() {
         throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public SearchMaster getSearchMaster() {
+        return searchMaster;
     }
 }
