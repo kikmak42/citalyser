@@ -232,14 +232,37 @@ public class PaperCollection implements Serializable {
         return 0;
     }
 
-    public int getCitationPerPaper() {
+    public float getCitationPerPaper() {
+        int size=0;
+        int i=0;
+        size = papers.size();
+        float citations_per_paper = 0;
+        int total_citations = 0;
+        for(i=0;i<size;i++){
+            total_citations+=papers.get(i).getNumCites();
+        }
         //TODO:
-        return 0;
+        try{
+            citations_per_paper = total_citations/size;
+            
+        }
+        catch(Exception e){
+            citations_per_paper = 0;
+        }
+        return citations_per_paper;
     }
 
     public int getTotalNumberOfCitations() {
+        
+        int size=0;
+        int i=0;
+        size = papers.size();
+        int total_citations = 0;        
+        for(i=0;i<size;i++){
+            total_citations+=papers.get(i).getNumCites();
+        }
         //TODO:
-        return 0;
+        return total_citations;
     }
     
 }
