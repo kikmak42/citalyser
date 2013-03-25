@@ -215,7 +215,7 @@ public class CreateGraph {
         frame.getContentPane().add(vv);
         frame.pack();
         frame.setSize(600, 600);
-        frame.setVisible(true);
+        //frame.setVisible(true);
     }
 
     public static void populateGraph(graphObject go) {
@@ -227,4 +227,8 @@ public class CreateGraph {
             sgv.g2.addEdge("" + i.id + "-" + go.baseInfo, go.baseInfo, i);
         }
     }
+    public VisualizationViewer getVisualizationViewer() {
+        return vv;
+    }
+
 }
