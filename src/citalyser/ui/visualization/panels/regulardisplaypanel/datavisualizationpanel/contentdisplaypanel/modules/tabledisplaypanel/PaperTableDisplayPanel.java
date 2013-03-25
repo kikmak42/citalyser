@@ -10,9 +10,11 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel;
 
+import citalyser.Main;
 import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.utils.UiUtils;
 import citalyser.util.CommonUtils;
 import java.awt.Point;
 import java.io.File;
@@ -168,7 +170,11 @@ public class PaperTableDisplayPanel extends javax.swing.JPanel {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         if (jTable1.rowAtPoint(evt.getPoint()) > -1 && jTable1.rowAtPoint(evt.getPoint()) != disabledRow) {
             disabledRow = jTable1.rowAtPoint(evt.getPoint());
-            displayMaster.tableClicked(paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint())));
+            Paper clickedPaper = paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint()));
+            if(clickedPaper.getNumCites() > 0)
+                displayMaster.tableClicked(clickedPaper);
+            else
+               displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
         }
     }//GEN-LAST:event_jTable1MouseClicked
 

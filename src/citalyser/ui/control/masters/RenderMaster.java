@@ -65,17 +65,13 @@ public class RenderMaster {
     public void renderCitationsList(ContentRenderer contentRenderer, ArrayList<Paper> papers) {
         if (papers == null)
             return;
-        
-        if (papers.isEmpty()) {
-            contentRenderer.displayMessage("No Citations for this paper.");
-        } else {
-            for (Paper p : papers) {
-                if (Thread.interrupted()) {
-                    break;
-                }
-                contentRenderer.getCollapsibleListDisplayPanel().addCollapsibleListEntityPanel(new CollapsibleListEntityPanel(p));
-                contentRenderer.getCollapsibleListDisplayPanel().addMoreButton();
+        for (Paper p : papers) 
+        {
+            if (Thread.interrupted()) {
+                break;
             }
+            contentRenderer.getCollapsibleListDisplayPanel().addCollapsibleListEntityPanel(new CollapsibleListEntityPanel(p));
+            contentRenderer.getCollapsibleListDisplayPanel().addMoreButton();
         }
         contentRenderer.flipToCollapsibleListDisplayPanel();
     }

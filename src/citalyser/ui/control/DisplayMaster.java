@@ -276,35 +276,94 @@ public class DisplayMaster {
         }
     }
 
+    /* This method is invoked to fetch the citations of a paper from google Scholar*/
     public void tableClicked(Paper paper) {
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
         final Paper myPaper = paper;
+        /* Initialise the citation panel */
         citationListHistory.clear();
         citationListHistory.addPaper(paper);
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().hidePreviousButton();
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().hideNextButton();
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().addListTitle(citationListHistory.getCurrentPosition(), myPaper.getTitle());
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel()
+                .getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel()
+                .initPanel(citationListHistory.getCurrentPosition(), myPaper.getTitle());
+        /* Show Loading sign in Citation panel*/
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel()
+                        .getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel()
+                .getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
+        /* Show the Side panel*/
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);        
+        
         Thread thread = new Thread() {
 
             @Override
             public void run() {
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
+                ContentRenderer contentRenderer = mainFrame.getRegularDisplayPanel().getDataVisualizationPanel()
+                                .getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel();
+                
                 Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(myPaper.getcitedByUrl())
                                                .startResult(0)
                                                .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
                                                .build();
+                UiUtils.displayQueryStartInfoMessage(q.flag, myPaper.getTitle());
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
+                UiUtils.displayQueryCompleteInfoMessage(q.flag,0,"");
                 if (queryResult != null) {
-                    PaperCollection pc = (PaperCollection) queryResult.getContents();
-                    if (myPaper != null) {
-                        logger.info("Paper Size:" + pc.getPapers().size());
-                        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().addEntityCount(pc.getPapers().size());
-                        renderCitationsList(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel(), pc.getPapers());
+                    if(queryResult.getNumContents() > 0)
+                    {
+                        PaperCollection pc = (PaperCollection) queryResult.getContents();
+                        contentRenderer.getCollapsibleListDisplayPanel().addEntityCount(pc.getPapers().size());
+                        renderCitationsList(contentRenderer, pc.getPapers());
+                    }else
+                        UiUtils.displayQueryEmptyMessage(contentRenderer,q.flag,myPaper.getTitle());
+                } 
+            }
+        };
+        thread.start();
+        synchronized (threads) {
+            threads.add(thread);
+        }
+    }
+    /* This method is invoked to fetch the citations of a metric paper from google Metrics*/
+    public void metricTableClicked(Paper paper) {
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
+        final Paper myPaper = paper;
+        /* initialise the citation panel and history*/
+        citationListHistory.clear();
+        citationListHistory.addPaper(paper);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel()
+                                          .getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel()
+                                          .initPanel(citationListHistory.getCurrentPosition(), myPaper.getTitle());
+        /* Show Loading sign in Citation panel*/
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
+        
+        /* Show the side panel*/
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
+        Thread thread = new Thread() {
+
+            @Override
+            public void run() {
+                Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST_METRIC).Url(myPaper.getcitedByUrl())
+                                               .startResult(0)
+                                               .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
+                                               .build();
+                UiUtils.displayQueryStartInfoMessage(q.flag, myPaper.getTitle());
+                QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
+                ContentRenderer contentRenderer = mainFrame.getRegularDisplayPanel().getDataVisualizationPanel()
+                                .getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel();
+                UiUtils.displayQueryCompleteInfoMessage(q.flag,0,"");
+                if (queryResult != null) 
+                {
+                    if(queryResult.getNumContents() > 0)
+                    {
+                        PaperCollection pc = (PaperCollection) queryResult.getContents();
+                        renderCitationsList(contentRenderer, pc.getPapers());
                     }
-                } else {
-                    Main.getDisplayController().displayErrorMessage("Null QueryResult on Tableclicked...");
-                }
+                    else
+                        UiUtils.displayQueryEmptyMessage(contentRenderer,q.flag,myPaper.getTitle());
+                }  
             }
         };
         thread.start();
@@ -315,9 +374,6 @@ public class DisplayMaster {
 
     public void tableClicked(Journal journal) {
         final Journal myJournal = journal;
-        //citationListHistory.clear();
-        //citationListHistory.addPaper(paper);
-        //citationListHistory.printPapers();
         Thread thread = new Thread() {
 
             @Override
@@ -340,47 +396,6 @@ public class DisplayMaster {
                         UiUtils.displayQueryEmptyMessage(contentRenderer, q.flag, myJournal.getName());
                 } else {
                     Main.getDisplayController().displayErrorMessage("Unknown Error while Fetching Journal Papers.");
-                }
-            }
-        };
-        thread.start();
-        synchronized (threads) {
-            threads.add(thread);
-        }
-    }
-
-    public void metricTableClicked(Paper paper) {
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
-        final Paper myPaper = paper;
-        /* initialise the citation panel and history*/
-        citationListHistory.clear();
-        citationListHistory.addPaper(paper);
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel()
-                                          .getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel()
-                                          .initPanel(citationListHistory.getCurrentPosition(), myPaper.getTitle());
-        /* Show Loading sign in Citation panel*/
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
-                
-        Thread thread = new Thread() {
-
-            @Override
-            public void run() {
-                Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST_METRIC).Url(myPaper.getcitedByUrl())
-                                               .startResult(0)
-                                               .numResult(Constants.MaxResultsNum.CITATION_LIST.getValue())
-                                               .build();
-                UiUtils.displayQueryStartInfoMessage(q.flag, myPaper.getTitle());
-                QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
-                ContentRenderer contentRenderer = mainFrame.getRegularDisplayPanel().getDataVisualizationPanel()
-                                .getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel();
-                UiUtils.displayQueryCompleteInfoMessage(q.flag,0,"");
-                if (queryResult != null) {
-                    PaperCollection pc = (PaperCollection) queryResult.getContents();
-                    renderCitationsList(contentRenderer, pc.getPapers());  
-                } else {
-                    //Main.getDisplayController().displayErrorMessage("Unknown Error while Fetching Citations");
                 }
             }
         };
@@ -497,7 +512,6 @@ public class DisplayMaster {
     }
 
     public void renderCitationsList(ContentRenderer contentRenderer, ArrayList<Paper> papers) {
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
         renderMaster.renderCitationsList(contentRenderer, papers);
     }
 

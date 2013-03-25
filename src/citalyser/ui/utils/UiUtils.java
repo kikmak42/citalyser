@@ -182,7 +182,8 @@ public class UiUtils {
                  break;
             case CITATIONS_LIST: case CITATIONS_LIST_METRIC :
                 result = "No Citations for Paper : " + searchQuery + "";
-                break;
+                Main.getDisplayController().displayStatusMessage(result);
+                return;
             default : 
                 return;
         }
