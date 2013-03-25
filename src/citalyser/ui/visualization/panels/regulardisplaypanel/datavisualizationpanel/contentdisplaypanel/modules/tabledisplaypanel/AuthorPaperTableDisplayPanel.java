@@ -32,7 +32,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel {
 
     private static Logger logger = Logger.getLogger(AuthorPaperTableDisplayPanel.class.getName());
-
+  
     /** Creates new form TableDisplayPanel */
     public AuthorPaperTableDisplayPanel() {
         initComponents();

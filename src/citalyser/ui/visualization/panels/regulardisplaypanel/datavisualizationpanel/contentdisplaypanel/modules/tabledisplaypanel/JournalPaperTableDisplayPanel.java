@@ -238,7 +238,7 @@ public class JournalPaperTableDisplayPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable1MouseMoved
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        displayMaster.paperTableMoreButtonClicked();
+        //displayMaster.paperTableMoreButtonClicked();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

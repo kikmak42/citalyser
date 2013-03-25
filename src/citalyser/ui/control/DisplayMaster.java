@@ -432,7 +432,7 @@ public class DisplayMaster {
         };
         thread.start();
     }
-
+    
     public void citationListClicked(Paper paper) {
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
         final Paper myPaper = paper;
@@ -634,12 +634,10 @@ public class DisplayMaster {
     public void setDisplayPreview(boolean selected) {
         showPaperPreview = selected;
     }
-
-    public void paperTableMoreButtonClicked() {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
     public SearchMaster getSearchMaster() {
         return searchMaster;
+    }
+    
+    public void paperTableMoreButtonClicked() {
     }
 }
