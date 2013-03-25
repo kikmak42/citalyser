@@ -49,6 +49,7 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel impleme
 
     public void setTable(PaperCollection paperCollection, TableModel tm) {
 
+        showMoreButton();
         if (jTable1.getModel().getRowCount() == 0) {
             disabledRow = -1;
             jTable1.setModel(tm);
@@ -92,7 +93,9 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel impleme
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        moreButton = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -147,13 +150,25 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel impleme
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
         jButton1.setText("Export To CSV");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, java.awt.BorderLayout.PAGE_END);
+        jPanel1.add(jButton1, java.awt.BorderLayout.CENTER);
+
+        moreButton.setText("More Results");
+        moreButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                moreButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(moreButton, java.awt.BorderLayout.EAST);
+
+        add(jPanel1, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -221,10 +236,16 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel impleme
         }
     }//GEN-LAST:event_jTable1MouseMoved
 
+    private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_moreButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton moreButton;
     // End of variables declaration//GEN-END:variables
 
     public void clear() {
@@ -244,5 +265,14 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel impleme
                displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
             }
         }
+    }
+    
+    private void showMoreButton()
+    {
+        this.moreButton.setVisible(true);
+    }
+    private void hideMoreButton()
+    {
+        this.moreButton.setVisible(false);
     }
 }

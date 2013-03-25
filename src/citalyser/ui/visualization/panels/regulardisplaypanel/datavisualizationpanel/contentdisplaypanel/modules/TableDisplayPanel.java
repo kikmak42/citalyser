@@ -13,6 +13,7 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 import citalyser.model.Journal;
 import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
+import citalyser.model.query.Query;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.model.TableModelHandler;
 import citalyser.ui.utils.UiUtils;
@@ -185,8 +186,8 @@ public class TableDisplayPanel extends javax.swing.JPanel {
         flipToJournalTableDisplayPanel();
     }
 
-    public void setTable(PaperCollection paperCollection) {
-        authorPaperTableDisplayPanel.setTable(paperCollection, TableModelHandler.getTableModel(paperCollection));
+    public void setTable(Query query,PaperCollection paperCollection) {
+        authorPaperTableDisplayPanel.setTable(query,paperCollection, TableModelHandler.getTableModel(paperCollection));
         flipToAuthorPaperTableDisplayPanel();
     }
 

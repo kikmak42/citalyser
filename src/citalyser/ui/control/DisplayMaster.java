@@ -504,6 +504,7 @@ public class DisplayMaster {
     }
 
     public void render(ContentRenderer contentRenderer, Query query, PaperCollection paperCollection) {
+        /* Render Table Data*/
         renderMaster.render(contentRenderer, query, paperCollection);
     }
 
@@ -524,6 +525,14 @@ public class DisplayMaster {
     /* This method is not used anywhere. Deprecated.*/
 
     public void renderGeneralProfile(ContentRenderer contentRenderer, Query query, PaperCollection papercollection) {
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.75);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToUpperDetailsDisplayPanel();
+        if(query.flag == QueryType.GEN_JOURN){
+            mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(true);
+        }
+        else{
+            mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(false);
+        }
         renderMaster.renderGeneralProfile(contentRenderer, query, papercollection);
     }
 

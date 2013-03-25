@@ -49,7 +49,7 @@ public class RenderMaster {
     public void render(ContentRenderer contentRenderer, Query query, Author author) {
         if (author != null) {
             //contentRenderer.clearAll();
-            contentRenderer.getTableDisplayPanel().setTable(author.getPaperCollection());
+            contentRenderer.getTableDisplayPanel().setTable(query,author.getPaperCollection());
             contentRenderer.flipToTableDisplayPanel();
         } else {
             Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Author Profile.");
@@ -58,7 +58,7 @@ public class RenderMaster {
     }
 
     public void render(ContentRenderer contentRenderer, Query query, PaperCollection paperCollection) {
-        contentRenderer.getTableDisplayPanel().setTable(paperCollection);
+        contentRenderer.getTableDisplayPanel().setTable(query,paperCollection);
         contentRenderer.flipToTableDisplayPanel();
     }
 
@@ -95,7 +95,6 @@ public class RenderMaster {
         }
     }
 
-    /* This method is not used anywhere. Deprecated*/
     public void renderGeneralProfile(ContentRenderer contentRenderer, Query query, PaperCollection papercollection) {
         if (papercollection != null) {
             contentRenderer.clearAll();
@@ -105,7 +104,7 @@ public class RenderMaster {
                 if (papercollection.getPapers().isEmpty()) {
                     contentRenderer.displayMessage("Could not fetch journal result");
                 } else {
-                    contentRenderer.getProfileDisplayPanel().displayGeneralProfile(papercollection);
+                    contentRenderer.getProfileDisplayPanel().displayGeneralProfile(query,papercollection);
                     contentRenderer.flipToProfileDisplayPanel();
                 }
             }

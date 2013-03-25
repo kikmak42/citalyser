@@ -103,6 +103,10 @@ public class UrlComposer {
     
     public static Query encodeQueryParameters(Query q)
     {
+        if(q.min_year == "0")
+            q.min_year = "";
+        if(q.max_year == "0")
+            q.max_year = "";
         try{
             q.name = URLEncoder.encode(q.name,"ISO-8859-1");
             return q;

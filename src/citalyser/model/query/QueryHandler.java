@@ -39,6 +39,7 @@ public class QueryHandler {
         q = UrlComposer.encodeQueryParameters(q);
         switch(q.flag){
             case GEN_AUTH: 
+                logger.debug("Min Year : " + q.min_year + " Max Year: " +q.max_year);
                 logger.debug("Getting GEN_AUTH");
                 queryUrl = UrlComposer.getGenAuthUrl(q);
                 return cacheHandler.getAuthorPapersFromScholar(queryUrl);

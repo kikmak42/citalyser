@@ -200,7 +200,7 @@ public class UiUtils {
                  result = "There was some error fetching publications of the journal '"+searchQuery+"'...";
                  break;
             case CITATIONS_LIST: case CITATIONS_LIST_METRIC :
-                result = "No Citations for Paper : " + searchQuery + "";
+                result = "Citations Count is 0 for Paper : " + searchQuery + "";
                 break;
             default : 
                 return;

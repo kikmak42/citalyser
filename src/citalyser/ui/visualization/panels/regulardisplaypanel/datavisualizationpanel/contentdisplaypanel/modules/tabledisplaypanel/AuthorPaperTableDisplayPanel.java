@@ -13,6 +13,8 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 import citalyser.Main;
 import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
+import citalyser.model.query.Query;
+import citalyser.model.query.QueryType;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.utils.UiUtils;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel;
@@ -49,8 +51,10 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
         return displayMaster;
     }
 
-    public void setTable(PaperCollection paperCollection, TableModel tm) {
+    public void setTable(Query query,PaperCollection paperCollection, TableModel tm) {
 
+        this.showMoreButton();
+        
         if (jTable1.getModel().getRowCount() == 0) {
             disabledRow = -1;
             jTable1.setModel(tm);

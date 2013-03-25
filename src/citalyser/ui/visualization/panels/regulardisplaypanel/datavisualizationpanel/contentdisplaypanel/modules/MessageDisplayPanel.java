@@ -25,7 +25,7 @@ public class MessageDisplayPanel extends javax.swing.JPanel {
     }
 
     public void setMessage(String message) {
-        jLabel1.setText(message);
+        jLabel1.setText("<html>"+message+"<html>");
         removeAll();
         setLayout(new BorderLayout());
         add(jLabel1, BorderLayout.CENTER);
