@@ -207,13 +207,6 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
             disabledRow = jTable1.rowAtPoint(evt.getPoint());
             Paper clickedPaper = paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint()));
             if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
-                if (jTable1.rowAtPoint(evt.getPoint()) != disabledRow) {
-                    if(clickedPaper.getNumCites() > 0) {
-                        displayMaster.tableClicked(clickedPaper);
-                    } else {
-                       displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
-                    }
-                }
             } else {
                 ((TableDisplayPanel) ((JPanel) ((JPanel) this.getParent()).getParent())).setPopUpLocation(evt.getPoint());
                 ((TableDisplayPanel) ((JPanel) ((JPanel) this.getParent()).getParent())).setSelectedPaper(this, clickedPaper);
