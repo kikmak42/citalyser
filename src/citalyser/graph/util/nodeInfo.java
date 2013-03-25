@@ -13,9 +13,11 @@ public class nodeInfo {
     public String citationurl;
     public String EntireInfo;
     public String Title;
+    public int nocitation;
 
     public nodeInfo() {
         this.id = -1;
+        this.nocitation=0;
         this.Title = "";
         this.EntireInfo="";
         this.citationurl = "";

@@ -67,6 +67,7 @@ public class graphData {
         g.id = this.id;
         g.citationurl = paper.getcitedByUrl();
         this.id += 1;
+        g.nocitation = paper.getNumCites();
         return g;
     }
 
@@ -79,7 +80,7 @@ public class graphData {
             g.Title = paper.getTitle();
             g.EntireInfo = "<html><head></head><body><B>" + paper.getTitle() + "</B><br>" + paper.getInfo() + "</body></html>";
             logger.debug("@#$%:" + paper.getInfo());
-
+            g.nocitation = paper.getNumCites();
             g.id = this.id;
             this.id += 1;
             g.citationurl = paper.getcitedByUrl();

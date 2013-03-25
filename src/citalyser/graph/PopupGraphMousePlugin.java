@@ -6,6 +6,7 @@ package citalyser.graph;
 
 import citalyser.Main;
 import citalyser.graph.util.nodeInfo;
+import citalyser.model.PaperCollection;
 import citalyser.model.query.Query;
 import citalyser.model.query.QueryHandler;
 import citalyser.model.query.QueryType;
@@ -74,9 +75,15 @@ class PopupGraphMousePlugin extends AbstractPopupGraphMousePlugin implements Mou
                         CreateGraph.baseNode = pickV;
                         System.out.println("person added");
                         Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(pickV.citationurl).numResult(20).build();
-                        CreateGraph.populateGraph(CreateGraph.generateGraphObject.getNodeArray(((PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q)).getContents()));
+                        PaperCollection pc = ((PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q)).getContents();
+                        if(pickV.nocitation!=0){
+                        CreateGraph.populateGraph(CreateGraph.generateGraphObject.getNodeArray(pc));
                         CreateGraph.layout.setGraph(CreateGraph.sgv.g2);
                         CreateGraph.frame.repaint();
+                        }
+                        else
+                            Main.getDisplayController().displayErrorMessage("Zero Citaions for this paper");
+                        
                     }
                 });//new abstraction
 //                popup.add(new AbstractAction("View info") {

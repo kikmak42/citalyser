@@ -31,7 +31,7 @@ public class GraphViewPanel extends javax.swing.JPanel {
     }
     public void setPaper(Paper paper) {
         CreateGraph cg = new CreateGraph(paper);
-        //this.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout());
         add(cg.getVisualizationViewer());
         
     }

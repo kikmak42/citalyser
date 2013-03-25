@@ -36,6 +36,7 @@ import edu.uci.ics.jung.algorithms.layout.SpringLayout;
 import edu.uci.ics.jung.algorithms.layout.SpringLayout2;
 import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.algorithms.layout.TreeLayout;
+import edu.uci.ics.jung.graph.DirectedOrderedSparseMultigraph;
 import edu.uci.ics.jung.samples.PluggableRendererDemo.VoltageTips;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.AnimatedPickingGraphMousePlugin;
@@ -124,7 +125,7 @@ public class CreateGraph {
 //        generateGraphObject.getNodeArray(((PaperCollectionResult)QueryHandler.getInstance().getQueryResult(q)).getContents());
         sgv = new SimpleGraphView2(); // This builds the graph
         //sgv
-        layout = new SpringLayout<> (sgv.g2);
+        layout = new SpringLayout<>(sgv.g2);
         
         PaperCollection pc = ((PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q)).getContents();
         logger.debug("@#$%:"+pc.getPapers().size());
@@ -220,6 +221,8 @@ public class CreateGraph {
 
     public static void populateGraph(graphObject go) {
         go.baseInfo = CreateGraph.baseNode;
+        sgv.g2 = new DirectedOrderedSparseMultigraph<nodeInfo,String>();
+                
         for (nodeInfo i : go.arr) {
             sgv.g2.addVertex(i);
         }

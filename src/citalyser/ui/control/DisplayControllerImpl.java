@@ -4,6 +4,7 @@
  */
 package citalyser.ui.control;
 
+import citalyser.ui.visualization.MainFrame;
 import java.util.Vector;
 
 /**
@@ -47,6 +48,11 @@ public class DisplayControllerImpl implements citalyser.ui.DisplayController {
     @Override
     public void displayInfoMessage(String status) {
         displayMaster.displayInfoMessage(status);
+    }
+
+    @Override
+    public MainFrame getMainFrame() {
+        return displayMaster.getMainFrame();
     }
     
 }
