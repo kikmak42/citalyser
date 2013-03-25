@@ -8,10 +8,12 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 import citalyser.model.Journal;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.util.CommonUtils;
+import java.awt.Point;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.apache.log4j.Logger;
@@ -20,7 +22,7 @@ import org.apache.log4j.Logger;
  *
  * @author Tanmay Patil
  */
-public class JournalTableDisplayPanel extends javax.swing.JPanel {
+public class JournalTableDisplayPanel extends javax.swing.JPanel implements TableDisplayPanelInterface {
 
     private static Logger logger = Logger.getLogger(JournalTableDisplayPanel.class.getName());
 
@@ -135,21 +137,32 @@ public class JournalTableDisplayPanel extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         JFileChooser chooser = new JFileChooser();
+        chooser.removeChoosableFileFilter(chooser.getFileFilter());
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("csv files (*.csv)", "csv");
+        chooser.setFileFilter(filter);
         chooser.showSaveDialog(this);
         //System.out.println("chooser:"+chooser.getSelectedFile().getName());
         try {
             File results = chooser.getSelectedFile();
+            if(!results.getAbsolutePath().endsWith(".csv")) {
+                results = new File(chooser.getSelectedFile()+".csv");
+            }
             CommonUtils.exportToCsv(jTable1.getModel(), results);
-        } catch (NullPointerException npe) {
+        } catch (Exception e) {
+            logger.info("Error in CSV file chooser PaperTableFromMetricDisplayPanel : "+e);
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        if (jTable1.rowAtPoint(evt.getPoint()) > -1 && disabledRow != jTable1.rowAtPoint(evt.getPoint())) {
-            disabledRow = jTable1.rowAtPoint(evt.getPoint());
-            displayMaster.showLoading();
-            displayMaster.tableClicked(journals.get(jTable1.rowAtPoint(evt.getPoint())));
+        if (jTable1.rowAtPoint(evt.getPoint()) > -1) {
+            if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+                if(disabledRow != jTable1.rowAtPoint(evt.getPoint())) {
+                    disabledRow = jTable1.rowAtPoint(evt.getPoint());
+                    displayMaster.showLoading();
+                    displayMaster.tableClicked(journals.get(jTable1.rowAtPoint(evt.getPoint())));
+                }
+            }
         }
     }//GEN-LAST:event_jTable1MouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -162,6 +175,15 @@ public class JournalTableDisplayPanel extends javax.swing.JPanel {
         journals = null;
         while (jTable1.getModel().getRowCount() > 0) {
             ((DefaultTableModel) jTable1.getModel()).removeRow(0);
+        }
+    }
+
+    @Override
+    public void callLeftClickedEvent(Point point) {
+        if (jTable1.rowAtPoint(point) > -1 && disabledRow != jTable1.rowAtPoint(point)) {
+            disabledRow = jTable1.rowAtPoint(point);
+            displayMaster.showLoading();
+            displayMaster.tableClicked(journals.get(jTable1.rowAtPoint(point)));
         }
     }
 }

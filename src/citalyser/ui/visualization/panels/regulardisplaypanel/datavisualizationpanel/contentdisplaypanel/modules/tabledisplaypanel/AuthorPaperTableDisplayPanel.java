@@ -15,26 +15,30 @@ import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.utils.UiUtils;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel;
 import citalyser.util.CommonUtils;
 import java.awt.Point;
 import java.io.File;
 import java.util.Vector;
 import javax.swing.JFileChooser;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.apache.log4j.Logger;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
  * @author Tanmay Patil
  */
-public class PaperTableDisplayPanel extends javax.swing.JPanel {
+public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements TableDisplayPanelInterface {
 
-    private static Logger logger = Logger.getLogger(PaperTableDisplayPanel.class.getName());
+    private static Logger logger = Logger.getLogger(AuthorPaperTableDisplayPanel.class.getName());
 
     /** Creates new form TableDisplayPanel */
-    public PaperTableDisplayPanel() {
+    public AuthorPaperTableDisplayPanel() {
         initComponents();
+        hideMoreButton();
     }
 
     public void setDisplayMaster(DisplayMaster displayMaster) {
@@ -72,8 +76,18 @@ public class PaperTableDisplayPanel extends javax.swing.JPanel {
         jTable1.getColumnModel().getColumn(2).setMaxWidth(32);
         jTable1.getColumnModel().getColumn(3).setMaxWidth(65);
         jTable1.repaint();
-            displayMaster.renderJournal(displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), this.paperCollection);
+        //displayMaster.renderGeneralProfile(displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), this.paperCollection);
     }
+
+    public void showMoreButton() {
+        jButton2.setVisible(true);
+    }
+
+    public void hideMoreButton() {
+        jButton2.setVisible(false);
+    }
+
+
     
     private DisplayMaster displayMaster;
     private PaperCollection paperCollection;
@@ -90,12 +104,14 @@ public class PaperTableDisplayPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
         jTable1.setAutoCreateRowSorter(true);
-        jTable1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jTable1.setFont(new java.awt.Font("Arial", 0, 11));
         jTable1.setForeground(new java.awt.Color(51, 51, 51));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -145,36 +161,64 @@ public class PaperTableDisplayPanel extends javax.swing.JPanel {
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
         jButton1.setText("Export To CSV");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, java.awt.BorderLayout.PAGE_END);
+        jPanel1.add(jButton1, java.awt.BorderLayout.CENTER);
+
+        jButton2.setText("More Results");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, java.awt.BorderLayout.LINE_END);
+
+        add(jPanel1, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         JFileChooser chooser = new JFileChooser();
+        chooser.removeChoosableFileFilter(chooser.getFileFilter());
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("csv files (*.csv)", "csv");
+        chooser.setFileFilter(filter);
         chooser.showSaveDialog(this);
         //System.out.println("chooser:"+chooser.getSelectedFile().getName());
         try {
             File results = chooser.getSelectedFile();
+            if(!results.getAbsolutePath().endsWith(".csv")) {
+                results = new File(chooser.getSelectedFile()+".csv");
+            }
             CommonUtils.exportToCsv(jTable1.getModel(), results);
-        } catch (NullPointerException npe) {
+        } catch (Exception e) {
+            logger.info("Error in CSV file chooser PaperTableDisplayPanel: "+e);
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        if (jTable1.rowAtPoint(evt.getPoint()) > -1 && jTable1.rowAtPoint(evt.getPoint()) != disabledRow) {
+        if (jTable1.rowAtPoint(evt.getPoint()) > -1) {
             disabledRow = jTable1.rowAtPoint(evt.getPoint());
             Paper clickedPaper = paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint()));
-            if(clickedPaper.getNumCites() > 0)
-                displayMaster.tableClicked(clickedPaper);
-            else
-               displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
+            if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+                if (jTable1.rowAtPoint(evt.getPoint()) != disabledRow) {
+                    if(clickedPaper.getNumCites() > 0) {
+                        displayMaster.tableClicked(clickedPaper);
+                    } else {
+                       displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
+                    }
+                }
+            } else {
+                ((TableDisplayPanel) ((JPanel) ((JPanel) this.getParent()).getParent())).setPopUpLocation(evt.getPoint());
+                ((TableDisplayPanel) ((JPanel) ((JPanel) this.getParent()).getParent())).setSelectedPaper(this, clickedPaper);
+                ((TableDisplayPanel) ((JPanel) ((JPanel) this.getParent()).getParent())).getTableRightClickedPopupMenu().show(evt.getComponent(), evt.getX(), evt.getY());
+            }
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -204,8 +248,14 @@ public class PaperTableDisplayPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTable1MouseMoved
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        displayMaster.paperTableMoreButtonClicked();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
@@ -214,6 +264,18 @@ public class PaperTableDisplayPanel extends javax.swing.JPanel {
         paperCollection = null;
         while (jTable1.getModel().getRowCount() > 0) {
             ((DefaultTableModel) jTable1.getModel()).removeRow(0);
+        }
+    }
+
+    @Override
+    public void callLeftClickedEvent(Point point) {
+        if (jTable1.rowAtPoint(point) > -1) {
+            Paper clickedPaper = paperCollection.getPapers().get(jTable1.rowAtPoint(point));
+            if(clickedPaper.getNumCites() > 0) {
+                displayMaster.tableClicked(clickedPaper);
+            } else {
+               displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
+            }
         }
     }
 }

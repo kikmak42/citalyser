@@ -20,7 +20,16 @@ import javax.swing.JButton;
  * @author Tanmay Patil
  */
 public class DetailsDisplayPanel extends javax.swing.JPanel {
+private String name="Author";
 
+    public void setNameJounal(boolean isJourn){
+        if(isJourn){
+            name="Journal";
+        }
+        else{
+            name="Author";
+        }
+    }
     public void clearAll() {
         upperDetailsDisplayPanel.clearAll();
         lowerDetailsDisplayPanel.clearAll();
@@ -70,7 +79,7 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
                 public void run() {
                     PainterThread painterThread = new PainterThread(0);
                     
-                    myButton.setText("Displaying Author Profile");
+                    myButton.setText("Displaying "+name+" Profile");
                     int target = lowerAvailable ? jSplitPane1.getHeight() - 24 : jSplitPane1.getHeight();
                     animating = true;
                     for (int i = 0; i < target; i++) {
@@ -116,7 +125,7 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
                         }
                     }
                     animating = false;
-                    myButton.setText("Display Author Profile");
+                    myButton.setText("Display "+name+" Profile");
                 }
             }.start();
         }

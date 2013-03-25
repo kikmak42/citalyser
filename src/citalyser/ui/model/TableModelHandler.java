@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -18,6 +19,7 @@ import javax.swing.table.TableModel;
  */
 public class TableModelHandler {
 
+    static Logger logger = Logger.getLogger(TableModelHandler.class);
     public static TableModel getTableModel(PaperCollection pc) {
         ArrayList<Paper> papers = pc.getPapers();
         String[] columnNames = {"S.No", "Title", "Year", "# Citations", "Author/(s)", "Journal/(s)"};
@@ -28,19 +30,7 @@ public class TableModelHandler {
             data[i][2] = new Integer(papers.get(i).getYear());
             data[i][3] = new Integer(papers.get(i).getNumCites());
             data[i][4] = convertToString(papers.get(i).getAuthors());
-            if (papers.get(i).getJournals() == null) {
-                data[i][5] = "Empty";
-            } else {
-                if (papers.get(i).getJournals().isEmpty()) {
-                    data[i][5] = "Empty";
-                } else {
-                    if (papers.get(i).getJournals().get(0).getName() == null) {
-                        data[i][5] = "Empty";
-                    } else {
-                        data[i][5] = papers.get(i).getJournals().get(0).getName();
-                    }
-                }
-            }
+            data[i][5] = papers.get(i).getJournalString();
         }
 
         TableModel tableModel = new DefaultTableModel(data, columnNames) {

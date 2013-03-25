@@ -68,10 +68,10 @@ public class QueryHandler {
                 queryUrl = q.url;
                 return cacheHandler.getImageFromLink(queryUrl);
             case CITATIONS_LIST:
-                queryUrl = q.url+"&start="+q.start_result+"&num="+q.num_results;
+                queryUrl = q.url+"&start="+q.start_result+"&num="+q.num_results+"&as_vis=1&as_sdt=1%2C5";
                 return cacheHandler.getCitationsList(queryUrl);
             case CITATIONS_LIST_METRIC:
-                queryUrl = q.url+"&cstart="+q.start_result;
+                queryUrl = q.url+"&cstart="+q.start_result+"&as_vis=1&as_sdt=1%2C5";
                 return cacheHandler.getCitationsListFromMetric(queryUrl);
             default : 
                 return null;
