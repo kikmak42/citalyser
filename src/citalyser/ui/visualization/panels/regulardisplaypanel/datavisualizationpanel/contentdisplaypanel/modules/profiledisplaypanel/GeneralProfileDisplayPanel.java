@@ -37,7 +37,7 @@ public class GeneralProfileDisplayPanel extends javax.swing.JPanel {
         jLabel2.setText("");
         jLabel5.setText("H - Index : " + papercollection.getHIndex());
         jLabel6.setText("i10 - median : " + papercollection.getIIndex());
-        jLabel7.setText("Citation/Year : " + papercollection.getCitationPerYear());
+        jLabel7.setText("Citation/Year : " + papercollection.getCitationForYear());
         jLabel8.setText("Citation/Paper : " + papercollection.getCitationPerPaper());
         jLabel9.setText("Total No. of Citations : " + papercollection.getTotalNumberOfCitations());
         jLabel10.setText("Total no. of Papers : " + papercollection.getPapers().size());

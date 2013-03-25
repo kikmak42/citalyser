@@ -75,6 +75,7 @@ public class JournalPaperTableDisplayPanel extends javax.swing.JPanel implements
         jTable1.getColumnModel().getColumn(2).setMaxWidth(32);
         jTable1.getColumnModel().getColumn(3).setMaxWidth(65);
         jTable1.repaint();
+
     }
 
     public void showMoreButton() {
