@@ -338,7 +338,6 @@ public class DisplayMaster {
         /* Show Loading sign in Citation panel*/
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
-        
         /* Show the side panel*/
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
         Thread thread = new Thread() {
@@ -374,6 +373,9 @@ public class DisplayMaster {
 
     public void tableClicked(Journal journal) {
         final Journal myJournal = journal;
+        //citationListHistory.clear();
+        //citationListHistory.addPaper(paper);
+        //citationListHistory.printPapers();
         Thread thread = new Thread() {
 
             @Override

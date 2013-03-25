@@ -72,8 +72,9 @@ public class RenderMaster {
             }
             contentRenderer.getCollapsibleListDisplayPanel().addCollapsibleListEntityPanel(new CollapsibleListEntityPanel(p));
             contentRenderer.getCollapsibleListDisplayPanel().addMoreButton();
+            contentRenderer.flipToCollapsibleListDisplayPanel();
         }
-        contentRenderer.flipToCollapsibleListDisplayPanel();
+       
     }
 
     public void renderProfile(ContentRenderer contentRenderer, Author author) {
