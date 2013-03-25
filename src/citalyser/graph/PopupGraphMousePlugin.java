@@ -4,6 +4,7 @@
  */
 package citalyser.graph;
 
+import citalyser.Main;
 import citalyser.graph.util.nodeInfo;
 import citalyser.model.query.Query;
 import citalyser.model.query.QueryHandler;
@@ -64,24 +65,29 @@ class PopupGraphMousePlugin extends AbstractPopupGraphMousePlugin implements Mou
 
         GraphElementAccessor<nodeInfo, String> pickSupport = CreateGraph.vv.getPickSupport();
         System.out.println("GraphElementAccessor!");
-        if (pickSupport != null) {
+       
             final nodeInfo pickV = pickSupport.getVertex(CreateGraph.vv.getGraphLayout(), ivp.getX(), ivp.getY());
-            CreateGraph.baseNode = pickV;
             if (pickV != null) {
                 System.out.println(pickV.id);
                 popup.add(new AbstractAction("Go to this") {
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println("person added");
-                        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(pickV.citationurl).build();
                         CreateGraph.baseNode = pickV;
+                        System.out.println("person added");
+                        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(pickV.citationurl).numResult(20).build();
                         CreateGraph.populateGraph(CreateGraph.generateGraphObject.getNodeArray(((PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q)).getContents()));
                         CreateGraph.layout.setGraph(CreateGraph.sgv.g2);
                         CreateGraph.frame.repaint();
                     }
                 });//new abstraction
+//                popup.add(new AbstractAction("View info") {
+//                    public void actionPerformed(ActionEvent e) {
+//                        Main.getDisplayController().displayErrorMessage(pickV.EntireInfo);
+//                    }
+//                });
+
                 popup.show(CreateGraph.vv, e.getX(), e.getY());
 
-            }
+            
         }///if picksupport
 
 

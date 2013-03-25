@@ -37,15 +37,15 @@ public class Main {
         
         displayController = new DisplayControllerImpl();
         displayController.initializeDisplay();
-        Paper paper = new Paper();
-        paper.setTitle("Removal of Cr (VI) from aqueous solution: Electrocoagulation vs chemical coagulation");
-        Author a = new Author("AK Golder");
-        ArrayList<Author> arr = new ArrayList<>();
-        arr.add(a);
-        paper.setAuthors(arr);
-        paper.setInfo("AK Golder");
-        paper.setCitedByUrl("http://scholar.google.co.in/scholar?cites=1547993743289210385&as_sdt=2005&sciodt=0,5&hl=en");
-        CreateGraph cg = new CreateGraph(paper);
+//        Paper paper = new Paper();
+//        paper.setTitle("Removal of Cr (VI) from aqueous solution: Electrocoagulation vs chemical coagulation");
+//        Author a = new Author("AK Golder");
+//        ArrayList<Author> arr = new ArrayList<>();
+//        arr.add(a);
+//        paper.setAuthors(arr);
+//        paper.setInfo("AK Golder");
+//        paper.setCitedByUrl("http://scholar.google.co.in/scholar?cites=1547993743289210385&as_sdt=2005&sciodt=0,5&hl=en");
+//        CreateGraph cg = new CreateGraph(paper);
     }
     
 

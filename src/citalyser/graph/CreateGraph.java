@@ -38,6 +38,7 @@ import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.algorithms.layout.TreeLayout;
 import edu.uci.ics.jung.samples.PluggableRendererDemo.VoltageTips;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.control.AnimatedPickingGraphMousePlugin;
 import edu.uci.ics.jung.visualization.control.CrossoverScalingControl;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
@@ -48,8 +49,10 @@ import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.layout.CachingLayout;
 import edu.uci.ics.jung.visualization.layout.ObservableCachingLayout;
 import edu.uci.ics.jung.visualization.layout.PersistentLayoutImpl;
+import edu.uci.ics.jung.visualization.picking.ClassicPickSupport;
 import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
 import java.awt.BasicStroke;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Paint;
@@ -68,6 +71,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import org.apache.commons.collections15.Transformer;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -77,6 +81,7 @@ public class CreateGraph {
     public static VisualizationViewer<nodeInfo, String> vv;
     public static SimpleGraphView2 sgv;
     public static Layout<nodeInfo, String> layout;
+    public static JPanel panel;
     public static JFrame frame;
     public static nodeInfo baseNode;
     public static graphData generateGraphObject;
@@ -114,15 +119,16 @@ public class CreateGraph {
         generateGraphObject = new graphData();
         this.baseNode = generateGraphObject.getbaseNode(paper);
         logger.debug("@@##$$:" + this.baseNode.citationurl);
-        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(this.baseNode.citationurl).build();
+        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(this.baseNode.citationurl).numResult(20).build();
 //        QueryHandler.getInstance().getQueryResult(q);
 //        generateGraphObject.getNodeArray(((PaperCollectionResult)QueryHandler.getInstance().getQueryResult(q)).getContents());
-
         sgv = new SimpleGraphView2(); // This builds the graph
         //sgv
-        layout = new SpringLayout<>(sgv.g2);
-
-        populateGraph(generateGraphObject.getNodeArray(((PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q)).getContents()));
+        layout = new SpringLayout<> (sgv.g2);
+        
+        PaperCollection pc = ((PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q)).getContents();
+        logger.debug("@#$%:"+pc.getPapers().size());
+        populateGraph(generateGraphObject.getNodeArray(pc));
 // Layout<V, E>, BasicVisualizationServer<V,E>
         layout.setSize(new Dimension(600, 600));
         layout.setGraph(sgv.g2);
@@ -134,49 +140,37 @@ public class CreateGraph {
         Transformer<nodeInfo, Paint> vertexPaint;
         vertexPaint = new Transformer<nodeInfo, Paint>() {
             public Paint transform(nodeInfo i) {
-                if (i.id == baseNode.id) {
-                    return Color.PINK;
-                } else {
-                    return Color.orange;
-                }
+                    return new Color(255,255,128,128);
+                
             }
         };
         // Set up a new stroke Transformer for the edges
-        final float dash[] = {1.0f};
-        Stroke edgeStroke = new BasicStroke(1.0f, BasicStroke.CAP_BUTT,
-                BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
-        Transformer<String, Stroke> edgeStrokeTransformer =
-                new Transformer<String, Stroke>() {
-                    public Stroke transform(String s) {
-                        return new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f);
-                    }
-                };
+        
         Transformer<nodeInfo, String> vertextrans =
                 new Transformer<nodeInfo, String>() {
                     @Override
                     public String transform(nodeInfo i) {
-                        return i.Title.substring(0, 20) + "...";
+                        return i.Title.substring(0,10)+"..";
                     }
                 };
 
-
-        Transformer<nodeInfo, String> datatrans =
+        Transformer<nodeInfo, String> vt =
                 new Transformer<nodeInfo, String>() {
                     @Override
                     public String transform(nodeInfo i) {
                         return i.EntireInfo;
                     }
                 };
-
         Transformer<nodeInfo, Shape> shapetrans =
                 new Transformer<nodeInfo, Shape>() {
                     @Override
                     public Shape transform(nodeInfo i) {
-                        return new Rectangle(100, 50);
+                        return new Rectangle(i.Title.length(), 20);
                     }
                 };
 
 
+     
         //vv.getRenderContext().setVertexFillPaintTransformer(vertexColor);
         vv.getRenderContext().setVertexShapeTransformer(shapetrans);
         //MyVerte 
@@ -184,27 +178,39 @@ public class CreateGraph {
         // vv.getRenderContext().setVertexShapeTransformer(shapetrans);
         // vv.getRenderContext().set
         vv.getRenderContext().setVertexFillPaintTransformer(vertexPaint);
-        vv.getRenderContext().setEdgeStrokeTransformer(edgeStrokeTransformer);
+       // vv.getRenderContext().setEdgeStrokeTransformer(edgeStrokeTransformer);
         vv.getRenderContext().setVertexLabelTransformer(vertextrans);
-        vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
+      //  vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
         vv.getRenderer().getVertexLabelRenderer().setPosition(Position.CNTR);
-
-
-
-        DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
+      //  AnimatedPickingGraphMousePlugin am = new AnimatedPickingGraphMousePlugin();
+       
+        vv.getPickedVertexState();
+       
+       DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
+        gm.add(new AnimatedPickingGraphMousePlugin());
         gm.setMode(ModalGraphMouse.Mode.TRANSFORMING);
         //vv.setGraphMouse(gMouse); //Add the mouse to our Visualization-Viewer.
-        //PluggableGraphMouse pgm = new PluggableGraphMouse();
-        gm.add(new PickingGraphMousePlugin());
+        //PluggableGraphMouse pgm = new PluggableGraphMouse();   gm.add(new AnimatedPickingGraphMousePlugin());
+        //gm.add(null)
+   gm.add(new PickingGraphMousePlugin());
         // gm.add(new TranslatingGraphMousePlugin(MouseEvent.BUTTON3_MASK));
         gm.add(new PopupGraphMousePlugin());
         // gm.add(new ScalingGraphMousePlugin(new CrossoverScalingControl(), 0, 1 / 1.1f, 1.1f));
         // gm.add(new TranslatingGraphMousePlugin(MouseEvent.BUTTON1_MASK));
         gm.add(new ScalingGraphMousePlugin(new CrossoverScalingControl(), 0, 1.1f, 0.9f));
+        
         vv.setGraphMouse(gm);
-        vv.setVertexToolTipTransformer(datatrans);
+        vv.setVertexToolTipTransformer(vt);
         vv.setToolTipText("<html><center>Use the mouse wheel to zoom<p>Click and Drag the mouse to pan<p>Shift-click and Drag to Rotate</center></html>");
+
         frame = new JFrame("Simple Graph View 2");
+        panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.add(vv);
+       // panel.setForeground(Color.WHITE);
+        panel.setBackground(Color.WHITE);
+        frame.getContentPane().setLayout(new BorderLayout());
+        frame.getContentPane().add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(vv);
         frame.pack();

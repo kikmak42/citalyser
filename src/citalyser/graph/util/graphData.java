@@ -71,12 +71,15 @@ public class graphData {
     }
 
     public graphObject getNodeArray(PaperCollection p) {
+        logger.debug("@#$%:" + p.getPapers().size());
         graphObject obj = new graphObject();
         ArrayList<nodeInfo> arr = new ArrayList<>();
         for (Paper paper : p.getPapers()) {
             nodeInfo g = new nodeInfo();
             g.Title = paper.getTitle();
             g.EntireInfo = "<html><head></head><body><B>" + paper.getTitle() + "</B><br>" + paper.getInfo() + "</body></html>";
+            logger.debug("@#$%:" + paper.getInfo());
+
             g.id = this.id;
             this.id += 1;
             g.citationurl = paper.getcitedByUrl();
