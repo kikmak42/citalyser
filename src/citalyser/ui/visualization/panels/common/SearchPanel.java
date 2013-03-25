@@ -21,6 +21,7 @@ public class SearchPanel extends javax.swing.JPanel {
     public SearchPanel() {
         autoCompleteSuggestions = new Vector<>();
         initComponents();
+        basicSearchPanel.setSearchPanel(this);
     }
     
     public int getNumResults(){
@@ -40,16 +41,6 @@ public class SearchPanel extends javax.swing.JPanel {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
-        jPanel7 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jProgressBar1 = new javax.swing.JProgressBar();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
-        jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
         ButtonPanel = new javax.swing.JPanel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -58,6 +49,7 @@ public class SearchPanel extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox();
         numResults = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        basicSearchPanel = new citalyser.ui.visualization.panels.common.searchpanel.BasicSearchPanel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -91,73 +83,6 @@ public class SearchPanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
         gridBagConstraints.weighty = 1.0;
         add(jPanel4, gridBagConstraints);
-
-        jPanel2.setPreferredSize(new java.awt.Dimension(600, 31));
-        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
-
-        jTextField1.setForeground(new java.awt.Color(102, 102, 102));
-        jTextField1.setText(" Enter Your Search Query Here");
-        jTextField1.setMargin(new java.awt.Insets(2, 8, 2, 2));
-        jTextField1.setPreferredSize(new java.awt.Dimension(500, 20));
-        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField1FocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField1FocusLost(evt);
-            }
-        });
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField1KeyPressed(evt);
-            }
-        });
-        jPanel2.add(jTextField1);
-        jPanel2.add(filler2);
-
-        jPanel7.setPreferredSize(new java.awt.Dimension(77, 31));
-        jPanel7.setLayout(new java.awt.CardLayout());
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/SearchButtonIcon.PNG"))); // NOI18N
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
-        jPanel7.add(jButton1, "card3");
-
-        jProgressBar1.setMaximumSize(new java.awt.Dimension(32767, 31));
-        jProgressBar1.setPreferredSize(new java.awt.Dimension(77, 31));
-        jPanel7.add(jProgressBar1, "card2");
-
-        jPanel2.add(jPanel7);
-        jPanel2.add(filler1);
-
-        jPanel3.setLayout(new java.awt.CardLayout());
-        jPanel3.add(jLabel1, "card3");
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/cancel.png"))); // NOI18N
-        jButton2.setBorder(null);
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jButton2, "card2");
-
-        jButton2.setVisible(false);
-        jPanel2.add(jPanel3);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.weighty = 1.0;
-        add(jPanel2, gridBagConstraints);
 
         ButtonPanel.setVisible(false);
         ButtonPanel.setPreferredSize(new java.awt.Dimension(600, 25));
@@ -257,41 +182,13 @@ public class SearchPanel extends javax.swing.JPanel {
             gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
             gridBagConstraints.weighty = 1.0;
             add(ButtonPanel, gridBagConstraints);
+
+            basicSearchPanel.setPreferredSize(new java.awt.Dimension(600, 31));
+            gridBagConstraints = new java.awt.GridBagConstraints();
+            gridBagConstraints.gridx = 0;
+            gridBagConstraints.gridy = 0;
+            add(basicSearchPanel, gridBagConstraints);
         }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
-        // TODO add your handling code here:
-        if (empty) {
-            jTextField1.setText("");
-        } else {
-            jTextField1.setSelectionStart(0);
-            jTextField1.setSelectionEnd(jTextField1.getText().length());
-        }
-        jTextField1.setForeground(Color.BLACK);
-    }//GEN-LAST:event_jTextField1FocusGained
-
-    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
-        // TODO add your handling code here:
-        if (jTextField1.getText().trim().isEmpty()) {
-            jTextField1.setForeground(new Color(102, 102, 102));
-            jTextField1.setText(" Enter Your Search Query Here");
-            empty = true;
-        } else {
-            empty = false;
-        }
-    }//GEN-LAST:event_jTextField1FocusLost
-
-    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
-        displayMaster.searchKeyPressed(this, evt.getKeyChar());
-    }//GEN-LAST:event_jTextField1KeyPressed
-
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        displayMaster.searchButtonClicked(this);
-    }//GEN-LAST:event_jButton1MouseClicked
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        displayMaster.cancelButtonClicked();
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         if (jRadioButton1.isSelected()) {
@@ -310,29 +207,24 @@ public class SearchPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jRadioButton2ActionPerformed
     
     public boolean getComboSelection(){
-        if(jComboBox1.getSelectedIndex()==0){
+        if(jComboBox1.getSelectedIndex() == 0) {
             return true;
-        }else{
+        } else {
             return false;
         } 
     }
 
     public void setButtonEnabled(boolean value) {
-        if (value) {
-            ((CardLayout) jPanel3.getLayout()).first(jPanel3);
-            ((CardLayout) jPanel7.getLayout()).first(jPanel7);
-        } else {
-            ((CardLayout) jPanel3.getLayout()).last(jPanel3);
-            ((CardLayout) jPanel7.getLayout()).last(jPanel7);
-        }
+        basicSearchPanel.setButtonEnabled(value);
     }    
     
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
+        basicSearchPanel.setDisplayMaster(displayMaster);
     }
 
     public void requestSearchFieldFocus() {
-        this.jTextField1.requestFocus();
+        basicSearchPanel.requestSearchFieldFocus();
     }
     
     public JRadioButton getRadioButton1(){
@@ -344,60 +236,27 @@ public class SearchPanel extends javax.swing.JPanel {
     }
     
     public boolean getRadioButtonInfo(){
-        if(jRadioButton2.isSelected()){
-            return true;
-        }else {
-            return false;
-        }
+        return jRadioButton2.isSelected();
     }
     
     public JPanel getButtonPanel(){
         return ButtonPanel;
     }
     
-    public JPanel getProgressBarPanel(){
-        return jPanel5;
-    }
-    
     public void setSearchString(String searchString) {
-        jTextField1.setForeground(Color.BLACK);
-        jTextField1.setText(searchString);
+        basicSearchPanel.setSearchString(searchString);
     }
 
     public String getSearchString() {
-        return jTextField1.getText();
+        return basicSearchPanel.getSearchString();
     }
 
     public Vector<String> getAutoCompleteSuggestions() {
         return autoCompleteSuggestions;
     }
-
-    public void initProgressBar()
-    {
-        jProgressBar1.setValue(0);
-        getProgressBarPanel().setVisible(true);
-    }
-    public void uninitProgressBar()
-    {
-        getProgressBarPanel().setVisible(false);
-        jProgressBar1.setValue(0);
-    }
-    public void updateProgressBar(int value) {
-        if (value > -1 && value < 101) {
-            jProgressBar1.setValue(value);
-        }
-    }
-
-    public void updateOnQueryInit()
-    {
-        setButtonEnabled(false);
-        initProgressBar();
-    }
     
-    public void updateOnQueryComplete()
-    {
-        uninitProgressBar();
-        setButtonEnabled(true);
+    public void updateProgressBar(int value) {
+        basicSearchPanel.updateProgressBar(value);
     }
     
     private boolean empty = true;
@@ -406,25 +265,16 @@ public class SearchPanel extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ButtonPanel;
+    private citalyser.ui.visualization.panels.common.searchpanel.BasicSearchPanel basicSearchPanel;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler2;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField numResults;
     // End of variables declaration//GEN-END:variables
 }
