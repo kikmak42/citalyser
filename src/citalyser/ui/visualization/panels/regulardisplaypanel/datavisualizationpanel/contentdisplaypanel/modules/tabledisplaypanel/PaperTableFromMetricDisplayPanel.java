@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.apache.log4j.Logger;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -96,21 +97,21 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel impleme
         setLayout(new java.awt.BorderLayout());
 
         jTable1.setAutoCreateRowSorter(true);
-        jTable1.setFont(new java.awt.Font("Arial", 0, 11));
+        jTable1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jTable1.setForeground(new java.awt.Color(51, 51, 51));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "S.No.", "Title", "Year", "#Citations", "Authors", "Journals"
+                "S.No.", "Title", "Year", "#Citations", "Authors", "Journals", "Link"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -158,12 +159,19 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel impleme
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         JFileChooser chooser = new JFileChooser();
+        chooser.removeChoosableFileFilter(chooser.getFileFilter());
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("csv files (*.csv)", "csv");
+        chooser.setFileFilter(filter);
         chooser.showSaveDialog(this);
         //System.out.println("chooser:"+chooser.getSelectedFile().getName());
         try {
             File results = chooser.getSelectedFile();
+            if(!results.getAbsolutePath().endsWith(".csv")) {
+                results = new File(chooser.getSelectedFile()+".csv");
+            }
             CommonUtils.exportToCsv(jTable1.getModel(), results);
-        } catch (NullPointerException npe) {
+        } catch (Exception e) {
+            logger.info("Error in CSV file chooser PaperTableFromMetricDisplayPanel : "+e);
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed

@@ -147,4 +147,19 @@ public class Paper implements Serializable {
     {
         this.isFromMetric = value;
     }
+    
+    public String getJournalString()
+    {
+        ArrayList<Journal> journals = this.getJournals();
+        if(journals == null)
+            return "";
+        String result = "";
+        for(int i = 0;i<journals.size();i++)
+        {
+            result+=journals.get(i).getName();
+            if(i < journals.size()-1)
+                result+=",";
+        }
+        return result;
+    }
 }

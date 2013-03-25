@@ -39,8 +39,7 @@ public class RenderMaster {
     public void renderJournalMetrics(ContentRenderer contentRenderer, ArrayList<Journal> arrayList) {
         //contentRenderer.clearAll();
         int numResults = arrayList.size();
-        if(numResults > 0)
-        {
+        if (numResults > 0) {
             contentRenderer.getTableDisplayPanel().setJournalTable(arrayList);
             contentRenderer.flipToTableDisplayPanel();
         }
@@ -63,10 +62,10 @@ public class RenderMaster {
     }
 
     public void renderCitationsList(ContentRenderer contentRenderer, ArrayList<Paper> papers) {
-        if (papers == null)
+        if (papers == null) {
             return;
-        for (Paper p : papers) 
-        {
+        }
+        for (Paper p : papers) {
             if (Thread.interrupted()) {
                 break;
             }
@@ -74,7 +73,7 @@ public class RenderMaster {
             contentRenderer.getCollapsibleListDisplayPanel().addMoreButton();
             contentRenderer.flipToCollapsibleListDisplayPanel();
         }
-       
+
     }
 
     public void renderAuthorProfile(ContentRenderer contentRenderer, Author author) {
@@ -90,12 +89,12 @@ public class RenderMaster {
     public void renderJournalPaperCollection(ContentRenderer contentRenderer, PaperCollection paperCollection) {
         if (paperCollection != null) {
             //contentRenderer.clearAll();
-                contentRenderer.getTableDisplayPanel().setTable(paperCollection, true);
+            contentRenderer.getTableDisplayPanel().setTable(paperCollection, true);
             contentRenderer.flipToTableDisplayPanel();
         }
     }
-    
-        /* This method is not used anywhere. Deprecated*/
+
+    /* This method is not used anywhere. Deprecated*/
     public void renderGeneralProfile(ContentRenderer contentRenderer, PaperCollection papercollection) {
         if (papercollection != null) {
             contentRenderer.clearAll();
@@ -113,5 +112,15 @@ public class RenderMaster {
             contentRenderer.displayMessage("Could not fetch journal result");
         }
     }
-    
+
+    public void renderJournalProfile(ContentRenderer contentRenderer, Journal journal) {
+        if (journal != null) {
+            contentRenderer.clearAll();
+
+            contentRenderer.getProfileDisplayPanel().displayJournalProfile(journal);
+            contentRenderer.flipToProfileDisplayPanel();
+        } else {
+            contentRenderer.displayMessage("Could not fetch Journal Details");
+        }
+    }
 }

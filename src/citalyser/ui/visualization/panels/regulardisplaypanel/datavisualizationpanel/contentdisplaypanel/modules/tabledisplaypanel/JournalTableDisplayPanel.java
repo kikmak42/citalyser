@@ -13,6 +13,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.apache.log4j.Logger;
@@ -136,12 +137,19 @@ public class JournalTableDisplayPanel extends javax.swing.JPanel implements Tabl
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         JFileChooser chooser = new JFileChooser();
+        chooser.removeChoosableFileFilter(chooser.getFileFilter());
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("csv files (*.csv)", "csv");
+        chooser.setFileFilter(filter);
         chooser.showSaveDialog(this);
         //System.out.println("chooser:"+chooser.getSelectedFile().getName());
         try {
             File results = chooser.getSelectedFile();
+            if(!results.getAbsolutePath().endsWith(".csv")) {
+                results = new File(chooser.getSelectedFile()+".csv");
+            }
             CommonUtils.exportToCsv(jTable1.getModel(), results);
-        } catch (NullPointerException npe) {
+        } catch (Exception e) {
+            logger.info("Error in CSV file chooser PaperTableFromMetricDisplayPanel : "+e);
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
