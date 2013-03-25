@@ -109,6 +109,9 @@ public class UiUtils {
             case JOURN_PROF:
                 result = "Displaying "+count+" papers of Journal : " + searchQuery + "...";
                 break;
+            case CITATIONS_LIST: case CITATIONS_LIST_METRIC :
+                Main.getDisplayController().displayStatusMessage("");
+                return;
             default : 
                 result = "";
         }
@@ -138,6 +141,14 @@ public class UiUtils {
             case JOURN_PROF:
                  result = "Fetching papers of Journal : " + searchQuery + "...";
                  break;
+            case CITATIONS_LIST:
+                 result = "Fetching Citations for " + searchQuery + " from Google Scholar...";
+                 Main.getDisplayController().displayStatusMessage(result);
+                 return;
+            case CITATIONS_LIST_METRIC:
+                 result = "Fetching Citations for " + searchQuery + " from Google Metrics...";
+                 Main.getDisplayController().displayStatusMessage(result);
+                 return;
             default : 
                 result = "";
         }
@@ -169,9 +180,14 @@ public class UiUtils {
             case JOURN_PROF:
                  result = "There was some error fetching publications of the journal '"+searchQuery+"'...";
                  break;
+            case CITATIONS_LIST: case CITATIONS_LIST_METRIC :
+                result = "No Citations for Paper : " + searchQuery + "";
+                break;
             default : 
                 return;
         }
         contentRenderer.displayMessage(result);
     }
+    
+    
 }

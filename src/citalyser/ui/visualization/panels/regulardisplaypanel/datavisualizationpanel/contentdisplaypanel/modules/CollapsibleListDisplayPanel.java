@@ -44,7 +44,16 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
             }
         });
     }
-
+    public void initPanel(int number, String title)
+    {
+        hidePreviousButton();
+        hideNextButton();
+        addListTitle(number,title);
+    }
+    public void uninitPanel()
+    {
+        
+    }
     public void addListTitle(int number, String title) {
         jLabel1.setText("<html>Displaying Citations for : <b>" + title);
         jLabel1.setForeground(new Color(33, 89, 201));
