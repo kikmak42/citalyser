@@ -73,7 +73,6 @@ public class JournalPaperTableDisplayPanel extends javax.swing.JPanel {
         jTable1.getColumnModel().getColumn(2).setMaxWidth(32);
         jTable1.getColumnModel().getColumn(3).setMaxWidth(65);
         jTable1.repaint();
-            //displayMaster.renderJournal(displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), this.paperCollection);
     }
 
     public void showMoreButton() {
@@ -124,14 +123,14 @@ public class JournalPaperTableDisplayPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "S.No.", "Title", "Year", "#Citations", "Authors", "Journals"
+                "S.No.", "Title", "Year", "#Citations", "Authors", "Journals", "Link"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {

@@ -227,7 +227,6 @@ public class PaperCollection implements Serializable {
         }
         return false;
     }
-
     public int getCitationPerYear() {
         //TODO:
         return 0;

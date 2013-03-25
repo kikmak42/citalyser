@@ -502,7 +502,6 @@ public class DisplayMaster {
 
     public void render(ContentRenderer contentRenderer, PaperCollection paperCollection) {
         renderMaster.render(contentRenderer, paperCollection);
-        renderGeneralProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), paperCollection);
     }
 
     public void render(ContentRenderer contentRenderer, Journal journal) {

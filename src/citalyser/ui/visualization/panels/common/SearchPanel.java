@@ -28,28 +28,28 @@ public class SearchPanel extends javax.swing.JPanel {
         return Integer.parseInt(numResults.getText());
     }
     
-    public int getMinYear(){
-        int min_year;
+    public String getMinYear(){
+        String min_year="";
         try{
-             min_year = Integer.parseInt(min_year_box.getText());
+             min_year = min_year_box.getText();
         }
         catch(Exception e){
-            min_year = 1800;
-            min_year_box.setText(Integer.toString(min_year));
+            min_year = "";
+            //min_year_box.setText(Integer.toString(min_year));
             
         }
         
         return min_year;
     }
 
-    public int getMaxYear(){
-        int max_year;
+    public String getMaxYear(){
+        String max_year;
         try{
-            max_year = Integer.parseInt(max_year_box.getText());
+            max_year = max_year_box.getText();
         }
         catch(Exception e){
-            max_year = 2013;
-            max_year_box.setText(Integer.toString(max_year));
+            max_year = "";
+            //max_year_box.setText(Integer.toString(max_year));
         }
         return max_year;
         
@@ -177,6 +177,12 @@ public class SearchPanel extends javax.swing.JPanel {
         jPanel5.add(jPanel6, "card3");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sort By Year", "Sort By Citations" }));
+        jComboBox1.setSelectedIndex(1);
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
         jPanel5.add(jComboBox1, "card2");
 
         numResults.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
@@ -286,10 +292,17 @@ public class SearchPanel extends javax.swing.JPanel {
     private void min_year_boxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_min_year_boxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_min_year_boxActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_jComboBox1ActionPerformed
     
     public boolean getComboSelection(){
         if(jComboBox1.getSelectedIndex() == 0) {
             return true;
+            
         } else {
             return false;
         } 
