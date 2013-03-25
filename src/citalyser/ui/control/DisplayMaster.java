@@ -393,6 +393,7 @@ public class DisplayMaster {
                     {
                         Journal journ = (Journal) queryResult.getContents();
                         render(contentRenderer, journ);
+                        renderGeneralProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), journ.getPaperCollection());
                     }
                     else
                         UiUtils.displayQueryEmptyMessage(contentRenderer, q.flag, myJournal.getName());
@@ -481,7 +482,7 @@ public class DisplayMaster {
     if (queryResult instanceof JournalResult)
     {
     queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(),queryResult);
-    renderJournal(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(),(Journal)queryResult.getContents());
+    renderGeneralProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(),(Journal)queryResult.getContents());
     }
     else
     {
@@ -507,6 +508,7 @@ public class DisplayMaster {
 
     public void render(ContentRenderer contentRenderer, PaperCollection paperCollection) {
         renderMaster.render(contentRenderer, paperCollection);
+        renderGeneralProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), paperCollection);
     }
 
     public void render(ContentRenderer contentRenderer, Journal journal) {
@@ -519,11 +521,11 @@ public class DisplayMaster {
 
     public void renderProfile(ContentRenderer contentRenderer, Author author) {
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true);
-        renderMaster.renderProfile(contentRenderer, author);
+        renderMaster.renderAuthorProfile(contentRenderer, author);
     }
     /* This method is not used anywhere. Deprecated.*/
-    public void renderJournal(ContentRenderer contentRenderer, PaperCollection papercollection) {
-        renderMaster.renderJournal(contentRenderer, papercollection);
+    public void renderGeneralProfile(ContentRenderer contentRenderer, PaperCollection papercollection) {
+        renderMaster.renderGeneralProfile(contentRenderer, papercollection);
     }
 
     public void clearCitationHistory() {
