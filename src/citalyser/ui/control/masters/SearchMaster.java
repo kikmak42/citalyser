@@ -107,13 +107,13 @@ public class SearchMaster {
 
     private void fetchResults(final Query q, final int maxResultsAtOneTime, final int numResults) {
                 
-                /* Clear all panels*/
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().clearAll();
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(false);
-                /* Show Loading sign in the central panel*/
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
-                /* Update the Search Panel on query Init*/
-                //mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryInit();
+        /* Clear all panels*/
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().clearAll();
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(false);
+        /* Show Loading sign in the central panel*/
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
+        /* Update the Search Panel on query Init*/
+        //mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryInit();
                 
         Thread thread = new Thread() {
 
