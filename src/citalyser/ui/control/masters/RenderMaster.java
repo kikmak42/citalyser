@@ -105,7 +105,7 @@ public class RenderMaster {
                 if (papercollection.getPapers().isEmpty()) {
                     contentRenderer.displayMessage("Could not fetch journal result");
                 } else {
-                    contentRenderer.getProfileDisplayPanel().displayJournalProfile(papercollection);
+                    contentRenderer.getProfileDisplayPanel().displayGeneralProfile(papercollection);
                     contentRenderer.flipToProfileDisplayPanel();
                 }
             }

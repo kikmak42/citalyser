@@ -72,7 +72,7 @@ public class PaperTableDisplayPanel extends javax.swing.JPanel {
         jTable1.getColumnModel().getColumn(2).setMaxWidth(32);
         jTable1.getColumnModel().getColumn(3).setMaxWidth(65);
         jTable1.repaint();
-        displayMaster.renderJournal(displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), this.paperCollection);
+            displayMaster.renderJournal(displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), this.paperCollection);
     }
     
     private DisplayMaster displayMaster;
