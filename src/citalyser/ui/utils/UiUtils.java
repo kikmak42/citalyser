@@ -11,9 +11,12 @@ import citalyser.model.query.QueryResult;
 import citalyser.model.query.QueryType;
 import citalyser.model.query.queryresult.ImageResult;
 import citalyser.ui.model.ContentRenderer;
+import java.awt.Desktop;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.util.logging.Level;
 import javax.swing.ImageIcon;
@@ -84,6 +87,22 @@ public class UiUtils {
             logger.error("Error creating thread for getting image... : " + ex.getMessage());
             ex.printStackTrace();
         }
+    }
+
+    public static void openInBrowser(String link) 
+    {
+        try {
+            URI uri = new URL(link).toURI();
+            Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+            if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) 
+            {
+                desktop.browse(uri);
+            }
+        }catch (Exception e) {
+                logger.error("Error opening Link in Browser.");
+                e.printStackTrace();
+           }
+        
     }
 
     public static void displayQueryCompleteInfoMessage(QueryType qtype,int count, String searchQuery)

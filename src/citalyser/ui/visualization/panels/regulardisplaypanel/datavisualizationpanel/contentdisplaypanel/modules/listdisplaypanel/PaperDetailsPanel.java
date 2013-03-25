@@ -7,6 +7,7 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 
 import citalyser.model.Paper;
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.utils.UiUtils;
 import java.awt.Cursor;
 import org.apache.log4j.Logger;
 
@@ -76,6 +77,11 @@ public class PaperDetailsPanel extends javax.swing.JPanel {
         paperTitleLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         paperTitleLbl.setForeground(new java.awt.Color(0, 0, 255));
         paperTitleLbl.setText("jLabel1");
+        paperTitleLbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                paperTitleLblMouseClicked(evt);
+            }
+        });
 
         paperinfolbl.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         paperinfolbl.setForeground(new java.awt.Color(0, 153, 51));
@@ -123,6 +129,15 @@ public class PaperDetailsPanel extends javax.swing.JPanel {
     private void viewCitationsLblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewCitationsLblMouseClicked
         displayMaster.citationListClicked(paper);
     }//GEN-LAST:event_viewCitationsLblMouseClicked
+
+    private void paperTitleLblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paperTitleLblMouseClicked
+        // TODO add your handling code here:
+        logger.debug("Paper Url : " + paper.getUrl());
+        if(paper.getUrl()!=null)
+            UiUtils.openInBrowser(paper.getUrl());
+        else
+            displayMaster.displayStatusMessage("We do not have a link for this Paper.");
+    }//GEN-LAST:event_paperTitleLblMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel paperAbstractLbl;
