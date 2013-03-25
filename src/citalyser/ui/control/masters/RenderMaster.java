@@ -77,7 +77,7 @@ public class RenderMaster {
        
     }
 
-    public void renderProfile(ContentRenderer contentRenderer, Author author) {
+    public void renderAuthorProfile(ContentRenderer contentRenderer, Author author) {
         if (author != null) {
             contentRenderer.clearAll();
             contentRenderer.getProfileDisplayPanel().displayAuthorProfile(author);
@@ -90,13 +90,13 @@ public class RenderMaster {
     public void renderJournalPaperCollection(ContentRenderer contentRenderer, PaperCollection paperCollection) {
         if (paperCollection != null) {
             //contentRenderer.clearAll();
-            contentRenderer.getTableDisplayPanel().setTable(paperCollection, true);
+                contentRenderer.getTableDisplayPanel().setTable(paperCollection, true);
             contentRenderer.flipToTableDisplayPanel();
         }
     }
     
         /* This method is not used anywhere. Deprecated*/
-    public void renderJournal(ContentRenderer contentRenderer, PaperCollection papercollection) {
+    public void renderGeneralProfile(ContentRenderer contentRenderer, PaperCollection papercollection) {
         if (papercollection != null) {
             contentRenderer.clearAll();
             if (papercollection.getPapers() == null) {
