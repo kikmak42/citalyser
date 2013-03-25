@@ -113,7 +113,7 @@ public class SearchMaster {
                 /* Show Loading sign in the central panel*/
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
                 /* Update the Search Panel on query Init*/
-                mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryInit();
+                //mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryInit();
                 
         Thread thread = new Thread() {
 
@@ -172,7 +172,7 @@ public class SearchMaster {
                 }
                 // Query Completed. 
                 /* Update the search panel*/
-                mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryComplete();
+                //mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryComplete();
                 /* If no results, show EmptyResult Message */
                 if(recvCount == 0)
                     UiUtils.displayQueryEmptyMessage(contentRenderer,q.flag, searchQuery);
