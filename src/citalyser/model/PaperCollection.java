@@ -11,6 +11,7 @@ package citalyser.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 
 public class PaperCollection implements Serializable {
 
@@ -68,8 +69,20 @@ public class PaperCollection implements Serializable {
                 }
             }
         }
-        return author;
+        ArrayList<String> uniqueList = new ArrayList<String>(new HashSet<String>(author));
+        return uniqueList;
     }
+    
+    public ArrayList<Integer> extractYears() {
+        ArrayList<Paper> p = this.papers;
+        ArrayList<Integer> year = new ArrayList<Integer>();
+        for (Paper paper : p) {
+                year.add(paper.getYear());
+            }
+        ArrayList<Integer> uniqueList = new ArrayList<Integer>(new HashSet<Integer>(year));
+        return uniqueList;
+    }
+    
     
     public ArrayList<Paper> extractPaperByYear(int low, int high) {
         ArrayList<Paper> retval = new ArrayList<>();
@@ -214,4 +227,19 @@ public class PaperCollection implements Serializable {
         }
         return false;
     }
+    public int getCitationPerYear() {
+        //TODO:
+        return 0;
+    }
+
+    public int getCitationPerPaper() {
+        //TODO:
+        return 0;
+    }
+
+    public int getTotalNumberOfCitations() {
+        //TODO:
+        return 0;
+    }
+    
 }
