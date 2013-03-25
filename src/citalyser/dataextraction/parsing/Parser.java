@@ -73,6 +73,7 @@ public class Parser {
                     insertInextractedpapers.setTitle("");
                     insertInextractedpapers.setUrl("");
                 }
+
             }
 
 

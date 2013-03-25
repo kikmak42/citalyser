@@ -9,7 +9,7 @@ import citalyser.model.Journal;
 import citalyser.model.PaperCollection;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.AuthorProfileDisplayPanel;
-import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.JournalProfileDisplayPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.GeneralProfileDisplayPanel;
 import org.apache.log4j.Logger;
 
 /**
@@ -29,14 +29,14 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
         authorProfileDisplayPanel.setDisplayMaster(displayMaster);
-        journalProfileDisplayPanel.setDisplayMaster(displayMaster);
+        generalProfileDisplayPanel.setDisplayMaster(displayMaster);
     }
 
     public DisplayMaster getDisplayMaster() {
         return displayMaster;
     }
-      public JournalProfileDisplayPanel getJournalProfileDisplayPanel() {
-        return journalProfileDisplayPanel;
+      public GeneralProfileDisplayPanel getJournalProfileDisplayPanel() {
+        return generalProfileDisplayPanel;
     }
 
     public AuthorProfileDisplayPanel getAuthorProfileDisplayPanel() {
@@ -48,8 +48,8 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
         ((java.awt.CardLayout) jPanel1.getLayout()).first(jPanel1);
     }
 
-    public void displayJournalProfile(PaperCollection papercollection) {
-        journalProfileDisplayPanel.displayJournal(papercollection);
+    public void displayGeneralProfile(PaperCollection papercollection) {
+        generalProfileDisplayPanel.setDisplay(papercollection);
         ((java.awt.CardLayout) jPanel1.getLayout()).last(jPanel1);
     }
 
@@ -72,11 +72,11 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         authorProfileDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.AuthorProfileDisplayPanel();
-        journalProfileDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.JournalProfileDisplayPanel();
+        generalProfileDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.GeneralProfileDisplayPanel();
 
         jPanel1.setLayout(new java.awt.CardLayout());
         jPanel1.add(authorProfileDisplayPanel, "card2");
-        jPanel1.add(journalProfileDisplayPanel, "card3");
+        jPanel1.add(generalProfileDisplayPanel, "card3");
 
         jScrollPane1.setViewportView(jPanel1);
 
@@ -93,13 +93,13 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.AuthorProfileDisplayPanel authorProfileDisplayPanel;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.GeneralProfileDisplayPanel generalProfileDisplayPanel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.JournalProfileDisplayPanel journalProfileDisplayPanel;
     // End of variables declaration//GEN-END:variables
 
     public void clear() {
         authorProfileDisplayPanel.clear();
-        journalProfileDisplayPanel.clear();
+        generalProfileDisplayPanel.clear();
     }
 }

@@ -128,4 +128,5 @@ public class TableDisplayPanel extends javax.swing.JPanel {
         paperTableFromMetricDisplayPanel.setTable(paperCollection, TableModelHandler.getTableModel(paperCollection));
         flipToPaperTableFromMetricDisplayPanel();
     }
+
 }
