@@ -255,7 +255,7 @@ public class SearchMaster {
                 }
                 UiUtils.displayQueryStartInfoMessage(q.flag, searchQuery);
             }
-        
+ 
         } else {
             // Journal Query
             if (isMetricQuery) {
