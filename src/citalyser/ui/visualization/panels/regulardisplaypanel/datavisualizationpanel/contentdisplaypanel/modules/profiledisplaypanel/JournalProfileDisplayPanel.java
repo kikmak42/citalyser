@@ -43,7 +43,7 @@ public class JournalProfileDisplayPanel extends javax.swing.JPanel {
         jLabel5.setText("H5 - Index : " + journal.getH5index());
         jLabel11.setText("H5 - Median : " + journal.getH5median());
         jLabel6.setText("i10 - Median : " + papercollection.getIIndex());
-        jLabel7.setText("Citation/Year : "+ papercollection.getCitationPerYear());
+        jLabel7.setText("Citation/Year : "+ papercollection.getCitationForYear());
         jLabel8.setText("Citation/Paper : " + papercollection.getCitationPerPaper());
         jLabel9.setText("Total No. of Citations : " + papercollection.getTotalNumberOfCitations());
         jLabel10.setText("Total no. of Papers : " + papercollection.getPapers().size());
