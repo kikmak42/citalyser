@@ -55,7 +55,7 @@ public class DisplayMaster {
     private int numberOfResults = 100;
     private final Vector<Thread> threads = new Vector<>();
     private boolean showPaperPreview = true;
-    private String author_name;
+    private String query_name;
 
     public DisplayMaster() {
         mainFrame = new MainFrame();
@@ -374,15 +374,14 @@ public class DisplayMaster {
 
     public void tableClicked(Journal journal) {
         final Journal myJournal = journal;
-        //citationListHistory.clear();
-        //citationListHistory.addPaper(paper);
-        //citationListHistory.printPapers();
+        this.query_name = journal.getName();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.75);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(true);
         Thread thread = new Thread() {
             @Override
             public void run() {
-                Query q = new Query.Builder("").flag(QueryType.JOURN_PROF).Url(myJournal.getH5Link()).build();
+                Query q = new Query.Builder("").flag(QueryType.JOURN_PROF).Url(myJournal.getH5Link())
+                                    .numResult(Constants.MaxResultsNum.METRICS_JOURNAL_PAPERS.getValue()).build();
                 UiUtils.displayQueryStartInfoMessage(q.flag, myJournal.getName());
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
                 if (queryResult != null) {
@@ -412,7 +411,7 @@ public class DisplayMaster {
 
         final String authorName = author.getName();
         final String myId = author.getId();
-        this.author_name = author.getName();
+        this.query_name = author.getName();
         final int numResults = Constants.MaxResultsNum.AUTHOR_PAPERS.getValue();
         Thread thread = new Thread() {
             @Override
@@ -634,9 +633,9 @@ public class DisplayMaster {
         return searchMaster;
     }
     
-    public void authorPaperTableMoreButtonClicked(final Query q) {
+    public void authorPaperTableMoreButtonClicked(final Query q, final JButton button) {
         final int numResults = Constants.MaxResultsNum.AUTHOR_PAPERS.getValue();
-        final String name = this.author_name;
+        final String name = this.query_name;
         Thread thread = new Thread() {
             @Override
             public void run() {
@@ -652,6 +651,38 @@ public class DisplayMaster {
                     queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), q, queryResult);
                     //renderProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), q, (Author) queryResult.getContents());
                 } else {
+                    button.setText("More");
+                    button.setIcon(null);
+                    //Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Author Details.");
+                }
+            }
+        };
+        thread.start();
+    }
+    
+    public void metricPaperTableMoreButtonClicked(final PaperCollection paperCollection,final Query q,final JButton button) {
+        final int numResults = q.num_results;
+        final String name = this.query_name;
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                //cancelButtonClicked();
+                threads.add(this);
+                final int start = q.num_results; 
+                ContentRenderer contentRenderer = mainFrame.getRegularDisplayPanel().getDataVisualizationPanel()
+                            .getContentDisplayPanel().getCentralContentDisplayPanel();
+                logger.debug("Start : " + q.start_result + " Num :" + q.num_results);
+                QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
+                if (queryResult != null) 
+                {
+                    UiUtils.displayQueryCompleteInfoMessage(q.flag, q.start_result+queryResult.getNumContents(),name);
+                    Journal journ = (Journal) queryResult.getContents();
+                    render(contentRenderer, q,journ);
+                    journ.appendPaperCollection(paperCollection);
+                    renderJournalProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), q, journ);
+                } else {
+                    button.setText("More");
+                    button.setText(null);
                     //Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Author Details.");
                 }
             }

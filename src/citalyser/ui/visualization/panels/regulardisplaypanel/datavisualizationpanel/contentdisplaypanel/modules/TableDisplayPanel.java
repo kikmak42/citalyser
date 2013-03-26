@@ -191,8 +191,8 @@ public class TableDisplayPanel extends javax.swing.JPanel {
         flipToAuthorPaperTableDisplayPanel();
     }
 
-    public void setTable(PaperCollection paperCollection, boolean b) {
-        paperTableFromMetricDisplayPanel.setTable(paperCollection, TableModelHandler.getTableModel(paperCollection));
+    public void setTable(Query q,PaperCollection paperCollection, boolean b) {
+        paperTableFromMetricDisplayPanel.setTable(q,paperCollection, TableModelHandler.getTableModel(paperCollection));
         flipToPaperTableFromMetricDisplayPanel();
     }
 

@@ -13,6 +13,7 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 import citalyser.Main;
 import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
+import citalyser.model.query.Query;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel;
 import citalyser.util.CommonUtils;
@@ -33,7 +34,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel implements TableDisplayPanelInterface {
 
     private static Logger logger = Logger.getLogger(PaperTableFromMetricDisplayPanel.class.getName());
-
+    Query lastQuery;
+    private int numResults;
+    
     /** Creates new form TableDisplayPanel */
     public PaperTableFromMetricDisplayPanel() {
         initComponents();
@@ -47,9 +50,17 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel impleme
         return displayMaster;
     }
 
-    public void setTable(PaperCollection paperCollection, TableModel tm) {
+    public void setTable(Query q,PaperCollection paperCollection, TableModel tm) {
 
-        showMoreButton();
+       numResults+=tm.getRowCount();
+        this.lastQuery = q;
+        q.start_result+=tm.getRowCount();
+        showNormalMoreButton();
+        if(tm.getRowCount() < q.num_results)
+            hideMoreButton();
+        else
+            this.showMoreButton();
+        
         if (jTable1.getModel().getRowCount() == 0) {
             disabledRow = -1;
             jTable1.setModel(tm);
@@ -237,7 +248,8 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel impleme
     }//GEN-LAST:event_jTable1MouseMoved
 
     private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
-        // TODO add your handling code here:
+        showLoadingMoreButton();
+        displayMaster.metricPaperTableMoreButtonClicked(this.paperCollection,lastQuery,moreButton);
     }//GEN-LAST:event_moreButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -249,6 +261,7 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel impleme
     // End of variables declaration//GEN-END:variables
 
     public void clear() {
+        numResults = 0;
         paperCollection = null;
         while (jTable1.getModel().getRowCount() > 0) {
             ((DefaultTableModel) jTable1.getModel()).removeRow(0);
@@ -267,12 +280,23 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel impleme
         }
     }
     
-    private void showMoreButton()
-    {
-        this.moreButton.setVisible(true);
+    public void showMoreButton() {
+        moreButton.setVisible(true);
     }
-    private void hideMoreButton()
-    {
-        this.moreButton.setVisible(false);
+
+    public void hideMoreButton() {
+        moreButton.setVisible(false);
     }
+
+    public void showLoadingMoreButton()
+    {
+        moreButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/ajax-loader.gif")));
+        moreButton.setText("");
+    }
+    public void showNormalMoreButton()
+    {
+        moreButton.setText("More");
+        moreButton.setIcon(null);
+    }
+
 }

@@ -91,7 +91,7 @@ public class RenderMaster {
     public void renderJournalPaperCollection(ContentRenderer contentRenderer, Query query, PaperCollection paperCollection) {
         if (paperCollection != null) {
             //contentRenderer.clearAll();
-            contentRenderer.getTableDisplayPanel().setTable(paperCollection, true);
+            contentRenderer.getTableDisplayPanel().setTable(query,paperCollection, true);
             contentRenderer.flipToTableDisplayPanel();
         }
     }
