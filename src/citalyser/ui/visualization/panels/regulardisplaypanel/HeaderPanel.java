@@ -213,6 +213,7 @@ public class HeaderPanel extends javax.swing.JPanel {
             }
         }
         searchPanel.showComboBox(!metric);
+        searchPanel.showYearRangePanel(!metric);
     }//GEN-LAST:event_sourceSelectorActionPerformed
 
     public SearchPanel getSearchPanel() {

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author milindtahalani1
+ * @author sahil
  */
 public class graphObject {
     public ArrayList<nodeInfo> arr;

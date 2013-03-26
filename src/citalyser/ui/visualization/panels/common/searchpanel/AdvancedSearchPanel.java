@@ -62,6 +62,13 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
         }
     }
 
+    public void showYearRangePanel(boolean value) {
+        if (value) {
+            ((CardLayout) jPanel7.getLayout()).last(jPanel7);
+        } else {
+            ((CardLayout) jPanel7.getLayout()).first(jPanel7);
+        }
+    }
     
     private DisplayMaster displayMaster;
 
@@ -80,6 +87,8 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(32767, 5));
         jPanel1 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
         yearRangePanel = new citalyser.ui.visualization.panels.common.searchpanel.advancedsearchpanel.YearRangePanel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         jPanel5 = new javax.swing.JPanel();
@@ -121,8 +130,28 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(1, 15));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
+        jPanel7.setOpaque(false);
+        jPanel7.setLayout(new java.awt.CardLayout());
+
+        jPanel8.setBackground(new java.awt.Color(59, 89, 152));
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 148, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 15, Short.MAX_VALUE)
+        );
+
+        jPanel7.add(jPanel8, "card3");
+
         yearRangePanel.setOpaque(false);
-        jPanel1.add(yearRangePanel);
+        jPanel7.add(yearRangePanel, "card2");
+
+        jPanel1.add(jPanel7);
         jPanel1.add(filler1);
 
         jPanel5.setPreferredSize(new java.awt.Dimension(105, 30));
@@ -146,6 +175,11 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sort By Citations", "Sort By Year" }));
         jComboBox1.setBorder(null);
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
         jPanel5.add(jComboBox1, "card2");
 
         jPanel1.add(jPanel5);
@@ -165,6 +199,14 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
         add(jPanel3, "card2");
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        if (jComboBox1.getSelectedIndex() == 0) {
+            ((CardLayout) jPanel7.getLayout()).last(jPanel7);
+        } else {
+            ((CardLayout) jPanel7.getLayout()).first(jPanel7);
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
@@ -179,6 +221,8 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private citalyser.ui.visualization.panels.common.searchpanel.advancedsearchpanel.ResultCountPanel resultCountPanel;
     private citalyser.ui.visualization.panels.common.searchpanel.advancedsearchpanel.YearRangePanel yearRangePanel;
     // End of variables declaration//GEN-END:variables

@@ -22,9 +22,11 @@ import citalyser.model.query.queryresult.PaperCollectionResult;
 import citalyser.ui.DisplayController;
 import citalyser.ui.control.DisplayControllerImpl;
 import citalyser.util.Config;
+import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.algorithms.layout.AggregateLayout;
 import edu.uci.ics.jung.algorithms.layout.BalloonLayout;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
+import edu.uci.ics.jung.algorithms.layout.DAGLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout2;
 import edu.uci.ics.jung.algorithms.layout.ISOMLayout;
@@ -82,6 +84,7 @@ public class CreateGraph {
     public static VisualizationViewer<nodeInfo, String> vv;
     public static SimpleGraphView2 sgv;
     public static Layout<nodeInfo, String> layout;
+    public static Layout<nodeInfo, String> layouttop;
     public static JPanel panel;
     public static JFrame frame;
     public static nodeInfo baseNode;
@@ -127,32 +130,33 @@ public class CreateGraph {
         //sgv
         logger.debug(q);
         layout = new SpringLayout<>(sgv.g2);
-        
+        layouttop = new AggregateLayout<>(layout);
         PaperCollection pc = ((PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q)).getContents();
-        logger.debug("@#$%:"+pc.getPapers().size());
+        logger.debug("@#$%:" + pc.getPapers().size());
         populateGraph(generateGraphObject.getNodeArray(pc));
 // Layout<V, E>, BasicVisualizationServer<V,E>
-        layout.setSize(new Dimension(600, 600));
-        layout.setGraph(sgv.g2);
-
-        vv = new VisualizationViewer<>(layout);
+//        layout.setSize(new Dimension(600, 600));
+//        layout.setGraph(sgv.g2);
+        layouttop.setSize(new Dimension(600, 600));
+        layouttop.setGraph(sgv.g2);
+        vv = new VisualizationViewer<>(layouttop);
 
         vv.setPreferredSize(new Dimension(350, 350));
 // Setup up a new vertex to paint transformer...
         Transformer<nodeInfo, Paint> vertexPaint;
         vertexPaint = new Transformer<nodeInfo, Paint>() {
             public Paint transform(nodeInfo i) {
-                    return new Color(255,255,128,128);
-                
+                return new Color(255, 255, 128, 128);
+
             }
         };
         // Set up a new stroke Transformer for the edges
-        
+
         Transformer<nodeInfo, String> vertextrans =
                 new Transformer<nodeInfo, String>() {
                     @Override
                     public String transform(nodeInfo i) {
-                        return i.Title.substring(0,10)+"..";
+                        return i.Title.split(" ")[0];
                     }
                 };
 
@@ -167,12 +171,12 @@ public class CreateGraph {
                 new Transformer<nodeInfo, Shape>() {
                     @Override
                     public Shape transform(nodeInfo i) {
-                        return new Rectangle(i.Title.length(), 20);
+                        return new Rectangle(100, 20);
                     }
                 };
 
 
-     
+
         //vv.getRenderContext().setVertexFillPaintTransformer(vertexColor);
         vv.getRenderContext().setVertexShapeTransformer(shapetrans);
         //MyVerte 
@@ -180,50 +184,53 @@ public class CreateGraph {
         // vv.getRenderContext().setVertexShapeTransformer(shapetrans);
         // vv.getRenderContext().set
         vv.getRenderContext().setVertexFillPaintTransformer(vertexPaint);
-       // vv.getRenderContext().setEdgeStrokeTransformer(edgeStrokeTransformer);
+        // vv.getRenderContext().setEdgeStrokeTransformer(edgeStrokeTransformer);
         vv.getRenderContext().setVertexLabelTransformer(vertextrans);
-      //  vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
+        //  vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
         vv.getRenderer().getVertexLabelRenderer().setPosition(Position.CNTR);
-      //  AnimatedPickingGraphMousePlugin am = new AnimatedPickingGraphMousePlugin();
-       
+        //  AnimatedPickingGraphMousePlugin am = new AnimatedPickingGraphMousePlugin();
+
         vv.getPickedVertexState();
-       
-       DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
+
+        DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
         gm.add(new AnimatedPickingGraphMousePlugin());
         gm.setMode(ModalGraphMouse.Mode.TRANSFORMING);
         //vv.setGraphMouse(gMouse); //Add the mouse to our Visualization-Viewer.
         //PluggableGraphMouse pgm = new PluggableGraphMouse();   gm.add(new AnimatedPickingGraphMousePlugin());
         //gm.add(null)
-   gm.add(new PickingGraphMousePlugin());
+        gm.add(new PickingGraphMousePlugin());
         // gm.add(new TranslatingGraphMousePlugin(MouseEvent.BUTTON3_MASK));
         gm.add(new PopupGraphMousePlugin());
         // gm.add(new ScalingGraphMousePlugin(new CrossoverScalingControl(), 0, 1 / 1.1f, 1.1f));
         // gm.add(new TranslatingGraphMousePlugin(MouseEvent.BUTTON1_MASK));
         gm.add(new ScalingGraphMousePlugin(new CrossoverScalingControl(), 0, 1.1f, 0.9f));
-        
+
         vv.setGraphMouse(gm);
         vv.setVertexToolTipTransformer(vt);
         vv.setToolTipText("<html><center>Use the mouse wheel to zoom<p>Click and Drag the mouse to pan<p>Shift-click and Drag to Rotate</center></html>");
 
         frame = new JFrame("Simple Graph View 2");
-        panel = new JPanel();
+         panel = new JPanel();
         panel.setLayout(new BorderLayout());
         panel.add(vv);
-       // panel.setForeground(Color.WHITE);
+         panel.setForeground(Color.WHITE);
         panel.setBackground(Color.WHITE);
         frame.getContentPane().setLayout(new BorderLayout());
         frame.getContentPane().add(panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(vv);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.getContentPane().add(vv);
         frame.pack();
         frame.setSize(600, 600);
-        //frame.setVisible(true);
+//        frame.setVisible(true);
+        //panel.setVisible(true);
+
     }
 
     public static void populateGraph(graphObject go) {
         go.baseInfo = CreateGraph.baseNode;
-        sgv.g2 = new DirectedOrderedSparseMultigraph<nodeInfo,String>();
-                
+        sgv.g2 = new DirectedOrderedSparseMultigraph<nodeInfo, String>();
+
         for (nodeInfo i : go.arr) {
             sgv.g2.addVertex(i);
         }
@@ -231,8 +238,19 @@ public class CreateGraph {
             sgv.g2.addEdge("" + i.id + "-" + go.baseInfo, go.baseInfo, i);
         }
     }
+
+    public static void addToGraph(graphObject go) {
+        go.baseInfo = CreateGraph.baseNode;
+
+        for (nodeInfo i : go.arr) {
+            sgv.g2.addVertex(i);
+        }
+        for (nodeInfo i : go.arr) {
+            sgv.g2.addEdge("" + i.id + "-" + go.baseInfo, go.baseInfo, i);
+        }
+    }
+
     public VisualizationViewer getVisualizationViewer() {
         return vv;
     }
-
 }
