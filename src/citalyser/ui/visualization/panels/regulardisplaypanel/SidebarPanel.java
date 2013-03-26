@@ -30,7 +30,7 @@ public class SidebarPanel extends javax.swing.JPanel {
     }
 
     public AuthorListPanel getAuthorListPanel() {
-        return authorListPanel;
+        return authorListPanel1;
     }
 
    
@@ -48,20 +48,21 @@ public class SidebarPanel extends javax.swing.JPanel {
 
         jSplitPane1 = new javax.swing.JSplitPane();
         advancedSearchPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AdvancedSearchPanel();
-        authorListPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel();
+        authorListPanel1 = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel();
 
         setBackground(new java.awt.Color(153, 153, 255));
+        setPreferredSize(new java.awt.Dimension(230, 171));
         setLayout(new java.awt.BorderLayout());
 
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setTopComponent(advancedSearchPanel1);
-        jSplitPane1.setRightComponent(authorListPanel);
+        jSplitPane1.setRightComponent(authorListPanel1);
 
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AdvancedSearchPanel advancedSearchPanel1;
-    private citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel authorListPanel;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel authorListPanel1;
     private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
 
