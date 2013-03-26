@@ -28,9 +28,7 @@ public class SidebarPanel extends javax.swing.JPanel {
         this.displayMaster = displayMaster;
     }
 
-    public RangeSlider getRangeSlider() {
-        return rangeSlider;
-    }
+   
             
     private DisplayMaster displayMaster;
 
@@ -43,40 +41,19 @@ public class SidebarPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        rangeSlider = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.RangeSlider();
-
         setBackground(new java.awt.Color(153, 153, 255));
-
-        rangeSlider.setBackground(new java.awt.Color(153, 153, 255));
-        rangeSlider.setMajorTickSpacing(4);
-        rangeSlider.setMaximum(2014);
-        rangeSlider.setMinimum(1980);
-        rangeSlider.setMinorTickSpacing(1);
-        rangeSlider.setOrientation(javax.swing.JSlider.VERTICAL);
-        rangeSlider.setPaintLabels(true);
-        rangeSlider.setPaintTicks(true);
-        rangeSlider.setSnapToTicks(true);
-        rangeSlider.setValue(1985);
-        rangeSlider.setUpperValue(2012);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addComponent(rangeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(106, Short.MAX_VALUE))
+            .addGap(0, 230, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addComponent(rangeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(112, Short.MAX_VALUE))
+            .addGap(0, 395, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.RangeSlider rangeSlider;
     // End of variables declaration//GEN-END:variables
 }

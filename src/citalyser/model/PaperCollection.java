@@ -11,7 +11,9 @@ package citalyser.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 public class PaperCollection implements Serializable {
 
@@ -228,9 +230,26 @@ public class PaperCollection implements Serializable {
         return false;
     }
 
-    public int getCitationPerYear() {
+    public Map<Integer,Integer> getCitationForYear() {
         //TODO:
-        return 0;
+        int year,cit;
+        ArrayList<Paper> p = this.papers;
+        HashMap<Integer, Integer> map1 = new HashMap<Integer, Integer>();
+        
+        for (Paper paper : p) {
+             year=paper.getYear();
+             cit=paper.getNumCites();
+             map1.get(year);
+             if(map1.get(year) ==null)
+                 map1.put(year,cit);
+             else{
+                 cit+=map1.get(year);
+                 map1.put(year,cit);
+             }
+            }
+        
+        return map1;
+        
     }
 
     public int getCitationPerPaper() {
