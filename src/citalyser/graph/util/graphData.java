@@ -22,42 +22,11 @@ import org.apache.log4j.PropertyConfigurator;
 public class graphData {
 
     static Logger logger = Logger.getLogger(graphData.class.getName());
-    static String returnValue;
+    // static String returnValue;
     static int id = 0;
 
     public graphData() {
         this.id = 0;
-    }
-
-    public static void main(String args[]) {
-        PropertyConfigurator.configure("log4j.properties");
-
-        returnValue = "";
-        FileReader file = null;
-
-        try {
-            file = new FileReader("C:/Users/milindtahalani1/Documents/input.html");                 //          give complete file path to the source file
-            BufferedReader reader = new BufferedReader(file);
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                returnValue += line + "\n";
-                logger.debug("String : " + returnValue);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (file != null) {
-                try {
-                    file.close();
-                } catch (IOException e) {
-                    // Ignore issues during closing 
-                }
-            }
-        }
-
-
-
-
     }
 
     public nodeInfo getbaseNode(Paper paper) {
@@ -72,7 +41,6 @@ public class graphData {
     }
 
     public graphObject getNodeArray(PaperCollection p) {
-        logger.debug("@#$%:" + p.getPapers().size());
         graphObject obj = new graphObject();
         ArrayList<nodeInfo> arr = new ArrayList<>();
         for (Paper paper : p.getPapers()) {

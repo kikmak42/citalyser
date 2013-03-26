@@ -81,14 +81,14 @@ import org.apache.log4j.PropertyConfigurator;
 public class CreateGraph {
 
     static Logger logger = Logger.getLogger(CreateGraph.class.getName());
-    public static VisualizationViewer<nodeInfo, String> vv;
-    public static SimpleGraphView2 sgv;
-    public static Layout<nodeInfo, String> layout;
-    public static Layout<nodeInfo, String> layouttop;
-    public static JPanel panel;
-    public static JFrame frame;
-    public static nodeInfo baseNode;
-    public static graphData generateGraphObject;
+    public VisualizationViewer<nodeInfo, String> vv;
+    public SimpleGraphView2 sgv;
+    public Layout<nodeInfo, String> layout;
+    public Layout<nodeInfo, String> layouttop;
+    public JPanel panel;
+    public JFrame frame;
+    public nodeInfo baseNode;
+    public graphData generateGraphObject;
     public static File settingsDirectory;
     public static File CacheDirectory;
     private static DisplayController displayController;
@@ -122,24 +122,22 @@ public class CreateGraph {
     public CreateGraph(Paper paper) {
         generateGraphObject = new graphData();
         this.baseNode = generateGraphObject.getbaseNode(paper);
-        logger.debug("@@##$$:" + this.baseNode.citationurl);
         Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(this.baseNode.citationurl).numResult(20).build();
 //        QueryHandler.getInstance().getQueryResult(q);
 //        generateGraphObject.getNodeArray(((PaperCollectionResult)QueryHandler.getInstance().getQueryResult(q)).getContents());
         sgv = new SimpleGraphView2(); // This builds the graph
         //sgv
-        logger.debug(q);
         layout = new SpringLayout<>(sgv.g2);
         layouttop = new AggregateLayout<>(layout);
         PaperCollection pc = ((PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q)).getContents();
-        logger.debug("@#$%:" + pc.getPapers().size());
         populateGraph(generateGraphObject.getNodeArray(pc));
+
 // Layout<V, E>, BasicVisualizationServer<V,E>
-//        layout.setSize(new Dimension(600, 600));
-//        layout.setGraph(sgv.g2);
-        layouttop.setSize(new Dimension(600, 600));
-        layouttop.setGraph(sgv.g2);
-        vv = new VisualizationViewer<>(layouttop);
+        layout.setSize(new Dimension(600, 600));
+        layout.setGraph(sgv.g2);
+//        layouttop.setSize(new Dimension(600, 600));
+//        layouttop.setGraph(sgv.g2);
+        vv = new VisualizationViewer<>(layout);
 
         vv.setPreferredSize(new Dimension(350, 350));
 // Setup up a new vertex to paint transformer...
@@ -200,7 +198,7 @@ public class CreateGraph {
         //gm.add(null)
         gm.add(new PickingGraphMousePlugin());
         // gm.add(new TranslatingGraphMousePlugin(MouseEvent.BUTTON3_MASK));
-        gm.add(new PopupGraphMousePlugin());
+        gm.add(new PopupGraphMousePlugin(this));
         // gm.add(new ScalingGraphMousePlugin(new CrossoverScalingControl(), 0, 1 / 1.1f, 1.1f));
         // gm.add(new TranslatingGraphMousePlugin(MouseEvent.BUTTON1_MASK));
         gm.add(new ScalingGraphMousePlugin(new CrossoverScalingControl(), 0, 1.1f, 0.9f));
@@ -209,26 +207,26 @@ public class CreateGraph {
         vv.setVertexToolTipTransformer(vt);
         vv.setToolTipText("<html><center>Use the mouse wheel to zoom<p>Click and Drag the mouse to pan<p>Shift-click and Drag to Rotate</center></html>");
 
-        frame = new JFrame("Simple Graph View 2");
-         panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        panel.add(vv);
-         panel.setForeground(Color.WHITE);
-        panel.setBackground(Color.WHITE);
-        frame.getContentPane().setLayout(new BorderLayout());
-        frame.getContentPane().add(panel);
+//        frame = new JFrame("Simple Graph View 2");
+//         panel = new JPanel();
+//        panel.setLayout(new BorderLayout());
+//        panel.add(vv);
+//         panel.setForeground(Color.WHITE);
+//        panel.setBackground(Color.WHITE);
+////        frame.getContentPane().setLayout(new BorderLayout());
+////        frame.getContentPane().add(panel);
 //        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        frame.getContentPane().add(vv);
-        frame.pack();
-        frame.setSize(600, 600);
+//        frame.pack();
+//        frame.setSize(600, 600);
 //        frame.setVisible(true);
         //panel.setVisible(true);
 
     }
 
-    public static void populateGraph(graphObject go) {
-        go.baseInfo = CreateGraph.baseNode;
+    public void populateGraph(graphObject go) {
+        go.baseInfo = this.baseNode;
         sgv.g2 = new DirectedOrderedSparseMultigraph<nodeInfo, String>();
 
         for (nodeInfo i : go.arr) {
@@ -239,8 +237,8 @@ public class CreateGraph {
         }
     }
 
-    public static void addToGraph(graphObject go) {
-        go.baseInfo = CreateGraph.baseNode;
+    public void addToGraph(graphObject go) {
+        go.baseInfo = this.baseNode;
 
         for (nodeInfo i : go.arr) {
             sgv.g2.addVertex(i);
@@ -251,6 +249,6 @@ public class CreateGraph {
     }
 
     public VisualizationViewer getVisualizationViewer() {
-        return vv;
+        return this.vv;
     }
 }

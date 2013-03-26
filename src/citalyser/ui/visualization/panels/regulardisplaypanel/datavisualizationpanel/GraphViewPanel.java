@@ -14,6 +14,8 @@ import citalyser.graph.CreateGraph;
 import citalyser.model.Paper;
 import citalyser.ui.control.DisplayMaster;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
 
 /**
  *
@@ -31,12 +33,13 @@ public class GraphViewPanel extends javax.swing.JPanel {
     }
     public void setPaper(Paper paper) {
         CreateGraph cg = new CreateGraph(paper);
-        this.setLayout(new BorderLayout());
-        add(cg.getVisualizationViewer());
-        this.setVisible(true);
+        jPanel1.removeAll();
+        jPanel1.setLayout(new BorderLayout());
+        jPanel1.add(cg.getVisualizationViewer(), BorderLayout.CENTER);
+        cg.getVisualizationViewer().setSize(new Dimension(jPanel1.getWidth(), jPanel1.getHeight()));
         
     }
-
+ 
     
     private DisplayMaster displayMaster;
 
@@ -49,9 +52,73 @@ public class GraphViewPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+
         setLayout(new java.awt.BorderLayout());
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+        add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
+
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        jLabel1.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Paper title");
+        jPanel3.add(jLabel1, java.awt.BorderLayout.CENTER);
+
+        jPanel2.add(jPanel3);
+
+        jPanel4.setLayout(new java.awt.BorderLayout());
+
+        jButton1.setText("Previous");
+        jButton1.setPreferredSize(new java.awt.Dimension(100, 20));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButton1, java.awt.BorderLayout.WEST);
+
+        jPanel5.setLayout(new java.awt.BorderLayout());
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Paperlist history");
+        jPanel5.add(jLabel2, java.awt.BorderLayout.CENTER);
+
+        jPanel4.add(jPanel5, java.awt.BorderLayout.CENTER);
+
+        jButton2.setText("Next");
+        jButton2.setPreferredSize(new java.awt.Dimension(100, 20));
+        jPanel4.add(jButton2, java.awt.BorderLayout.EAST);
+
+        jPanel2.add(jPanel4);
+
+        add(jPanel2, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
 }
