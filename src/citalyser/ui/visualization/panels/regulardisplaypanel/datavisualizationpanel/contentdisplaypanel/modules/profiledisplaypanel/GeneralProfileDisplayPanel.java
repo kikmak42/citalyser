@@ -152,4 +152,8 @@ public class GeneralProfileDisplayPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     // End of variables declaration//GEN-END:variables
+
+    public void clear() {
+        
+    }
 }

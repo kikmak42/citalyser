@@ -374,6 +374,7 @@ public class DisplayMaster {
 
     public void tableClicked(Journal journal) {
         final Journal myJournal = journal;
+        logger.debug("2345::::"+myJournal.getH5index());
         this.query_name = journal.getName();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.75);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(true);
@@ -429,6 +430,8 @@ public class DisplayMaster {
                 if (queryResult instanceof AuthorResult) {
                     UiUtils.displayQueryCompleteInfoMessage(q.flag, queryResult.getNumContents(), authorName);
                     queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), q, queryResult);
+                    renderProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), q, (Author) queryResult.getContents());
+                    mainFrame.getRegularDisplayPanel().getSidebarPanel().getAuthorListPanel().displayAuthors(((Author)(queryResult.getContents())).getPaperCollection());
                 } else {
                     //Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Author Details.");
                 }

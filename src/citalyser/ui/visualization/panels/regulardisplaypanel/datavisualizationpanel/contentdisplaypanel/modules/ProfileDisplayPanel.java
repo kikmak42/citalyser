@@ -116,5 +116,6 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
     public void clear() {
         authorProfileDisplayPanel.clear();
         journalProfileDisplayPanel.clear();
+        generalProfileDisplayPanel.clear();
     }
 }

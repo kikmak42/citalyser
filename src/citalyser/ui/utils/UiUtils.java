@@ -18,6 +18,10 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import org.apache.log4j.Logger;
@@ -216,6 +220,23 @@ public class UiUtils {
         }
         contentRenderer.displayMessage(result);
     }
+    
+    public static void displayGraph(final JLabel jLabel,final HashMap<Integer, Integer> map1,final int width,final int height) {
+        StringBuilder yearall=new StringBuilder();
+        StringBuilder citall=new StringBuilder(); 
+        String url = new String();
+        for(Map.Entry<Integer, Integer> entry : map1.entrySet()){
+             citall.append(entry.getValue());
+             citall.append(",");
+             yearall.append("|");
+             yearall.append(entry.getKey());
+             
+         }
+        citall.substring(0, citall.length()-1);
+        url="http://www.google.com/chart?chs="+width+"x"+height+"&cht=bvs&chf=bg,s,e8f4f7&chco=1111cc&chbh=r,2.0,0.0&chxt=x,y&chxr=1,0,766,766&chd=t:"+citall+"&chxl=0:"+yearall;
+        displayImage(jLabel, url, width, height);
+    }
+    
     
     
 }

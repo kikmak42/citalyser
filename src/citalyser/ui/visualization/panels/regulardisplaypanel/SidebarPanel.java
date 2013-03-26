@@ -6,12 +6,13 @@
 /*
  * SidebarPanel.java
  *
- * Created on Mar 9, 2013, 3:19:57 AM
+ * Created on Mar 27, 2013, 3:06:18 AM
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel;
 
 import citalyser.ui.control.DisplayMaster;
-import citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.RangeSlider;
+import citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AdvancedSearchPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel;
 
 /**
  *
@@ -23,13 +24,19 @@ public class SidebarPanel extends javax.swing.JPanel {
     public SidebarPanel() {
         initComponents();
     }
-    
+
+    public AdvancedSearchPanel getAdvancedSearchPanel() {
+        return advancedSearchPanel;
+    }
+
+    public AuthorListPanel getAuthorListPanel() {
+        return authorListPanel;
+    }
+
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
     }
-
-   
-            
+    
     private DisplayMaster displayMaster;
 
     /** This method is called from within the constructor to
@@ -43,9 +50,9 @@ public class SidebarPanel extends javax.swing.JPanel {
 
         jSplitPane1 = new javax.swing.JSplitPane();
         advancedSearchPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AdvancedSearchPanel();
-        jPanel1 = new javax.swing.JPanel();
+        authorListPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel();
 
-        setBackground(new java.awt.Color(153, 153, 255));
+        setBackground(new java.awt.Color(-6710785,true));
         setLayout(new java.awt.BorderLayout());
 
         jSplitPane1.setBorder(null);
@@ -53,26 +60,14 @@ public class SidebarPanel extends javax.swing.JPanel {
         jSplitPane1.setOpaque(false);
         jSplitPane1.setTopComponent(advancedSearchPanel);
 
-        jPanel1.setOpaque(false);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 154, Short.MAX_VALUE)
-        );
-
-        jSplitPane1.setRightComponent(jPanel1);
+        authorListPanel.setOpaque(false);
+        jSplitPane1.setRightComponent(authorListPanel);
 
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AdvancedSearchPanel advancedSearchPanel;
-    private javax.swing.JPanel jPanel1;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel authorListPanel;
     private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
 }
