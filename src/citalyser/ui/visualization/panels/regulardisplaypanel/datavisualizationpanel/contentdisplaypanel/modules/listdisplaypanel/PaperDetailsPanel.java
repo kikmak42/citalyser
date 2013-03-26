@@ -23,6 +23,7 @@ public class PaperDetailsPanel extends javax.swing.JPanel {
         this.paper = p;
         initComponents();
         this.viewCitationsLbl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        this.paperTitleLbl.setCursor(new Cursor(Cursor.HAND_CURSOR));
         this.viewCitationsLbl.setText("<html><a>View Citations</a></html>");
         this.paperAbstractLbl.setText("");
         this.paperCitedByLbl.setText("");
