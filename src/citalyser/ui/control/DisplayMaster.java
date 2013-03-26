@@ -374,6 +374,7 @@ public class DisplayMaster {
 
     public void tableClicked(Journal journal) {
         final Journal myJournal = journal;
+        logger.debug("2345::::"+myJournal.getH5index());
         this.query_name = journal.getName();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.75);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(true);

@@ -658,6 +658,15 @@ public class Parser {
             }
         }
         journal.setName(pub_name);
+        
+        Elements it = doc.select("ul");
+        
+        String h5="",h5m="";
+        String[] temp = it.get(0).text().split(":");
+        h5m = temp[2];
+        h5 = temp[1].split(" ")[0];
+        journal.setH5index(Integer.parseInt(h5));
+        journal.setH5median(Integer.parseInt(h5m));
         Elements items = doc.select("table#gs_cit_list_table");
         String url = "http://scholar.google.com";
         if (!items.isEmpty()) {
@@ -831,6 +840,8 @@ public class Parser {
                         }
                         Journal jour = new Journal(title);
                         jour.setH5Link(h5link);
+                        logger.debug("@@"+Integer.parseInt(h5i));
+                        logger.debug("##"+Integer.parseInt(h5m));
                         jour.setH5index(Integer.parseInt(h5i));
                         jour.setH5median(Integer.parseInt(h5m));
                         alj.add(jour);
@@ -840,11 +851,11 @@ public class Parser {
             }
         }
         qjl.setContents(alj);
-//        for(Journal j:alj){
-//            logger.debug(j.getName());
-//            logger.debug(j.getH5index()+"-"+j.getH5Link());
-//            logger.debug(j.getH5median());
-//        }
+        for(Journal j:alj){
+            logger.debug(j.getName());
+            logger.debug(j.getH5index()+"-"+j.getH5Link());
+            logger.debug(j.getH5median());
+        }
         return qjl;
     }
 

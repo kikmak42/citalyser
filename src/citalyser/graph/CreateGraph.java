@@ -125,6 +125,7 @@ public class CreateGraph {
 //        generateGraphObject.getNodeArray(((PaperCollectionResult)QueryHandler.getInstance().getQueryResult(q)).getContents());
         sgv = new SimpleGraphView2(); // This builds the graph
         //sgv
+        logger.debug(q);
         layout = new SpringLayout<>(sgv.g2);
         
         PaperCollection pc = ((PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q)).getContents();

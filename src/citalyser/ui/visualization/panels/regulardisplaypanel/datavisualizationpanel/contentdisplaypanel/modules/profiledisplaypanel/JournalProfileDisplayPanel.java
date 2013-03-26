@@ -40,6 +40,7 @@ public class JournalProfileDisplayPanel extends javax.swing.JPanel {
         if (journal.getDescription()=="null") {
             jLabel2.setText("<html>" + journal.getDescription());
         }
+        logger.debug("H5:=>"+journal.getH5index());
         jLabel5.setText("H5 - Index : " + journal.getH5index());
         jLabel11.setText("H5 - Median : " + journal.getH5median());
         jLabel6.setText("i10 - Median : " + papercollection.getIIndex());
