@@ -60,6 +60,7 @@ public class RenderMaster {
     public void render(ContentRenderer contentRenderer, Query query, PaperCollection paperCollection) {
         contentRenderer.getTableDisplayPanel().setTable(paperCollection);
         contentRenderer.flipToTableDisplayPanel();
+        
     }
 
     public void renderCitationsList(ContentRenderer contentRenderer, Query query, ArrayList<Paper> papers) {
