@@ -643,6 +643,8 @@ public class Parser {
 
     /* Query_Type : JOURN_PROF*/
     public QueryResult<Journal> extractMetricJournalInfo(String src) {
+        //logger.debug("into extarct info from journal func");
+        //System.out.println("----------------------into extract info jounal----------------------");
         doc = Jsoup.parse(src, "UTF-8");
         QueryResult<Journal> qj = new JournalResult();
         Journal journal = new Journal("");
@@ -658,7 +660,7 @@ public class Parser {
             }
         }
         journal.setName(pub_name);
-        
+     
         Elements it = doc.select("ul");
         
         String h5="",h5m="";
@@ -667,6 +669,7 @@ public class Parser {
         h5 = temp[1].split(" ")[0];
         journal.setH5index(Integer.parseInt(h5));
         journal.setH5median(Integer.parseInt(h5m));
+
         Elements items = doc.select("table#gs_cit_list_table");
         String url = "http://scholar.google.com";
         if (!items.isEmpty()) {
@@ -697,23 +700,55 @@ public class Parser {
                         //this part is for extracting the journal title and link
                         Elements title_section = row.select("td.gs_title");
                         if (!title_section.isEmpty()) {
-                            Elements title_tags;
+                            Elements title_tags = null;
                             try {
                                 title_tags = title_section.get(0).select("a");
                             } catch (Exception e) {
-                                title_tags = null;
+                                title_link = "";
+                                papr.setUrl(title_link);
+                                //logger.debug("titletags set to null");
                             }
                             //this part extracts the title and the link of the publication
+                            
                             if (!title_tags.isEmpty()) {
+                                logger.debug("into !titletags ");
 
                                 try {
-                                    title_link = title_tags.get(0).attr("href");
+                                    
                                     title_name = title_tags.get(0).text();
                                     papr.setTitle(title_name);
-                                    papr.setUrl(title_link);
+                                    
                                 } catch (Exception e) {
-                                    title_link = "";
                                     title_name = "";
+                                    papr.setTitle(title_name);
+                                }
+                                try{
+                                    title_link = title_tags.get(0).attr("href");                                    
+                                    papr.setUrl(title_link);
+                                }
+                                catch(Exception e){
+                                    title_link = "";
+                                    papr.setUrl(title_link);
+                                }
+                            }                           
+                           
+                            else{
+                                logger.debug("into else part of title tags");
+                                try{
+                                    Elements spans = title_section.get(0).select("span");
+                                    if(!spans.isEmpty()){
+                                        try{
+                                            title_name = spans.get(0).text();
+                                            papr.setTitle(title_name);
+                                        }
+                                        catch(Exception e){
+                                            title_name = "";
+                                            papr.setTitle(title_name);
+                                        }
+                                    }
+                                   }
+                                catch(Exception e){
+                                    
                                 }
                             }
                         }

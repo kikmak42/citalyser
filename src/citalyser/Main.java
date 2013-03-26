@@ -46,7 +46,7 @@ public class Main {
 //        paper.setInfo("AK Golder");
 //        paper.setCitedByUrl("http://scholar.google.co.in/scholar?cites=16472791434138441127&as_sdt=2005&sciodt=1,5&hl=en&num=20");
 //        getDisplayController().getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getGraphViewPanel().setPaper(paper);
-        
+    
     }
     
 
