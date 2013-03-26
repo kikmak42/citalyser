@@ -2,6 +2,7 @@ package citalyser.ui.control.masters;
 
 import citalyser.Constants;
 import citalyser.model.Author;
+import citalyser.model.PaperCollection;
 import citalyser.model.query.Query;
 import citalyser.model.query.QueryHandler;
 import citalyser.model.query.QueryResult;
@@ -107,13 +108,13 @@ public class SearchMaster {
 
     private void fetchResults(final Query q, final int maxResultsAtOneTime, final int numResults) {
                 
-                /* Clear all panels*/
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().clearAll();
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(false);
-                /* Show Loading sign in the central panel*/
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
-                /* Update the Search Panel on query Init*/
-                //mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryInit();
+        /* Clear all panels*/
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().clearAll();
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(false);
+        /* Show Loading sign in the central panel*/
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
+        /* Update the Search Panel on query Init*/
+        //mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryInit();
                 
         Thread thread = new Thread() {
 
@@ -165,6 +166,8 @@ public class SearchMaster {
                     }
                     mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateProgressBar((start*100)/numResults);
                     displayMaster.getQueryResultRenderingHandler().render(contentRenderer, currResult);
+                    if(q.flag == QueryType.GEN_JOURN || q.flag == QueryType.GEN_AUTH)
+                        displayMaster.renderGeneralProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(),(PaperCollection)globalResult.getContents());
                     start += count;
                     /* Results have finished . No need to fetch more results.*/
                     if(recvCount < start)
@@ -178,7 +181,6 @@ public class SearchMaster {
                     UiUtils.displayQueryEmptyMessage(contentRenderer,q.flag, searchQuery);
                 /* Show Query Completion Message*/
                 UiUtils.displayQueryCompleteInfoMessage(q.flag,recvCount,searchQuery);
-                
             }
         };
         thread.start();
