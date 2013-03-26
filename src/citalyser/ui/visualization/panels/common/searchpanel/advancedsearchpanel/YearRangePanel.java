@@ -72,6 +72,7 @@ public class YearRangePanel extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Year Range");
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("-");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

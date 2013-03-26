@@ -12,8 +12,6 @@ package citalyser.ui.visualization.panels.common.searchpanel;
 
 import citalyser.ui.control.DisplayMaster;
 import java.awt.CardLayout;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -55,6 +53,15 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
     public void show() {
         ((CardLayout) getLayout()).last(this);
     }
+
+    public void showComboBox(boolean value) {
+        if (value) {
+            ((CardLayout) jPanel5.getLayout()).last(jPanel5);
+        } else {
+            ((CardLayout) jPanel5.getLayout()).first(jPanel5);
+        }
+    }
+
     
     private DisplayMaster displayMaster;
 
@@ -128,7 +135,7 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 106, Short.MAX_VALUE)
+            .addGap(0, 105, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,6 +145,7 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
         jPanel5.add(jPanel6, "card3");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sort By Citations", "Sort By Year" }));
+        jComboBox1.setBorder(null);
         jPanel5.add(jComboBox1, "card2");
 
         jPanel1.add(jPanel5);
