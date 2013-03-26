@@ -66,7 +66,8 @@ public class RenderMaster {
         if (papers == null) {
             return;
         }
-        for (Paper p : papers) {
+        for (Paper p : papers) 
+        {
             if (Thread.interrupted()) {
                 break;
             }

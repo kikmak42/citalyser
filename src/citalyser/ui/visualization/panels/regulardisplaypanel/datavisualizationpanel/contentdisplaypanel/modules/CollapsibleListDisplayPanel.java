@@ -94,7 +94,7 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
     }
 
     public void moreButtonClicked(java.awt.event.MouseEvent evt) {
-        displayMaster.displayStatusMessage("More Button Pressed");
+        //displayMaster.displayStatusMessage("More Button Pressed");
         displayMaster.citationListMoreButtonClicked(entityCount, jLabel5);
     }
 

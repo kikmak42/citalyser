@@ -86,6 +86,7 @@ public class UrlComposer {
         URL = "http://scholar.google.co.in/citations?hl=en&";
         URL += "view_op=list_works&pagesize="+q.num_results;
         URL += "&user=" + q.ID;
+        URL += "&cstart=" + q.start_result;
         logger.debug(URL);
         return URL;
     }

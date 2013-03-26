@@ -31,6 +31,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import org.apache.log4j.Logger;
@@ -54,6 +55,7 @@ public class DisplayMaster {
     private int numberOfResults = 100;
     private final Vector<Thread> threads = new Vector<>();
     private boolean showPaperPreview = true;
+    private String author_name;
 
     public DisplayMaster() {
         mainFrame = new MainFrame();
@@ -410,6 +412,7 @@ public class DisplayMaster {
 
         final String authorName = author.getName();
         final String myId = author.getId();
+        this.author_name = author.getName();
         final int numResults = Constants.MaxResultsNum.AUTHOR_PAPERS.getValue();
         Thread thread = new Thread() {
             @Override
@@ -467,27 +470,6 @@ public class DisplayMaster {
         }.start();
     }
 
-    /*   public void journalProfile(String id) {
-    
-     final String myId = id;
-    
-     new Thread() {
-     @Override
-     public void run() {
-     Query q = new Query.Builder("").flag(QueryType.JOURN_PROF).ID(myId).build();
-     QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
-     if (queryResult instanceof JournalResult)
-     {
-     queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(),queryResult);
-     renderGeneralProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(),(Journal)queryResult.getContents());
-     }
-     else
-     {
-     Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Journal Details.");
-     }
-     }
-     }.start();
-     }*/
     //*****************************************************************************//
     //**************************** Rendering Functions ****************************//
     //*****************************************************************************//
@@ -634,7 +616,7 @@ public class DisplayMaster {
                         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
                     }
                 } else {
-                    Main.getDisplayController().displayErrorMessage("Null QueryResult on Listclicked...");
+                    //Main.getDisplayController().displayErrorMessage("Null QueryResult on Listclicked...");
                 }
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().showNormalMoreButton();
             }
@@ -652,6 +634,28 @@ public class DisplayMaster {
         return searchMaster;
     }
     
-    public void paperTableMoreButtonClicked() {
+    public void authorPaperTableMoreButtonClicked(final Query q) {
+        final int numResults = Constants.MaxResultsNum.AUTHOR_PAPERS.getValue();
+        final String name = this.author_name;
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                //cancelButtonClicked();
+                threads.add(this);
+                final int start = q.num_results; 
+                //Query q1 = new Query.Builder("").flag(q.flag).ID(q.ID)
+                //                .numResult(numResults).startResult(numResults).build();
+                logger.debug("Start : " + q.start_result + " Num :" + q.num_results);
+                QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
+                if (queryResult instanceof AuthorResult) {
+                    UiUtils.displayQueryCompleteInfoMessage(q.flag, q.start_result+queryResult.getNumContents(),name);
+                    queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), q, queryResult);
+                    //renderProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), q, (Author) queryResult.getContents());
+                } else {
+                    //Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Author Details.");
+                }
+            }
+        };
+        thread.start();
     }
 }
