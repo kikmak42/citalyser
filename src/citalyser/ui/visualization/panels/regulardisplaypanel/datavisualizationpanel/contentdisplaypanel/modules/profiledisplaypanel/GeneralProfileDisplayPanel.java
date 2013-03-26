@@ -12,12 +12,12 @@ import org.apache.log4j.Logger;
  *
  * @author kaushik
  */
-public class JournalProfileDisplayPanel extends javax.swing.JPanel {
+public class GeneralProfileDisplayPanel extends javax.swing.JPanel {
     static Logger logger = Logger.getLogger(AuthorProfileDisplayPanel.class.getName());
     /**
-     * Creates new form JournalProfileDisplayPanel
+     * Creates new form GeneralProfileDisplayPanel
      */
-    public JournalProfileDisplayPanel() {
+    public GeneralProfileDisplayPanel() {
         initComponents();
     }
 
@@ -27,7 +27,7 @@ public class JournalProfileDisplayPanel extends javax.swing.JPanel {
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
     }
-    public void displayJournal(PaperCollection papercollection) {
+    public void setDisplay(PaperCollection papercollection) {
         logger.debug("Journal name : " + this.displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getSearchString());
         //jLabel3.setText(this.displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getSearchString());
        jLabel5.setText("H - Index : " + papercollection.getHIndex() );
