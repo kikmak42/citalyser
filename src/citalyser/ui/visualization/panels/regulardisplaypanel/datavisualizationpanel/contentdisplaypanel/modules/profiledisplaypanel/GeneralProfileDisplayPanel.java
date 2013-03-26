@@ -5,6 +5,7 @@
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel;
 
 import citalyser.model.PaperCollection;
+import citalyser.model.query.Query;
 import citalyser.ui.control.DisplayMaster;
 import org.apache.log4j.Logger;
 
@@ -31,9 +32,9 @@ public class GeneralProfileDisplayPanel extends javax.swing.JPanel {
         this.displayMaster = displayMaster;
     }
 
-    public void displayGeneral(PaperCollection papercollection) {
+    public void displayGeneral(Query q,PaperCollection papercollection) {
 
-        jLabel3.setText(displayMaster.getSearchMaster().getSearchString().toUpperCase());
+        jLabel3.setText(q.name.toUpperCase());
         jLabel2.setText("");
         jLabel5.setText("H - Index : " + papercollection.getHIndex());
         jLabel6.setText("i10 - median : " + papercollection.getIIndex());

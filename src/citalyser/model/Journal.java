@@ -98,4 +98,12 @@ public class Journal implements Serializable {
             return "";
             //return "Journal{" + "description=" + description + ", name=" + name + ", id=" + id + ", cites_per_author=" + cites_per_author + ", papers_per_author=" + papers_per_author + ", h5Link=" + h5Link + ", h5index=" + h5index + ", h5median=" + h5median + ", paper_collection=" + paper_collection + '}';
         }
+        
+        public void appendPaperCollection(PaperCollection pc)
+        {
+            for(Paper p : pc.getPapers()){
+                this.paper_collection.addPaper(p);
+            }
+                
+        }
 }
