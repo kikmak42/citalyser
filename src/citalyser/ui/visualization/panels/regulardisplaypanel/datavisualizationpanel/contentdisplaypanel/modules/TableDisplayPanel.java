@@ -179,6 +179,8 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     public void clear() {
         authorPaperTableDisplayPanel.clear();
         journalTableDisplayPanel.clear();
+        journalPaperTableDisplayPanel.clear();  
+        paperTableFromMetricDisplayPanel.clear();
     }
 
     public void setJournalTable(ArrayList<Journal> arrayList) {
