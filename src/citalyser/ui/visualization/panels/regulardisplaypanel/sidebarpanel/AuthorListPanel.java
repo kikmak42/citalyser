@@ -6,6 +6,7 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel;
 
 import citalyser.model.PaperCollection;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 
 /**
@@ -25,13 +26,15 @@ public class AuthorListPanel extends javax.swing.JPanel {
         
         
         int i=0;
+        DefaultListModel list = new DefaultListModel();
         for(i=0;i<authors.size();i++){
             JCheckBox checkbox = new JCheckBox();
             checkbox.setText(authors.get(i));
             checkbox.setSelected(true);
-            jList1.add(checkbox);
-                    
+            //jList1.add(checkbox);
+            list.addElement(authors.get(i));      
         }
+        jList1.setModel(list);
     }
 
     /**
