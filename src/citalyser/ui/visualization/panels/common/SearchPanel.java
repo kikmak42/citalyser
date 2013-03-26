@@ -44,6 +44,10 @@ public class SearchPanel extends javax.swing.JPanel {
     public void showComboBox(boolean value) {
         advancedSearchPanel.showComboBox(value);
     }
+
+    public void showYearRangePanel(boolean value) {
+        advancedSearchPanel.showYearRangePanel(value);
+    }
     
     /** This method is called from within the constructor to
      * initialize the form.

@@ -11,15 +11,13 @@ import citalyser.model.query.QueryResult;
 import citalyser.model.query.QueryType;
 import citalyser.model.query.queryresult.ImageResult;
 import citalyser.ui.model.ContentRenderer;
-import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.UnsupportedEncodingException;
+import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLDecoder;
-import java.util.logging.Level;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import org.apache.log4j.Logger;
@@ -109,7 +107,7 @@ public class UiUtils {
             {
                 desktop.browse(uri);
             }
-        }catch (Exception e) {
+        }catch (URISyntaxException | IOException e) {
                 logger.error("Error opening Link in Browser.");
                 e.printStackTrace();
            }
