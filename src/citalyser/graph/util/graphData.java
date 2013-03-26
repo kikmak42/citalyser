@@ -17,7 +17,7 @@ import org.apache.log4j.PropertyConfigurator;
 
 /**
  *
- * @author milindtahalani1
+ * @author sahil
  */
 public class graphData {
 
@@ -79,7 +79,7 @@ public class graphData {
             nodeInfo g = new nodeInfo();
             g.Title = paper.getTitle();
             g.EntireInfo = "<html><head></head><body><B>" + paper.getTitle() + "</B><br>" + paper.getInfo() + "</body></html>";
-            logger.debug("@#$%:" + paper.getInfo());
+            //logger.debug("@#$%:" + paper.getInfo());
             g.nocitation = paper.getNumCites();
             g.id = this.id;
             this.id += 1;
