@@ -427,7 +427,6 @@ public class DisplayMaster {
                 if (queryResult instanceof AuthorResult) {
                     UiUtils.displayQueryCompleteInfoMessage(q.flag, queryResult.getNumContents(), authorName);
                     queryResultRenderingHandler.render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), q, queryResult);
-                    renderProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), q, (Author) queryResult.getContents());
                 } else {
                     //Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Author Details.");
                 }

@@ -114,7 +114,7 @@ public class SearchMaster {
         /* Show Loading sign in the central panel*/
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
         /* Update the Search Panel on query Init*/
-        //mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryInit();
+        mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(false);
                 
         Thread thread = new Thread() {
 
@@ -185,10 +185,11 @@ public class SearchMaster {
                 }
                 // Query Completed. 
                 /* Update the search panel*/
-                //mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryComplete();
+                mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(true);
                 /* If no results, show EmptyResult Message */
-                if(recvCount == 0)
+                if(recvCount == 0) {
                     UiUtils.displayQueryEmptyMessage(contentRenderer,q.flag, searchQuery);
+                }
                 /* Show Query Completion Message*/
                 UiUtils.displayQueryCompleteInfoMessage(q.flag,recvCount,searchQuery);
             }
@@ -201,7 +202,7 @@ public class SearchMaster {
         /* Input from the User Parameters */
         int maxResults;
         String searchQuery = searchPanel.getSearchString();
-        int numResults = mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getNumResults();
+        int numResults = displayMaster.getNumberOfResults();
         String min_year = displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getMinYear();
         String max_year = displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getMaxYear();
         int minYear = 0;
@@ -241,9 +242,9 @@ public class SearchMaster {
             }
             
         }
-        boolean sortByYear = searchPanel.getComboSelection();
+        boolean sortByYear = searchPanel.isSortByYear();
         boolean isAuthorQuery = displayMaster.checkAuthorMode();
-        boolean isMetricQuery = searchPanel.getRadioButtonInfo();
+        boolean isMetricQuery = mainFrame.getRegularDisplayPanel().getHeaderPanel().isMetric();
 
         /* Process the query*/
         Query q;

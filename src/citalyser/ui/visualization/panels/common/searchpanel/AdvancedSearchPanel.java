@@ -10,6 +10,11 @@
  */
 package citalyser.ui.visualization.panels.common.searchpanel;
 
+import citalyser.ui.control.DisplayMaster;
+import java.awt.CardLayout;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 /**
  *
  * @author Tanmay Patil
@@ -21,6 +26,38 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
         initComponents();
     }
 
+    public void setDisplayMaster(DisplayMaster displayMaster) {
+        this.displayMaster = displayMaster;
+        yearRangePanel.setDisplayMaster(displayMaster);
+        resultCountPanel.setDisplayMaster(displayMaster);
+    }
+
+    public String getMinYear() {
+        return yearRangePanel.getMinYear();
+    }
+
+    public String getMaxYear() {
+        return yearRangePanel.getMaxYear();
+    }
+
+    public void setMinYear(String minYear) {
+        yearRangePanel.setMinYear(minYear);
+    }
+
+    public void setMaxYear(String maxYear) {
+        yearRangePanel.setMaxYear(maxYear);
+    }
+
+    public void hide() {
+        ((CardLayout) getLayout()).first(this);
+    }
+
+    public void show() {
+        ((CardLayout) getLayout()).last(this);
+    }
+    
+    private DisplayMaster displayMaster;
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -30,17 +67,119 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 520, Short.MAX_VALUE)
+        jPanel4 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(32767, 5));
+        jPanel1 = new javax.swing.JPanel();
+        yearRangePanel = new citalyser.ui.visualization.panels.common.searchpanel.advancedsearchpanel.YearRangePanel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jComboBox1 = new javax.swing.JComboBox();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+        resultCountPanel = new citalyser.ui.visualization.panels.common.searchpanel.advancedsearchpanel.ResultCountPanel();
+        filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(32767, 5));
+        jLabel2 = new javax.swing.JLabel();
+
+        setPreferredSize(new java.awt.Dimension(454, 25));
+        setLayout(new java.awt.CardLayout());
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 454, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 38, Short.MAX_VALUE)
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
         );
+
+        add(jPanel4, "card3");
+
+        jPanel3.setPreferredSize(new java.awt.Dimension(454, 25));
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/edge_left.png"))); // NOI18N
+        jPanel3.add(jLabel1, java.awt.BorderLayout.WEST);
+
+        jPanel2.setBackground(new java.awt.Color(59, 89, 152));
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
+        jPanel2.add(filler3);
+
+        jPanel1.setMinimumSize(new java.awt.Dimension(403, 15));
+        jPanel1.setOpaque(false);
+        jPanel1.setPreferredSize(new java.awt.Dimension(1, 15));
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+
+        yearRangePanel.setOpaque(false);
+        jPanel1.add(yearRangePanel);
+        jPanel1.add(filler1);
+
+        jPanel5.setPreferredSize(new java.awt.Dimension(105, 30));
+        jPanel5.setLayout(new java.awt.CardLayout());
+
+        jPanel6.setBackground(new java.awt.Color(59, 89, 152));
+        jPanel6.setMinimumSize(new java.awt.Dimension(100, 20));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 106, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 15, Short.MAX_VALUE)
+        );
+
+        jPanel5.add(jPanel6, "card3");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sort By Citations", "Sort By Year" }));
+        jPanel5.add(jComboBox1, "card2");
+
+        jPanel1.add(jPanel5);
+        jPanel1.add(filler2);
+
+        resultCountPanel.setOpaque(false);
+        jPanel1.add(resultCountPanel);
+
+        jPanel2.add(jPanel1);
+        jPanel2.add(filler4);
+
+        jPanel3.add(jPanel2, java.awt.BorderLayout.CENTER);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/edge_right.png"))); // NOI18N
+        jPanel3.add(jLabel2, java.awt.BorderLayout.EAST);
+
+        add(jPanel3, "card2");
     }// </editor-fold>//GEN-END:initComponents
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.Box.Filler filler3;
+    private javax.swing.Box.Filler filler4;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private citalyser.ui.visualization.panels.common.searchpanel.advancedsearchpanel.ResultCountPanel resultCountPanel;
+    private citalyser.ui.visualization.panels.common.searchpanel.advancedsearchpanel.YearRangePanel yearRangePanel;
     // End of variables declaration//GEN-END:variables
+
+    public boolean isSortByYear() {
+        if (jComboBox1.getSelectedIndex() == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
