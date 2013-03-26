@@ -40,7 +40,8 @@ public class HeaderPanel extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         searchPanel = new citalyser.ui.visualization.panels.common.SearchPanel();
-        jButton1 = new javax.swing.JButton();
+        settingsButton = new javax.swing.JButton();
+        sourceSelector = new javax.swing.JButton();
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -114,14 +115,26 @@ public class HeaderPanel extends javax.swing.JPanel {
         jPanel1.setLayout(new java.awt.BorderLayout());
         jPanel1.add(searchPanel, java.awt.BorderLayout.CENTER);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/settingButton.png"))); // NOI18N
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        settingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/settingButton.png"))); // NOI18N
+        settingsButton.setBorder(null);
+        settingsButton.setBorderPainted(false);
+        settingsButton.setContentAreaFilled(false);
+        settingsButton.setFocusPainted(false);
+        settingsButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        settingsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                settingsButtonActionPerformed(evt);
+            }
+        });
+
+        sourceSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/2nd_toggle buttons_2a.png"))); // NOI18N
+        sourceSelector.setBorder(null);
+        sourceSelector.setBorderPainted(false);
+        sourceSelector.setContentAreaFilled(false);
+        sourceSelector.setFocusPainted(false);
+        sourceSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sourceSelectorActionPerformed(evt);
             }
         });
 
@@ -130,17 +143,24 @@ public class HeaderPanel extends javax.swing.JPanel {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(sourceSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 548, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(settingsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                .addComponent(settingsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
                 .addGap(11, 11, 11))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(sourceSelector, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                .addContainerGap())
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
         );
 
@@ -148,23 +168,52 @@ public class HeaderPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void modeSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeSelectorActionPerformed
-        // TODO add your handling code here:
         if (authorSearchMode) {
             modeSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_2.png")));
-            this.searchPanel.getRadioButton1().setText("Google Scholar");
-            this.searchPanel.getRadioButton2().setText("Google Metrics");
+            if (metric) {
+                sourceSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/2nd_toggle buttons_1a.png")));
+            } else {
+                sourceSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/2nd_toggle buttons_1b.png")));
+            }
+            this.searchPanel.showAdvancedSearchPanel();
             authorSearchMode = false;
         } else {
             modeSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_1.png")));
-            this.searchPanel.getRadioButton1().setText("Author Papers");
-            this.searchPanel.getRadioButton2().setText("Author List");
+            
+            if (metric) {
+                sourceSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/2nd_toggle buttons_2a.png")));
+            } else {
+                sourceSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/2nd_toggle buttons_2b.png")));
+            }
+            this.searchPanel.showAdvancedSearchPanel();
             authorSearchMode = true;
         }
     }//GEN-LAST:event_modeSelectorActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsButtonActionPerformed
         displayMaster.settingsButtonPressed();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_settingsButtonActionPerformed
+
+    private void sourceSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sourceSelectorActionPerformed
+        if (authorSearchMode) {
+            if (metric) {
+                sourceSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/2nd_toggle buttons_2b.png")));
+                metric = false;
+            } else {
+                sourceSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/2nd_toggle buttons_2a.png")));
+                metric = true;
+            }
+        } else {
+            if (metric) {
+                sourceSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/2nd_toggle buttons_1b.png")));
+                metric = false;
+            } else {
+                sourceSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/2nd_toggle buttons_1a.png")));
+                metric = true;
+            }
+        }
+        searchPanel.showComboBox(!metric);
+    }//GEN-LAST:event_sourceSelectorActionPerformed
 
     public SearchPanel getSearchPanel() {
         return searchPanel;
@@ -179,17 +228,31 @@ public class HeaderPanel extends javax.swing.JPanel {
         this.authorSearchMode = authorSearchMode;
         if (authorSearchMode) {
             modeSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_1.png")));
-            this.searchPanel.getRadioButton1().setText("Author Papers");
-            this.searchPanel.getRadioButton2().setText("Author List");
-            this.searchPanel.getButtonPanel().setVisible(true);
+            if (metric) {
+                sourceSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/2nd_toggle buttons_2a.png")));
+            } else {
+                sourceSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/2nd_toggle buttons_2b.png")));
+            }
+            this.searchPanel.showAdvancedSearchPanel();
             authorSearchMode = false;
         } else {
             modeSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/toggle button_2.png")));
-            this.searchPanel.getRadioButton1().setText("Google Scholar");
-            this.searchPanel.getRadioButton2().setText("Google Metrics");
-            this.searchPanel.getButtonPanel().setVisible(true);
+            if (metric) {
+                sourceSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/2nd_toggle buttons_1a.png")));
+            } else {
+                sourceSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/2nd_toggle buttons_1b.png")));
+            }
+            this.searchPanel.showAdvancedSearchPanel();
             authorSearchMode = true;
         }
+    }
+
+    public void setMetric(boolean metric) {
+        this.metric = metric;
+    }
+
+    public boolean isMetric() {
+        return metric;
     }
 
     public boolean isAuthorSearchMode() {
@@ -197,9 +260,9 @@ public class HeaderPanel extends javax.swing.JPanel {
     }
             
     private DisplayMaster displayMaster;
+    private boolean metric = true;
     private boolean authorSearchMode = true;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -207,5 +270,7 @@ public class HeaderPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JButton modeSelector;
     private citalyser.ui.visualization.panels.common.SearchPanel searchPanel;
+    private javax.swing.JButton settingsButton;
+    private javax.swing.JButton sourceSelector;
     // End of variables declaration//GEN-END:variables
 }

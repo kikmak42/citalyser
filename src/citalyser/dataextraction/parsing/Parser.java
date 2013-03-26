@@ -643,7 +643,8 @@ public class Parser {
 
     /* Query_Type : JOURN_PROF*/
     public QueryResult<Journal> extractMetricJournalInfo(String src) {
-        logger.debug("into extarct info from journal func");
+        //logger.debug("into extarct info from journal func");
+        //System.out.println("----------------------into extract info jounal----------------------");
         doc = Jsoup.parse(src, "UTF-8");
         QueryResult<Journal> qj = new JournalResult();
         Journal journal = new Journal("");

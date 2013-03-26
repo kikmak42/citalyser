@@ -73,12 +73,12 @@ public class ToolsPanel extends javax.swing.JPanel {
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(50, 93, 167));
+        setBackground(new java.awt.Color(59, 89, 152));
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
 
-        jCheckBox1.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jCheckBox1.setFont(new java.awt.Font("Arial", 1, 11));
         jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setSelected(true);
         jCheckBox1.setText("Show Paper Preview");
@@ -89,7 +89,7 @@ public class ToolsPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14));
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
