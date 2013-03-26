@@ -179,7 +179,7 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     public void clear() {
         authorPaperTableDisplayPanel.clear();
         journalTableDisplayPanel.clear();
-        journalPaperTableDisplayPanel.clear();
+        journalPaperTableDisplayPanel.clear();  
         paperTableFromMetricDisplayPanel.clear();
     }
 
