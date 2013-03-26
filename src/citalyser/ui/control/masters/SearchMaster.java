@@ -200,7 +200,7 @@ public class SearchMaster {
         int minyear = 0;
         int maxyear = 0;
         boolean year_empty = false;
-        if(min_year.equals("")&& max_year.equals("")){
+        /*if(min_year.equals("")&& max_year.equals("")){
             year_empty = true;
             //minYear = min_year;
             //maxYear = max_year;
@@ -227,10 +227,12 @@ public class SearchMaster {
                 minYear = maxyear;
             }
             
-        }
+        }*/
         boolean sortByYear = searchPanel.isSortByYear();
         boolean isAuthorQuery = displayMaster.checkAuthorMode();
         boolean isMetricQuery = mainFrame.getRegularDisplayPanel().getHeaderPanel().isMetric();
+        
+        String minYearStr = searchPanel.getMinYear(), maxYearStr = searchPanel.getMaxYear();
 
         /* Process the query*/
         Query q;
