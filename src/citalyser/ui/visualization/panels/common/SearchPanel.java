@@ -40,6 +40,10 @@ public class SearchPanel extends javax.swing.JPanel {
     public void hideAdvancedSearchPanel() {
         advancedSearchPanel.hide();
     }
+
+    public void showComboBox(boolean value) {
+        advancedSearchPanel.showComboBox(value);
+    }
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -55,7 +59,9 @@ public class SearchPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         basicSearchPanel = new citalyser.ui.visualization.panels.common.searchpanel.BasicSearchPanel();
+        jPanel2 = new javax.swing.JPanel();
         advancedSearchPanel = new citalyser.ui.visualization.panels.common.searchpanel.AdvancedSearchPanel();
+        jPanel3 = new javax.swing.JPanel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -96,11 +102,30 @@ public class SearchPanel extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         add(basicSearchPanel, gridBagConstraints);
+
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel2.add(advancedSearchPanel);
+
+        jPanel3.setPreferredSize(new java.awt.Dimension(129, 25));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 129, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(jPanel3);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
-        add(advancedSearchPanel, gridBagConstraints);
+        add(jPanel2, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     public void setButtonEnabled(boolean value) {
@@ -142,6 +167,8 @@ public class SearchPanel extends javax.swing.JPanel {
     private citalyser.ui.visualization.panels.common.searchpanel.BasicSearchPanel basicSearchPanel;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     // End of variables declaration//GEN-END:variables
 

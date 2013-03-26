@@ -69,7 +69,7 @@ public class ResultCountPanel extends javax.swing.JPanel {
                 {
                     try {
                         displayMaster.setNumberOfResults(Integer.parseInt(numResults.getText()));
-                        if (displayMaster.getNumberOfResults() < 0 || displayMaster.getNumberOfResults() > 1000) {
+                        if (displayMaster.getNumberOfResults() > 0 && displayMaster.getNumberOfResults() < 1000) {
                             displayMaster.displayStatusMessage(" ");
                         } else {
                             if (displayMaster.getNumberOfResults() < 0) {
@@ -80,7 +80,7 @@ public class ResultCountPanel extends javax.swing.JPanel {
                                 displayMaster.setNumberOfResults(1000);
                             }
                         }
-                    } catch (NumberFormatException ex) {
+                    } catch (NumberFormatException numberFormatException) {
                         displayMaster.setNumberOfResults(100);
                         displayMaster.displayStatusMessage("Please enter a valid integer");
                     }

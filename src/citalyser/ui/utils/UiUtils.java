@@ -11,6 +11,7 @@ import citalyser.model.query.QueryResult;
 import citalyser.model.query.QueryType;
 import citalyser.model.query.queryresult.ImageResult;
 import citalyser.ui.model.ContentRenderer;
+import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -67,7 +68,9 @@ public class UiUtils {
                     ImageIcon img;
                     if(q instanceof ImageResult)
                     {
-                        img = (ImageIcon)q.getContents();
+                        int imageStart = 0;
+                        double scale = 1;
+                        img = (ImageIcon) q.getContents();
                         if(img == null)
                         {    
                             //img = new ImageIcon(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource(
@@ -76,7 +79,15 @@ public class UiUtils {
                         }
                         BufferedImage img1 = new BufferedImage(myWidth, myHeight, BufferedImage.TYPE_INT_ARGB);
                         Graphics2D g = img1.createGraphics();
-                        g.drawImage(img.getImage(), 0, 0, myWidth, myHeight, myLabel);
+                        if (((double) myWidth)/myHeight < ((double) img.getIconWidth())/img.getIconHeight()) {
+                            scale = ((double) myWidth)/img.getIconWidth();
+                            imageStart = (myHeight - ((int) (scale*img.getIconHeight())))/2;
+                            g.drawImage(img.getImage(), 0, imageStart, myWidth, ((int) (scale*img.getIconHeight())), myLabel);
+                        } else {
+                            scale = ((double) myHeight)/img.getIconHeight();
+                            imageStart = (myWidth - ((int) (scale*img.getIconWidth())))/2;
+                            g.drawImage(img.getImage(), imageStart, 0, ((int) (scale*img.getIconWidth())), myHeight, myLabel);
+                        }
                         g.dispose();
                         logger.debug("Setting image url : " + myImgSource + " at Label : " + myLabel.getToolTipText());
                         myLabel.setIcon(new ImageIcon(img1));
