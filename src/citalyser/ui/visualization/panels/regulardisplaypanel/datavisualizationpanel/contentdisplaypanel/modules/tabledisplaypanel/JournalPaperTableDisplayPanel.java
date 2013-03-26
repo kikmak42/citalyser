@@ -14,6 +14,7 @@ import citalyser.Main;
 import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.utils.UiUtils;
 import citalyser.util.CommonUtils;
 import java.awt.Point;
 import java.io.File;
@@ -22,19 +23,19 @@ import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.apache.log4j.Logger;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
  * @author Tanmay Patil
  */
-public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel {
+public class JournalPaperTableDisplayPanel extends javax.swing.JPanel {
 
-    private static Logger logger = Logger.getLogger(PaperTableFromMetricDisplayPanel.class.getName());
+    private static Logger logger = Logger.getLogger(JournalPaperTableDisplayPanel.class.getName());
 
     /** Creates new form TableDisplayPanel */
-    public PaperTableFromMetricDisplayPanel() {
+    public JournalPaperTableDisplayPanel() {
         initComponents();
+        hideMoreButton();
     }
 
     public void setDisplayMaster(DisplayMaster displayMaster) {
@@ -72,8 +73,18 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel {
         jTable1.getColumnModel().getColumn(2).setMaxWidth(32);
         jTable1.getColumnModel().getColumn(3).setMaxWidth(65);
         jTable1.repaint();
-       // displayMaster.renderGeneralProfile(displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), this.paperCollection);
+            displayMaster.renderJournal(displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), this.paperCollection);
     }
+
+    public void showMoreButton() {
+        jButton2.setVisible(true);
+    }
+
+    public void hideMoreButton() {
+        jButton2.setVisible(false);
+    }
+
+
     
     private DisplayMaster displayMaster;
     private PaperCollection paperCollection;
@@ -88,9 +99,20 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+
+        jMenuItem1.setText("jMenuItem1");
+        jPopupMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("jMenuItem2");
+        jPopupMenu1.add(jMenuItem2);
 
         setLayout(new java.awt.BorderLayout());
 
@@ -145,31 +167,36 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel {
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
         jButton1.setText("Export To CSV");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, java.awt.BorderLayout.PAGE_END);
+        jPanel1.add(jButton1, java.awt.BorderLayout.CENTER);
+
+        jButton2.setText("More Results");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, java.awt.BorderLayout.LINE_END);
+
+        add(jPanel1, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         JFileChooser chooser = new JFileChooser();
-        chooser.removeChoosableFileFilter(chooser.getFileFilter());
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("csv files (*.csv)", "csv");
-        chooser.setFileFilter(filter);
         chooser.showSaveDialog(this);
         //System.out.println("chooser:"+chooser.getSelectedFile().getName());
         try {
             File results = chooser.getSelectedFile();
-            if(!results.getAbsolutePath().endsWith(".csv")) {
-                results = new File(chooser.getSelectedFile()+".csv");
-            }
             CommonUtils.exportToCsv(jTable1.getModel(), results);
-        } catch (Exception e) {
-            logger.info("Error in CSV file chooser PaperTableFromMetricDisplayPanel : "+e);
+        } catch (NullPointerException npe) {
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -179,7 +206,7 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel {
             disabledRow = jTable1.rowAtPoint(evt.getPoint());
             Paper clickedPaper = paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint()));
             if(clickedPaper.getNumCites() > 0)
-                displayMaster.metricTableClicked(clickedPaper);
+                displayMaster.tableClicked(clickedPaper);
             else
                displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
         }
@@ -195,6 +222,7 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel {
     private void jTable1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseExited
         displayMaster.hidePaperInfo();
         previousRow = -1;
+        
     }//GEN-LAST:event_jTable1MouseExited
 
     private void jTable1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseMoved
@@ -210,8 +238,17 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTable1MouseMoved
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        displayMaster.paperTableMoreButtonClicked();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

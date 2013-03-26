@@ -58,6 +58,19 @@ public class PaperCollection implements Serializable {
         // TODO
     }
     
+    public ArrayList<String> extractAuthors() {
+        ArrayList<Paper> p = this.papers;
+        ArrayList<String> author = new ArrayList<>();
+        for(Paper paper: p){
+            for (Author auth : paper.getAuthors()) {
+                if(!author.contains(auth.getName())) {
+                    author.add(auth.getName());
+                }
+            }
+        }
+        return author;
+    }
+    
     public ArrayList<Paper> extractPaperByYear(int low, int high) {
         ArrayList<Paper> retval = new ArrayList<>();
         int i, size;
