@@ -678,7 +678,7 @@ public class DisplayMaster {
                     UiUtils.displayQueryCompleteInfoMessage(q.flag, q.start_result+queryResult.getNumContents(),name);
                     Journal journ = (Journal) queryResult.getContents();
                     render(contentRenderer, q,journ);
-                    journ.appendPaperCollection(paperCollection);
+                    journ.setPaperCollection(paperCollection);
                     renderJournalProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), q, journ);
                 } else {
                     button.setText("More");
