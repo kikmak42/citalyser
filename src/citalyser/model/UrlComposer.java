@@ -47,7 +47,7 @@ public class UrlComposer {
         URL  +=  "as_oq=" + "" + "&";
         URL += "as_eq=" + "" + "&";
         URL +="as_occt=" + "" + "&";
-        URL +="as_sauthors=" + ""+ "&" ;
+        URL +="as_sauthors=" + "" + "&" ;
         URL +="as_publication=" + query_name + "&";
         URL +="as_ylo=" + q.min_year + "&";
         URL +="as_yhi=" + q.max_year + "&";
@@ -98,6 +98,27 @@ public class UrlComposer {
         URL  = "http://scholar.google.co.in/citations?hl=en&";
         URL += "vq=en&view_op=list_hcore&";
         URL += "venue=" + q.ID;
+        logger.debug(URL);
+        return URL;
+    }
+    
+    public static String getAdvancedSearchUrl(Query q){
+        String query_name = q.name;
+        String URL = new String();
+        URL =  "http://scholar.google.co.in/scholar?";
+        URL +=  "start="+ q.start_result +"&";
+        URL +=  "as_q=" + q.allwords + "&" ;
+        URL +=  "as_epq=" + q.exactphrase + "&";
+        URL +=  "as_oq=" + q.atleastoneofthese + "&";
+        URL += "as_eq=" + q.exceptthese + "&";
+        URL +="as_occt=" + q.occurwhere + "&";
+        URL +="as_sauthors=" + q.authors + "&" ;
+        URL +="as_publication=" + q.publishedat + "&";
+        URL +="as_ylo=" + q.min_year + "&";
+        URL +="as_yhi=" + q.max_year + "&";
+        URL +="num=" + q.num_results + "&";
+        URL += "scisbd=" + q.sort_flag + "&";
+        URL +="btnG=&hl=en&as_sdt=1%2C5&as_vis=1";
         logger.debug(URL);
         return URL;
     }

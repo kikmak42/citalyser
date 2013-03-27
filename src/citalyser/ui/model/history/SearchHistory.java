@@ -1,10 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package citalyser.ui.model.history;
 
+import citalyser.Main;
 import citalyser.model.query.Query;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import org.apache.log4j.Logger;
 
@@ -14,31 +17,85 @@ import org.apache.log4j.Logger;
  */
 public class SearchHistory {
     
-    private HashMap<String, Query> history;
-    
-    static final Logger logger = Logger.getLogger(SearchHistory.class.getName());
+    private HashMap<String, Query> historyMap;
+    static Logger logger = Logger.getLogger(SearchHistory.class.getName());
 
     public SearchHistory() {
-        history = new HashMap<>();
+        historyMap = loadHistory();
     }
 
-    public void addQuery(Query query) {
-        //TODO: Write to file
-        history.put(query.name, query);
+    private void addQuery(Query query) {
+        query.timestamp = System.currentTimeMillis()/1000;
+        historyMap.put(query.name, query);
+        savehistory();
     }
 
     public void clearHistory() {
         //TODO: Clear from file
-        history = new HashMap<>();
+        historyMap = new HashMap<>();
+        savehistory();
     }
 
     public String[] getSuggestions(String typedText) {
-        return history.keySet().toArray(new String[0]);
+        return historyMap.keySet().toArray(new String[0]);
     }
 
     public Query[] getHistory() {
-        return history.values().toArray(new Query[0]);
+        return historyMap.values().toArray(new Query[0]);
     }
-
+    
+    private HashMap<String,Query> loadHistory() {
+        HashMap<String,Query> hm;  
+        File f = new File(Main.settingsDirectory,"history");
+        if(!f.exists())
+            return new HashMap<String,Query>();
+        try
+        {
+            try(ObjectInputStream s = new ObjectInputStream(new FileInputStream(f))) {
+                historyMap = (HashMap<String,Query>)s.readObject();
+            }
+            if(historyMap == null)
+                return new HashMap<String,Query>();
+            return historyMap;
+        }
+        catch(IOException | ClassNotFoundException ex){
+            logger.error("Error getting history.");
+            f.delete();
+            return new HashMap<String,Query>();
+        }
+    }
+    
+    private void savehistory() {
+        
+        final HashMap<String,Query> hm = this.historyMap;
+        Thread thread = new Thread() {
+            
+            public void run(){
+                logger.debug("Saving the history to a file");
+            File file = new File(Main.settingsDirectory,"history");
+            if(!file.exists())
+            {
+                try{
+                  logger.debug("Creating new history file.");
+                  file.createNewFile();
+                }catch(Exception ex){
+                    logger.error("Failed to create history file");
+                }
+            }
+            try {
+                try (ObjectOutputStream s = new ObjectOutputStream(new FileOutputStream(file))) {
+                    s.writeObject(hm);
+                    s.flush();
+                }
+                logger.info("Dumped the history to file.");
+            } catch (IOException ex) {
+                //ex.printStackTrace();
+                logger.error("Error writing Proxy hashmap to file : " + ex.getMessage());
+            }
+            }
+            
+        };
+        thread.start();
+   }
 
 }

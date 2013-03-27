@@ -238,7 +238,12 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         if (jTable1.rowAtPoint(evt.getPoint()) > -1) {
             disabledRow = jTable1.rowAtPoint(evt.getPoint());
-            Paper clickedPaper = paperCollection.getPapers().get(jTable1.convertRowIndexToModel(jTable1.rowAtPoint(evt.getPoint())));
+            int selectedRowIndex = jTable1.convertRowIndexToModel(jTable1.rowAtPoint(evt.getPoint()));
+            logger.debug("Selected row index : " + selectedRowIndex);
+            int serialno = (Integer)jTable1.getModel().getValueAt(selectedRowIndex, 0) - 1; 
+            logger.debug("Serial no : " + serialno);
+            Paper clickedPaper = paperCollection.getPapers().get(serialno);
+            logger.debug("Fetching citations for paper : " + clickedPaper.getTitle());
             if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
             } else {
                 ((TableDisplayPanel) ((JPanel) ((JPanel) this.getParent()).getParent())).setPopUpLocation(evt.getPoint());
@@ -276,7 +281,7 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
 
     private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
         showLoadingMoreButton();
-        displayMaster.getNavigationMaster().authorPaperTableMoreButtonClicked(lastQuery,moreButton);
+        displayMaster.getNavigationMaster().authorPaperTableMoreButtonClicked(lastQuery,moreButton);        
     }//GEN-LAST:event_moreButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

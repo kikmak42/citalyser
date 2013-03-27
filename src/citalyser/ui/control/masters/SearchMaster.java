@@ -106,7 +106,7 @@ public class SearchMaster {
         }
     }
 
-    private void fetchResults(final Query q, final int maxResultsAtOneTime, final int numResults) {
+    public void fetchResults(final Query q, final int maxResultsAtOneTime, final int numResults) {
         //displayMaster.getNavigationMaster().cancelButtonClicked();
 
         /* Clear all panels*/
@@ -120,7 +120,6 @@ public class SearchMaster {
 
         //Thread thread = new Thread() {
         displayMaster.getExecutorService().submit(new Runnable() {
-
             @Override
             public void run() {
                 String searchQuery = q.name;
@@ -207,44 +206,66 @@ public class SearchMaster {
         int maxResults;
         String searchQuery = searchPanel.getSearchString();
         int numResults = displayMaster.getNumberOfResults();
-        String min_year = displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getMinYear();
-        String max_year = displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getMaxYear();
-        int minYear = 0;
-        int maxYear = 0;
-        int minyear = 0;
-        int maxyear = 0;
         boolean year_empty = searchPanel.isYearEmpty();
+        String year_low = searchPanel.getMinYear();
+        String year_high = searchPanel.getMaxYear();
+        try {
+            Integer.getInteger(year_low);
+        } catch (Exception e) {
+            if (!year_high.equals("")) {
+                searchPanel.setMinYear(1900);
+            }
+        }
+        try {
+            Integer.getInteger(year_high);
+        } catch (Exception e) {
+            if (!year_high.equals("")) {
+                searchPanel.setMaxYear(2100);
+            }
+
+        }
+
+        if (!searchPanel.getMaxYear().equals("")&&!searchPanel.getMinYear().equals("")) {
+            if(Integer.parseInt(searchPanel.getMaxYear()) < Integer.parseInt(searchPanel.getMinYear())){
+                String str = searchPanel.getMaxYear();
+                searchPanel.setMaxYear(Integer.parseInt(searchPanel.getMinYear()));
+                searchPanel.setMinYear(Integer.parseInt(str));
+            } 
+        }
+
+
         /*if(min_year.equals("")&& max_year.equals("")){
-        year_empty = true;
-        //minYear = min_year;
-        //maxYear = max_year;
+         year_empty = true;
+         //minYear = min_year;
+         //maxYear = max_year;
         
-        }
-        else{            
-        try{
-        minyear = Integer.parseInt(min_year);
-        }
-        catch(Exception e){
-        minyear = 1800;
-        displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setMinYear(minyear);
+         }
+         else{            
+         try{
+         minyear = Integer.parseInt(min_year);
+         }
+         catch(Exception e){
+         minyear = 1800;
+         displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setMinYear(minyear);
         
-        }
-        try{
-        maxyear = Integer.parseInt(max_year);
-        }
-        catch(Exception e){
-        maxyear =2013;
-        displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setMaxYear(maxyear);
-        }
-        if(minyear>maxyear){
-        maxYear = minyear;
-        minYear = maxyear;
-        }
+         }
+         try{
+         maxyear = Integer.parseInt(max_year);
+         }
+         catch(Exception e){
+         maxyear =2013;
+         displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setMaxYear(maxyear);
+         }
+         if(minyear>maxyear){
+         maxYear = minyear;
+         minYear = maxyear;
+         }
         
-        }*/
+         }*/
         boolean sortByYear = searchPanel.isSortByYear();
         boolean isAuthorQuery = displayMaster.checkAuthorMode();
         boolean isMetricQuery = mainFrame.getRegularDisplayPanel().getHeaderPanel().isMetric();
+
 
         String minYearStr = searchPanel.getMinYear(), maxYearStr = searchPanel.getMaxYear();
 
@@ -290,18 +311,18 @@ public class SearchMaster {
     /* This method has been deprecated now. Do not use this method.*/
     /*   public Query createQuery(SearchPanel searchPanel, int start, int count) {
     
-    if (displayMaster.checkAuthorMode()) {
-    if (searchPanel.getRadioButtonInfo()) {
-    return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_AUTH).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).build();
-    } else {
-    return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_AUTH).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).build();
-    }
-    } else {
-    if (searchPanel.getRadioButtonInfo()) {
-    return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_JOURN).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).build();
-    } else {
-    return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_JOURN).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).sortFlag(searchPanel.getComboSelection()).build();
-    }
-    }
-    } */
+     if (displayMaster.checkAuthorMode()) {
+     if (searchPanel.getRadioButtonInfo()) {
+     return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_AUTH).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).build();
+     } else {
+     return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_AUTH).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).build();
+     }
+     } else {
+     if (searchPanel.getRadioButtonInfo()) {
+     return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.GEN_JOURN).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).build();
+     } else {
+     return new Query.Builder(searchPanel.getSearchString()).flag(QueryType.MET_JOURN).startResult(start).numResult(count).minYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getValue()).maxYear(displayMaster.getMainFrame().getRegularDisplayPanel().getSidebarPanel().getRangeSlider().getUpperValue()).sortFlag(searchPanel.getComboSelection()).build();
+     }
+     }
+     } */
 }

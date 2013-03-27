@@ -92,6 +92,16 @@ public class Manager {
             return null;
         }
     }
+    
+    /* Query Case - ADV_SRCH */
+    public QueryResult getAdvanceSearchPapers(String url){
+        String html = HttpConnection.getUrlText(url);
+        if (html != null) {
+            return new Parser().extractGeneralQuery(html);
+        } else {
+            return null;
+        }
+    }
 
     /* Query Case - IMAGE_FROM_LINK */
     public QueryResult getImageFromLink(String url) {

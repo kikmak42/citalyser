@@ -183,12 +183,7 @@ public class DisplayMaster {
 
     public void showContentDisplyPanel() {
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().flipToContentDisplayPanel();
-    }
-
-    public void displayGraph(Paper selectedPaper) {
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getGraphViewPanel().setPaper(selectedPaper);
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().flipToGraphDisplayPanel();
-    }
+    }    
 
     public void showArticleSearch(boolean value) {
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(value);
@@ -257,7 +252,7 @@ public class DisplayMaster {
     }
 
     public void clearCitationHistory() {
-        //  citationListHistory.clear();
+        citationListHistory.clear();
     }
 
     public void setDisplayPreview(boolean selected) {

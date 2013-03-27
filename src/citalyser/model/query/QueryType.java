@@ -14,5 +14,6 @@ public enum QueryType {
     JOURN_PROF,             // Get Complete Journal Details from Google Metrics Search --JournalResult
     IMAGE_FROM_LINK,         // Get BufferedImage from specified link --ImageResult
     CITATIONS_LIST,          // Get Citations list of a Paper -- PaperCollectionResult
-    CITATIONS_LIST_METRIC    // Get the Citations list of a paper from metric -- paperCollectionResult
+    CITATIONS_LIST_METRIC,    // Get the Citations list of a paper from metric -- paperCollectionResult
+    ADV_SRCH                  // Get paper list according to advanced parameters
 }

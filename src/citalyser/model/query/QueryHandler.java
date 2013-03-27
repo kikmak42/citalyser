@@ -91,6 +91,9 @@ public class QueryHandler {
             case CITATIONS_LIST_METRIC:
                 queryUrl = q.url + "&cstart=" + q.start_result + "&as_vis=1&as_sdt=1%2C5";
                 return cacheHandler.getCitationsListFromMetric(queryUrl);
+            case ADV_SRCH:
+                queryUrl = UrlComposer.getAdvancedSearchUrl(q);
+                return cacheHandler.getAdvancedSearchResult(queryUrl);
             default:
                 return null;
         }

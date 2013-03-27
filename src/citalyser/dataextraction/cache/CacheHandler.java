@@ -176,6 +176,20 @@ public class CacheHandler {
         }
     }
     
+    /* Query Case - ADV_SRCH */
+    public QueryResult getAdvancedSearchResult(String queryUrl){
+        Object cacheResult = getObject(queryUrl);
+        if (cacheResult != null) {
+            logger.info("Getting ADV_SRCH - Cache hit");
+            return (JournalResult) cacheResult;
+        } else {
+            logger.info("Getting ADV_SRCH - Cache miss");
+            QueryResult q = manager.getAdvanceSearchPapers(queryUrl);
+            setObject(q, queryUrl);
+            return q;
+        }
+    }
+    
     public QueryResult getImageFromLink(String queryUrl)
     {
         Object cacheResult = getObject(queryUrl);
