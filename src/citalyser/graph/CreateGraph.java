@@ -93,6 +93,7 @@ public class CreateGraph {
     public graphData generateGraphObject;
     public static File settingsDirectory;
     public static File CacheDirectory;
+    public GraphViewPanel gvp;
     private static DisplayController displayController;
 
     public static DisplayController getDisplayController() {
@@ -101,6 +102,7 @@ public class CreateGraph {
 
     public CreateGraph(Paper paper, GraphViewPanel gvp) {
         generateGraphObject = new graphData();
+        this.gvp = gvp;
         this.baseNode = generateGraphObject.getbaseNode(paper);
         gvp.getGraphHistory().addnodeInfo(this.baseNode);
         gvp.getjLabel2().setText(gvp.getGraphHistory().getnodeList());
@@ -113,7 +115,7 @@ public class CreateGraph {
         layouttop.setGraph(sgv.g2);
         vv = new VisualizationViewer<>(layouttop);
         vv.setPreferredSize(new Dimension(350, 350));
-        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(this.baseNode.citationurl).numResult(20).build();
+        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(this.baseNode.citationurl).numResult(gvp.getSlider().getValue()).build();
 
         PaperCollectionResult queriedPapercollection = (PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q);
         if (queriedPapercollection != null) {
@@ -189,7 +191,7 @@ public class CreateGraph {
 
     public void populateOnPrevNext(nodeInfo base) {
         this.baseNode = base;
-        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(base.citationurl).numResult(20).build();
+        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(base.citationurl).numResult(this.gvp.getSlider().getValue()).build();
         PaperCollectionResult queriedPapercollection = (PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q);
         if(queriedPapercollection!=null){
         nullResultFlag = false;
