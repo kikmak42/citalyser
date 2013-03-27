@@ -4,9 +4,14 @@
  */
 package citalyser.graph;
 
+import citalyser.Main;
 import citalyser.graph.util.nodeInfo;
+import citalyser.model.PaperCollection;
 import citalyser.model.query.Query;
+import citalyser.model.query.QueryHandler;
 import citalyser.model.query.QueryType;
+import citalyser.model.query.queryresult.PaperCollectionResult;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.GraphViewPanel;
 import edu.uci.ics.jung.visualization.control.GraphMousePlugin;
 
 /**
@@ -23,12 +28,14 @@ import edu.uci.ics.jung.visualization.Layer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.AbstractPopupGraphMousePlugin;
 import edu.uci.ics.jung.visualization.transform.MutableTransformer;
+import java.awt.IllegalComponentStateException;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
 import javax.swing.AbstractAction;
 import javax.swing.JPopupMenu;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -36,8 +43,21 @@ import javax.swing.JPopupMenu;
  */
 class PopupGraphMousePlugin extends AbstractPopupGraphMousePlugin implements MouseListener {
 
-    public PopupGraphMousePlugin() {
-        this(MouseEvent.BUTTON3_MASK);
+    static Logger logger = Logger.getLogger(PopupGraphMousePlugin.class.getName());
+    private CreateGraph createGraph;
+    private GraphViewPanel gvp;
+
+    public PopupGraphMousePlugin(CreateGraph createGraph, GraphViewPanel gvp) {
+        this.createGraph = createGraph;
+        this.gvp = gvp;
+    }
+
+    public CreateGraph getCreateGraph() {
+        return createGraph;
+    }
+
+    public void setCreateGraph(CreateGraph createGraph) {
+        this.createGraph = createGraph;
     }
 
     public PopupGraphMousePlugin(int modifiers) {
@@ -60,23 +80,44 @@ class PopupGraphMousePlugin extends AbstractPopupGraphMousePlugin implements Mou
         System.out.println("mouse event!");
 
 
-        GraphElementAccessor<nodeInfo, String> pickSupport = CreateGraph.vv.getPickSupport();
+        GraphElementAccessor<nodeInfo, String> pickSupport = createGraph.vv.getPickSupport();
         System.out.println("GraphElementAccessor!");
-        if (pickSupport != null) {
-            final nodeInfo pickV = pickSupport.getVertex(CreateGraph.vv.getGraphLayout(), ivp.getX(), ivp.getY());
-            CreateGraph.baseNode = pickV;
-            if (pickV != null) {
-               System.out.println(pickV.id);
-                popup.add(new AbstractAction("Go to this") {
-                    public void actionPerformed(ActionEvent e) {
-                        System.out.println("person added");
-                        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(CreateGraph.baseNode.citationurl).build();
-                        
-                    }
-                });//new abstraction
-                popup.show(CreateGraph.vv, e.getX(), e.getY());
 
-            }
+        final nodeInfo pickV = pickSupport.getVertex(createGraph.vv.getGraphLayout(), ivp.getX(), ivp.getY());
+        System.out.println("!@#$%^&*");
+        if (pickV != null) {
+            System.out.println(pickV.id);
+
+            popup.add(new AbstractAction("Fetch this node's citations\nFetch 20 citations") {
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("person added");
+                    Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(pickV.citationurl).numResult(20).build();
+                    PaperCollection pc = ((PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q)).getContents();
+                    if (pickV.nocitation != 0) {
+                        createGraph.baseNode = pickV;
+
+                        createGraph.populateGraph(createGraph.generateGraphObject.getNodeArray(pc));
+                        createGraph.layouttop.setGraph(createGraph.sgv.g2);
+                        gvp.getjLabel1().setText("<html>" + pickV.Title);
+
+                        gvp.getGraphHistory().addnodeInfo(pickV);
+                        gvp.getjLabel2().setText(gvp.getGraphHistory().getnodeList());
+                        gvp.getjButton2().setVisible(false);
+                        gvp.getjButton1().setVisible(true);
+                        createGraph.vv.repaint();
+                    } else {
+                        Main.getDisplayController().displayErrorMessage("Zero Citaions for this paper");
+                    }
+
+                }
+            });
+
+            popup.setLocation(e.getPoint());
+
+            logger.debug("##:" + e.getX() + "@@:" + e.getY());
+            popup.show(createGraph.vv, e.getX(), e.getY());
+
+
         }///if picksupport
 
 

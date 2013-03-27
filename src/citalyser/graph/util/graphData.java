@@ -17,62 +17,44 @@ import org.apache.log4j.PropertyConfigurator;
 
 /**
  *
- * @author milindtahalani1
+ * @author sahil
  */
 public class graphData {
-    
+
     static Logger logger = Logger.getLogger(graphData.class.getName());
-    static String returnValue;
-    static int id=0;
+    // static String returnValue;
+    static int id = 0;
 
     public graphData() {
-    this.id =0;
+        this.id = 0;
     }
-    
-    public static void main(String args[]){
-        PropertyConfigurator.configure("log4j.properties");
 
-        returnValue = "";
-        FileReader file = null;
-
-        try {
-            file = new FileReader("C:/Users/milindtahalani1/Documents/input.html");                 //          give complete file path to the source file
-            BufferedReader reader = new BufferedReader(file);
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                returnValue += line + "\n";
-            logger.debug("String : " + returnValue);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (file != null) {
-                try {
-                    file.close();
-                } catch (IOException e) {
-                    // Ignore issues during closing 
-                }
-            }
-        }
-        
-        
-         
-        
+    public nodeInfo getbaseNode(Paper paper) {
+        nodeInfo g = new nodeInfo();
+        g.Title = paper.getTitle();
+        g.EntireInfo = "<html><head></head><body><B>" + paper.getTitle() + "</B><br>" + paper.getInfo() + "</body></html>";
+        g.id = this.id;
+        g.citationurl = paper.getcitedByUrl();
+        this.id += 1;
+        g.nocitation = paper.getNumCites();
+        return g;
     }
-    
-    public graphObject getNodeArray(PaperCollection p){
+
+    public graphObject getNodeArray(PaperCollection p) {
         graphObject obj = new graphObject();
-        ArrayList<nodeInfo> arr = new ArrayList<>();       
-        for (Paper paper:p.getPapers()){
+        ArrayList<nodeInfo> arr = new ArrayList<>();
+        for (Paper paper : p.getPapers()) {
             nodeInfo g = new nodeInfo();
             g.Title = paper.getTitle();
-            g.EntireInfo = "<html><head></head><body><B>"+paper.getTitle()+"</B><br>"+paper.getInfo()+"</body></html>";
+            g.EntireInfo = "<html><head></head><body><B>" + paper.getTitle() + "</B><br>" + paper.getInfo() + "</body></html>";
+            //logger.debug("@#$%:" + paper.getInfo());
+            g.nocitation = paper.getNumCites();
             g.id = this.id;
-            this.id+=1;
+            this.id += 1;
+            g.citationurl = paper.getcitedByUrl();
             arr.add(g);
-        }         
+        }
         obj.arr = arr;
         return obj;
     }
 }
-

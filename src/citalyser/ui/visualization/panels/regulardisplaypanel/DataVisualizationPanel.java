@@ -13,6 +13,7 @@ package citalyser.ui.visualization.panels.regulardisplaypanel;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.ContentDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.GraphViewPanel;
+import java.awt.CardLayout;
 
 /**
  *
@@ -24,6 +25,10 @@ public class DataVisualizationPanel extends javax.swing.JPanel {
     public DataVisualizationPanel() {
         initComponents();
     }
+    public void flipToContentDisplayPanel() {
+        ((CardLayout)getLayout()).first(this);
+    }
+    
 
     public ContentDisplayPanel getContentDisplayPanel() {
         return contentDisplayPanel;
@@ -32,6 +37,10 @@ public class DataVisualizationPanel extends javax.swing.JPanel {
     public GraphViewPanel getGraphViewPanel() {
         return graphViewPanel;
     }
+
+    public void flipToGraphDisplayPanel() {
+        ((CardLayout) getLayout()).last(this);
+    }    
 
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
@@ -55,18 +64,6 @@ public class DataVisualizationPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.CardLayout());
         add(contentDisplayPanel, "card3");
-
-        javax.swing.GroupLayout graphViewPanelLayout = new javax.swing.GroupLayout(graphViewPanel);
-        graphViewPanel.setLayout(graphViewPanelLayout);
-        graphViewPanelLayout.setHorizontalGroup(
-            graphViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 657, Short.MAX_VALUE)
-        );
-        graphViewPanelLayout.setVerticalGroup(
-            graphViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 657, Short.MAX_VALUE)
-        );
-
         add(graphViewPanel, "card3");
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -12,8 +12,8 @@ public class Query{
     public QueryType flag;
     public String name;
     public String ID;
-    public int max_year;
-    public int min_year;
+    public String max_year;
+    public String min_year;
     public int start_result;
     public int num_results;
     public int sort_flag;
@@ -40,8 +40,8 @@ public class Query{
         private String name;
         private String ID;
         private String after_author;
-        private int max_year;
-        private int min_year;
+        private String max_year;
+        private String min_year;
         private int start_result;
         private int num_results;
         private int sort_flag;
@@ -63,12 +63,12 @@ public class Query{
             return this;
         }
 
-        public Builder maxYear(int maxYear) {
+        public Builder maxYear(String maxYear) {
             this.max_year = maxYear;
             return this;
         }
 
-        public Builder minYear(int minYear) {
+        public Builder minYear(String minYear) {
             this.min_year = minYear;
             return this;
         }

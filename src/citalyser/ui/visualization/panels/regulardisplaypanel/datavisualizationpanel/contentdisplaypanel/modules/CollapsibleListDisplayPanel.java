@@ -9,6 +9,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.util.Vector;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 import javax.swing.plaf.DimensionUIResource;
 
 /**
@@ -94,7 +95,7 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
     }
 
     public void moreButtonClicked(java.awt.event.MouseEvent evt) {
-        displayMaster.displayStatusMessage("More Button Pressed");
+        //displayMaster.displayStatusMessage("More Button Pressed");
         displayMaster.citationListMoreButtonClicked(entityCount, jLabel5);
     }
 
@@ -133,6 +134,8 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        
+        setBorder(new LineBorder(new Color(150, 150, 150)));
 
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -218,6 +221,8 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
         add(jPanel1, java.awt.BorderLayout.NORTH);
 
         jPanel2.setLayout(new java.awt.BorderLayout());
+        
+        jScrollPane1.setBorder(null);
 
         jScrollPane1.setViewportView(jXTaskPaneContainer1);
 

@@ -13,12 +13,15 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 import citalyser.Main;
 import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
+import citalyser.model.query.Query;
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel;
 import citalyser.util.CommonUtils;
 import java.awt.Point;
 import java.io.File;
 import java.util.Vector;
 import javax.swing.JFileChooser;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.apache.log4j.Logger;
@@ -28,10 +31,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author Tanmay Patil
  */
-public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel {
+public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel implements TableDisplayPanelInterface {
 
     private static Logger logger = Logger.getLogger(PaperTableFromMetricDisplayPanel.class.getName());
-
+    Query lastQuery;
+    private int numResults;
+    
     /** Creates new form TableDisplayPanel */
     public PaperTableFromMetricDisplayPanel() {
         initComponents();
@@ -45,8 +50,17 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel {
         return displayMaster;
     }
 
-    public void setTable(PaperCollection paperCollection, TableModel tm) {
+    public void setTable(Query q,PaperCollection paperCollection, TableModel tm) {
 
+       numResults+=tm.getRowCount();
+        this.lastQuery = q;
+        q.start_result+=tm.getRowCount();
+        showNormalMoreButton();
+        if(tm.getRowCount() < q.num_results)
+            hideMoreButton();
+        else
+            this.showMoreButton();
+        
         if (jTable1.getModel().getRowCount() == 0) {
             disabledRow = -1;
             jTable1.setModel(tm);
@@ -90,26 +104,28 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        moreButton = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
         jTable1.setAutoCreateRowSorter(true);
-        jTable1.setFont(new java.awt.Font("Arial", 0, 11));
+        jTable1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jTable1.setForeground(new java.awt.Color(51, 51, 51));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "S.No.", "Title", "Year", "#Citations", "Authors", "Journals"
+                "S.No.", "Title", "Year", "#Citations", "Authors", "Journals", "Link"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -145,13 +161,25 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel {
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
         jButton1.setText("Export To CSV");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, java.awt.BorderLayout.PAGE_END);
+        jPanel1.add(jButton1, java.awt.BorderLayout.CENTER);
+
+        moreButton.setText("More Results");
+        moreButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                moreButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(moreButton, java.awt.BorderLayout.EAST);
+
+        add(jPanel1, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -175,13 +203,22 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        if (jTable1.rowAtPoint(evt.getPoint()) > -1 && jTable1.rowAtPoint(evt.getPoint()) != disabledRow) {
+        if (jTable1.rowAtPoint(evt.getPoint()) > -1) {
             disabledRow = jTable1.rowAtPoint(evt.getPoint());
             Paper clickedPaper = paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint()));
-            if(clickedPaper.getNumCites() > 0)
-                displayMaster.metricTableClicked(clickedPaper);
-            else
-               displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
+            if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+                if (jTable1.rowAtPoint(evt.getPoint()) != disabledRow) {
+                    if(clickedPaper.getNumCites() > 0) {
+                        displayMaster.metricTableClicked(clickedPaper);
+                    } else {
+                       displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
+                    }
+                }
+            } else {
+                ((TableDisplayPanel) ((JPanel) ((JPanel) this.getParent()).getParent())).setPopUpLocation(evt.getPoint());
+                ((TableDisplayPanel) ((JPanel) ((JPanel) this.getParent()).getParent())).setSelectedPaper(this, clickedPaper);
+                ((TableDisplayPanel) ((JPanel) ((JPanel) this.getParent()).getParent())).getTableRightClickedPopupMenu().show(evt.getComponent(), evt.getX(), evt.getY());
+            }
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -210,16 +247,56 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTable1MouseMoved
 
+    private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
+        showLoadingMoreButton();
+        displayMaster.metricPaperTableMoreButtonClicked(this.paperCollection,lastQuery,moreButton);
+    }//GEN-LAST:event_moreButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton moreButton;
     // End of variables declaration//GEN-END:variables
 
     public void clear() {
+        numResults = 0;
         paperCollection = null;
         while (jTable1.getModel().getRowCount() > 0) {
             ((DefaultTableModel) jTable1.getModel()).removeRow(0);
         }
     }
+
+    @Override
+    public void callLeftClickedEvent(Point point) {
+        if (jTable1.rowAtPoint(point) > -1) {
+            Paper clickedPaper = paperCollection.getPapers().get(jTable1.rowAtPoint(point));
+            if(clickedPaper.getNumCites() > 0) {
+                displayMaster.metricTableClicked(clickedPaper);
+            } else {
+               displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
+            }
+        }
+    }
+    
+    public void showMoreButton() {
+        moreButton.setVisible(true);
+    }
+
+    public void hideMoreButton() {
+        moreButton.setVisible(false);
+    }
+
+    public void showLoadingMoreButton()
+    {
+        moreButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/ajax-loader.gif")));
+        moreButton.setText("");
+    }
+    public void showNormalMoreButton()
+    {
+        moreButton.setText("More");
+        moreButton.setIcon(null);
+    }
+
 }

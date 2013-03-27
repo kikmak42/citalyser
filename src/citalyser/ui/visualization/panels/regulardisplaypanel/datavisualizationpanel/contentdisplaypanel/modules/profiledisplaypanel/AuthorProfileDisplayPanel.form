@@ -24,7 +24,7 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel4" pref="376" max="32767" attributes="0"/>
+                  <Component id="jLabel4" pref="475" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="jLabel1" min="-2" pref="118" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -33,12 +33,17 @@
                           <Component id="jLabel3" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="jLabel5" alignment="0" pref="376" max="32767" attributes="0"/>
-                  <Component id="jLabel6" alignment="0" pref="376" max="32767" attributes="0"/>
-                  <Component id="jLabel7" alignment="0" pref="376" max="32767" attributes="0"/>
-                  <Component id="jLabel8" alignment="1" pref="376" max="32767" attributes="0"/>
+                  <Component id="jLabel5" alignment="0" pref="475" max="32767" attributes="0"/>
+                  <Component id="jLabel6" alignment="0" pref="475" max="32767" attributes="0"/>
+                  <Component id="jLabel7" alignment="0" pref="475" max="32767" attributes="0"/>
+                  <Component id="jLabel8" alignment="1" pref="475" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="176" max="-2" attributes="0"/>
+              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -55,8 +60,10 @@
                   </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jLabel4" min="-2" pref="128" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jLabel4" min="-2" pref="90" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Component id="jLabel5" min="-2" pref="21" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel6" min="-2" pref="21" max="-2" attributes="0"/>
@@ -64,7 +71,7 @@
               <Component id="jLabel7" min="-2" pref="21" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel8" min="-2" pref="21" max="-2" attributes="0"/>
-              <EmptySpace pref="74" max="32767" attributes="0"/>
+              <EmptySpace pref="79" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -107,6 +114,7 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="toolTipText" type="java.lang.String" value="Graph"/>
+        <Property name="verticalAlignment" type="int" value="3"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
     </Component>
@@ -140,6 +148,17 @@
           <Font name="Tahoma" size="12" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Citation/papers :"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel9">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="12" style="0"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="96" green="0" red="0" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="No. of Citations each Year"/>
       </Properties>
     </Component>
   </SubComponents>

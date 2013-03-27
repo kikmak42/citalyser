@@ -46,9 +46,19 @@ public class MainFrame extends javax.swing.JFrame {
         regularDisplayPanel = new citalyser.ui.visualization.panels.RegularDisplayPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Citalyser 0.3");
+        setTitle("Citalyser 1.0");
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
@@ -104,6 +114,22 @@ public class MainFrame extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_formWindowActivated
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        try {
+            displayMaster.mainFrameChanged(getX() + getRootPane().getX(), getY() + getRootPane().getY(), getContentPane().getWidth(), getContentPane().getHeight());
+        } catch(NullPointerException ex) {
+            
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        try {
+            displayMaster.mainFrameChanged(getX() + getRootPane().getX(), getY() + getRootPane().getY(), getContentPane().getWidth(), getContentPane().getHeight());
+        } catch(NullPointerException ex) {
+            
+        }
+    }//GEN-LAST:event_formWindowGainedFocus
 
     static {
         /* Set the Windows look and feel */

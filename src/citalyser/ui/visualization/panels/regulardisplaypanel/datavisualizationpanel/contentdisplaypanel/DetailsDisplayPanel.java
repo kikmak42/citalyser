@@ -20,7 +20,16 @@ import javax.swing.JButton;
  * @author Tanmay Patil
  */
 public class DetailsDisplayPanel extends javax.swing.JPanel {
+private String name="Author";
 
+    public void setNameJounal(boolean isJourn){
+        if(isJourn){
+            name="Journal";
+        }
+        else{
+            name="Author";
+        }
+    }
     public void clearAll() {
         upperDetailsDisplayPanel.clearAll();
         lowerDetailsDisplayPanel.clearAll();
@@ -70,7 +79,7 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
                 public void run() {
                     PainterThread painterThread = new PainterThread(0);
                     
-                    myButton.setText("Displaying Author Profile");
+                    myButton.setText("Displaying "+name+" Profile");
                     int target = lowerAvailable ? jSplitPane1.getHeight() - 24 : jSplitPane1.getHeight();
                     animating = true;
                     for (int i = 0; i < target; i++) {
@@ -116,7 +125,7 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
                         }
                     }
                     animating = false;
-                    myButton.setText("Display Author Profile");
+                    myButton.setText("Display "+name+" Profile");
                 }
             }.start();
         }
@@ -145,6 +154,7 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         lowerDetailsDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.LowerDetailsDisplayPanel();
+        jPanel2 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(153, 153, 255));
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -173,6 +183,10 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
         jPanel1.add(jButton1, java.awt.BorderLayout.PAGE_START);
         jPanel1.add(lowerDetailsDisplayPanel, java.awt.BorderLayout.CENTER);
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setPreferredSize(new java.awt.Dimension(100, 5));
+        jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_END);
+
         jSplitPane1.setRightComponent(jPanel1);
 
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
@@ -199,6 +213,7 @@ public class DetailsDisplayPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JSplitPane jSplitPane1;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.LowerDetailsDisplayPanel lowerDetailsDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.UpperDetailsDisplayPanel upperDetailsDisplayPanel;

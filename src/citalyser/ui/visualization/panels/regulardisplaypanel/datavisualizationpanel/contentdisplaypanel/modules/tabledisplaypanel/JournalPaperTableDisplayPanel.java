@@ -15,11 +15,13 @@ import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.utils.UiUtils;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.TableDisplayPanel;
 import citalyser.util.CommonUtils;
 import java.awt.Point;
 import java.io.File;
 import java.util.Vector;
 import javax.swing.JFileChooser;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.apache.log4j.Logger;
@@ -28,7 +30,7 @@ import org.apache.log4j.Logger;
  *
  * @author Tanmay Patil
  */
-public class JournalPaperTableDisplayPanel extends javax.swing.JPanel {
+public class JournalPaperTableDisplayPanel extends javax.swing.JPanel implements TableDisplayPanelInterface {
 
     private static Logger logger = Logger.getLogger(JournalPaperTableDisplayPanel.class.getName());
 
@@ -73,7 +75,7 @@ public class JournalPaperTableDisplayPanel extends javax.swing.JPanel {
         jTable1.getColumnModel().getColumn(2).setMaxWidth(32);
         jTable1.getColumnModel().getColumn(3).setMaxWidth(65);
         jTable1.repaint();
-            displayMaster.renderJournal(displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), this.paperCollection);
+
     }
 
     public void showMoreButton() {
@@ -124,14 +126,14 @@ public class JournalPaperTableDisplayPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "S.No.", "Title", "Year", "#Citations", "Authors", "Journals"
+                "S.No.", "Title", "Year", "#Citations", "Authors", "Journals", "Link"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -202,13 +204,22 @@ public class JournalPaperTableDisplayPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        if (jTable1.rowAtPoint(evt.getPoint()) > -1 && jTable1.rowAtPoint(evt.getPoint()) != disabledRow) {
+        if (jTable1.rowAtPoint(evt.getPoint()) > -1) {
             disabledRow = jTable1.rowAtPoint(evt.getPoint());
             Paper clickedPaper = paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint()));
-            if(clickedPaper.getNumCites() > 0)
-                displayMaster.tableClicked(clickedPaper);
-            else
-               displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
+            if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+                if (jTable1.rowAtPoint(evt.getPoint()) != disabledRow) {
+                    if(clickedPaper.getNumCites() > 0) {
+                        displayMaster.tableClicked(clickedPaper);
+                    } else {
+                       displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
+                    }
+                }
+            } else {
+                ((TableDisplayPanel) ((JPanel) ((JPanel) this.getParent()).getParent())).setPopUpLocation(evt.getPoint());
+                ((TableDisplayPanel) ((JPanel) ((JPanel) this.getParent()).getParent())).setSelectedPaper(this, clickedPaper);
+                ((TableDisplayPanel) ((JPanel) ((JPanel) this.getParent()).getParent())).getTableRightClickedPopupMenu().show(evt.getComponent(), evt.getX(), evt.getY());
+            }
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -239,7 +250,7 @@ public class JournalPaperTableDisplayPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable1MouseMoved
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        displayMaster.paperTableMoreButtonClicked();
+        //displayMaster.paperTableMoreButtonClicked();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -257,6 +268,18 @@ public class JournalPaperTableDisplayPanel extends javax.swing.JPanel {
         paperCollection = null;
         while (jTable1.getModel().getRowCount() > 0) {
             ((DefaultTableModel) jTable1.getModel()).removeRow(0);
+        }
+    }
+
+    @Override
+    public void callLeftClickedEvent(Point point) {
+        if (jTable1.rowAtPoint(point) > -1) {
+            Paper clickedPaper = paperCollection.getPapers().get(jTable1.rowAtPoint(point));
+            if(clickedPaper.getNumCites() > 0) {
+                displayMaster.tableClicked(clickedPaper);
+            } else {
+               displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
+            }
         }
     }
 }

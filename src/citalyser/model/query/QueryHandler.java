@@ -39,6 +39,7 @@ public class QueryHandler {
         q = UrlComposer.encodeQueryParameters(q);
         switch(q.flag){
             case GEN_AUTH: 
+                logger.debug("Min Year : " + q.min_year + " Max Year: " +q.max_year);
                 logger.debug("Getting GEN_AUTH");
                 queryUrl = UrlComposer.getGenAuthUrl(q);
                 return cacheHandler.getAuthorPapersFromScholar(queryUrl);
@@ -61,7 +62,7 @@ public class QueryHandler {
                 queryUrl = UrlComposer.getAuthProfUrl(q);
                 return cacheHandler.getCompleteAuthorFromMetric(queryUrl);
             case JOURN_PROF:
-                queryUrl = q.url;
+                queryUrl = q.url + "&cstart=" + q.start_result;
                 return cacheHandler.getCompleteJournalFromMetric(queryUrl);
             case IMAGE_FROM_LINK:
                 logger.debug("Url : " + q.url);

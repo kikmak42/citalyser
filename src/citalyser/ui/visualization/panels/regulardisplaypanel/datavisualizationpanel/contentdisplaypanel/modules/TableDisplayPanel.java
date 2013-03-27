@@ -11,14 +11,22 @@
 package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules;
 
 import citalyser.model.Journal;
+import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
+import citalyser.model.query.Query;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.model.TableModelHandler;
+import citalyser.ui.utils.UiUtils;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.JournalTableDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.AuthorPaperTableDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.PaperTableFromMetricDisplayPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.TableDisplayPanelInterface;
 import java.awt.CardLayout;
+import java.awt.Point;
+import java.awt.PopupMenu;
 import java.util.ArrayList;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import org.apache.log4j.Logger;
 
 /**
@@ -28,6 +36,7 @@ import org.apache.log4j.Logger;
 public class TableDisplayPanel extends javax.swing.JPanel {
 
     private static Logger logger = Logger.getLogger(TableDisplayPanel.class.getName());
+    private Point point;
 
     /** Creates new form TableDisplayPanel */
     public TableDisplayPanel() {
@@ -36,13 +45,13 @@ public class TableDisplayPanel extends javax.swing.JPanel {
 
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
-        paperTableDisplayPanel.setDisplayMaster(displayMaster);
+        authorPaperTableDisplayPanel.setDisplayMaster(displayMaster);
         journalTableDisplayPanel.setDisplayMaster(displayMaster);
         paperTableFromMetricDisplayPanel.setDisplayMaster(displayMaster);
     }
 
     public AuthorPaperTableDisplayPanel getPaperTableDisplayPanel() {
-        return paperTableDisplayPanel;
+        return authorPaperTableDisplayPanel;
     }
 
     public JournalTableDisplayPanel getJournalTableDisplayPanel() {
@@ -53,8 +62,12 @@ public class TableDisplayPanel extends javax.swing.JPanel {
         return paperTableFromMetricDisplayPanel;
     }
 
-    public void flipToPaperTableDisplayPanel() {
+    public void flipToAuthorPaperTableDisplayPanel() {
         ((CardLayout) jPanel1.getLayout()).first(jPanel1);
+    }
+
+    public void flipToJournalPaperTableDisplayPanel() {
+        ((CardLayout) jPanel1.getLayout()).show(jPanel1, "journalPaperTableDisplayPanelCard");
     }
 
     public void flipToPaperTableFromMetricDisplayPanel() {
@@ -68,7 +81,26 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     public DisplayMaster getDisplayMaster() {
         return displayMaster;
     }
+
+    public JPopupMenu getTableRightClickedPopupMenu() {
+        return tableRightClickedPopupMenu;
+    }
+
+    public void setSelectedPaper(TableDisplayPanelInterface tableDisplayPanelInterface, Paper selectedPaper) {
+        this.tableDisplayPanelInterface = tableDisplayPanelInterface;
+        this.isPaperClicked = true;
+        this.selectedPaper = selectedPaper;
+    }
+
+    public void setSelactedJournal(Journal selactedJournal) {
+        this.isPaperClicked = false;
+        this.selactedJournal = selactedJournal;
+    }
     
+    private boolean isPaperClicked;
+    TableDisplayPanelInterface tableDisplayPanelInterface;
+    private Journal selactedJournal;
+    private Paper selectedPaper;
     private DisplayMaster displayMaster;
 
     /** This method is called from within the constructor to
@@ -80,13 +112,43 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        tableRightClickedPopupMenu = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
-        paperTableDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.AuthorPaperTableDisplayPanel();
+        authorPaperTableDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.AuthorPaperTableDisplayPanel();
+        journalPaperTableDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.JournalPaperTableDisplayPanel();
         paperTableFromMetricDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.PaperTableFromMetricDisplayPanel();
         journalTableDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.JournalTableDisplayPanel();
 
+        jMenuItem1.setText("View Citations");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        tableRightClickedPopupMenu.add(jMenuItem1);
+
+        jMenuItem3.setText("View Citations Graph");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        tableRightClickedPopupMenu.add(jMenuItem3);
+
+        jMenuItem2.setText("Open In Browser");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        tableRightClickedPopupMenu.add(jMenuItem2);
+
         jPanel1.setLayout(new java.awt.CardLayout());
-        jPanel1.add(paperTableDisplayPanel, "paperTableDisplayPanelCard");
+        jPanel1.add(authorPaperTableDisplayPanel, "authorPaperTableDisplayPanelCard");
+        jPanel1.add(journalPaperTableDisplayPanel, "journalPaperTableDisplayPanelCard");
         jPanel1.add(paperTableFromMetricDisplayPanel, "paperTableFromMetricDisplayPanelCard");
         jPanel1.add(journalTableDisplayPanel, "journalTableDisplayPanelCard");
 
@@ -102,16 +164,37 @@ public class TableDisplayPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        if (isPaperClicked) {
+            UiUtils.openInBrowser(selectedPaper.getUrl());
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        tableDisplayPanelInterface.callLeftClickedEvent(point);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        displayMaster.displayGraph(selectedPaper);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.AuthorPaperTableDisplayPanel authorPaperTableDisplayPanel;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.JournalPaperTableDisplayPanel journalPaperTableDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.JournalTableDisplayPanel journalTableDisplayPanel;
-    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.AuthorPaperTableDisplayPanel paperTableDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.PaperTableFromMetricDisplayPanel paperTableFromMetricDisplayPanel;
+    private javax.swing.JPopupMenu tableRightClickedPopupMenu;
     // End of variables declaration//GEN-END:variables
 
     public void clear() {
-        paperTableDisplayPanel.clear();
+        authorPaperTableDisplayPanel.clear();
         journalTableDisplayPanel.clear();
+        journalPaperTableDisplayPanel.clear();  
+        paperTableFromMetricDisplayPanel.clear();
     }
 
     public void setJournalTable(ArrayList<Journal> arrayList) {
@@ -119,14 +202,18 @@ public class TableDisplayPanel extends javax.swing.JPanel {
         flipToJournalTableDisplayPanel();
     }
 
-    public void setTable(PaperCollection paperCollection) {
-        paperTableDisplayPanel.setTable(paperCollection, TableModelHandler.getTableModel(paperCollection));
-        flipToPaperTableDisplayPanel();
+    public void setTable(Query query,PaperCollection paperCollection) {
+        authorPaperTableDisplayPanel.setTable(query,paperCollection, TableModelHandler.getTableModel(paperCollection));
+        flipToAuthorPaperTableDisplayPanel();
     }
 
-    public void setTable(PaperCollection paperCollection, boolean b) {
-        paperTableFromMetricDisplayPanel.setTable(paperCollection, TableModelHandler.getTableModel(paperCollection));
+    public void setTable(Query q,PaperCollection paperCollection, boolean b) {
+        paperTableFromMetricDisplayPanel.setTable(q,paperCollection, TableModelHandler.getTableModel(paperCollection));
         flipToPaperTableFromMetricDisplayPanel();
+    }
+
+    public void setPopUpLocation(Point point) {
+        this.point = point;
     }
 
 }

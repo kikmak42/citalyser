@@ -74,7 +74,7 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
         this.dataVisualizationPanel.setDisplayMaster(displayMaster);
         this.statusDisplayPanel.setDisplayMaster(displayMaster);
     }
-            
+    
     private DisplayMaster displayMaster;
     private boolean statusPanelVisible = false;
     private boolean animating = false;
@@ -116,7 +116,7 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
         statusDisplayPanel.setLayout(statusDisplayPanelLayout);
         statusDisplayPanelLayout.setHorizontalGroup(
             statusDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1044, Short.MAX_VALUE)
+            .addGap(0, 1079, Short.MAX_VALUE)
         );
         statusDisplayPanelLayout.setVerticalGroup(
             statusDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,13 +129,13 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1308, Short.MAX_VALUE)
-            .addComponent(toolsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1308, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(sidebarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sidebarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1044, Short.MAX_VALUE))
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1079, Short.MAX_VALUE))
+            .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1348, Short.MAX_VALUE)
+            .addComponent(toolsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1348, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,8 +145,8 @@ public class RegularDisplayPanel extends javax.swing.JPanel {
                 .addComponent(toolsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sidebarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
-                    .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)))
+                    .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
+                    .addComponent(sidebarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 

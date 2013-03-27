@@ -34,7 +34,7 @@ public class UrlComposer {
         URL +="btnG=&hl=en&as_sdt=1%2C5&as_vis=1";
         logger.debug(URL);
         return URL;
-    }
+   } 
     
     public static String getGenJournUrl(Query q)
     {
@@ -86,6 +86,7 @@ public class UrlComposer {
         URL = "http://scholar.google.co.in/citations?hl=en&";
         URL += "view_op=list_works&pagesize="+q.num_results;
         URL += "&user=" + q.ID;
+        URL += "&cstart=" + q.start_result;
         logger.debug(URL);
         return URL;
     }
@@ -103,6 +104,10 @@ public class UrlComposer {
     
     public static Query encodeQueryParameters(Query q)
     {
+        if(q.min_year == "0")
+            q.min_year = "";
+        if(q.max_year == "0")
+            q.max_year = "";
         try{
             q.name = URLEncoder.encode(q.name,"ISO-8859-1");
             return q;

@@ -6,12 +6,13 @@
 /*
  * SidebarPanel.java
  *
- * Created on Mar 9, 2013, 3:19:57 AM
+ * Created on Mar 27, 2013, 3:06:18 AM
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel;
 
 import citalyser.ui.control.DisplayMaster;
-import citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.RangeSlider;
+import citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AdvancedSearchPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel;
 
 /**
  *
@@ -23,15 +24,20 @@ public class SidebarPanel extends javax.swing.JPanel {
     public SidebarPanel() {
         initComponents();
     }
-    
-    public void setDisplayMaster(DisplayMaster displayMaster) {
-        this.displayMaster = displayMaster;
+
+    public AdvancedSearchPanel getAdvancedSearchPanel() {
+        return advancedSearchPanel;
     }
 
-    public RangeSlider getRangeSlider() {
-        return rangeSlider;
+    public AuthorListPanel getAuthorListPanel() {
+        return authorListPanel;
     }
-            
+
+    public void setDisplayMaster(DisplayMaster displayMaster) {
+        this.displayMaster = displayMaster;
+        authorListPanel.setDisplayMaster(displayMaster);
+    }
+    
     private DisplayMaster displayMaster;
 
     /** This method is called from within the constructor to
@@ -43,40 +49,30 @@ public class SidebarPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        rangeSlider = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.RangeSlider();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        advancedSearchPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AdvancedSearchPanel();
+        authorListPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel();
 
-        setBackground(new java.awt.Color(153, 153, 255));
+        setBackground(new java.awt.Color(-6710785,true));
+        setLayout(new java.awt.BorderLayout());
 
-        rangeSlider.setBackground(new java.awt.Color(153, 153, 255));
-        rangeSlider.setMajorTickSpacing(4);
-        rangeSlider.setMaximum(2014);
-        rangeSlider.setMinimum(1980);
-        rangeSlider.setMinorTickSpacing(1);
-        rangeSlider.setOrientation(javax.swing.JSlider.VERTICAL);
-        rangeSlider.setPaintLabels(true);
-        rangeSlider.setPaintTicks(true);
-        rangeSlider.setSnapToTicks(true);
-        rangeSlider.setValue(1985);
-        rangeSlider.setUpperValue(2012);
+        jSplitPane1.setBorder(null);
+        jSplitPane1.setDividerSize(0);
+        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane1.setOpaque(false);
+        jSplitPane1.setTopComponent(advancedSearchPanel);
+        jSplitPane1.setRightComponent(authorListPanel);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addComponent(rangeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(106, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addComponent(rangeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(112, Short.MAX_VALUE))
-        );
+        add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.RangeSlider rangeSlider;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AdvancedSearchPanel advancedSearchPanel;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel authorListPanel;
+    private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
+ public void clearAll() {
+        authorListPanel.clear();
+        displayMaster.clearCitationHistory();
+        System.gc();
+    }
 }

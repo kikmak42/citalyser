@@ -63,23 +63,17 @@ public class Parser {
 
             Elements title_section = item.select("h3>a");
             if (!title_section.isEmpty()) {
-                String title="";
-                String href = "";
                 try{
-                    Element section = title_section.get(0);//getting the first element of this array
-                    title = section.text();
-                    href = section.attr("href");
-                    insertInextractedpapers.setTitle(title);
-                    insertInextractedpapers.setUrl(href);
+                Element section = title_section.get(0);//getting the first element of this array
+                String title = section.text();
+                String href = section.attr("href");
+                insertInextractedpapers.setTitle(title);
+                insertInextractedpapers.setUrl(href);
+                }catch(Exception ex){
+                    insertInextractedpapers.setTitle("");
+                    insertInextractedpapers.setUrl("");
                 }
-                catch(Exception e){                      
-                    title = "";
-                    href = "";
-                    insertInextractedpapers.setTitle(title);
-                    insertInextractedpapers.setUrl(href);
-                    
-                }
-                
+
             }
 
 
@@ -492,7 +486,7 @@ public class Parser {
                         String[] fields_str = field_spans.get(0).text().split("-");
                         for (String str : fields_str) {
                             author_interests.add(str);
-                            logger.debug(str);
+                            //logger.debug(str);
                         }
                         author.setAuthorAreas(author_interests);
                     } catch (Exception e) {
@@ -506,7 +500,7 @@ public class Parser {
                 if (!img_tags.isEmpty()) {
                     try {
                         img_src = url + img_tags.get(0).attr("src");
-                        logger.debug("image source " + img_src);
+                        //logger.debug("image source " + img_src);
                         author.setImagesrc(img_src);
                     } catch (Exception e) {
                         img_src = "";
@@ -611,10 +605,11 @@ public class Parser {
             author.setNextLink(next_link);
             // logger.debug(item.html());
             university = item.html();
-            university = university.split("<td")[2].split("hl=en\">")[1].split("Cited|<form|<input")[0];
+            //logger.debug("125465:"+university);
+            university = university.split("</a>")[2].split("Cited|<form|<input")[0];
 
             details = item.text();
-            // logger.debug(university);
+            logger.debug("!@#$%^&*:"+university.substring(6));
             // logger.debug("\n@@@@:" + item.select("a.cit-dark-large-link").outerHtml());
             imglink = Constants.SCHOLAR_BASE_URL + item.select("img").get(0).attr("src");
             Elements links = item.select("a.cit-dark-large-link");
@@ -635,7 +630,7 @@ public class Parser {
             //logger.debug("details =" + details);
             author.setName(name);
             author.setId(userid);
-            author.setUniversityAndEmail(university);
+            author.setUniversityAndEmail(university.substring(6));
             author.setTotalCitations(citations);
             author.setImagesrc(imglink);
             author.setProfilelink(url);
@@ -649,6 +644,8 @@ public class Parser {
 
     /* Query_Type : JOURN_PROF*/
     public QueryResult<Journal> extractMetricJournalInfo(String src) {
+        //logger.debug("into extarct info from journal func");
+        //System.out.println("----------------------into extract info jounal----------------------");
         doc = Jsoup.parse(src, "UTF-8");
         QueryResult<Journal> qj = new JournalResult();
         Journal journal = new Journal("");
@@ -664,6 +661,16 @@ public class Parser {
             }
         }
         journal.setName(pub_name);
+     
+        Elements it = doc.select("ul");
+        
+        String h5="",h5m="";
+        String[] temp = it.get(0).text().split(":");
+        h5m = temp[2];
+        h5 = temp[1].split(" ")[0];
+        journal.setH5index(Integer.parseInt(h5));
+        journal.setH5median(Integer.parseInt(h5m));
+
         Elements items = doc.select("table#gs_cit_list_table");
         String url = "http://scholar.google.com";
         if (!items.isEmpty()) {
@@ -694,23 +701,55 @@ public class Parser {
                         //this part is for extracting the journal title and link
                         Elements title_section = row.select("td.gs_title");
                         if (!title_section.isEmpty()) {
-                            Elements title_tags;
+                            Elements title_tags = null;
                             try {
                                 title_tags = title_section.get(0).select("a");
                             } catch (Exception e) {
-                                title_tags = null;
+                                title_link = "";
+                                papr.setUrl(title_link);
+                                //logger.debug("titletags set to null");
                             }
                             //this part extracts the title and the link of the publication
+                            
                             if (!title_tags.isEmpty()) {
+                                //logger.debug("into !titletags ");
 
                                 try {
-                                    title_link = title_tags.get(0).attr("href");
+                                    
                                     title_name = title_tags.get(0).text();
                                     papr.setTitle(title_name);
-                                    papr.setUrl(title_link);
+                                    
                                 } catch (Exception e) {
-                                    title_link = "";
                                     title_name = "";
+                                    papr.setTitle(title_name);
+                                }
+                                try{
+                                    title_link = title_tags.get(0).attr("href");                                    
+                                    papr.setUrl(title_link);
+                                }
+                                catch(Exception e){
+                                    title_link = "";
+                                    papr.setUrl(title_link);
+                                }
+                            }                           
+                           
+                            else{
+                               // logger.debug("into else part of title tags");
+                                try{
+                                    Elements spans = title_section.get(0).select("span");
+                                    if(!spans.isEmpty()){
+                                        try{
+                                            title_name = spans.get(0).text();
+                                            papr.setTitle(title_name);
+                                        }
+                                        catch(Exception e){
+                                            title_name = "";
+                                            papr.setTitle(title_name);
+                                        }
+                                    }
+                                   }
+                                catch(Exception e){
+                                    
                                 }
                             }
                         }
@@ -837,6 +876,8 @@ public class Parser {
                         }
                         Journal jour = new Journal(title);
                         jour.setH5Link(h5link);
+//                        logger.debug("@@"+Integer.parseInt(h5i));
+//                        logger.debug("##"+Integer.parseInt(h5m));
                         jour.setH5index(Integer.parseInt(h5i));
                         jour.setH5median(Integer.parseInt(h5m));
                         alj.add(jour);
@@ -996,14 +1037,14 @@ public class Parser {
             }
         }
         qj.setContents(pc);
-        for (Paper p : qj.getContents().getPapers()) {
-            logger.debug("@@@@:" + p.getTitle());
-            logger.debug("####:" + p.getAuthors().get(0).getName());
-            logger.debug("@@@:" + p.getcitedByUrl());
-            logger.debug("###:" + p.getYear());
-            logger.debug("@@:" + p.getNumCites());
-            logger.debug("##:" + p.getJournals().get(0).getName());
-        }
+//        for (Paper p : qj.getContents().getPapers()) {
+//            logger.debug("@@@@:" + p.getTitle());
+//            logger.debug("####:" + p.getAuthors().get(0).getName());
+//            logger.debug("@@@:" + p.getcitedByUrl());
+//            logger.debug("###:" + p.getYear());
+//            logger.debug("@@:" + p.getNumCites());
+//            logger.debug("##:" + p.getJournals().get(0).getName());
+//        }
         return qj;
 
     }

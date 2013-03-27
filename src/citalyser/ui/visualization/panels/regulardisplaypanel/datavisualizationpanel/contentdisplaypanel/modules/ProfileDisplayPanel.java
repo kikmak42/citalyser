@@ -7,9 +7,11 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationp
 import citalyser.model.Author;
 import citalyser.model.Journal;
 import citalyser.model.PaperCollection;
+import citalyser.model.query.Query;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.AuthorProfileDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.GeneralProfileDisplayPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.JournalProfileDisplayPanel;
 import org.apache.log4j.Logger;
 
 /**
@@ -17,6 +19,7 @@ import org.apache.log4j.Logger;
  * @author kaushik
  */
 public class ProfileDisplayPanel extends javax.swing.JPanel {
+
     private static Logger logger = Logger.getLogger(ProfileDisplayPanel.class.getName());
 
     /**
@@ -29,18 +32,24 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
         authorProfileDisplayPanel.setDisplayMaster(displayMaster);
+        journalProfileDisplayPanel.setDisplayMaster(displayMaster);
         generalProfileDisplayPanel.setDisplayMaster(displayMaster);
     }
 
     public DisplayMaster getDisplayMaster() {
         return displayMaster;
     }
-      public GeneralProfileDisplayPanel getJournalProfileDisplayPanel() {
-        return generalProfileDisplayPanel;
+
+    public JournalProfileDisplayPanel getJournalProfileDisplayPanel() {
+        return journalProfileDisplayPanel;
     }
 
     public AuthorProfileDisplayPanel getAuthorProfileDisplayPanel() {
         return authorProfileDisplayPanel;
+    }
+
+    public GeneralProfileDisplayPanel getGeneralProfileDisplayPanel() {
+        return generalProfileDisplayPanel;
     }
 
     public void displayAuthorProfile(Author author) {
@@ -48,16 +57,19 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
         ((java.awt.CardLayout) jPanel1.getLayout()).first(jPanel1);
     }
 
-    public void displayGeneralProfile(PaperCollection papercollection) {
-        generalProfileDisplayPanel.setDisplay(papercollection);
-        ((java.awt.CardLayout) jPanel1.getLayout()).last(jPanel1);
+    public void displayJournalProfile(Journal journal) {
+        journalProfileDisplayPanel.displayJournal(journal);
+        ((java.awt.CardLayout) jPanel1.getLayout()).show(jPanel1, "journalProfileCard");
     }
 
-    
+    public void displayGeneralProfile(Query q,PaperCollection papercollection) {
+        generalProfileDisplayPanel.displayGeneral(q,papercollection);
+        ((java.awt.CardLayout) jPanel1.getLayout()).last(jPanel1);
+    }
     private DisplayMaster displayMaster;
 
  private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_formPropertyChange
-        logger.error(evt.getPropertyName() + ", " + evt.getNewValue() + ", " + evt.getSource());
+     logger.error(evt.getPropertyName() + ", " + evt.getNewValue() + ", " + evt.getSource());
     }//GEN-LAST:event_formPropertyChange
 
     /**
@@ -72,11 +84,17 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         authorProfileDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.AuthorProfileDisplayPanel();
+        journalProfileDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.JournalProfileDisplayPanel();
         generalProfileDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.GeneralProfileDisplayPanel();
+
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 150, 150)));
+
+        jScrollPane1.setBorder(null);
 
         jPanel1.setLayout(new java.awt.CardLayout());
         jPanel1.add(authorProfileDisplayPanel, "card2");
-        jPanel1.add(generalProfileDisplayPanel, "card3");
+        jPanel1.add(journalProfileDisplayPanel, "journalProfileCard");
+        jPanel1.add(generalProfileDisplayPanel, "card4");
 
         jScrollPane1.setViewportView(jPanel1);
 
@@ -84,11 +102,11 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -96,10 +114,12 @@ public class ProfileDisplayPanel extends javax.swing.JPanel {
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.GeneralProfileDisplayPanel generalProfileDisplayPanel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.profiledisplaypanel.JournalProfileDisplayPanel journalProfileDisplayPanel;
     // End of variables declaration//GEN-END:variables
 
     public void clear() {
         authorProfileDisplayPanel.clear();
+        journalProfileDisplayPanel.clear();
         generalProfileDisplayPanel.clear();
     }
 }
