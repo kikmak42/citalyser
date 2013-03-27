@@ -243,7 +243,8 @@ public class UiUtils {
                 break;
             case CITATIONS_LIST:
             case CITATIONS_LIST_METRIC:
-                Main.getDisplayController().displayInfoMessage("");
+                result = "Could not fetch Citations for " + searchQuery + " from Google Scholar...";
+                Main.getDisplayController().displayStatusMessage(result);
                 return;
             default:
                 result = "";

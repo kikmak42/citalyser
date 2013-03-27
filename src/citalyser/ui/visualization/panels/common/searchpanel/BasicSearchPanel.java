@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /*
  * BasicSearchPanel.java
@@ -26,6 +22,15 @@ public class BasicSearchPanel extends javax.swing.JPanel {
         initComponents();
     }
 
+    public void resetProgressBar()
+    {
+        jProgressBar1.setValue(0);
+    }
+    public void completeProgressBar()
+    {
+        jProgressBar1.setValue(jProgressBar1.getMaximum());
+    }
+    
     public void setSearchPanel(SearchPanel searchPanel) {
         this.searchPanel = searchPanel;
     }    

@@ -324,6 +324,13 @@ public class DisplayMaster {
                     } else {
                         UiUtils.displayQueryEmptyMessage(contentRenderer, q.flag, myPaper.getTitle());
                     }
+                }else{
+                    /* Show Loading sign in Citation panel*/
+                    UiUtils.displayResultNullMessage(q.flag,myPaper.getTitle());
+                    mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel()
+                        .getDetailsDisplayPanel().getLowerDetailsDisplayPanel().stopLoading();
+                    
+        
                 }
             }
         };
@@ -386,6 +393,10 @@ public class DisplayMaster {
         this.query_name = journal.getName();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(true);
+        /* Show Loading sign*/
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel().showLoading();
+        
         Thread thread = new Thread() {
             @Override
             public void run() {
@@ -407,7 +418,8 @@ public class DisplayMaster {
                     }
                 } else {
                     UiUtils.displayResultNullMessage(q.flag,myJournal.getName());
-                    Main.getDisplayController().displayErrorMessage("Unknown Error while Fetching Journal Papers.");
+                    mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().stopLoading();
+                    mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel().stopLoading();
                 }
             }
         };
@@ -641,10 +653,6 @@ public class DisplayMaster {
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().showNormalMoreButton();
             }
         }.start();
-    }
-
-    public void showLoading() {
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
     }
 
     public void setDisplayPreview(boolean selected) {

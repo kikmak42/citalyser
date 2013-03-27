@@ -84,12 +84,12 @@ public class JournalTableDisplayPanel extends javax.swing.JPanel implements Tabl
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        exporttocsvbtn = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
         jTable1.setAutoCreateRowSorter(true);
-        jTable1.setFont(new java.awt.Font("Arial", 0, 11));
+        jTable1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         jTable1.setForeground(new java.awt.Color(51, 51, 51));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -128,16 +128,16 @@ public class JournalTableDisplayPanel extends javax.swing.JPanel implements Tabl
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        jButton1.setText("Export To CSV");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        exporttocsvbtn.setText("Export To CSV");
+        exporttocsvbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                exporttocsvbtnActionPerformed(evt);
             }
         });
-        add(jButton1, java.awt.BorderLayout.PAGE_END);
+        add(exporttocsvbtn, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void exporttocsvbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exporttocsvbtnActionPerformed
 
         JFileChooser chooser = new JFileChooser();
         chooser.removeChoosableFileFilter(chooser.getFileFilter());
@@ -155,21 +155,20 @@ public class JournalTableDisplayPanel extends javax.swing.JPanel implements Tabl
             logger.info("Error in CSV file chooser PaperTableFromMetricDisplayPanel : " + e);
         }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_exporttocsvbtnActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         if (jTable1.rowAtPoint(evt.getPoint()) > -1) {
             if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
                 if (disabledRow != jTable1.rowAtPoint(evt.getPoint())) {
                     disabledRow = jTable1.rowAtPoint(evt.getPoint());
-                    displayMaster.showLoading();
                     displayMaster.tableClicked(journals.get(jTable1.rowAtPoint(evt.getPoint())));
                 }
             }
         }
     }//GEN-LAST:event_jTable1MouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton exporttocsvbtn;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
@@ -185,7 +184,6 @@ public class JournalTableDisplayPanel extends javax.swing.JPanel implements Tabl
     public void callLeftClickedEvent(Point point) {
         if (jTable1.rowAtPoint(point) > -1 && disabledRow != jTable1.rowAtPoint(point)) {
             disabledRow = jTable1.rowAtPoint(point);
-            displayMaster.showLoading();
             displayMaster.tableClicked(journals.get(jTable1.rowAtPoint(point)));
         }
     }

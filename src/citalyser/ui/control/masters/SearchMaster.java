@@ -115,7 +115,7 @@ public class SearchMaster {
         /* Show Loading sign in the central panel*/
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
         /* Update the Search Panel on query Init*/
-        mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(false);
+        mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryStart();
                 
         Thread thread = new Thread() {
 
@@ -142,6 +142,7 @@ public class SearchMaster {
                     
                     currResult = QueryHandler.getInstance().getQueryResult(q);
                     if (currResult == null) {
+                        logger.debug("Current result is null");
                         break;
                     }
                     
@@ -165,7 +166,7 @@ public class SearchMaster {
                     if (Thread.interrupted()) {
                         break;
                     }
-                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateProgressBar((start*100)/numResults);
+                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateProgressBar((recvCount*100)/totalCount);
                     displayMaster.getQueryResultRenderingHandler().render(dataContentRenderer, q, currResult);
                     displayMaster.getQueryResultRenderingHandler().renderProfile(profileContentRenderer, q, globalResult);
                     start += count;
@@ -173,6 +174,9 @@ public class SearchMaster {
                     if(recvCount < start)
                         break;
                 }
+                /* Update the search panel*/
+                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryComplete();
+                    
                 // Query Completed. 
                 if(globalResult == null)
                 {
@@ -181,8 +185,6 @@ public class SearchMaster {
                     UiUtils.displayResultNullMessage(q.flag, searchQuery);
                 }
                 else{
-                    /* Update the search panel*/
-                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(true);
                     /* If no results, show EmptyResult Message */
                     if(recvCount == 0) {
                         UiUtils.displayQueryEmptyMessage(dataContentRenderer,q.flag, searchQuery);
