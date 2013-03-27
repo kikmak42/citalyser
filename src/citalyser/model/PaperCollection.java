@@ -32,41 +32,41 @@ public class PaperCollection implements Serializable {
         return this.h_index;
     }
 
-    public void setHIndex(int idx){
+    public void setHIndex(int idx) {
         this.h_index = idx;
     }
-    
+
     public int getIIndex() {
         this.calcIIndex();
         return this.i_index;
     }
 
-    public void setIIndex(int idx){
+    public void setIIndex(int idx) {
         this.i_index = idx;
     }
-    
-    public ArrayList<Paper> getPapers(){
+
+    public ArrayList<Paper> getPapers() {
         return this.papers;
     }
-    
+
     public void setPapers(ArrayList<Paper> p) {
         this.papers = new ArrayList<>(p);
     }
-    
-    public void addPaper(Paper p){
+
+    public void addPaper(Paper p) {
         this.papers.add(p);
     }
-    
-    public void removePaper(){
+
+    public void removePaper() {
         // TODO
     }
-    
+
     public ArrayList<String> extractAuthors() {
         ArrayList<Paper> p = this.papers;
         ArrayList<String> author = new ArrayList<>();
-        for(Paper paper: p){
+        for (Paper paper : p) {
             for (Author auth : paper.getAuthors()) {
-                if(!author.contains(auth.getName())) {
+                if (!author.contains(auth.getName())) {
                     author.add(auth.getName());
                 }
             }
@@ -74,18 +74,17 @@ public class PaperCollection implements Serializable {
         ArrayList<String> uniqueList = new ArrayList<String>(new HashSet<String>(author));
         return uniqueList;
     }
-    
+
     public ArrayList<Integer> extractYears() {
         ArrayList<Paper> p = this.papers;
         ArrayList<Integer> year = new ArrayList<Integer>();
         for (Paper paper : p) {
-                year.add(paper.getYear());
-            }
+            year.add(paper.getYear());
+        }
         ArrayList<Integer> uniqueList = new ArrayList<Integer>(new HashSet<Integer>(year));
         return uniqueList;
     }
-    
-    
+
     public ArrayList<Paper> extractPaperByYear(int low, int high) {
         ArrayList<Paper> retval = new ArrayList<>();
         int i, size;
@@ -188,14 +187,13 @@ public class PaperCollection implements Serializable {
 
         Collections.sort(list);
         Collections.reverse(list);
-        
-        
+
+
         int h;
         for (h = 0; h < size; h++) {
             if (list.get(h) >= h + 1) {
                 this.h_index = h + 1;
-            } 
-            else {
+            } else {
                 break;
             }
         }
@@ -211,13 +209,12 @@ public class PaperCollection implements Serializable {
         for (i = 0; i < size; i++) {
             if (papers.get(i).getNumCites() >= 10) {
                 this.i_index++;
-            }
-            else{
+            } else {
                 break;
             }
         }
     }
-    
+
     private boolean isThere(int k, ArrayList<Integer> index) {
         int size = index.size();
         int i = 0;
@@ -230,56 +227,55 @@ public class PaperCollection implements Serializable {
         return false;
     }
 
-    public Map<Integer,Integer> getCitationForYear() {
+    public Map<Integer, Integer> getCitationForYear() {
         //TODO:
-        int year,cit;
+        int year, cit;
         ArrayList<Paper> p = this.papers;
         HashMap<Integer, Integer> map1 = new HashMap<Integer, Integer>();
-        
+
         for (Paper paper : p) {
-             year=paper.getYear();
-             cit=paper.getNumCites();
-             map1.get(year);
-             if(map1.get(year) ==null)
-                 map1.put(year,cit);
-             else{
-                 cit+=map1.get(year);
-                 map1.put(year,cit);
-             }
+            year = paper.getYear();
+            cit = paper.getNumCites();
+            map1.get(year);
+            if (map1.get(year) == null) {
+                map1.put(year, cit);
+            } else {
+                cit += map1.get(year);
+                map1.put(year, cit);
             }
-        
+        }
+
         return map1;
-        
+
     }
 
     public float getCitationPerPaper() {
-        int size=0;
-        int i=0;
+        int size = 0;
+        int i = 0;
         size = papers.size();
         float citations_per_paper = 0;
         int total_citations = 0;
-        for(i=0;i<size;i++){
-            total_citations+=papers.get(i).getNumCites();
+        for (i = 0; i < size; i++) {
+            total_citations += papers.get(i).getNumCites();
         }
         //TODO:
-        try{
-            citations_per_paper = total_citations/size;
-            
-        }
-        catch(Exception e){
+        try {
+            citations_per_paper = total_citations / size;
+
+        } catch (Exception e) {
             citations_per_paper = 0;
         }
         return citations_per_paper;
     }
 
     public int getTotalNumberOfCitations() {
-        
-        int size=0;
-        int i=0;
+
+        int size = 0;
+        int i = 0;
         size = papers.size();
-        int total_citations = 0;        
-        for(i=0;i<size;i++){
-            total_citations+=papers.get(i).getNumCites();
+        int total_citations = 0;
+        for (i = 0; i < size; i++) {
+            total_citations += papers.get(i).getNumCites();
         }
         //TODO:
         return total_citations;
@@ -288,14 +284,15 @@ public class PaperCollection implements Serializable {
     public double getAvgCitationPerYear() {
         int citations = getTotalNumberOfCitations();
         Map<Integer, Integer> map1 = getCitationForYear();
-        int yearmin=99999999,yearmax=0;
-         for(Map.Entry<Integer, Integer> entry : map1.entrySet()){
-            if(yearmin>entry.getKey()) 
-                yearmin=entry.getKey();
-             if(yearmax<entry.getKey())
-                 yearmax=entry.getKey();
-         }
-         return citations/(yearmax-yearmin);
+        int yearmin = 99999999, yearmax = 0;
+        for (Map.Entry<Integer, Integer> entry : map1.entrySet()) {
+            if (yearmin > entry.getKey()) {
+                yearmin = entry.getKey();
+            }
+            if (yearmax < entry.getKey()) {
+                yearmax = entry.getKey();
+            }
+        }
+        return citations / ((yearmax - yearmin) + 1);
     }
-    
 }
