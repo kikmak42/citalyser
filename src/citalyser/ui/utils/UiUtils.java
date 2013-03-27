@@ -223,17 +223,39 @@ public class UiUtils {
     
     public static void displayGraph(final JLabel jLabel,final Map<Integer, Integer> map1,final int width,final int height) {
         StringBuilder yearall=new StringBuilder();
-        StringBuilder citall=new StringBuilder(); 
+        StringBuilder citall=new StringBuilder();
+        int yearmin=99999999,yearmax=0,counter;
+        float citmax=0;
         String url = new String();
+        
         for(Map.Entry<Integer, Integer> entry : map1.entrySet()){
-             citall.append(entry.getValue());
-             citall.append(",");
-             yearall.append("|");
-             yearall.append(entry.getKey());
-             
+            if(yearmin>entry.getKey()) 
+                yearmin=entry.getKey();
+             if(yearmax<entry.getKey())
+                 yearmax=entry.getKey();
          }
+        counter=(yearmax-yearmin)/4;
+        for(int i=yearmin;i<=yearmax;i++){
+            if(map1.get(i)!=null){
+            if(citmax<map1.get(i))
+                citmax=map1.get(i);
+            }
+        }
+        logger.debug("citmax="+citmax);
+        for(int i=yearmin;i<=yearmax;i++){
+            if(map1.get(i)==null)
+              citall.append(0);
+            else
+            citall.append((double)(map1.get(i)/citmax)*100);
+            citall.append(",");
+            yearall.append("|");
+            if( i==yearmin || i==(yearmin+counter) || i==(yearmin+(2*counter)) || i==(yearmin+(3*counter)) || i==yearmax){
+            yearall.append(i);
+            }
+        }
+        
         String cite = citall.substring(0, citall.length()-1);
-        url="http://www.google.com/chart?chs="+width+"x"+height+"&cht=bvs&chf=bg,s,e8f4f7&chco=1111cc&chbh=r,2.0,0.0&chxt=x,y&chxr=1,0,766,766&chd=t:"+cite+"&chxl=0:"+yearall;
+        url="http://www.google.com/chart?chs="+width+"x"+height+"&cht=bvs&chf=bg,s,e8f4f7&chco=1111cc&chbh=r,2.0,0.0&chxt=x,y&chxr=1,0,"+citmax+","+citmax+"&chd=t:"+cite+"&chxl=0:"+yearall;
         displayImage(jLabel, url, width, height);
     }
     
