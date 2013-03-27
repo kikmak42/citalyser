@@ -25,6 +25,10 @@ public class DataVisualizationPanel extends javax.swing.JPanel {
     public DataVisualizationPanel() {
         initComponents();
     }
+    public void flipToContentDisplayPanel() {
+        ((CardLayout)getLayout()).first(this);
+    }
+    
 
     public ContentDisplayPanel getContentDisplayPanel() {
         return contentDisplayPanel;
