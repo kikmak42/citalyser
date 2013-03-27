@@ -605,10 +605,11 @@ public class Parser {
             author.setNextLink(next_link);
             // logger.debug(item.html());
             university = item.html();
-            university = university.split("<td")[2].split("hl=en\">")[1].split("Cited|<form|<input")[0];
+            //logger.debug("125465:"+university);
+            university = university.split("</a>")[2].split("Cited|<form|<input")[0];
 
             details = item.text();
-            // logger.debug(university);
+            // logger.debug("!@#$%^&*:"+university.substring(6));
             // logger.debug("\n@@@@:" + item.select("a.cit-dark-large-link").outerHtml());
             imglink = Constants.SCHOLAR_BASE_URL + item.select("img").get(0).attr("src");
             Elements links = item.select("a.cit-dark-large-link");
@@ -629,7 +630,7 @@ public class Parser {
             //logger.debug("details =" + details);
             author.setName(name);
             author.setId(userid);
-            author.setUniversityAndEmail(university);
+            author.setUniversityAndEmail(university.substring(6));
             author.setTotalCitations(citations);
             author.setImagesrc(imglink);
             author.setProfilelink(url);
