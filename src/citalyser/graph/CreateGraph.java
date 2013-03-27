@@ -101,6 +101,8 @@ public class CreateGraph {
     public CreateGraph(Paper paper, GraphViewPanel gvp) {
         generateGraphObject = new graphData();
         this.baseNode = generateGraphObject.getbaseNode(paper);
+        gvp.getGraphHistory().addnodeInfo(this.baseNode);
+        gvp.getjLabel2().setText(gvp.getGraphHistory().getnodeList());
         Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(this.baseNode.citationurl).numResult(20).build();
 //        QueryHandler.getInstance().getQueryResult(q);
 //        generateGraphObject.getNodeArray(((PaperCollectionResult)QueryHandler.getInstance().getQueryResult(q)).getContents());
@@ -114,9 +116,9 @@ public class CreateGraph {
 // Layout<V, E>, BasicVisualizationServer<V,E>
         layout.setSize(new Dimension(600, 600));
         layout.setGraph(sgv.g2);
-//        layouttop.setSize(new Dimension(600, 600));
-//        layouttop.setGraph(sgv.g2);
-        vv = new VisualizationViewer<>(layout);
+        layouttop.setSize(new Dimension(600, 600));
+        layouttop.setGraph(sgv.g2);
+        vv = new VisualizationViewer<>(layouttop);
 
         vv.setPreferredSize(new Dimension(350, 350));
 // Setup up a new vertex to paint transformer...
@@ -168,7 +170,7 @@ public class CreateGraph {
         //  AnimatedPickingGraphMousePlugin am = new AnimatedPickingGraphMousePlugin();
 
         vv.getPickedVertexState();
-        gvp.getjLabel1().setText("<html>"+this.baseNode.Title);
+        gvp.getjLabel1().setText("<html>" + this.baseNode.Title);
 
         DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
         gm.add(new AnimatedPickingGraphMousePlugin());
@@ -215,6 +217,13 @@ public class CreateGraph {
         for (nodeInfo i : go.arr) {
             sgv.g2.addEdge("" + i.id + "-" + go.baseInfo, go.baseInfo, i);
         }
+    }
+
+    public void populateOnPrevNext(nodeInfo base) {
+        this.baseNode = base;
+        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(base.citationurl).numResult(20).build();
+        PaperCollection pc = ((PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q)).getContents();
+        populateGraph(generateGraphObject.getNodeArray(pc));
     }
 
     public void addToGraph(graphObject go) {

@@ -17,12 +17,12 @@ import citalyser.graph.util.nodeInfo;
 import citalyser.model.Paper;
 import java.util.ArrayList;
 
-public class graphHistory {
+public class GraphHistory {
 
     private ArrayList<nodeInfo> basenodes;
     private int currentnodeInfoPosition;
 
-    public graphHistory() {
+    public GraphHistory() {
         this.currentnodeInfoPosition = 0;
         basenodes = new ArrayList<>();
     }
@@ -75,12 +75,14 @@ public class graphHistory {
         currentnodeInfoPosition =0;
     }
 
-    public void printnodeInfos() {
-        for (int i = 0; i < basenodes.size(); i++) {
-            System.out.println(basenodes.get(i).Title);
-            System.out.println(currentnodeInfoPosition);
+    public String getnodeList() {
+        String list = "";
+        int i=0;
+        while(i<=basenodes.size()-2){
+            list+=((basenodes.get(i).Title.split(" ")[0])+"=>");
         }
-
+            list+=((basenodes.get(basenodes.size()-1).Title.split(" ")[0]));
+        return list;
     }
 
     public int getCurrentPosition() {

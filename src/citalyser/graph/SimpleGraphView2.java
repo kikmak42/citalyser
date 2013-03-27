@@ -23,7 +23,7 @@ import edu.uci.ics.jung.graph.util.EdgeType;
  *
  * @author abhishek
  */
-class SimpleGraphView2 {
+public class SimpleGraphView2 {
     public Graph<nodeInfo, String> g2 ;
     public SimpleGraphView2() {
        
