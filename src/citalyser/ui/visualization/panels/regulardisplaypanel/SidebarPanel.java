@@ -70,4 +70,9 @@ public class SidebarPanel extends javax.swing.JPanel {
     private citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel authorListPanel;
     private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
+ public void clearAll() {
+        authorListPanel.clear();
+        displayMaster.clearCitationHistory();
+        System.gc();
+    }
 }

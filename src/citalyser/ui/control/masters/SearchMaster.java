@@ -110,6 +110,7 @@ public class SearchMaster {
                 
         /* Clear all panels*/
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().clearAll();
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().clearAll();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(false,0.0);
         /* Show Loading sign in the central panel*/
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();

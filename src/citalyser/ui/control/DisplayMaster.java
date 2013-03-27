@@ -420,6 +420,7 @@ public class DisplayMaster {
                 //cancelButtonClicked();
                 threads.add(this);
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().clearAll();
+                mainFrame.getRegularDisplayPanel().getSidebarPanel().clearAll();
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(false);
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
