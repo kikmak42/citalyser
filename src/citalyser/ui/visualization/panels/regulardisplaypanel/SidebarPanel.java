@@ -57,6 +57,7 @@ public class SidebarPanel extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         jSplitPane1.setBorder(null);
+        jSplitPane1.setDividerSize(0);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setOpaque(false);
         jSplitPane1.setTopComponent(advancedSearchPanel);

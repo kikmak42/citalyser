@@ -154,6 +154,7 @@ private String name="Author";
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         lowerDetailsDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.LowerDetailsDisplayPanel();
+        jPanel2 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(153, 153, 255));
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -182,6 +183,10 @@ private String name="Author";
         jPanel1.add(jButton1, java.awt.BorderLayout.PAGE_START);
         jPanel1.add(lowerDetailsDisplayPanel, java.awt.BorderLayout.CENTER);
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setPreferredSize(new java.awt.Dimension(100, 5));
+        jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_END);
+
         jSplitPane1.setRightComponent(jPanel1);
 
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
@@ -208,6 +213,7 @@ private String name="Author";
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JSplitPane jSplitPane1;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.LowerDetailsDisplayPanel lowerDetailsDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.detailsdisplaypanel.UpperDetailsDisplayPanel upperDetailsDisplayPanel;

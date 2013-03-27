@@ -114,6 +114,7 @@ public class TableDisplayPanel extends javax.swing.JPanel {
 
         tableRightClickedPopupMenu = new javax.swing.JPopupMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         authorPaperTableDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.AuthorPaperTableDisplayPanel();
@@ -128,6 +129,14 @@ public class TableDisplayPanel extends javax.swing.JPanel {
             }
         });
         tableRightClickedPopupMenu.add(jMenuItem1);
+
+        jMenuItem3.setText("View Citations Graph");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        tableRightClickedPopupMenu.add(jMenuItem3);
 
         jMenuItem2.setText("Open In Browser");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -165,10 +174,15 @@ public class TableDisplayPanel extends javax.swing.JPanel {
         tableDisplayPanelInterface.callLeftClickedEvent(point);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        displayMaster.displayGraph(selectedPaper);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.AuthorPaperTableDisplayPanel authorPaperTableDisplayPanel;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.JournalPaperTableDisplayPanel journalPaperTableDisplayPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.JournalTableDisplayPanel journalTableDisplayPanel;

@@ -695,4 +695,9 @@ public class DisplayMaster {
         };
         thread.start();
     }
+
+    public void displayGraph(Paper selectedPaper) {
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getGraphViewPanel().setPaper(selectedPaper);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().flipToGraphDisplayPanel();
+    }
 }
