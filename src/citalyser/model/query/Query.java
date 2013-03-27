@@ -20,6 +20,13 @@ public class Query{
     public boolean h_idx;
     public boolean i_idx;
     public String url;
+    public String allwords;
+    public String exactphrase;
+    public String atleastoneofthese;
+    public String exceptthese;
+    public String occurwhere;
+    public String publishedat;
+    
 
     private Query(Builder builder) {
         flag = builder.flag;
@@ -33,6 +40,13 @@ public class Query{
         h_idx = builder.h_idx;
         i_idx = builder.i_idx;
         url = builder.url;
+        allwords=builder.allwords;
+        exactphrase=builder.exactphrase;
+        atleastoneofthese=builder.atleastoneofthese;
+        exceptthese=builder.exceptthese;
+        occurwhere=builder.occurwhere;
+        publishedat=builder.publishedat;
+        
     }
     
     public static class Builder {
@@ -48,6 +62,12 @@ public class Query{
         private boolean h_idx;
         private boolean i_idx;
         private String url;
+        private String allwords;
+        private String exactphrase;
+        private String atleastoneofthese;
+        private String exceptthese;
+        private String occurwhere;
+        private String publishedat;
         
         public Builder(String name) {
             this.name = name;
@@ -109,6 +129,36 @@ public class Query{
             return this;
         }
         
+        public Builder allWords(String aw){
+            this.allwords=aw;
+            return this;
+        }
+        
+        public Builder exactPhrase(String ep){
+            this.exactphrase=ep;
+            return this;
+        }
+        
+        public Builder atleastOneOfThese(String aoot){
+            this.atleastoneofthese=aoot;
+            return this;
+        }
+        
+        public Builder exceptThese(String et){
+            this.exceptthese=et;
+            return this;
+        }
+        
+        public Builder occurWhere(String ow){
+            this.occurwhere=ow;
+            return this;
+        }
+        
+        public Builder publishedAt(String pa){
+            this.publishedat=pa;
+            return this;
+        }
+                
         public Query build() {
             return new Query(this);
         }
