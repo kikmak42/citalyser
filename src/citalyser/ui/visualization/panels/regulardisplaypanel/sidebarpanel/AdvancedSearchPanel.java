@@ -40,6 +40,7 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
 
         jTextField2.setText("jTextField2");
 
+        setOpaque(false);
         setPreferredSize(new java.awt.Dimension(228, 148));
 
         jLabel1.setText("All words: ");

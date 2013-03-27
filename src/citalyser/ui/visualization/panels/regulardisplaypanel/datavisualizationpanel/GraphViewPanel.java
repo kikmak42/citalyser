@@ -33,6 +33,7 @@ public class GraphViewPanel extends javax.swing.JPanel {
         CreateGraph cg = new CreateGraph(paper);
         this.setLayout(new BorderLayout());
         add(cg.getVisualizationViewer());
+        this.setVisible(true);
         
     }
 
