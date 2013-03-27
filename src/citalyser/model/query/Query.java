@@ -20,6 +20,7 @@ public class Query{
     public boolean h_idx;
     public boolean i_idx;
     public String url;
+    public long timestamp;
     public String allwords;
     public String exactphrase;
     public String atleastoneofthese;
