@@ -69,17 +69,17 @@ public class PaperCollection implements Serializable {
                 }
             }
         }
-        ArrayList<String> uniqueList = new ArrayList<String>(new HashSet<String>(author));
+        ArrayList<String> uniqueList = new ArrayList<>(new HashSet<>(author));
         return uniqueList;
     }
     
     public ArrayList<Integer> extractYears() {
         ArrayList<Paper> p = this.papers;
-        ArrayList<Integer> year = new ArrayList<Integer>();
+        ArrayList<Integer> year = new ArrayList<>();
         for (Paper paper : p) {
                 year.add(paper.getYear());
             }
-        ArrayList<Integer> uniqueList = new ArrayList<Integer>(new HashSet<Integer>(year));
+        ArrayList<Integer> uniqueList = new ArrayList<>(new HashSet<>(year));
         return uniqueList;
     }
     
