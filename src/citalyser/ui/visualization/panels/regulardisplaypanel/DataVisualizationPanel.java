@@ -50,12 +50,12 @@ public class DataVisualizationPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        graphViewPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.GraphViewPanel();
         contentDisplayPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.ContentDisplayPanel();
+        graphViewPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.GraphViewPanel();
 
         setLayout(new java.awt.CardLayout());
-        add(graphViewPanel, "card3");
         add(contentDisplayPanel, "card3");
+        add(graphViewPanel, "card3");
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.ContentDisplayPanel contentDisplayPanel;
