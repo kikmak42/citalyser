@@ -86,6 +86,8 @@ public class GraphViewPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
@@ -111,6 +113,20 @@ public class GraphViewPanel extends javax.swing.JPanel {
         jLabel1.setOpaque(true);
         jLabel1.setPreferredSize(new java.awt.Dimension(72, 34));
         jPanel3.add(jLabel1, java.awt.BorderLayout.CENTER);
+
+        jPanel8.setBackground(new java.awt.Color(157, 157, 255));
+        jPanel8.setLayout(new java.awt.GridBagLayout());
+
+        jButton3.setText("Exit Graph");
+        jButton3.setPreferredSize(new java.awt.Dimension(83, 20));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel8.add(jButton3, new java.awt.GridBagConstraints());
+
+        jPanel3.add(jPanel8, java.awt.BorderLayout.EAST);
 
         jPanel2.add(jPanel3);
 
@@ -204,11 +220,16 @@ public class GraphViewPanel extends javax.swing.JPanel {
         if (graphHistory.isCurrentPositionLast()) {
             jButton2.setVisible(false);
         }    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        displayMaster.showContentDisplyPanel();
+    }//GEN-LAST:event_jButton3ActionPerformed
     private GraphHistory graphHistory;
     private CreateGraph cg;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -218,6 +239,7 @@ public class GraphViewPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JSlider jSlider1;
     // End of variables declaration//GEN-END:variables
 }

@@ -695,4 +695,8 @@ public class DisplayMaster {
         };
         thread.start();
     }
+
+    public void showContentDisplyPanel() {
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().flipToContentDisplayPanel();
+    }
 }

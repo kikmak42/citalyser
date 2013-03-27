@@ -13,6 +13,7 @@ package citalyser.ui.visualization.panels.regulardisplaypanel;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.ContentDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.GraphViewPanel;
+import java.awt.CardLayout;
 
 /**
  *
@@ -24,6 +25,10 @@ public class DataVisualizationPanel extends javax.swing.JPanel {
     public DataVisualizationPanel() {
         initComponents();
     }
+    public void flipToContentDisplayPanel() {
+        ((CardLayout)getLayout()).first(this);
+    }
+    
 
     public ContentDisplayPanel getContentDisplayPanel() {
         return contentDisplayPanel;
