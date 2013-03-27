@@ -31,14 +31,15 @@ public class AbstractDisplayPanel extends javax.swing.JPanel {
     }
 
     public void setPaper(Paper paper) {
-        if(paper.getAbstract() != null)
-        {
+        if (paper.getAbstract() != null) {
+            jLabel1.setBackground(new Color(0, 0, 0, 180));
             jLabel1.setText("<html>" + paper.getAbstract());
-        }
-        else{
-            this.remove(jLabel1);
+        } else {
+//            this.remove(jLabel1);
 //            jLabel1.setVisible(false);
-//            setPreferredSize(new Dimension(400, 200));
+            jLabel1.setBackground(new Color(0, 0, 0, 0));
+            getParent().getParent().getParent().getParent().setSize(new Dimension(403, 60));
+            //System.out.println(getParent().getParent().getParent().getParent());
 //            this.validate();
 ////            jLabel1.setPreferredSize(new Dimension(400,0));
 //            this.validate();
@@ -53,7 +54,7 @@ public class AbstractDisplayPanel extends javax.swing.JPanel {
         }
         jLabel5.setText(stringBuilder.toString());
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -80,32 +81,32 @@ public class AbstractDisplayPanel extends javax.swing.JPanel {
         jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
         jLabel1.setOpaque(true);
         jLabel1.setPreferredSize(new java.awt.Dimension(400, 56));
-        add(jLabel1, java.awt.BorderLayout.LINE_END);
+        add(jLabel1, java.awt.BorderLayout.SOUTH);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 5));
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 56));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 11));
         jLabel2.setForeground(new java.awt.Color(255, 255, 153));
         jPanel1.add(jLabel2, java.awt.BorderLayout.CENTER);
 
         jPanel2.setPreferredSize(new java.awt.Dimension(120, 32));
         jPanel2.setLayout(new java.awt.BorderLayout());
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 11));
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jPanel2.add(jLabel3, java.awt.BorderLayout.PAGE_START);
 
-        jLabel4.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 11));
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jPanel2.add(jLabel4, java.awt.BorderLayout.PAGE_END);
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.LINE_END);
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 10));
         jLabel5.setForeground(new java.awt.Color(153, 255, 153));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel1.add(jLabel5, java.awt.BorderLayout.PAGE_END);

@@ -1,6 +1,5 @@
 package citalyser.model.query;
 
-import citalyser.model.query.Query;
 import citalyser.dataextraction.cache.CacheHandler;
 import citalyser.model.UrlComposer;
 import citalyser.dataextraction.parsing.Parser;

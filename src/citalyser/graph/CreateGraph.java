@@ -8,11 +8,9 @@ package citalyser.graph;
  *
  * @author sahil
  */
-import citalyser.Initialiser;
 import citalyser.graph.util.graphData;
 import citalyser.graph.util.graphObject;
 import citalyser.graph.util.nodeInfo;
-import citalyser.model.Author;
 import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.model.query.Query;
@@ -20,27 +18,11 @@ import citalyser.model.query.QueryHandler;
 import citalyser.model.query.QueryType;
 import citalyser.model.query.queryresult.PaperCollectionResult;
 import citalyser.ui.DisplayController;
-import citalyser.ui.control.DisplayControllerImpl;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.GraphViewPanel;
-import citalyser.util.Config;
-import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.algorithms.layout.AggregateLayout;
-import edu.uci.ics.jung.algorithms.layout.BalloonLayout;
-import edu.uci.ics.jung.algorithms.layout.CircleLayout;
-import edu.uci.ics.jung.algorithms.layout.DAGLayout;
-import edu.uci.ics.jung.algorithms.layout.FRLayout;
-import edu.uci.ics.jung.algorithms.layout.FRLayout2;
-import edu.uci.ics.jung.algorithms.layout.ISOMLayout;
-import edu.uci.ics.jung.algorithms.layout.KKLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
-import edu.uci.ics.jung.algorithms.layout.LayoutDecorator;
-import edu.uci.ics.jung.algorithms.layout.RadialTreeLayout;
 import edu.uci.ics.jung.algorithms.layout.SpringLayout;
-import edu.uci.ics.jung.algorithms.layout.SpringLayout2;
-import edu.uci.ics.jung.algorithms.layout.StaticLayout;
-import edu.uci.ics.jung.algorithms.layout.TreeLayout;
 import edu.uci.ics.jung.graph.DirectedOrderedSparseMultigraph;
-import edu.uci.ics.jung.samples.PluggableRendererDemo.VoltageTips;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.AnimatedPickingGraphMousePlugin;
 import edu.uci.ics.jung.visualization.control.CrossoverScalingControl;
@@ -48,36 +30,17 @@ import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.PickingGraphMousePlugin;
 import edu.uci.ics.jung.visualization.control.ScalingGraphMousePlugin;
-import edu.uci.ics.jung.visualization.control.TranslatingGraphMousePlugin;
-import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
-import edu.uci.ics.jung.visualization.layout.CachingLayout;
-import edu.uci.ics.jung.visualization.layout.ObservableCachingLayout;
-import edu.uci.ics.jung.visualization.layout.PersistentLayoutImpl;
-import edu.uci.ics.jung.visualization.picking.ClassicPickSupport;
 import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
-import java.awt.BasicStroke;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Paint;
 import java.awt.Rectangle;
 import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.CubicCurve2D;
-import java.awt.geom.Ellipse2D;
-import java.io.BufferedReader;
 import java.io.File;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.apache.commons.collections15.Transformer;
-import org.apache.log4j.PropertyConfigurator;
 
 public class CreateGraph {
 
@@ -88,6 +51,7 @@ public class CreateGraph {
     public Layout<nodeInfo, String> layouttop;
     public JPanel panel;
     public JFrame frame;
+    public boolean isMetric;
     public nodeInfo baseNode;
     public boolean nullResultFlag;
     public graphData generateGraphObject;
@@ -100,9 +64,10 @@ public class CreateGraph {
         return displayController;
     }
 
-    public CreateGraph(Paper paper, GraphViewPanel gvp) {
+    public CreateGraph(Paper paper, GraphViewPanel gvp, boolean isMetric) {
         generateGraphObject = new graphData();
         this.gvp = gvp;
+        this.isMetric = isMetric;
         this.baseNode = generateGraphObject.getbaseNode(paper);
         gvp.getGraphHistory().addnodeInfo(this.baseNode);
         gvp.getjLabel2().setText(gvp.getGraphHistory().getnodeList());
@@ -115,8 +80,12 @@ public class CreateGraph {
         layouttop.setGraph(sgv.g2);
         vv = new VisualizationViewer<>(layouttop);
         vv.setPreferredSize(new Dimension(350, 350));
-        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(this.baseNode.citationurl).numResult(gvp.getSlider().getValue()).build();
-
+        Query q;
+        if (this.isMetric) {
+            q = new Query.Builder("").flag(QueryType.CITATIONS_LIST_METRIC).Url(this.baseNode.citationurl).numResult(20).build();
+        } else {
+            q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(this.baseNode.citationurl).numResult(20).build();
+        }
         PaperCollectionResult queriedPapercollection = (PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q);
         if (queriedPapercollection != null) {
             nullResultFlag = false;
@@ -125,6 +94,7 @@ public class CreateGraph {
 
             Transformer<nodeInfo, Paint> vertexPaint;
             vertexPaint = new Transformer<nodeInfo, Paint>() {
+                @Override
                 public Paint transform(nodeInfo i) {
                     return new Color(255, 255, 128, 128);
 
@@ -191,16 +161,22 @@ public class CreateGraph {
 
     public void populateOnPrevNext(nodeInfo base) {
         this.baseNode = base;
-        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(base.citationurl).numResult(this.gvp.getSlider().getValue()).build();
-        PaperCollectionResult queriedPapercollection = (PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q);
-        if(queriedPapercollection!=null){
-        nullResultFlag = false;
-        PaperCollection pc = (queriedPapercollection.getContents());
-        populateGraph(generateGraphObject.getNodeArray(pc));
-        sgv.g2 = new DirectedOrderedSparseMultigraph<nodeInfo, String>();
+
+        Query q;
+        if (this.isMetric) {
+            q = new Query.Builder("").flag(QueryType.CITATIONS_LIST_METRIC).Url(base.citationurl).numResult(20).build();
+        } else {
+            q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(base.citationurl).numResult(20).build();
         }
-        else
+        PaperCollectionResult queriedPapercollection = (PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q);
+        if (queriedPapercollection != null) {
+            nullResultFlag = false;
+            PaperCollection pc = (queriedPapercollection.getContents());
+            sgv.g2 = new DirectedOrderedSparseMultigraph<nodeInfo, String>();
+            populateGraph(generateGraphObject.getNodeArray(pc));
+        } else {
             nullResultFlag = true;
+        }
     }
 
     public void addToGraph(graphObject go) {
