@@ -484,19 +484,20 @@ public class NavigationMaster {
         }
     }
 
-    public void displayGraphSelected(Paper selectedPaper) {
+    public void displayGraphSelected(Paper selectedPaper, boolean isMetric) {
         final Paper myPaper = selectedPaper;
+        final boolean myIsMetric = isMetric;
         new Thread() {
             @Override
             public void run() {
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getGraphViewPanel().setPaper(myPaper);
+                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getGraphViewPanel().setPaper(myPaper, myIsMetric);
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().flipToGraphDisplayPanel();
             }
         }.start();
 
     }
     
-    public void gotoGraphPrev(Paper selectedPaper) {
+    public void gotoGraphPrev() {
         
         new Thread() {
             @Override
@@ -507,7 +508,7 @@ public class NavigationMaster {
 
     }
     
-    public void gotoGraphNext(Paper selectedPaper) {
+    public void gotoGraphNext() {
         
         new Thread() {
             @Override

@@ -14,6 +14,7 @@ import citalyser.graph.CreateGraph;
 import citalyser.graph.GraphHistory;
 import citalyser.model.Paper;
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.visualization.MainFrame;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
@@ -53,10 +54,7 @@ public class GraphViewPanel extends javax.swing.JPanel {
         return jLabel2;
     }
 
-    public JSlider getSlider() {
-        return slider;
-    }
-
+    
     public JButton getjButton1() {
         return jButton1;
     }
@@ -69,9 +67,10 @@ public class GraphViewPanel extends javax.swing.JPanel {
         this.jLabel1 = jLabel1;
     }
 
-    public boolean setPaper(Paper paper) {
+    public boolean setPaper(Paper paper,boolean isMetric) {
+        
         graphHistory = new GraphHistory();
-        cg = new CreateGraph(paper, this);
+        cg = new CreateGraph(paper, this,isMetric);
         
         jPanel1.removeAll();
         jButton1.setVisible(false);
@@ -107,7 +106,6 @@ public class GraphViewPanel extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        slider = new javax.swing.JSlider();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 150, 150)));
         setLayout(new java.awt.BorderLayout());
@@ -181,25 +179,13 @@ public class GraphViewPanel extends javax.swing.JPanel {
         jPanel6.add(jPanel1, java.awt.BorderLayout.CENTER);
 
         jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.PAGE_AXIS));
-
-        slider.setForeground(new java.awt.Color(0, 0, 0));
-        slider.setMajorTickSpacing(1);
-        slider.setMaximum(20);
-        slider.setMinimum(1);
-        slider.setOrientation(javax.swing.JSlider.VERTICAL);
-        slider.setPaintLabels(true);
-        slider.setPaintTicks(true);
-        slider.setSnapToTicks(true);
-        slider.setValue(10);
-        jPanel7.add(slider);
-
         jPanel6.add(jPanel7, java.awt.BorderLayout.LINE_START);
 
         add(jPanel6, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+    this.gotoPrevious();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void gotoPrevious(){
@@ -239,7 +225,7 @@ public class GraphViewPanel extends javax.swing.JPanel {
     
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+        this.gotoNext();
     }
         /*
         }    }//GEN-LAST:event_jButton2ActionPerformed
@@ -263,6 +249,5 @@ public class GraphViewPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JSlider slider;
     // End of variables declaration//GEN-END:variables
 }

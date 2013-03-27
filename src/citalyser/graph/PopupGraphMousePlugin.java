@@ -94,17 +94,18 @@ class PopupGraphMousePlugin extends AbstractPopupGraphMousePlugin implements Mou
                     public void actionPerformed(ActionEvent e) {
                         //System.out.println("person added");
 
-                        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(pickV.citationurl).numResult(gvp.getSlider().getValue()).build();
+                        Query q;
+                        if (createGraph.isMetric) {
+                            q = new Query.Builder("").flag(QueryType.CITATIONS_LIST_METRIC).Url(pickV.citationurl).numResult(20).startResult(createGraph.sgv.g2.getInEdges(pickV).size()).build();
+                        } else {
+                            q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(pickV.citationurl).numResult(20).startResult(createGraph.sgv.g2.getInEdges(pickV).size()).build();
+                        }
                         PaperCollectionResult queriedPapercollection = (PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q);
                         if (queriedPapercollection != null) {
                             createGraph.nullResultFlag = false;
                             PaperCollection pc = (queriedPapercollection.getContents());
-                            createGraph.populateGraph(createGraph.generateGraphObject.getNodeArray(pc));
-                            createGraph.sgv.g2 = new DirectedOrderedSparseMultigraph<nodeInfo, String>();
-
                             if (pickV.nocitation != 0) {
                                 createGraph.baseNode = pickV;
-
                                 createGraph.addToGraph(createGraph.generateGraphObject.getNodeArray(pc));
                                 createGraph.layouttop.setGraph(createGraph.sgv.g2);
                                 gvp.getjLabel1().setText("<html>" + pickV.Title);
@@ -126,42 +127,46 @@ class PopupGraphMousePlugin extends AbstractPopupGraphMousePlugin implements Mou
             }
 
 
+            if (!createGraph.isMetric) {
+                popup.add(new AbstractAction("Fetch Citations") {
+                    public void actionPerformed(ActionEvent e) {
+                        System.out.println("person added");
 
-            popup.add(new AbstractAction("Fetch Citations") {
-                public void actionPerformed(ActionEvent e) {
-                    System.out.println("person added");
+                        Query q;
 
-                    Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(pickV.citationurl).numResult(gvp.getSlider().getValue()).build();
-                    PaperCollectionResult queriedPapercollection = (PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q);
-                    if (queriedPapercollection != null) {
-                        createGraph.nullResultFlag = false;
-                        PaperCollection pc = (queriedPapercollection.getContents());
-                        if (pickV.nocitation != 0) {
-                            createGraph.baseNode = pickV;
-                            createGraph.sgv.g2 = new DirectedOrderedSparseMultigraph<nodeInfo, String>();
-                            createGraph.populateGraph(createGraph.generateGraphObject.getNodeArray(pc));
-                            createGraph.layouttop.setGraph(createGraph.sgv.g2);
-                            gvp.getjLabel1().setText("<html>" + pickV.Title);
+                        q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(pickV.citationurl).numResult(20).build();
 
-                            gvp.getGraphHistory().addnodeInfo(pickV);
-                            gvp.getjLabel2().setText(gvp.getGraphHistory().getnodeList());
-                            gvp.getjButton2().setVisible(false);
-                            gvp.getjButton1().setVisible(true);
-                            createGraph.vv.repaint();
+                        PaperCollectionResult queriedPapercollection = (PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q);
+                        if (queriedPapercollection != null) {
+                            createGraph.nullResultFlag = false;
+                            PaperCollection pc = (queriedPapercollection.getContents());
+                            if (pickV.nocitation != 0) {
+                                createGraph.baseNode = pickV;
+                                createGraph.sgv.g2 = new DirectedOrderedSparseMultigraph<nodeInfo, String>();
+                                createGraph.populateGraph(createGraph.generateGraphObject.getNodeArray(pc));
+                                createGraph.layouttop.setGraph(createGraph.sgv.g2);
+                                gvp.getjLabel1().setText("<html>" + pickV.Title);
+
+                                gvp.getGraphHistory().addnodeInfo(pickV);
+                                gvp.getjLabel2().setText(gvp.getGraphHistory().getnodeList());
+                                gvp.getjButton2().setVisible(false);
+                                gvp.getjButton1().setVisible(true);
+                                createGraph.vv.repaint();
+                            } else {
+                                Main.getDisplayController().displayErrorMessage("Zero Citaions for this paper");
+                            }
                         } else {
-                            Main.getDisplayController().displayErrorMessage("Zero Citaions for this paper");
+                            createGraph.nullResultFlag = true;
                         }
-                    } else {
-                        createGraph.nullResultFlag = true;
                     }
-                }
-            });
+                });
+            }
+                popup.setLocation(e.getPoint());
+                popup.show(createGraph.vv, e.getX(), e.getY());
 
-            popup.setLocation(e.getPoint());
-            popup.show(createGraph.vv, e.getX(), e.getY());
 
-
-        }///if picksupport
+            
+        }
 
 
 
