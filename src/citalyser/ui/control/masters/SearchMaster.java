@@ -2,7 +2,6 @@ package citalyser.ui.control.masters;
 
 import citalyser.Constants;
 import citalyser.model.Author;
-import citalyser.model.PaperCollection;
 import citalyser.model.query.Query;
 import citalyser.model.query.QueryHandler;
 import citalyser.model.query.QueryResult;
@@ -13,7 +12,6 @@ import citalyser.ui.model.ContentRenderer;
 import citalyser.ui.utils.UiUtils;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.common.SearchPanel;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Vector;
 import org.apache.log4j.Logger;
@@ -109,6 +107,7 @@ public class SearchMaster {
     }
 
     private void fetchResults(final Query q, final int maxResultsAtOneTime, final int numResults) {
+        //displayMaster.getNavigationMaster().cancelButtonClicked();
 
         /* Clear all panels*/
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().clearAll();
@@ -119,7 +118,8 @@ public class SearchMaster {
         /* Update the Search Panel on query Init*/
         mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryStart();
 
-        Thread thread = new Thread() {
+        //Thread thread = new Thread() {
+        displayMaster.getExecutorService().submit(new Runnable() {
 
             @Override
             public void run() {
@@ -197,9 +197,9 @@ public class SearchMaster {
                     UiUtils.displayQueryCompleteInfoMessage(q.flag, recvCount, searchQuery);
                 }
             }
-        };
-        thread.start();
-        displayMaster.getNavigationMaster().addThread(thread);
+        });
+        //thread.start();
+        //displayMaster.getNavigationMaster().addThread(thread);
     }
 
     private void handleUserQuery(SearchPanel searchPanel) {

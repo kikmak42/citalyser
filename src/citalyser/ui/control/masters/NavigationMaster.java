@@ -20,6 +20,8 @@ import citalyser.ui.model.ContentRenderer;
 import citalyser.ui.utils.UiUtils;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.util.CommonUtils;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import org.apache.log4j.Logger;
@@ -42,7 +44,7 @@ public class NavigationMaster {
     
     public void cancelButtonClicked() {
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
-        synchronized (displayMaster.getThreads()) {
+        /*synchronized (displayMaster.getThreads()) {
             for (Thread thread : displayMaster.getThreads()) {
                 if (thread != null) {
                     if (thread.isAlive()) {
@@ -51,19 +53,30 @@ public class NavigationMaster {
                 }
                 displayMaster.getThreads().remove(thread);
             }
+        }*/
+        displayMaster.getExecutorService().shutdownNow();
+        logger.debug("Trying to shut down...");
+        try {
+            displayMaster.getExecutorService().awaitTermination(1000, TimeUnit.MICROSECONDS);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
         }
+        logger.debug("Shutting down successful...");
+        Main.getDisplayController().displayStatusMessage("Cancelled");
+        displayMaster.setExecutorService(Executors.newCachedThreadPool());
     }
 
     public void addThread(Thread thread) {
-        synchronized (displayMaster.getThreads()) {
+        /*synchronized (displayMaster.getThreads()) {
             if (thread != null) {
                 displayMaster.getThreads().add(thread);
             }
-        }
+        }*/
     }
     
     /** This method is invoked to fetch the citations of a paper from google Scholar*/
     public void tableClicked(Paper paper) {
+        cancelButtonClicked();
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
         final Paper myPaper = paper;
@@ -82,7 +95,8 @@ public class NavigationMaster {
         /* Show the Side panel*/
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
 
-        Thread thread = new Thread() {
+        //Thread thread = new Thread() {
+        displayMaster.getExecutorService().submit(new Runnable() {
             @Override
             public void run() {
                 ContentRenderer contentRenderer = mainFrame.getRegularDisplayPanel().getDataVisualizationPanel()
@@ -112,15 +126,16 @@ public class NavigationMaster {
         
                 }
             }
-        };
-        thread.start();
+        });
+        /*thread.start();
         synchronized (displayMaster.getThreads()) {
             displayMaster.getThreads().add(thread);
-        }
+        }*/
     }
     
     /** This method is invoked to fetch the citations of a metric paper from google Metrics*/
     public void metricTableClicked(Paper paper) {
+        cancelButtonClicked();
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
@@ -140,7 +155,8 @@ public class NavigationMaster {
         /* Disable the Search button*/
         mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryStart();
         
-        Thread thread = new Thread() {
+        //Thread thread = new Thread() {
+        displayMaster.getExecutorService().submit(new Runnable() {
             @Override
             public void run() {
                 Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST_METRIC).Url(myPaper.getcitedByUrl())
@@ -165,14 +181,15 @@ public class NavigationMaster {
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().stopLoading();
                 
             }
-        };
-        thread.start();
+        });
+        /*thread.start();
         synchronized (displayMaster.getThreads()) {
             displayMaster.getThreads().add(thread);
-        }
+        }*/
     }
 
     public void tableClicked(Journal journal) {
+        cancelButtonClicked();
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         final Journal myJournal = journal;
         logger.debug("2345::::"+myJournal.getH5index());
@@ -185,7 +202,8 @@ public class NavigationMaster {
         /* Disable the Search button*/
         mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryStart();
        
-        Thread thread = new Thread() {
+        //Thread thread = new Thread() {
+        displayMaster.getExecutorService().submit(new Runnable() {
             @Override
             public void run() {
                 Query q = new Query.Builder("").flag(QueryType.JOURN_PROF).Url(myJournal.getH5Link())
@@ -214,14 +232,15 @@ public class NavigationMaster {
                     mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryComplete();
                 }
             }
-        };
-        thread.start();
+        });
+        /*thread.start();
         synchronized (displayMaster.getThreads()) {
             displayMaster.getThreads().add(thread);
-        }
+        }*/
     }
 
     public void authorGridEntityClicked(Author author) {
+        cancelButtonClicked();
         
         /* Update the UI elements to reflect the change.*/
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
@@ -238,11 +257,11 @@ public class NavigationMaster {
         final String myId = author.getId();
         displayMaster.setQueryName(author.getName());
         final int numResults = Constants.MaxResultsNum.AUTHOR_PAPERS.getValue();
-        Thread thread = new Thread() {
+        //Thread thread = new Thread() {
+        displayMaster.getExecutorService().submit(new Runnable() {
             @Override
             public void run() {
-                //cancelButtonClicked();
-                displayMaster.getThreads().add(this);
+                //displayMaster.getThreads().add(this);
                 Query q = new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).numResult(numResults).build();
                 UiUtils.displayQueryStartInfoMessage(q.flag, authorName);
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
@@ -258,11 +277,12 @@ public class NavigationMaster {
                 }
                 mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryComplete();
             }
-        };
-        thread.start();
+        });
+        //thread.start();
     }
     
     public void citationListClicked(Paper paper) {
+        cancelButtonClicked();
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
         final Paper myPaper = paper;
@@ -270,7 +290,8 @@ public class NavigationMaster {
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().hideNextButton();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().showPreviousButton();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().addListTitle(displayMaster.getCitationListHistory().getCurrentPosition(), myPaper.getTitle());
-        new Thread() {
+        //new Thread() {
+        displayMaster.getExecutorService().submit(new Runnable() {
             @Override
             public void run() {
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
@@ -292,14 +313,16 @@ public class NavigationMaster {
                     //Main.getDisplayController().displayErrorMessage("Null QueryResult on Listclicked...");
                 }
             }
-        }.start();
+        });//.start();
     }
 
     public void citationListMoreButtonClicked(int startMarker, final JLabel jLabel) {
+        cancelButtonClicked();
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         final Paper myPaper = displayMaster.getCitationListHistory().getCurrentPaper();
         final int startMarker1 = startMarker;
-        new Thread() {
+        //new Thread() {
+        displayMaster.getExecutorService().submit(new Runnable() {
             @Override
             public void run() {
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().showLoadingMoreButton();
@@ -324,18 +347,19 @@ public class NavigationMaster {
                 }
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().showNormalMoreButton();
             }
-        }.start();
+        });//.start();
     }
     
     public void authorPaperTableMoreButtonClicked(final Query q, final JButton button) {
+        cancelButtonClicked();
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         final int numResults = Constants.MaxResultsNum.AUTHOR_PAPERS.getValue();
         final String name = displayMaster.getQueryName();
-        Thread thread = new Thread() {
+        //Thread thread = new Thread() {
+        displayMaster.getExecutorService().submit(new Runnable() {
             @Override
             public void run() {
-                //cancelButtonClicked();
-                displayMaster.getThreads().add(this);
+                //displayMaster.getThreads().add(this);
                 final int start = q.num_results; 
                 //Query q1 = new Query.Builder("").flag(q.flag).ID(q.ID)
                 //                .numResult(numResults).startResult(numResults).build();
@@ -351,19 +375,20 @@ public class NavigationMaster {
                     //Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Author Details.");
                 }
             }
-        };
-        thread.start();
+        });
+        //thread.start();
     }
     
     public void metricPaperTableMoreButtonClicked(final PaperCollection paperCollection,final Query q,final JButton button) {
+        cancelButtonClicked();
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         final int numResults = q.num_results;
         final String name = displayMaster.getQueryName();
-        Thread thread = new Thread() {
+        //Thread thread = new Thread() {
+        displayMaster.getExecutorService().submit(new Runnable() {
             @Override
             public void run() {
-                //cancelButtonClicked();
-                displayMaster.getThreads().add(this);
+                //displayMaster.getThreads().add(this);
                 final int start = q.num_results; 
                 ContentRenderer contentRenderer = mainFrame.getRegularDisplayPanel().getDataVisualizationPanel()
                             .getContentDisplayPanel().getCentralContentDisplayPanel();
@@ -382,18 +407,20 @@ public class NavigationMaster {
                     //Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Author Details.");
                 }
             }
-        };
-        thread.start();
+        });
+        //thread.start();
     }
 
     public void citationListPreviousButtonClicked() {
+        cancelButtonClicked();
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         if (!displayMaster.getCitationListHistory().isCurrentPositionFirst()) {
             mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
             mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().showNextButton();
             final Paper myPaper = displayMaster.getCitationListHistory().gotoPreviousPaper();
             mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().addListTitle(displayMaster.getCitationListHistory().getCurrentPosition(), myPaper.getTitle());
-            new Thread() {
+            //new Thread() {
+            displayMaster.getExecutorService().submit(new Runnable() {
                 @Override
                 public void run() {
                     mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
@@ -413,7 +440,7 @@ public class NavigationMaster {
                         Main.getDisplayController().displayErrorMessage("Null QueryResult on Listclicked...");
                     }
                 }
-            }.start();
+            });//.start();
             if (displayMaster.getCitationListHistory().isCurrentPositionFirst()) {
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().hidePreviousButton();
             }
@@ -421,6 +448,7 @@ public class NavigationMaster {
     }
 
     public void citationListNextButtonClicked() {
+        cancelButtonClicked();
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
 
         if (!displayMaster.getCitationListHistory().isCurrentPositionLast()) {
@@ -428,7 +456,8 @@ public class NavigationMaster {
             mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().showPreviousButton();
             final Paper myPaper = displayMaster.getCitationListHistory().gotoNextPaper();
             mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().addListTitle(displayMaster.getCitationListHistory().getCurrentPosition(), myPaper.getTitle());
-            new Thread() {
+            //new Thread() {
+            displayMaster.getExecutorService().submit(new Runnable() {
                 @Override
                 public void run() {
                     mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
@@ -447,7 +476,7 @@ public class NavigationMaster {
                         Main.getDisplayController().displayErrorMessage("Null QueryResult on Listclicked...");
                     }
                 }
-            }.start();
+            });//.start();
         }
         if (displayMaster.getCitationListHistory().isCurrentPositionLast()) {
             mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().hideNextButton();

@@ -6,6 +6,7 @@ package citalyser.ui;
 
 import citalyser.ui.visualization.MainFrame;
 import java.util.Vector;
+import java.util.concurrent.ExecutorService;
 
 /**
  *
@@ -28,6 +29,8 @@ public interface DisplayController {
     public void emptyAutoCompleteSuggestions();
     
     public MainFrame getMainFrame();
+
+    public ExecutorService getExecutorServeice();
 
     
 }

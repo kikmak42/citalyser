@@ -1,4 +1,3 @@
-
 package citalyser.ui.visualization.panels.common;
 
 import citalyser.ui.control.DisplayMaster;
@@ -16,20 +15,19 @@ public class SearchPanel extends javax.swing.JPanel {
         initComponents();
         basicSearchPanel.setSearchPanel(this);
     }
-    
-    public void updateOnQueryStart()
-    {
+
+    public void updateOnQueryStart() {
         basicSearchPanel.resetProgressBar();
         setSearchButtonEnabled(false);
         basicSearchPanel.enableSearchBox(false);
     }
-    
-    public void updateOnQueryComplete()
-    {
+
+    public void updateOnQueryComplete() {
         basicSearchPanel.completeProgressBar();
         setSearchButtonEnabled(true);
         basicSearchPanel.enableSearchBox(true);
     }
+
     public String getMinYear() {
         return advancedSearchPanel.getMinYear();
     }
@@ -37,11 +35,11 @@ public class SearchPanel extends javax.swing.JPanel {
     public String getMaxYear() {
         return advancedSearchPanel.getMaxYear();
     }
-    
+
     public void setMinYear(int minYear) {
         advancedSearchPanel.setMinYear(Integer.toString(minYear));
     }
-    
+
     public void setMaxYear(int maxYear) {
         advancedSearchPanel.setMaxYear(Integer.toString(maxYear));
     }
@@ -61,7 +59,7 @@ public class SearchPanel extends javax.swing.JPanel {
     public void showYearRangePanel(boolean value) {
         advancedSearchPanel.showYearRangePanel(value);
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -147,8 +145,8 @@ public class SearchPanel extends javax.swing.JPanel {
 
     public void setSearchButtonEnabled(boolean value) {
         basicSearchPanel.setButtonEnabled(value);
-    }    
-    
+    }
+
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
         basicSearchPanel.setDisplayMaster(displayMaster);
@@ -158,7 +156,7 @@ public class SearchPanel extends javax.swing.JPanel {
     public void requestSearchFieldFocus() {
         basicSearchPanel.requestSearchFieldFocus();
     }
-    
+
     public void setSearchString(String searchString) {
         basicSearchPanel.setSearchString(searchString);
     }
@@ -170,15 +168,13 @@ public class SearchPanel extends javax.swing.JPanel {
     public Vector<String> getAutoCompleteSuggestions() {
         return autoCompleteSuggestions;
     }
-    
+
     public void updateProgressBar(int value) {
         basicSearchPanel.updateProgressBar(value);
     }
-    
     private boolean empty = true;
     private DisplayMaster displayMaster;
     private Vector<String> autoCompleteSuggestions;
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private citalyser.ui.visualization.panels.common.searchpanel.AdvancedSearchPanel advancedSearchPanel;
     private citalyser.ui.visualization.panels.common.searchpanel.BasicSearchPanel basicSearchPanel;

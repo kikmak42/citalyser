@@ -299,4 +299,9 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel impleme
         moreButton.setIcon(null);
     }
 
+    @Override
+    public boolean isMetric() {
+        return true;
+    }
+
 }

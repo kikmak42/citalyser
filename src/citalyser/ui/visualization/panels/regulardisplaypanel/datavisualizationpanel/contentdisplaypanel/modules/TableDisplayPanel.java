@@ -180,9 +180,9 @@ public class TableDisplayPanel extends javax.swing.JPanel {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         if (selectedPaper.getNumCites() != 0) {
             displayMaster.displayGraph(selectedPaper);
-        }
-        else
+        } else {
             displayMaster.displayErrorMessage("<html>Number of citations is zero<br />Unable to draw graph");
+        }
         displayMaster.showArticleSearch(false);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables

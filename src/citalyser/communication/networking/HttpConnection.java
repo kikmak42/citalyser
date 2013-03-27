@@ -36,12 +36,12 @@ import javax.imageio.ImageIO;
  *
  * @author aravind
  */
-
 public class HttpConnection {
+
     private static HttpURLConnection connection;
     private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(HttpConnection.class.getName());
     //@constants
-    
+
     /**
      * 
      * Makes an HTTP request to the specified URL.
@@ -52,16 +52,16 @@ public class HttpConnection {
      * @throws IOException 
      *              thrown if any I/O error occurred
      */
-    public static HttpURLConnection connectUrl(String requestURL,CProxy cproxy,String agentname)
-        throws IOException, URISyntaxException {
+    public static HttpURLConnection connectUrl(String requestURL, CProxy cproxy, String agentname)
+            throws IOException, URISyntaxException {
         //requestURL = URLEncoder.encode(requestURL,"UTF-8");
         logger.debug("Request Url : " + requestURL);
         URL url = new URL(requestURL);
-        URI uri = new URI(url.getProtocol(), url.getHost(), url.getPath(), url.getQuery(),null);
+        URI uri = new URI(url.getProtocol(), url.getHost(), url.getPath(), url.getQuery(), null);
         //URL url = new URI(requestURL).toURL();
         Proxy proxy = CommonUtils.getJavaProxyFromCProxy(cproxy);
-        
-        connection = (HttpURLConnection) (uri.toURL().openConnection(proxy)); 
+
+        connection = (HttpURLConnection) (uri.toURL().openConnection(proxy));
         //connection.setInstanceFollowRedirects(true);
         connection.setDoInput(true);
         connection.setDoOutput(false);
@@ -81,60 +81,57 @@ public class HttpConnection {
         HttpURLConnection connection = null;
         logger.info("Getting URL Text for : " + url);
         int responseCode = 0;
-        
+
         //Get proxies from file and add them
         List<CProxy> proxies = HttpConnectionUtils.getProxyList();
         logger.debug("No of Proxies : " + proxies.size());
-        for(int i = 0;i<proxies.size(); i++)
-        {
-            for(int j = 0;j<Constants.userAgents.length; j++)
-            {
-                logger.debug("Proxy : " + proxies.get(i).toString() +" UserAgent : "+Constants.userAgents[j]);
+        for (int i = 0; i < proxies.size(); i++) {
+            for (int j = 0; j < Constants.userAgents.length && !Thread.interrupted(); j++) {
+                logger.debug("Proxy : " + proxies.get(i).toString() + " UserAgent : " + Constants.userAgents[j]);
                 Main.getDisplayController().displayStatusMessage("Trying Proxy " + proxies.get(i).toString());
-                try{
-                    connection = connectUrl(url,proxies.get(i),Constants.userAgents[j]);
+                try {
+                    connection = connectUrl(url, proxies.get(i), Constants.userAgents[j]);
                     responseCode = connection.getResponseCode();
                     logger.debug("Response Code: " + responseCode);
-                    if(responseCode == Constants.OK_Response_Code)
-                    {
+                    if (responseCode == Constants.OK_Response_Code) {
                         /* update ProxyList */
-                        if(i!=0)
-                            updateProxyList(proxies,i);
+                        if (i != 0) {
+                            updateProxyList(proxies, i);
+                        }
                         /* Saving the html content */
                         DataInputStream response = new DataInputStream(connection.getInputStream());
                         BufferedReader reader = new BufferedReader(new InputStreamReader(response));
-                        StringBuffer urlResponse= new StringBuffer();
+                        StringBuffer urlResponse = new StringBuffer();
                         String line;
-                        while ((line = reader.readLine()) != null){
+                        while ((line = reader.readLine()) != null && !Thread.interrupted()) {
                             urlResponse.append(line);
                         }
                         reader.close();
                         Main.getDisplayController().displayStatusMessage("");
                         logger.debug("Returning String");
                         return urlResponse.toString();
-                        
+
                     }
-                }catch(ConnectException | UnknownHostException ex){
+                } catch (ConnectException | UnknownHostException ex) {
                     //ex.printStackTrace();
                     logger.error("Proxy : " + proxies.get(i) + " not working");
                     break;
-                }catch(SocketTimeoutException ex){
+                } catch (SocketTimeoutException ex) {
                     logger.error("Connection Timeout Connecting to  : " + proxies.get(i).toString());
                     break;
-                }
-                catch(Exception ex){
+                } catch (Exception ex) {
                     ex.printStackTrace();
                     logger.error("Error fetching content : " + ex.getMessage());
                 }
             }
         }
         logger.error("We could not connect to Google Scholar from any of the Proxies. "
-                    + "Please check your ProxyList or Try again Later.");
+                + "Please check your ProxyList or Try again Later.");
         Main.getDisplayController().displayErrorMessage("We could not connect to Google Scholar from any of the Proxies. "
-                    + "Please check your ProxyList or Try again Later.");
+                + "Please check your ProxyList or Try again Later.");
         return null;
     }
-    
+
 //    public static String getPage(String urlstr)
 //    {
 //    	HttpResponse response;
@@ -207,28 +204,23 @@ public class HttpConnection {
 //        }
 //    	return client;
 //    }
-    public static BufferedImage getImageFromUrl(String url)
-    {
+    public static BufferedImage getImageFromUrl(String url) {
         //logger.info("Getting Image from : " + url);
         int responseCode = 0;
         BufferedImage image = null;
         List<CProxy> proxies = Config.getProxylist();
-        if(proxies == null || proxies.size() ==0)
-        {
+        if (proxies == null || proxies.size() == 0) {
             proxies = new ArrayList<>();
             proxies.add(new CProxy());
         }
         logger.debug("No of Proxies : " + proxies.size());
-        for(int i = 0;i<proxies.size(); i++)
-        {
+        for (int i = 0; i < proxies.size() && !Thread.interrupted(); i++) {
             //logger.debug("Proxy : " + proxies.get(i).toString() +" UserAgent : "+Constants.userAgents[0]);
-            try
-            {
-                HttpURLConnection connection = connectUrl(url,proxies.get(i),Constants.userAgents[0]);
+            try {
+                HttpURLConnection connection = connectUrl(url, proxies.get(i), Constants.userAgents[0]);
                 responseCode = connection.getResponseCode();
                 logger.debug("Response Code : " + responseCode);
-                if(responseCode == Constants.OK_Response_Code)
-                {
+                if (responseCode == Constants.OK_Response_Code) {
                     /* Get the image content */
                     InputStream inStream = connection.getInputStream();
                     image = ImageIO.read(inStream);
@@ -236,20 +228,17 @@ public class HttpConnection {
                     inStream.close();
                     connection.disconnect();
                     return image;
-                }
-                else if(responseCode == Constants.NOT_FOUND_Code)
-                {
+                } else if (responseCode == Constants.NOT_FOUND_Code) {
                     return null;
                 }
-            }catch(ConnectException | UnknownHostException ex){
+            } catch (ConnectException | UnknownHostException ex) {
                 //ex.printStackTrace();
                 logger.error("Proxy : " + proxies.get(i) + " not working");
                 break;
-            }catch(SocketTimeoutException ex){
+            } catch (SocketTimeoutException ex) {
                 logger.error("Connection Timeout Connecting to  : " + proxies.get(i).toString());
                 break;
-            }
-            catch(Exception ex){
+            } catch (Exception ex) {
                 ex.printStackTrace();
                 logger.error("Error fetching Image : " + ex.getMessage());
             }
@@ -257,16 +246,14 @@ public class HttpConnection {
         //logger.debug("Returning null as image.");
         return null;
     }
-    
-    public static void updateProxyList(List<CProxy> proxies,int index)
-    {
+
+    public static void updateProxyList(List<CProxy> proxies, int index) {
         CProxy cproxy = proxies.get(index);
         //CommonUtils.setSystemProxy(cproxy);
-        if(!cproxy.getnoProxy())
-        {    
+        if (!cproxy.getnoProxy()) {
             logger.debug("Shifting proxy to top : " + cproxy.toString());
             proxies.remove(index);
-            proxies.add(0,cproxy);
+            proxies.add(0, cproxy);
             Config.setProxyList(proxies);
         }
     }

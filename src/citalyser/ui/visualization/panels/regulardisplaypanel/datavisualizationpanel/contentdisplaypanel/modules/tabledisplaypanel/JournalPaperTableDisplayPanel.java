@@ -282,4 +282,9 @@ public class JournalPaperTableDisplayPanel extends javax.swing.JPanel implements
             }
         }
     }
+
+    @Override
+    public boolean isMetric() {
+        return false;
+    }
 }

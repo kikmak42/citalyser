@@ -57,6 +57,7 @@ public class GridEntityPanel extends javax.swing.JPanel {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 32767));
         jPanel1 = new javax.swing.JPanel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(32767, 5));
         jPanel3 = new javax.swing.JPanel();
@@ -85,6 +86,10 @@ public class GridEntityPanel extends javax.swing.JPanel {
         jLabel1.setPreferredSize(new java.awt.Dimension(134, 136));
         jPanel2.add(jLabel1, java.awt.BorderLayout.CENTER);
 
+        filler3.setBackground(new java.awt.Color(153, 153, 255));
+        filler3.setOpaque(true);
+        jPanel2.add(filler3, java.awt.BorderLayout.LINE_END);
+
         add(jPanel2);
 
         jPanel1.setOpaque(false);
@@ -96,7 +101,7 @@ public class GridEntityPanel extends javax.swing.JPanel {
         jPanel3.setPreferredSize(new java.awt.Dimension(196, 25));
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel2.setForeground(new java.awt.Color(39, 60, 102));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Name of the Author");
@@ -158,6 +163,7 @@ public class GridEntityPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
+    private javax.swing.Box.Filler filler3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
