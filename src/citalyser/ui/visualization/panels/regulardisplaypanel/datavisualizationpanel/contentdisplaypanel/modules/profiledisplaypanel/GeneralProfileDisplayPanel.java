@@ -35,11 +35,11 @@ public class GeneralProfileDisplayPanel extends javax.swing.JPanel {
 
     public void displayGeneral(Query q,PaperCollection papercollection) {
 
-        jLabel3.setText(q.name.toUpperCase());
+        jLabel3.setText("Result for : "+q.name.toUpperCase());
         UiUtils.displayGraph(jLabel2, papercollection.getCitationForYear(),475,90);
         jLabel5.setText("H - Index : " + papercollection.getHIndex());
         jLabel6.setText("i10 - median : " + papercollection.getIIndex());
-        jLabel7.setText("Citation/Year : " + papercollection.getCitationForYear());
+        jLabel7.setText("Citation/Year : " + papercollection.getAvgCitationPerYear());
         jLabel8.setText("Citation/Paper : " + papercollection.getCitationPerPaper());
         jLabel9.setText("Total No. of Citations : " + papercollection.getTotalNumberOfCitations());
         jLabel10.setText("Total no. of Papers : " + papercollection.getPapers().size());

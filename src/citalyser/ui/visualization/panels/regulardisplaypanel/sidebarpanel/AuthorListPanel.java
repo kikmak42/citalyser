@@ -5,6 +5,7 @@
 package citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel;
 
 import citalyser.model.PaperCollection;
+import citalyser.ui.control.DisplayMaster;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -47,6 +48,12 @@ public class AuthorListPanel extends javax.swing.JPanel {
         jList1.setModel(list);
     }
 
+
+    public void setDisplayMaster(DisplayMaster displayMaster) {
+        this.displayMaster = displayMaster;
+    }
+    
+    private DisplayMaster displayMaster;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

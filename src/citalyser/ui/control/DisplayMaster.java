@@ -287,6 +287,7 @@ public class DisplayMaster {
         /* Initialise the citation panel */
         citationListHistory.clear();
         citationListHistory.addPaper(paper);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().hideNextButton();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel()
                 .getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel()
                 .initPanel(citationListHistory.getCurrentPosition(), myPaper.getTitle());
@@ -336,6 +337,7 @@ public class DisplayMaster {
         /* initialise the citation panel and history*/
         citationListHistory.clear();
         citationListHistory.addPaper(paper);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().hideNextButton();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel()
                 .getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel()
                 .initPanel(citationListHistory.getCurrentPosition(), myPaper.getTitle());
@@ -376,7 +378,7 @@ public class DisplayMaster {
         final Journal myJournal = journal;
         logger.debug("2345::::"+myJournal.getH5index());
         this.query_name = journal.getName();
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.75);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(true);
         Thread thread = new Thread() {
             @Override
@@ -445,6 +447,7 @@ public class DisplayMaster {
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
         final Paper myPaper = paper;
         citationListHistory.addPaper(paper);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().hideNextButton();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().showPreviousButton();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().addListTitle(citationListHistory.getCurrentPosition(), myPaper.getTitle());
         new Thread() {
@@ -509,7 +512,7 @@ public class DisplayMaster {
     /* This method is not used anywhere. Deprecated.*/
 
     public void renderGeneralProfile(ContentRenderer contentRenderer, Query query, PaperCollection papercollection) {
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.75);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToUpperDetailsDisplayPanel();
         if(query.flag == QueryType.GEN_JOURN){
             mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(true);
