@@ -4,11 +4,13 @@
  */
 package citalyser.model.query;
 
+import java.io.Serializable;
+
 /**
  *
  * @author rajkumar, Tanmay
  */
-public class Query{
+public class Query implements Serializable{
     public QueryType flag;
     public String name;
     public String ID;

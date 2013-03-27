@@ -1,5 +1,6 @@
 package citalyser.ui.control;
 
+import citalyser.Main;
 import citalyser.model.Paper;
 import citalyser.ui.control.masters.NavigationMaster;
 import citalyser.ui.control.masters.RenderMaster;
@@ -30,7 +31,7 @@ import org.apache.log4j.Logger;
 public class DisplayMaster {
 
     private MainFrame mainFrame;
-    private javax.swing.JDialog settingsDialog, abstractDialog;
+    private javax.swing.JDialog settingsDialog, abstractDialog,historyDialog;
     private ExternalPanel extraPanel;
     private AbstractDisplayPanel abstractDisplayPanel;
     private HistoryPanel historyPanel;
@@ -76,6 +77,15 @@ public class DisplayMaster {
         settingsDialog.setPreferredSize(new java.awt.Dimension(1349, 692));
         settingsDialog.setBackground(new Color(0, 0, 0, 0));
         settingsDialog.pack();
+        
+        historyDialog = new javax.swing.JDialog(mainFrame);
+        //historyDialog.setUndecorated(true);
+        historyDialog.setLocation(mainFrame.getRootPane().getX(), mainFrame.getRootPane().getY());
+        //historyDialog.getContentPane().setLayout(new java.awt.BorderLayout());
+        historyDialog.getContentPane().add(historyPanel);
+        historyDialog.setPreferredSize(new java.awt.Dimension(400, 400));
+        historyDialog.pack();
+        
         queryResultRenderingHandler = new QueryResultRenderingHandler(this);
         citationListHistory = new CitationListHistory();
     }
@@ -132,6 +142,16 @@ public class DisplayMaster {
         this.numberOfResults = numberOfResults;
     }
 
+    public void showHistoryPanel()
+    {
+        historyDialog.setVisible(true);
+        historyPanel.displayHistory(Main.historyHandler.getHistory());
+    }
+    public void hideHistoryPanel()
+    {
+        historyDialog.setVisible(false);
+    }
+    
     public int getNumberOfResults() {
         return numberOfResults;
     }

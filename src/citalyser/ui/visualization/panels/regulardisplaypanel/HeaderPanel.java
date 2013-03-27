@@ -168,6 +168,11 @@ public class HeaderPanel extends javax.swing.JPanel {
         jButton1.setContentAreaFilled(false);
         jButton1.setMaximumSize(new java.awt.Dimension(35, 35));
         jButton1.setOpaque(true);
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -278,6 +283,10 @@ public class HeaderPanel extends javax.swing.JPanel {
         searchPanel.showComboBox(!metric);
         searchPanel.showYearRangePanel(!metric);
     }//GEN-LAST:event_sourceSelectorActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        displayMaster.showHistoryPanel();
+    }//GEN-LAST:event_jButton1MouseClicked
 
     public SearchPanel getSearchPanel() {
         return searchPanel;

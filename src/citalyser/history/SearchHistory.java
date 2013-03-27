@@ -25,6 +25,7 @@ public class SearchHistory {
     }
 
     public void addQuery(Query query) {
+        logger.debug("Adding query : " + query.toString());
         query.timestamp = System.currentTimeMillis()/1000;
         historyMap.put(query.name, query);
         savehistory();
@@ -40,8 +41,8 @@ public class SearchHistory {
         return historyMap.keySet().toArray(new String[0]);
     }
 
-    public Query[] getHistory() {
-        return historyMap.values().toArray(new Query[0]);
+    public HashMap<String,Query> getHistory() {
+        return historyMap;
     }
     
     private HashMap<String,Query> loadHistory() {
@@ -59,7 +60,7 @@ public class SearchHistory {
             return historyMap;
         }
         catch(IOException | ClassNotFoundException ex){
-            logger.error("Error getting history.");
+            logger.error("Error getting history : " + ex.getMessage());
             f.delete();
             return new HashMap<String,Query>();
         }

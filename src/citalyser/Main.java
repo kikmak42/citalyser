@@ -36,12 +36,13 @@ public class Main {
         
         /* Load the Config File*/
         Config.init(settingsDirectory);
-        
-        /* Load Search History in memory*/
-        historyHandler = new SearchHistory();
-        
+          
         displayController = new DisplayControllerImpl();
         displayController.initializeDisplay();
+        
+         /* Load Search History in memory*/
+        historyHandler = new SearchHistory();
+      
     }
     
 

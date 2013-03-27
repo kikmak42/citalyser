@@ -14,10 +14,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -28,10 +27,12 @@ public class HistoryPanel extends javax.swing.JPanel {
     /**
      * Creates new form HistoryPanel
      */
+    static Logger logger = Logger.getLogger(HistoryPanel.class.getName());
     private HashMap<String,Query> historyMap;
     private DisplayMaster displayMaster;
     public HistoryPanel() {
         initComponents();
+        //setBackground(new java.awt.Color(0, 0, 0, 150));
     }
      public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
@@ -39,11 +40,14 @@ public class HistoryPanel extends javax.swing.JPanel {
     public void displayHistory(HashMap<String,Query> hm)
     {
         this.historyMap = hm;
+        logger.debug("Hashmap : " + hm.keySet().toString());
         jTable1.setModel(getTableModel(hm));
+        this.setVisible(true);
     }
     
     private TableModel getTableModel(HashMap<String,Query> hm)
     {
+        
         final String[] columnNames = {"S. No","Query String", "Time"};
         Object[][] data = new Object[hm.keySet().size()][columnNames.length];
         Set<String> keys = hm.keySet();
@@ -54,14 +58,18 @@ public class HistoryPanel extends javax.swing.JPanel {
             data[i][1] = query;
             Query q = hm.get(query);
             /* Get the date*/
+            logger.debug("Timestamp : " + q.timestamp);
             DateFormat format = new SimpleDateFormat("MMddyyHHmmss");
             String dateStr = "";
             try {
-                Date date = format.parse(Long.toString(q.timestamp));
+                Date date = format.parse(Long.toString(q.timestamp*1000));
+                dateStr = date.toString();
             } catch (ParseException ex) {
+                logger.error("Error Converting timestamp : " + ex.getMessage());;
                 dateStr = "";
             }
-            data[i][1] = dateStr;
+            data[i][2] = dateStr;
+            logger.debug("Date : " + dateStr);
             i++;
         }
         
@@ -100,7 +108,8 @@ public class HistoryPanel extends javax.swing.JPanel {
         historytitlelbl = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        okbtn = new javax.swing.JButton();
+
+        setAutoscrolls(true);
 
         historytitlelbl.setBackground(new java.awt.Color(0, 0, 255));
         historytitlelbl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -108,17 +117,30 @@ public class HistoryPanel extends javax.swing.JPanel {
         historytitlelbl.setText("My Search History");
         historytitlelbl.setToolTipText("Click to Run Query");
 
+        jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "S. No", "Query String", "Time"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -126,36 +148,23 @@ public class HistoryPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        okbtn.setText("OK");
-        okbtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                okbtnMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(historytitlelbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addComponent(historytitlelbl, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(157, 157, 157)
-                .addComponent(okbtn)
-                .addContainerGap(196, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(historytitlelbl, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(okbtn)
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -166,18 +175,13 @@ public class HistoryPanel extends javax.swing.JPanel {
             Query q = this.historyMap.get(searchQuery); 
             UiUtils.displayQueryStartInfoMessage(q.flag, searchQuery);
             displayMaster.getSearchMaster().fetchResults(q, CommonUtils.getMaxResultsByQueryType(q.flag),q.num_results);
-            this.setVisible(false);
+            displayMaster.hideHistoryPanel();
         }
     }//GEN-LAST:event_jTable1MouseClicked
-
-    private void okbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_okbtnMouseClicked
-        this.setVisible(false);
-    }//GEN-LAST:event_okbtnMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel historytitlelbl;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JButton okbtn;
     // End of variables declaration//GEN-END:variables
 }
