@@ -59,8 +59,6 @@ public class SidebarPanel extends javax.swing.JPanel {
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setOpaque(false);
         jSplitPane1.setTopComponent(advancedSearchPanel);
-
-        authorListPanel.setOpaque(false);
         jSplitPane1.setRightComponent(authorListPanel);
 
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
@@ -70,4 +68,9 @@ public class SidebarPanel extends javax.swing.JPanel {
     private citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel authorListPanel;
     private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
+ public void clearAll() {
+        authorListPanel.clear();
+        displayMaster.clearCitationHistory();
+        System.gc();
+    }
 }
