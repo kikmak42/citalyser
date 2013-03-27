@@ -150,7 +150,7 @@ public class CreateGraph {
                 new Transformer<nodeInfo, Shape>() {
                     @Override
                     public Shape transform(nodeInfo i) {
-                        return new Rectangle(100, 20);
+                        return new Rectangle(150, 20);
                     }
                 };
 

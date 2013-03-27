@@ -82,7 +82,10 @@ public class Parser {
             if (!author_section_b.isEmpty()) {
                 Element section = author_section_b.get(0);
                 String section_text = section.text();
-                insertInextractedpapers.setInfo(section_text);
+                if(section_text.equals(null))
+                    insertInextractedpapers.setInfo(" ");
+                else
+                    insertInextractedpapers.setInfo(section_text);
                 String[] list = section_text.split(" - … ,? | - ");
                 int len = list.length;
 
