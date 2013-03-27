@@ -210,7 +210,7 @@ public class JournalPaperTableDisplayPanel extends javax.swing.JPanel implements
             if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
                 if (jTable1.rowAtPoint(evt.getPoint()) != disabledRow) {
                     if(clickedPaper.getNumCites() > 0) {
-                        displayMaster.tableClicked(clickedPaper);
+                        displayMaster.getNavigationMaster().tableClicked(clickedPaper);
                     } else {
                        displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
                     }
@@ -276,7 +276,7 @@ public class JournalPaperTableDisplayPanel extends javax.swing.JPanel implements
         if (jTable1.rowAtPoint(point) > -1) {
             Paper clickedPaper = paperCollection.getPapers().get(jTable1.rowAtPoint(point));
             if(clickedPaper.getNumCites() > 0) {
-                displayMaster.tableClicked(clickedPaper);
+                displayMaster.getNavigationMaster().tableClicked(clickedPaper);
             } else {
                displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
             }

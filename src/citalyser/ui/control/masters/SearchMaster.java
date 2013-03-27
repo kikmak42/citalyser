@@ -34,6 +34,7 @@ public class SearchMaster {
     }
 
     public void searchKeyPressed(SearchPanel searchPanel, char key) {
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         if (key == java.awt.event.KeyEvent.VK_ENTER) {
             searchButtonClicked(searchPanel);
         }
@@ -59,6 +60,7 @@ public class SearchMaster {
     }
 
     public void searchButtonClicked(SearchPanel searchPanel) {
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
             if (!searchPanel.getSearchString().equals(" Enter Your Search Query Here") && !searchPanel.getSearchString().equals("")) {
                 handleUserQuery(searchPanel);
@@ -197,7 +199,7 @@ public class SearchMaster {
             }
         };
         thread.start();
-        displayMaster.addThread(thread);
+        displayMaster.getNavigationMaster().addThread(thread);
     }
 
     private void handleUserQuery(SearchPanel searchPanel) {

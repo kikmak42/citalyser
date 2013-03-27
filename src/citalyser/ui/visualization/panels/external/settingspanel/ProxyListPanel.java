@@ -184,16 +184,16 @@ public class ProxyListPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        displayMaster.openAddNewProxyWindow();
+        displayMaster.getSettingsMaster().openAddNewProxyWindow();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        displayMaster.removeSelectedProxyEntry();
+        displayMaster.getSettingsMaster().removeSelectedProxyEntry();
         jButton3.setEnabled(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        displayMaster.openEditExistingProxyWindow();
+        displayMaster.getSettingsMaster().openEditExistingProxyWindow();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

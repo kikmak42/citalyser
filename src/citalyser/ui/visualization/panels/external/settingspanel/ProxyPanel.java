@@ -152,15 +152,15 @@ public class ProxyPanel extends javax.swing.JPanel {
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        displayMaster.cancelNewProxyButtonClicked();
+        displayMaster.getSettingsMaster().cancelNewProxyButtonClicked();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             CProxy proxy = new CProxy(jTextField1.getText(), Integer.parseInt(jTextField2.getText()), jTextField3.getText(), new String(jPasswordField1.getPassword()));
-            displayMaster.singleProxySettingsConfirmed(proxy);
+            displayMaster.getSettingsMaster().singleProxySettingsConfirmed(proxy);
         } catch (NumberFormatException ex) {
-            displayMaster.singleProxySettingsConfirmed(null);
+            displayMaster.getSettingsMaster().singleProxySettingsConfirmed(null);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

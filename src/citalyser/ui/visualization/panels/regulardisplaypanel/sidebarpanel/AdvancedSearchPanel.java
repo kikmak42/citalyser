@@ -205,7 +205,7 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        displayMaster.generalSearch(jTextField1.getText(), jTextField3.getText(), jTextField4.getText(), jTextField5.getText());
+        //displayMaster.generalSearch(jTextField1.getText(), jTextField3.getText(), jTextField4.getText(), jTextField5.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private DisplayMaster displayMaster;
