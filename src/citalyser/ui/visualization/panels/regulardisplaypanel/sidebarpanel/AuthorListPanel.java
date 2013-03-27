@@ -8,6 +8,8 @@ import citalyser.model.PaperCollection;
 import citalyser.ui.control.DisplayMaster;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
@@ -21,6 +23,7 @@ import javax.swing.border.LineBorder;
  * @author kaushik
  */
 public class AuthorListPanel extends javax.swing.JPanel {
+    private PaperCollection paperCollection;
 
     /**
      * Creates new form AuthorListPanel
@@ -40,7 +43,7 @@ public class AuthorListPanel extends javax.swing.JPanel {
             jCheckBox.setBorderPainted(true);
             list.add(i, jCheckBox);
             //list.addElement(authors.get(i));          
-
+           
         }
         jList1.setModel(list);
     }
@@ -107,8 +110,12 @@ public class AuthorListPanel extends javax.swing.JPanel {
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         if (jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).isSelected()) {
             jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).setSelected(false);
+            displayMaster.displayStatusMessage("Unticked : "+jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
+            System.out.println(paperCollection.getAuthorPos(jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText()));
+      
         } else {
             jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).setSelected(true);
+            displayMaster.displayStatusMessage("Ticked : "+jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
         }
         jList1.repaint();
     }//GEN-LAST:event_jList1MouseClicked
@@ -123,6 +130,7 @@ public class AuthorListPanel extends javax.swing.JPanel {
 
     public void displayAuthors(PaperCollection paperCollection) {
         setList(paperCollection.extractAuthors());
+        this.paperCollection = paperCollection;
     }
 
     public void clear() {

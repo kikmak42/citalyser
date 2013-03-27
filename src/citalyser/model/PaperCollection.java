@@ -98,6 +98,19 @@ public class PaperCollection implements Serializable {
         }
         return retPos;
     }
+    public ArrayList<Integer> getAuthorPos(String auth) {
+        ArrayList<Integer> retPos = new ArrayList<>();
+        
+            int i=0;
+            for (String au : this.uniqueAuthorList) {
+                if(auth.equals(au)) {
+                    retPos.add(i);
+                }
+                i++;
+            }
+        
+        return retPos;
+    }
 
     public ArrayList<Paper> extractPaperByYear(int low, int high) {
         ArrayList<Paper> retval = new ArrayList<>();
