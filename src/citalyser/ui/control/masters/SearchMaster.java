@@ -115,7 +115,7 @@ public class SearchMaster {
         /* Show Loading sign in the central panel*/
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
         /* Update the Search Panel on query Init*/
-        mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(false);
+        mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryStart();
                 
         Thread thread = new Thread() {
 
@@ -142,15 +142,15 @@ public class SearchMaster {
                     
                     currResult = QueryHandler.getInstance().getQueryResult(q);
                     if (currResult == null) {
-                        logger.debug("Curr Result is null");
+                        logger.debug("Current result is null");
                         break;
                     }
                     
-                    if (start == 0) {
+                    if (start == 0) 
                         globalResult = currResult;
-                    } else {
+                    else 
                         globalResult.appendContents(currResult.getContents());
-                    }
+                    
                     recvCount+=currResult.getNumContents();
                     
                     /* Hack for further fetching of results in case of Author Grid*/
@@ -166,7 +166,7 @@ public class SearchMaster {
                     if (Thread.interrupted()) {
                         break;
                     }
-                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateProgressBar((start*100)/numResults);
+                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateProgressBar((recvCount*100)/totalCount);
                     displayMaster.getQueryResultRenderingHandler().render(dataContentRenderer, q, currResult);
                     displayMaster.getQueryResultRenderingHandler().renderProfile(profileContentRenderer, q, globalResult);
                     start += count;
@@ -174,15 +174,26 @@ public class SearchMaster {
                     if(recvCount < start)
                         break;
                 }
-                // Query Completed. 
                 /* Update the search panel*/
-                mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(true);
-                /* If no results, show EmptyResult Message */
-                if(recvCount == 0) {
-                    UiUtils.displayQueryEmptyMessage(dataContentRenderer,q.flag, searchQuery);
+                mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryComplete();
+                    
+                // Query Completed. 
+                if(globalResult == null)
+                {
+                    //Result is null
+                    /* Show Loading sign in the central panel*/
+                    mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().stopLoading();
+                    UiUtils.displayResultNullMessage(q.flag, searchQuery);
                 }
-                /* Show Query Completion Message*/
-                UiUtils.displayQueryCompleteInfoMessage(q.flag,recvCount,searchQuery);
+                else
+                {
+                    /* If no results, show EmptyResult Message */
+                    if(recvCount == 0) {
+                        UiUtils.displayQueryEmptyMessage(dataContentRenderer,q.flag, searchQuery);
+                    }
+                    /* Show Query Completion Message*/
+                    UiUtils.displayQueryCompleteInfoMessage(q.flag,recvCount,searchQuery);
+                }
             }
         };
         thread.start();

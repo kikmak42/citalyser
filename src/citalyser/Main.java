@@ -37,7 +37,7 @@ public class Main {
         
         displayController = new DisplayControllerImpl();
         displayController.initializeDisplay();
-        Paper paper = new Paper();
+        /*Paper paper = new Paper();
         paper.setTitle("Universal messaging service using single voice grade telephone line within a client/server architecture");
         Author a = new Author("AK Golder");
         ArrayList<Author> arr = new ArrayList<>();
@@ -47,6 +47,7 @@ public class Main {
         paper.setCitedByUrl("http://scholar.google.co.in/scholar?oi=bibs&hl=en&cites=10153773069743616474&start=0&num=20&as_vis=1&as_sdt=1%2C5");
 
         getDisplayController().getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getGraphViewPanel().setPaper(paper);
+        */
     }
     
 

@@ -21,9 +21,13 @@ import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpa
 import citalyser.util.CommonUtils;
 import java.awt.Point;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.apache.log4j.Logger;
@@ -82,6 +86,14 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
         } else {
             this.paperCollection = paperCollection;
         }
+        logger.debug("Query sort flag : " + q.sort_flag);
+        List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
+        if(q.sort_flag == 0)
+            sortKeys.add(new RowSorter.SortKey(3, SortOrder.DESCENDING));
+        else
+            sortKeys.add(new RowSorter.SortKey(2, SortOrder.DESCENDING));
+        jTable1.getRowSorter().setSortKeys(sortKeys);
+        
         jTable1.getColumnModel().getColumn(0).setMaxWidth(33);
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTable1.getColumnModel().getColumn(2).setMaxWidth(32);
@@ -142,7 +154,7 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false

@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package citalyser.ui.model;
 
 import citalyser.model.Journal;
@@ -25,9 +22,15 @@ public class TableModelHandler {
         String[] columnNames = {"S.No", "Title", "Year", "# Citations", "Author/(s)", "Journal/(s)"};
         Object[][] data = new Object[papers.size()][columnNames.length];
         for (int i = 0; i < papers.size(); i++) {
+            int year = papers.get(i).getYear();
+            String yearstr;
+            if(year == 0)
+                yearstr = "Any";
+            else
+                yearstr = Integer.toString(papers.get(i).getYear());
             data[i][0] = new Integer(i + 1);
             data[i][1] = papers.get(i).getTitle();
-            data[i][2] = new Integer(papers.get(i).getYear());
+            data[i][2] = yearstr;
             data[i][3] = new Integer(papers.get(i).getNumCites());
             data[i][4] = convertToString(papers.get(i).getAuthors());
             data[i][5] = papers.get(i).getJournalString();

@@ -324,6 +324,13 @@ public class DisplayMaster {
                     } else {
                         UiUtils.displayQueryEmptyMessage(contentRenderer, q.flag, myPaper.getTitle());
                     }
+                }else{
+                    /* Show Loading sign in Citation panel*/
+                    UiUtils.displayResultNullMessage(q.flag,myPaper.getTitle());
+                    mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel()
+                        .getDetailsDisplayPanel().getLowerDetailsDisplayPanel().stopLoading();
+                    
+        
                 }
             }
         };
@@ -386,6 +393,10 @@ public class DisplayMaster {
         this.query_name = journal.getName();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(true);
+        /* Show Loading sign*/
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel().showLoading();
+        
         Thread thread = new Thread() {
             @Override
             public void run() {
@@ -406,7 +417,9 @@ public class DisplayMaster {
                         UiUtils.displayQueryEmptyMessage(contentRenderer, q.flag, myJournal.getName());
                     }
                 } else {
-                    Main.getDisplayController().displayErrorMessage("Unknown Error while Fetching Journal Papers.");
+                    UiUtils.displayResultNullMessage(q.flag,myJournal.getName());
+                    mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().stopLoading();
+                    mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel().stopLoading();
                 }
             }
         };
@@ -417,8 +430,18 @@ public class DisplayMaster {
     }
 
     public void authorGridEntityClicked(Author author) {
+        
+        /* Update the UI elements to reflect the change.*/
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
-
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().clearAll();
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().clearAll();
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(false);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel().showLoading();
+        /* Disable the Search button*/
+        mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryStart();
+        
         final String authorName = author.getName();
         final String myId = author.getId();
         this.query_name = author.getName();
@@ -428,12 +451,6 @@ public class DisplayMaster {
             public void run() {
                 //cancelButtonClicked();
                 threads.add(this);
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().clearAll();
-                mainFrame.getRegularDisplayPanel().getSidebarPanel().clearAll();
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(false);
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
-                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel().showLoading();
                 Query q = new Query.Builder("").flag(QueryType.AUTH_PROF).ID(myId).numResult(numResults).build();
                 UiUtils.displayQueryStartInfoMessage(q.flag, authorName);
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
@@ -443,8 +460,11 @@ public class DisplayMaster {
                     renderProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), q, (Author) queryResult.getContents());
                     mainFrame.getRegularDisplayPanel().getSidebarPanel().getAuthorListPanel().displayAuthors(((Author)(queryResult.getContents())).getPaperCollection());
                 } else {
-                    //Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Author Details.");
+                    UiUtils.displayResultNullMessage(q.flag, authorName);
+                    mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().stopLoading();
+                    mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel().stopLoading();
                 }
+                mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryComplete();
             }
         };
         thread.start();
@@ -637,10 +657,6 @@ public class DisplayMaster {
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().showNormalMoreButton();
             }
         }.start();
-    }
-
-    public void showLoading() {
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
     }
 
     public void setDisplayPreview(boolean selected) {

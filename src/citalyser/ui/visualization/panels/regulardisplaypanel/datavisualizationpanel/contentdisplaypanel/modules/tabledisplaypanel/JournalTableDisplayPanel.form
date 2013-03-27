@@ -38,7 +38,7 @@
               <Table columnCount="6" rowCount="0">
                 <Column editable="false" title="S.No." type="java.lang.Integer"/>
                 <Column editable="false" title="Title" type="java.lang.String"/>
-                <Column editable="false" title="Year" type="java.lang.Integer"/>
+                <Column editable="false" title="Year" type="java.lang.String"/>
                 <Column editable="false" title="#Citations" type="java.lang.Integer"/>
                 <Column editable="false" title="Authors" type="java.lang.String"/>
                 <Column editable="false" title="Journals" type="java.lang.String"/>
@@ -62,12 +62,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="exporttocsvbtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Export To CSV"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exporttocsvbtnActionPerformed"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">

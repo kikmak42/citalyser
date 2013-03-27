@@ -17,6 +17,19 @@ public class SearchPanel extends javax.swing.JPanel {
         basicSearchPanel.setSearchPanel(this);
     }
     
+    public void updateOnQueryStart()
+    {
+        basicSearchPanel.resetProgressBar();
+        setSearchButtonEnabled(false);
+        basicSearchPanel.enableSearchBox(false);
+    }
+    
+    public void updateOnQueryComplete()
+    {
+        basicSearchPanel.completeProgressBar();
+        setSearchButtonEnabled(true);
+        basicSearchPanel.enableSearchBox(true);
+    }
     public String getMinYear() {
         return advancedSearchPanel.getMinYear();
     }
@@ -132,7 +145,7 @@ public class SearchPanel extends javax.swing.JPanel {
         add(jPanel2, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setButtonEnabled(boolean value) {
+    public void setSearchButtonEnabled(boolean value) {
         basicSearchPanel.setButtonEnabled(value);
     }    
     

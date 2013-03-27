@@ -169,7 +169,11 @@ public class UpperDetailsDisplayPanel extends javax.swing.JPanel implements Cont
         ((java.awt.CardLayout) this.getLayout()).show(this, "loadingDisplayPanelCard");
         loadingDisplayPanel.reload();
     }
-
+   
+    @Override
+    public void stopLoading() {
+        loadingDisplayPanel.stopLoading();
+    }
     @Override
     public void clearAll() {
         gridDisplayPanel.clear();

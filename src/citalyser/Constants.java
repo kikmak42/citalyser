@@ -8,7 +8,7 @@ package citalyser;
  */
 public class Constants {
     
-    public static int SERVER_READOUT_TIME = 10000;
+    public static int SERVER_READOUT_TIME = 20000;
 
     public static String[] userAgents = {
 //            "Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201",

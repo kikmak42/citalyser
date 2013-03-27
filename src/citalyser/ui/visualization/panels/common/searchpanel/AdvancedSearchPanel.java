@@ -200,11 +200,11 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        if (jComboBox1.getSelectedIndex() == 0) {
+        /*if (jComboBox1.getSelectedIndex() == 0) {
             ((CardLayout) jPanel7.getLayout()).last(jPanel7);
         } else {
             ((CardLayout) jPanel7.getLayout()).first(jPanel7);
-        }
+        }*/
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -183,7 +183,11 @@ public class CentralContentDisplayPanel extends javax.swing.JPanel implements Co
         ((java.awt.CardLayout) this.getLayout()).show(this, "loadingDisplayPanelCard");
         loadingDisplayPanel.reload();
     }
-
+    
+    public void stopLoading()
+    {
+        loadingDisplayPanel.stopLoading();
+    }
     @Override
     public void clearAll() {
         gridDisplayPanel.clear();
