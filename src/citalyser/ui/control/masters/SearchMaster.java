@@ -108,7 +108,7 @@ public class SearchMaster {
         }
     }
 
-    private void fetchResults(final Query q, final int maxResultsAtOneTime, final int numResults) {
+    public void fetchResults(final Query q, final int maxResultsAtOneTime, final int numResults) {
                 
         /* Clear all panels*/
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().clearAll();
