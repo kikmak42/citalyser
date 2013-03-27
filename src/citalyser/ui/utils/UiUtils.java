@@ -22,10 +22,12 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
 import java.util.logging.Level;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import org.apache.log4j.Logger;
+import sun.misc.JavaxSecurityAuthKerberosAccess;
 
 /**
  *
@@ -64,13 +66,16 @@ public class UiUtils {
     public static void displayImage(final javax.swing.JLabel myLabel, final String myImgSource, final int myWidth, final int myHeight) {
 
         try {
-            new Thread() {
-
+            //new Thread() {
+            Main.getDisplayController().getExecutorServeice().submit(new Runnable() {
                 @Override
                 public void run() {
                     myLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/loadingImage.gif")));
                     QueryResult<?> q = (QueryResult<?>) QueryHandler.getInstance().getQueryResult(
                             new Query.Builder("").flag(QueryType.IMAGE_FROM_LINK).Url(myImgSource).build());
+                    if (Thread.interrupted()) {
+                        return;
+                    }
                     ImageIcon img;
                     if (q instanceof ImageResult) {
                         int imageStart = 0;
@@ -97,7 +102,7 @@ public class UiUtils {
                         myLabel.setIcon(new ImageIcon(img1));
                     }
                 }
-            }.start();
+            });//.start();
         } catch (Exception ex) {
             logger.error("Error creating thread for getting image... : " + ex.getMessage());
             ex.printStackTrace();

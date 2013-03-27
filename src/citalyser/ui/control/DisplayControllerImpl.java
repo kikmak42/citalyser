@@ -6,6 +6,7 @@ package citalyser.ui.control;
 
 import citalyser.ui.visualization.MainFrame;
 import java.util.Vector;
+import java.util.concurrent.ExecutorService;
 
 /**
  *
@@ -53,6 +54,11 @@ public class DisplayControllerImpl implements citalyser.ui.DisplayController {
     @Override
     public MainFrame getMainFrame() {
         return displayMaster.getMainFrame();
+    }
+
+    @Override
+    public ExecutorService getExecutorServeice() {
+        return displayMaster.getExecutorService();
     }
     
 }

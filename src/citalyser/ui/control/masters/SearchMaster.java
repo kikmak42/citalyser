@@ -3,7 +3,6 @@ package citalyser.ui.control.masters;
 import citalyser.Constants;
 import citalyser.Main;
 import citalyser.model.Author;
-import citalyser.model.PaperCollection;
 import citalyser.model.query.Query;
 import citalyser.model.query.QueryHandler;
 import citalyser.model.query.QueryResult;
@@ -14,7 +13,6 @@ import citalyser.ui.model.ContentRenderer;
 import citalyser.ui.utils.UiUtils;
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.common.SearchPanel;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Vector;
 import org.apache.log4j.Logger;
@@ -110,6 +108,7 @@ public class SearchMaster {
     }
 
     public void fetchResults(final Query q, final int maxResultsAtOneTime, final int numResults) {
+        //displayMaster.getNavigationMaster().cancelButtonClicked();
 
         /* Clear all panels*/
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().clearAll();
@@ -120,7 +119,8 @@ public class SearchMaster {
         /* Update the Search Panel on query Init*/
         mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryStart();
 
-        Thread thread = new Thread() {
+        //Thread thread = new Thread() {
+        displayMaster.getExecutorService().submit(new Runnable() {
             @Override
             public void run() {
                 String searchQuery = q.name;
@@ -197,9 +197,9 @@ public class SearchMaster {
                     UiUtils.displayQueryCompleteInfoMessage(q.flag, recvCount, searchQuery);
                 }
             }
-        };
-        thread.start();
-        displayMaster.getNavigationMaster().addThread(thread);
+        });
+        //thread.start();
+        //displayMaster.getNavigationMaster().addThread(thread);
     }
 
     private void handleUserQuery(SearchPanel searchPanel) {
@@ -207,13 +207,34 @@ public class SearchMaster {
         int maxResults;
         String searchQuery = searchPanel.getSearchString();
         int numResults = displayMaster.getNumberOfResults();
-        String min_year = displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getMinYear();
-        String max_year = displayMaster.getMainFrame().getRegularDisplayPanel().getHeaderPanel().getSearchPanel().getMaxYear();
-        int minYear = 0;
-        int maxYear = 0;
-        int minyear = 0;
-        int maxyear = 0;
         boolean year_empty = searchPanel.isYearEmpty();
+        String year_low = searchPanel.getMinYear();
+        String year_high = searchPanel.getMaxYear();
+        try {
+            Integer.getInteger(year_low);
+        } catch (Exception e) {
+            if (!year_high.equals("")) {
+                searchPanel.setMinYear(1900);
+            }
+        }
+        try {
+            Integer.getInteger(year_high);
+        } catch (Exception e) {
+            if (!year_high.equals("")) {
+                searchPanel.setMaxYear(2100);
+            }
+
+        }
+
+        if (!searchPanel.getMaxYear().equals("")&&!searchPanel.getMinYear().equals("")) {
+            if(Integer.parseInt(searchPanel.getMaxYear()) < Integer.parseInt(searchPanel.getMinYear())){
+                String str = searchPanel.getMaxYear();
+                searchPanel.setMaxYear(Integer.parseInt(searchPanel.getMinYear()));
+                searchPanel.setMinYear(Integer.parseInt(str));
+            } 
+        }
+
+
         /*if(min_year.equals("")&& max_year.equals("")){
          year_empty = true;
          //minYear = min_year;
@@ -245,6 +266,7 @@ public class SearchMaster {
         boolean sortByYear = searchPanel.isSortByYear();
         boolean isAuthorQuery = displayMaster.checkAuthorMode();
         boolean isMetricQuery = mainFrame.getRegularDisplayPanel().getHeaderPanel().isMetric();
+
 
         String minYearStr = searchPanel.getMinYear(), maxYearStr = searchPanel.getMaxYear();
 

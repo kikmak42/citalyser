@@ -1,41 +1,26 @@
 package citalyser.ui.control;
 
-import citalyser.Constants;
-import citalyser.Main;
-import citalyser.model.Author;
-import citalyser.model.Journal;
 import citalyser.model.Paper;
-import citalyser.model.PaperCollection;
-import citalyser.model.query.Query;
-import citalyser.model.query.QueryHandler;
-import citalyser.model.query.QueryResult;
-import citalyser.model.query.QueryType;
-import citalyser.model.query.queryresult.AuthorResult;
 import citalyser.ui.control.masters.NavigationMaster;
 import citalyser.ui.control.masters.RenderMaster;
 import citalyser.ui.control.masters.SearchMaster;
 import citalyser.ui.control.masters.SettingsMaster;
 import citalyser.ui.control.switchers.QueryResultRenderingHandler;
 import citalyser.ui.model.CitationListHistory;
-import citalyser.ui.model.ContentRenderer;
-import citalyser.ui.utils.UiUtils;
-import citalyser.util.CProxy;
 
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.ExternalPanel;
 import citalyser.ui.visualization.panels.HistoryPanel;
 import citalyser.ui.visualization.panels.common.SearchPanel;
 import citalyser.ui.visualization.panels.external.AbstractDisplayPanel;
-import citalyser.util.CommonUtils;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.Vector;
-import javax.swing.JButton;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import org.apache.log4j.Logger;
 
 /**
@@ -60,6 +45,7 @@ public class DisplayMaster {
     private final Vector<Thread> threads = new Vector<>();
     private boolean showPaperPreview = true;
     private String queryName;
+    private ExecutorService executorService = Executors.newCachedThreadPool();
 
     public DisplayMaster() {
         mainFrame = new MainFrame();
@@ -112,6 +98,14 @@ public class DisplayMaster {
 
     public NavigationMaster getNavigationMaster() {
         return navigationMaster;
+    }
+
+    public ExecutorService getExecutorService() {
+        return executorService;
+    }
+
+    public void setExecutorService(ExecutorService executorService) {
+        this.executorService = executorService;
     }
 
     public Vector<Thread> getThreads() {

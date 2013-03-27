@@ -12,4 +12,5 @@ import java.awt.Point;
  */
 public interface TableDisplayPanelInterface {
     public void callLeftClickedEvent(Point point);
+    public boolean isMetric();
 }

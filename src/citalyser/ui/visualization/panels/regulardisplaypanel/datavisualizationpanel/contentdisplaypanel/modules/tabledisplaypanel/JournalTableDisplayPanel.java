@@ -187,4 +187,9 @@ public class JournalTableDisplayPanel extends javax.swing.JPanel implements Tabl
             displayMaster.getNavigationMaster().tableClicked(journals.get(jTable1.rowAtPoint(point)));
         }
     }
+
+    @Override
+    public boolean isMetric() {
+        return true;
+    }
 }
