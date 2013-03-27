@@ -38,7 +38,7 @@
               <Table columnCount="6" rowCount="0">
                 <Column editable="false" title="S.No." type="java.lang.Integer"/>
                 <Column editable="false" title="Title" type="java.lang.String"/>
-                <Column editable="false" title="Year" type="java.lang.Integer"/>
+                <Column editable="false" title="Year" type="java.lang.String"/>
                 <Column editable="false" title="#Citations" type="java.lang.Integer"/>
                 <Column editable="false" title="Authors" type="java.lang.String"/>
                 <Column editable="false" title="Journals" type="java.lang.String"/>

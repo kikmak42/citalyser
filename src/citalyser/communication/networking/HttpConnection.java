@@ -110,6 +110,7 @@ public class HttpConnection {
                         }
                         reader.close();
                         Main.getDisplayController().displayStatusMessage("");
+                        logger.debug("Returning String");
                         return urlResponse.toString();
                         
                     }
@@ -208,7 +209,7 @@ public class HttpConnection {
 //    }
     public static BufferedImage getImageFromUrl(String url)
     {
-        logger.info("Getting Image from : " + url);
+        //logger.info("Getting Image from : " + url);
         int responseCode = 0;
         BufferedImage image = null;
         List<CProxy> proxies = Config.getProxylist();
@@ -220,7 +221,7 @@ public class HttpConnection {
         logger.debug("No of Proxies : " + proxies.size());
         for(int i = 0;i<proxies.size(); i++)
         {
-            logger.debug("Proxy : " + proxies.get(i).toString() +" UserAgent : "+Constants.userAgents[0]);
+            //logger.debug("Proxy : " + proxies.get(i).toString() +" UserAgent : "+Constants.userAgents[0]);
             try
             {
                 HttpURLConnection connection = connectUrl(url,proxies.get(i),Constants.userAgents[0]);
@@ -231,7 +232,7 @@ public class HttpConnection {
                     /* Get the image content */
                     InputStream inStream = connection.getInputStream();
                     image = ImageIO.read(inStream);
-                    logger.debug("Returning image.");
+                    //logger.debug("Returning image.");
                     inStream.close();
                     connection.disconnect();
                     return image;

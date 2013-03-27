@@ -84,6 +84,7 @@ public class Query{
         }
 
         public Builder sortFlag(boolean sortFlag) {
+        /* If 0 then sort by citations, else sort by year*/
             if(sortFlag){
                 this.sort_flag=1;
             }else{

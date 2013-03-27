@@ -21,12 +21,14 @@ public class SearchPanel extends javax.swing.JPanel {
     {
         basicSearchPanel.resetProgressBar();
         setSearchButtonEnabled(false);
+        basicSearchPanel.enableSearchBox(false);
     }
     
     public void updateOnQueryComplete()
     {
         basicSearchPanel.completeProgressBar();
         setSearchButtonEnabled(true);
+        basicSearchPanel.enableSearchBox(true);
     }
     public String getMinYear() {
         return advancedSearchPanel.getMinYear();

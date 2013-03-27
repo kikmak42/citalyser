@@ -146,11 +146,11 @@ public class SearchMaster {
                         break;
                     }
                     
-                    if (start == 0) {
+                    if (start == 0) 
                         globalResult = currResult;
-                    } else {
+                    else 
                         globalResult.appendContents(currResult.getContents());
-                    }
+                    
                     recvCount+=currResult.getNumContents();
                     
                     /* Hack for further fetching of results in case of Author Grid*/
@@ -175,16 +175,18 @@ public class SearchMaster {
                         break;
                 }
                 /* Update the search panel*/
-                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryComplete();
+                mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryComplete();
                     
                 // Query Completed. 
                 if(globalResult == null)
                 {
+                    //Result is null
                     /* Show Loading sign in the central panel*/
                     mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().stopLoading();
                     UiUtils.displayResultNullMessage(q.flag, searchQuery);
                 }
-                else{
+                else
+                {
                     /* If no results, show EmptyResult Message */
                     if(recvCount == 0) {
                         UiUtils.displayQueryEmptyMessage(dataContentRenderer,q.flag, searchQuery);

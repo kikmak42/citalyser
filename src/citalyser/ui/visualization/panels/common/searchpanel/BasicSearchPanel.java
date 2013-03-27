@@ -31,21 +31,25 @@ public class BasicSearchPanel extends javax.swing.JPanel {
         jProgressBar1.setValue(jProgressBar1.getMaximum());
     }
     
+    public void enableSearchBox(boolean value)
+    {
+        this.searchBox.setEnabled(value);
+    }
     public void setSearchPanel(SearchPanel searchPanel) {
         this.searchPanel = searchPanel;
     }    
 
     public void requestSearchFieldFocus() {
-        this.jTextField1.requestFocus();
+        this.searchBox.requestFocus();
     }
     
     public void setSearchString(String searchString) {
-        jTextField1.setForeground(Color.BLACK);
-        jTextField1.setText(searchString);
+        searchBox.setForeground(Color.BLACK);
+        searchBox.setText(searchString);
     }
 
     public String getSearchString() {
-        return jTextField1.getText();
+        return searchBox.getText();
     }
 
     public void setButtonEnabled(boolean value) {
@@ -81,7 +85,7 @@ public class BasicSearchPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        searchBox = new javax.swing.JTextField();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         jPanel7 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -93,29 +97,29 @@ public class BasicSearchPanel extends javax.swing.JPanel {
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
-        jTextField1.setForeground(new java.awt.Color(102, 102, 102));
-        jTextField1.setText(" Enter Your Search Query Here");
-        jTextField1.setMargin(new java.awt.Insets(2, 8, 2, 2));
-        jTextField1.setPreferredSize(new java.awt.Dimension(500, 20));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        searchBox.setForeground(new java.awt.Color(102, 102, 102));
+        searchBox.setText(" Enter Your Search Query Here");
+        searchBox.setMargin(new java.awt.Insets(2, 8, 2, 2));
+        searchBox.setPreferredSize(new java.awt.Dimension(500, 20));
+        searchBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                searchBoxActionPerformed(evt);
             }
         });
-        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+        searchBox.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField1FocusGained(evt);
+                searchBoxFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField1FocusLost(evt);
+                searchBoxFocusLost(evt);
             }
         });
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        searchBox.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField1KeyPressed(evt);
+                searchBoxKeyPressed(evt);
             }
         });
-        add(jTextField1);
+        add(searchBox);
         add(filler2);
 
         jPanel7.setLayout(new java.awt.CardLayout());
@@ -155,33 +159,33 @@ public class BasicSearchPanel extends javax.swing.JPanel {
         displayMaster.searchButtonClicked(searchPanel);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
+    private void searchBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchBoxFocusGained
         if (empty) {
-            jTextField1.setText("");
+            searchBox.setText("");
         } else {
-            jTextField1.setSelectionStart(0);
-            jTextField1.setSelectionEnd(jTextField1.getText().length());
+            searchBox.setSelectionStart(0);
+            searchBox.setSelectionEnd(searchBox.getText().length());
         }
-        jTextField1.setForeground(Color.BLACK);
-    }//GEN-LAST:event_jTextField1FocusGained
+        searchBox.setForeground(Color.BLACK);
+    }//GEN-LAST:event_searchBoxFocusGained
 
-    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
-        if (jTextField1.getText().trim().isEmpty()) {
-            jTextField1.setForeground(new Color(102, 102, 102));
-            jTextField1.setText(" Enter Your Search Query Here");
+    private void searchBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchBoxFocusLost
+        if (searchBox.getText().trim().isEmpty()) {
+            searchBox.setForeground(new Color(102, 102, 102));
+            searchBox.setText(" Enter Your Search Query Here");
             empty = true;
         } else {
             empty = false;
         }
-    }//GEN-LAST:event_jTextField1FocusLost
+    }//GEN-LAST:event_searchBoxFocusLost
 
-    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+    private void searchBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBoxKeyPressed
         displayMaster.searchKeyPressed(searchPanel, evt.getKeyChar());
-    }//GEN-LAST:event_jTextField1KeyPressed
+    }//GEN-LAST:event_searchBoxKeyPressed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void searchBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_searchBoxActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
@@ -192,6 +196,6 @@ public class BasicSearchPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField searchBox;
     // End of variables declaration//GEN-END:variables
 }
