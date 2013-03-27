@@ -19,10 +19,12 @@ import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpa
 import citalyser.util.CommonUtils;
 import java.awt.Point;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import org.apache.log4j.Logger;
 
@@ -76,6 +78,11 @@ public class JournalPaperTableDisplayPanel extends javax.swing.JPanel implements
         jTable1.getColumnModel().getColumn(3).setMaxWidth(65);
         jTable1.repaint();
 
+    }
+    
+    public void filterTable(ArrayList<Integer> columnsIndex){
+        for(int i:columnsIndex)
+            jTable1.removeColumn(new TableColumn(i));  
     }
 
     public void showMoreButton() {

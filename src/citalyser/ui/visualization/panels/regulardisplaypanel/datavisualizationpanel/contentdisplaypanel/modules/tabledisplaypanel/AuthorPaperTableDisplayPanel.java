@@ -281,7 +281,7 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
 
     private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
         showLoadingMoreButton();
-        displayMaster.getNavigationMaster().authorPaperTableMoreButtonClicked(lastQuery,moreButton);
+        displayMaster.getNavigationMaster().authorPaperTableMoreButtonClicked(lastQuery,moreButton);        
     }//GEN-LAST:event_moreButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
