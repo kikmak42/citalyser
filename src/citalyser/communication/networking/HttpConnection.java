@@ -22,6 +22,15 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.params.ConnRoutePNames;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.util.EntityUtils;
 //import org.apache.http.HttpEntity;
 //import org.apache.http.HttpHost;
 //import org.apache.http.HttpResponse;
@@ -63,11 +72,11 @@ public class HttpConnection {
         
         connection = (HttpURLConnection) (uri.toURL().openConnection(proxy)); 
         //connection.setInstanceFollowRedirects(true);
-        connection.setDoInput(true);
-        connection.setDoOutput(false);
+        //connection.setDoInput(true);
+        //connection.setDoOutput(false);
         connection.setConnectTimeout(Constants.SERVER_READOUT_TIME);
         connection.setRequestMethod("GET");
-        connection.setRequestProperty("Content-Type", "text/html; charset=ISO-8859-1");
+        //connection.setRequestProperty("Content-Type", "text/html; charset=ISO-8859-1");
         connection.setRequestProperty("User-Agent", agentname);
         return connection;
     }
@@ -77,7 +86,7 @@ public class HttpConnection {
      * @param url The url from which content to be fetched
      * @return The html response content of the connected url
      */
-    public static String getUrlText(String url) {
+    public static String getPage(String url) {
         HttpURLConnection connection = null;
         logger.info("Getting URL Text for : " + url);
         int responseCode = 0;
@@ -135,78 +144,78 @@ public class HttpConnection {
         return null;
     }
     
-//    public static String getPage(String urlstr)
-//    {
-//    	HttpResponse response;
-//        HttpEntity entity;
-//        DefaultHttpClient client = null;
-//        String content = "";
-//        int responseCode;
-//        logger.info("Getting URL Text for : " + urlstr);
-//        
-//        List<CProxy> proxies = HttpConnectionUtils.getProxyList();
-//        logger.debug("No of Proxies : " + proxies.size());
-//        for(int i = 0;i<proxies.size(); i++)
-//        {
-//            for(int j = 0;j<Constants.userAgents.length; j++)
-//            {
-//                logger.debug("Proxy : " + proxies.get(i).toString() +" UserAgent : "+Constants.userAgents[j]);
-//                Main.getDisplayController().displayStatusMessage("Trying Proxy " + proxies.get(i).toString());
-//                try{
-//                    client = getHttpClient(proxies.get(i),Constants.userAgents[j]);
-//                    URL url = new URL(urlstr);
-//                    URI uri = new URI(url.getProtocol(), url.getHost(), url.getPath(), url.getQuery(),null);
-//                    HttpGet request = new HttpGet(uri);
-//                    response = client.execute(request);
-//                    entity = response.getEntity();
-//                    responseCode = response.getStatusLine().getStatusCode();
-//                    logger.debug("Response Code: " + responseCode);
-//                    if(responseCode == Constants.OK_Response_Code)
-//                    {
-//                        /* update ProxyList */
-//                        if(i!=0)
-//                            updateProxyList(proxies,i);
-//                        /* Saving the html content */
-//                        Main.getDisplayController().displayStatusMessage("");
-//                        return EntityUtils.toString(response.getEntity());
-//                    }
-//                }catch(ConnectException | UnknownHostException ex){
-//                    //ex.printStackTrace();
-//                    logger.error("Proxy : " + proxies.get(i) + " not working");
-//                    break;
-//                }catch(SocketTimeoutException ex){
-//                    logger.error("Connection Timeout Connecting to  : " + proxies.get(i).toString());
-//                    break;
-//                }
-//                catch(Exception ex){
-//                    ex.printStackTrace();
-//                    logger.error("Error fetching content : " + ex.getMessage());
-//                }finally{
-//                     //client.getConnectionManager().shutdown();
-//                }
-//            }
-//        }
-//        logger.error("We could not connect to Google Scholar from any of the Proxies. "
-//                    + "Please check your ProxyList or Try again Later.");
-//        Main.getDisplayController().displayErrorMessage("We could not connect to Google Scholar from any of the Proxies. "
-//                    + "Please check your ProxyList or Try again Later.");
-//        return null;
-//    }
-//    
-//    private static DefaultHttpClient getHttpClient(CProxy cproxy,String agentname)
-//    {
-//        DefaultHttpClient client = new DefaultHttpClient();
-//        client.getParams().setParameter("http.useragent",agentname);
-//        HttpParams params = client.getParams();
-//        HttpConnectionParams.setConnectionTimeout(params, 10000);
-//        //HttpConnectionParams.setSoTimeout(params, 10000);
-//        if(!cproxy.getnoProxy())
-//        {
-//            HttpHost proxy = new HttpHost(cproxy.getHostName(),cproxy.getPort());
-//            client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
-//        }
-//    	return client;
-//    }
+    public static String getUrlText(String urlstr)
+    {
+    	HttpResponse response;
+        HttpEntity entity;
+        DefaultHttpClient client = null;
+        String content = "";
+        int responseCode;
+        logger.info("Getting URL Text for : " + urlstr);
+        
+        List<CProxy> proxies = HttpConnectionUtils.getProxyList();
+        logger.debug("No of Proxies : " + proxies.size());
+        for(int i = 0;i<proxies.size(); i++)
+        {
+            for(int j = 0;j<Constants.userAgents.length; j++)
+            {
+                logger.debug("Proxy : " + proxies.get(i).toString() +" UserAgent : "+Constants.userAgents[j]);
+                Main.getDisplayController().displayStatusMessage("Trying Proxy " + proxies.get(i).toString());
+                try{
+                    client = getHttpClient(proxies.get(i),Constants.userAgents[j]);
+                    URL url = new URL(urlstr);
+                    URI uri = new URI(url.getProtocol(), url.getHost(), url.getPath(), url.getQuery(),null);
+                    HttpGet request = new HttpGet(uri);
+                    response = client.execute(request);
+                    entity = response.getEntity();
+                    responseCode = response.getStatusLine().getStatusCode();
+                    logger.debug("Response Code: " + responseCode);
+                    if(responseCode == Constants.OK_Response_Code)
+                    {
+                        /* update ProxyList */
+                        if(i!=0)
+                            updateProxyList(proxies,i);
+                        /* Saving the html content */
+                        Main.getDisplayController().displayStatusMessage("");
+                        return EntityUtils.toString(response.getEntity());
+                    }
+                }catch(ConnectException | UnknownHostException ex){
+                    //ex.printStackTrace();
+                    logger.error("Proxy : " + proxies.get(i) + " not working");
+                    break;
+                }catch(SocketTimeoutException ex){
+                    logger.error("Connection Timeout Connecting to  : " + proxies.get(i).toString());
+                    break;
+                }
+                catch(Exception ex){
+                    ex.printStackTrace();
+                    logger.error("Error fetching content : " + ex.getMessage());
+                }finally{
+                     //client.getConnectionManager().shutdown();
+                }
+            }
+        }
+        logger.error("We could not connect to Google Scholar from any of the Proxies. "
+                    + "Please check your ProxyList or Try again Later.");
+        Main.getDisplayController().displayErrorMessage("We could not connect to Google Scholar from any of the Proxies. "
+                    + "Please check your ProxyList or Try again Later.");
+        return null;
+    }
+    
+    private static DefaultHttpClient getHttpClient(CProxy cproxy,String agentname)
+    {
+        DefaultHttpClient client = new DefaultHttpClient();
+        client.getParams().setParameter("http.useragent",agentname);
+        HttpParams params = client.getParams();
+        HttpConnectionParams.setConnectionTimeout(params, 10000);
+        //HttpConnectionParams.setSoTimeout(params, 10000);
+        if(!cproxy.getnoProxy())
+        {
+            HttpHost proxy = new HttpHost(cproxy.getHostName(),cproxy.getPort());
+            client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+        }
+    	return client;
+    }
     public static BufferedImage getImageFromUrl(String url)
     {
         //logger.info("Getting Image from : " + url);
