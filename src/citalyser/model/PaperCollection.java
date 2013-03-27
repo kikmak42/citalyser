@@ -91,7 +91,7 @@ public class PaperCollection implements Serializable {
             int i=0;
             for (String au : this.uniqueAuthorList) {
                 if(auth.equals(au)) {
-                    retPos.add(i+1);
+                    retPos.add(i);
                 }
                 i++;
             }
