@@ -80,6 +80,7 @@ public class GraphHistory {
         int i=0;
         while(i<=basenodes.size()-2){
             list+=((basenodes.get(i).Title.split(" ")[0])+"=>");
+            i++;
         }
             list+=((basenodes.get(basenodes.size()-1).Title.split(" ")[0]));
         return list;

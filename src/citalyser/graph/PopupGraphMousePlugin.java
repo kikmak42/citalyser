@@ -111,29 +111,7 @@ class PopupGraphMousePlugin extends AbstractPopupGraphMousePlugin implements Mou
 
                 }
             });
-            popup.add(new AbstractAction("Fetch more citations\nFetches 20 more") {
-                public void actionPerformed(ActionEvent e) {
-                    System.out.println("person added");
 
-                    Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).startResult(createGraph.sgv.g2.getOutEdges(pickV).size()).Url(pickV.citationurl).numResult(20).build();
-                    PaperCollection pc = ((PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q)).getContents();
-                    if (pickV.nocitation != 0) {
-                        createGraph.baseNode = pickV;
-
-                        createGraph.addToGraph(createGraph.generateGraphObject.getNodeArray(pc));
-                        gvp.getGraphHistory().addnodeInfo(pickV);
-
-                        gvp.getjLabel2().setText(gvp.getGraphHistory().getnodeList());
-                        gvp.getjButton1().setVisible(true);
-                        gvp.getjButton2().setVisible(false);
-                        createGraph.layouttop.setGraph(createGraph.sgv.g2);
-                        createGraph.vv.repaint();
-                    } else {
-                        Main.getDisplayController().displayErrorMessage("Zero Citaions for this paper");
-                    }
-
-                }
-            });
             popup.setLocation(e.getPoint());
 
             logger.debug("##:" + e.getX() + "@@:" + e.getY());
