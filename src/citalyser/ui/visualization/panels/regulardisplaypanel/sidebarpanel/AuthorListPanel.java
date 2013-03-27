@@ -48,6 +48,10 @@ public class AuthorListPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setOpaque(false);
+
+        jList1.setOpaque(false);
         jScrollPane1.setViewportView(jList1);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);

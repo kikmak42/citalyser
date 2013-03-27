@@ -75,15 +75,20 @@ public class GraphViewPanel extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         jSlider1 = new javax.swing.JSlider();
 
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 150, 150)));
         setLayout(new java.awt.BorderLayout());
 
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
         jPanel3.setLayout(new java.awt.BorderLayout());
 
+        jLabel1.setBackground(new java.awt.Color(153, 153, 255));
         jLabel1.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 102));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Paper title");
+        jLabel1.setOpaque(true);
+        jLabel1.setPreferredSize(new java.awt.Dimension(72, 34));
         jPanel3.add(jLabel1, java.awt.BorderLayout.CENTER);
 
         jPanel2.add(jPanel3);
@@ -101,8 +106,10 @@ public class GraphViewPanel extends javax.swing.JPanel {
 
         jPanel5.setLayout(new java.awt.BorderLayout());
 
+        jLabel2.setBackground(new java.awt.Color(220, 220, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Paperlist history");
+        jLabel2.setOpaque(true);
         jPanel5.add(jLabel2, java.awt.BorderLayout.CENTER);
 
         jPanel4.add(jPanel5, java.awt.BorderLayout.CENTER);
@@ -122,6 +129,8 @@ public class GraphViewPanel extends javax.swing.JPanel {
 
         jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.PAGE_AXIS));
 
+        jSlider1.setForeground(new java.awt.Color(0, 0, 0));
+        jSlider1.setMajorTickSpacing(1);
         jSlider1.setMaximum(20);
         jSlider1.setMinimum(1);
         jSlider1.setOrientation(javax.swing.JSlider.VERTICAL);
