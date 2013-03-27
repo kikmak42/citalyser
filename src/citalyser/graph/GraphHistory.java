@@ -75,12 +75,14 @@ public class GraphHistory {
         currentnodeInfoPosition =0;
     }
 
-    public void printnodeInfos() {
-        for (int i = 0; i < basenodes.size(); i++) {
-            System.out.println(basenodes.get(i).Title);
-            System.out.println(currentnodeInfoPosition);
+    public String getnodeList() {
+        String list = "";
+        int i=0;
+        while(i<=basenodes.size()-2){
+            list+=((basenodes.get(i).Title.split(" ")[0])+"=>");
         }
-
+            list+=((basenodes.get(basenodes.size()-1).Title.split(" ")[0]));
+        return list;
     }
 
     public int getCurrentPosition() {

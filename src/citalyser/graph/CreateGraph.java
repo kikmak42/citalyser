@@ -102,7 +102,7 @@ public class CreateGraph {
         generateGraphObject = new graphData();
         this.baseNode = generateGraphObject.getbaseNode(paper);
         gvp.getGraphHistory().addnodeInfo(this.baseNode);
-
+        gvp.getjLabel2().setText(gvp.getGraphHistory().getnodeList());
         Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(this.baseNode.citationurl).numResult(20).build();
 //        QueryHandler.getInstance().getQueryResult(q);
 //        generateGraphObject.getNodeArray(((PaperCollectionResult)QueryHandler.getInstance().getQueryResult(q)).getContents());

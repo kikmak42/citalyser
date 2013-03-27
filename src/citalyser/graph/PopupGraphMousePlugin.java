@@ -101,6 +101,7 @@ class PopupGraphMousePlugin extends AbstractPopupGraphMousePlugin implements Mou
                         gvp.getjLabel1().setText("<html>" + pickV.Title);
 
                         gvp.getGraphHistory().addnodeInfo(pickV);
+                        gvp.getjLabel2().setText(gvp.getGraphHistory().getnodeList());
                         gvp.getjButton2().setVisible(false);
                         gvp.getjButton1().setVisible(true);
                         createGraph.vv.repaint();
@@ -120,7 +121,9 @@ class PopupGraphMousePlugin extends AbstractPopupGraphMousePlugin implements Mou
                         createGraph.baseNode = pickV;
 
                         createGraph.addToGraph(createGraph.generateGraphObject.getNodeArray(pc));
-                        
+                        gvp.getGraphHistory().addnodeInfo(pickV);
+
+                        gvp.getjLabel2().setText(gvp.getGraphHistory().getnodeList());
                         gvp.getjButton1().setVisible(true);
                         gvp.getjButton2().setVisible(false);
                         createGraph.layouttop.setGraph(createGraph.sgv.g2);

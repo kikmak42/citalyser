@@ -48,6 +48,10 @@ public class GraphViewPanel extends javax.swing.JPanel {
         return jLabel1;
     }
 
+    public JLabel getjLabel2() {
+        return jLabel2;
+    }
+
     public JButton getjButton1() {
         return jButton1;
     }
@@ -173,6 +177,7 @@ public class GraphViewPanel extends javax.swing.JPanel {
             cg.layouttop.setGraph(cg.sgv.g2);
             cg.vv.repaint();
             jButton2.setVisible(true);
+            jLabel2.setText(graphHistory.getnodeList());
             if (graphHistory.isCurrentPositionFirst()) {
                 jButton1.setVisible(false);
             }
@@ -190,6 +195,7 @@ public class GraphViewPanel extends javax.swing.JPanel {
             cg.layouttop.setGraph(cg.sgv.g2);
             cg.vv.repaint();
             jButton1.setVisible(true);
+            jLabel2.setText(graphHistory.getnodeList());
             if (graphHistory.isCurrentPositionLast()) {
                 jButton2.setVisible(false);
             }
