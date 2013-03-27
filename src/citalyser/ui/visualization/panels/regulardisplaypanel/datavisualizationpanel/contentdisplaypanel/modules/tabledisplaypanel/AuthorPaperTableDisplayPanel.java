@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * TableDisplayPanel.java
  *
  * Created on Mar 15, 2013, 1:44:48 AM
@@ -28,10 +23,13 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.apache.log4j.Logger;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -65,47 +63,60 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
             hideMoreButton();
         else
             this.showMoreButton();
-        
-        if (jTable1.getModel().getRowCount() == 0) {
+        final PaperCollection pc = this.paperCollection;
+        TableModel finaltm = tm;
+        if(this.paperCollection!=null)
+            finaltm = (DefaultTableModel)getFinalTableModel(paperCollection,jTable1.getModel(), finaltm);
+        else{
+            this.paperCollection = paperCollection; 
+            finaltm = tm;
             disabledRow = -1;
-            jTable1.setModel(tm);
-        } else {
-            for (int i = 0; i < tm.getRowCount(); i++) {
-                Vector row = ((Vector) (((DefaultTableModel) tm).getDataVector().elementAt(i)));
-                if (this.paperCollection != null) {
-                    row.set(0, new Integer(this.paperCollection.getPapers().size() + (Integer) row.elementAt(0)));
-                }
-                ((DefaultTableModel) jTable1.getModel()).addRow(row);
-            }
         }
-
-        if (this.paperCollection != null) {
-            for (Paper paper : paperCollection.getPapers()) {
-                this.paperCollection.addPaper(paper);
-            }
-        } else {
-            this.paperCollection = paperCollection;
-        }
-        logger.debug("Query sort flag : " + q.sort_flag);
-        List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
-        if(q.sort_flag == 0)
-            sortKeys.add(new RowSorter.SortKey(3, SortOrder.DESCENDING));
-        else
-            sortKeys.add(new RowSorter.SortKey(2, SortOrder.DESCENDING));
-        jTable1.getRowSorter().setSortKeys(sortKeys);
-        
-        jTable1.getColumnModel().getColumn(0).setMaxWidth(33);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(250);
-        jTable1.getColumnModel().getColumn(2).setMaxWidth(32);
-        jTable1.getColumnModel().getColumn(3).setMaxWidth(65);
-        jTable1.repaint();
-        //displayMaster.renderGeneralProfile(displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), this.paperCollection);
+        final TableModel ftm = finaltm;
+        final Query query = q;
+        jTable1.setModel(ftm);    
+        SwingWorker<Void,Void> worker = new SwingWorker<Void,Void>()
+        {
+            @Override
+            protected Void doInBackground() throws Exception {
+            /* Set sorter for table*/
+            TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>((DefaultTableModel)jTable1.getModel());
+            List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
+            if(query.sort_flag == 0)
+                sortKeys.add(new RowSorter.SortKey(3, SortOrder.DESCENDING));
+            else
+                sortKeys.add(new RowSorter.SortKey(2, SortOrder.DESCENDING));
+            sorter.setSortKeys(sortKeys);
+            jTable1.setRowSorter(sorter);
+      
+            return null;
+      }
+    };
+        worker.execute();
     }
-
+    
+    
+    private TableModel getFinalTableModel(PaperCollection pc,TableModel oldtm,TableModel newtm)
+    {
+        if(oldtm == null)
+            return newtm;
+        else
+        {
+            for(int i = 0;i<newtm.getRowCount();i++)
+            {
+               this.paperCollection.addPaper(pc.getPapers().get(i));
+               Vector row = ((Vector) (((DefaultTableModel)newtm).getDataVector().elementAt(i)));
+               row.set(0, new Integer(oldtm.getRowCount() + 1));
+               logger.debug("Row COunt : " + (oldtm.getRowCount() + 1));
+               ((DefaultTableModel)oldtm).addRow(row);
+            }
+        }
+        return oldtm;
+    }
+    
     public void showMoreButton() {
         moreButton.setVisible(true);
     }
-
     public void hideMoreButton() {
         moreButton.setVisible(false);
     }

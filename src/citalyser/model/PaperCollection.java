@@ -60,7 +60,7 @@ public class PaperCollection implements Serializable {
     public void removePaper() {
         // TODO
     }
-
+    
     public ArrayList<String> extractAuthors() {
         ArrayList<Paper> p = this.papers;
         ArrayList<String> author = new ArrayList<>();

@@ -6,6 +6,7 @@ import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.apache.log4j.Logger;
@@ -19,7 +20,7 @@ public class TableModelHandler {
     static Logger logger = Logger.getLogger(TableModelHandler.class);
     public static TableModel getTableModel(PaperCollection pc) {
         ArrayList<Paper> papers = pc.getPapers();
-        String[] columnNames = {"S.No", "Title", "Year", "# Citations", "Author/(s)", "Journal/(s)"};
+        final String[] columnNames = {"S.No", "Title", "Year", "# Citations", "Author/(s)", "Journal/(s)"};
         Object[][] data = new Object[papers.size()][columnNames.length];
         for (int i = 0; i < papers.size(); i++) {
             int year = papers.get(i).getYear();
@@ -35,7 +36,6 @@ public class TableModelHandler {
             data[i][4] = convertToString(papers.get(i).getAuthors());
             data[i][5] = papers.get(i).getJournalString();
         }
-
         TableModel tableModel = new DefaultTableModel(data, columnNames) {
 
             @Override
@@ -51,6 +51,10 @@ public class TableModelHandler {
                     return Object.class;
                 }
             }
+            public String getColumnName(int col) {
+                return columnNames[col];
+        }
+
         };
 
         return tableModel;
