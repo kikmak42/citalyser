@@ -20,6 +20,8 @@ public class Query{
     public boolean h_idx;
     public boolean i_idx;
     public String url;
+    public String allWords;
+    
 
     private Query(Builder builder) {
         flag = builder.flag;

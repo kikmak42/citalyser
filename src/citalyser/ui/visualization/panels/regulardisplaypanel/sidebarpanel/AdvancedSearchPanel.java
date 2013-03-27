@@ -4,6 +4,8 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel;
 
+import citalyser.model.query.Query;
+import citalyser.model.query.QueryType;
 import citalyser.ui.control.DisplayMaster;
 import java.awt.CardLayout;
 
@@ -205,9 +207,9 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //displayMaster.generalSearch(jTextField1.getText(), jTextField3.getText(), jTextField4.getText(), jTextField5.getText());
-    }//GEN-LAST:event_jButton1ActionPerformed
+        Query q = new Query.Builder("").flag(QueryType.GEN_JOURN).sortFlag(false).maxYear(jTextField7.getText()).minYear(jTextField8.getText()).build();
 
+    }//GEN-LAST:event_jButton1ActionPerformed
     private DisplayMaster displayMaster;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
