@@ -20,6 +20,7 @@ public class Query{
     public boolean h_idx;
     public boolean i_idx;
     public String url;
+    public long timestamp;
 
     private Query(Builder builder) {
         flag = builder.flag;
