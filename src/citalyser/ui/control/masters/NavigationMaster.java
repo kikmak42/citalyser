@@ -29,17 +29,16 @@ import org.apache.log4j.Logger;
  * @author Tanmay Patil
  */
 public class NavigationMaster {
-    
+
     private MainFrame mainFrame;
     private DisplayMaster displayMaster;
-    
     private static Logger logger = Logger.getLogger(NavigationMaster.class.getName());
 
     public NavigationMaster(MainFrame mainFrame, DisplayMaster displayMaster) {
         this.mainFrame = mainFrame;
         this.displayMaster = displayMaster;
     }
-    
+
     public void cancelButtonClicked() {
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         synchronized (displayMaster.getThreads()) {
@@ -61,8 +60,10 @@ public class NavigationMaster {
             }
         }
     }
-    
-    /** This method is invoked to fetch the citations of a paper from google Scholar*/
+
+    /**
+     * This method is invoked to fetch the citations of a paper from google Scholar
+     */
     public void tableClicked(Paper paper) {
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
@@ -80,7 +81,7 @@ public class NavigationMaster {
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel()
                 .getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
         /* Show the Side panel*/
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true, 0.5);
 
         Thread thread = new Thread() {
             @Override
@@ -103,13 +104,13 @@ public class NavigationMaster {
                     } else {
                         UiUtils.displayQueryEmptyMessage(contentRenderer, q.flag, myPaper.getTitle());
                     }
-                }else{
+                } else {
                     /* Show Loading sign in Citation panel*/
-                    UiUtils.displayResultNullMessage(q.flag,myPaper.getTitle());
+                    UiUtils.displayResultNullMessage(q.flag, myPaper.getTitle());
                     mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel()
-                        .getDetailsDisplayPanel().getLowerDetailsDisplayPanel().stopLoading();
-                    
-        
+                            .getDetailsDisplayPanel().getLowerDetailsDisplayPanel().stopLoading();
+
+
                 }
             }
         };
@@ -118,12 +119,15 @@ public class NavigationMaster {
             displayMaster.getThreads().add(thread);
         }
     }
-    
-    /** This method is invoked to fetch the citations of a metric paper from google Metrics*/
+
+    /**
+     * This method is invoked to fetch the citations of a metric paper from
+     * google Metrics
+     */
     public void metricTableClicked(Paper paper) {
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true, 0.5);
         final Paper myPaper = paper;
         /* initialise the citation panel and history*/
         displayMaster.getCitationListHistory().clear();
@@ -136,10 +140,10 @@ public class NavigationMaster {
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().showLoading();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToLowerDetailsDisplayPanel();
         /* Show the side panel*/
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true, 0.5);
         /* Disable the Search button*/
         mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryStart();
-        
+
         Thread thread = new Thread() {
             @Override
             public void run() {
@@ -160,10 +164,10 @@ public class NavigationMaster {
                         UiUtils.displayQueryEmptyMessage(contentRenderer, q.flag, myPaper.getTitle());
                     }
                 }
-                 mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryComplete();
+                mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryComplete();
                 /* Show Loading sign in Citation panel*/
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().stopLoading();
-                
+
             }
         };
         thread.start();
@@ -175,25 +179,24 @@ public class NavigationMaster {
     public void tableClicked(Journal journal) {
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         final Journal myJournal = journal;
-        logger.debug("2345::::"+myJournal.getH5index());
+        logger.debug("2345::::" + myJournal.getH5index());
         displayMaster.setQueryName(journal.getName());
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true, 0.5);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(true);
         /* Show Loading sign*/
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel().showLoading();
         /* Disable the Search button*/
         mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryStart();
-       
+
         Thread thread = new Thread() {
             @Override
             public void run() {
                 Query q = new Query.Builder("").flag(QueryType.JOURN_PROF).Url(myJournal.getH5Link())
-                                    .numResult(Constants.MaxResultsNum.METRICS_JOURNAL_PAPERS.getValue()).build();
+                        .numResult(Constants.MaxResultsNum.METRICS_JOURNAL_PAPERS.getValue()).build();
                 UiUtils.displayQueryStartInfoMessage(q.flag, myJournal.getName());
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
-                if (queryResult != null) 
-                {
+                if (queryResult != null) {
                     ContentRenderer contentRenderer = mainFrame.getRegularDisplayPanel().getDataVisualizationPanel()
                             .getContentDisplayPanel().getCentralContentDisplayPanel();
                     UiUtils.displayQueryCompleteInfoMessage(q.flag, queryResult.getNumContents(), myJournal.getName());
@@ -205,10 +208,8 @@ public class NavigationMaster {
                     } else {
                         UiUtils.displayQueryEmptyMessage(contentRenderer, q.flag, myJournal.getName());
                     }
-                } 
-                else 
-                {
-                    UiUtils.displayResultNullMessage(q.flag,myJournal.getName());
+                } else {
+                    UiUtils.displayResultNullMessage(q.flag, myJournal.getName());
                     mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().stopLoading();
                     mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel().stopLoading();
                     mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryComplete();
@@ -222,18 +223,18 @@ public class NavigationMaster {
     }
 
     public void authorGridEntityClicked(Author author) {
-        
+
         /* Update the UI elements to reflect the change.*/
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().clearAll();
         mainFrame.getRegularDisplayPanel().getSidebarPanel().clearAll();
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true, 0.5);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(false);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().showLoading();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel().showLoading();
         /* Disable the Search button*/
         mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryStart();
-        
+
         final String authorName = author.getName();
         final String myId = author.getId();
         displayMaster.setQueryName(author.getName());
@@ -250,7 +251,7 @@ public class NavigationMaster {
                     UiUtils.displayQueryCompleteInfoMessage(q.flag, queryResult.getNumContents(), authorName);
                     displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), q, queryResult);
                     displayMaster.getRenderMaster().renderAuthorProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), q, (Author) queryResult.getContents());
-                    mainFrame.getRegularDisplayPanel().getSidebarPanel().getAuthorListPanel().displayAuthors(((Author)(queryResult.getContents())).getPaperCollection());
+                    mainFrame.getRegularDisplayPanel().getSidebarPanel().getAuthorListPanel().displayAuthors(((Author) (queryResult.getContents())).getPaperCollection());
                 } else {
                     UiUtils.displayResultNullMessage(q.flag, authorName);
                     mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().stopLoading();
@@ -261,7 +262,7 @@ public class NavigationMaster {
         };
         thread.start();
     }
-    
+
     public void citationListClicked(Paper paper) {
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
@@ -326,7 +327,7 @@ public class NavigationMaster {
             }
         }.start();
     }
-    
+
     public void authorPaperTableMoreButtonClicked(final Query q, final JButton button) {
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         final int numResults = Constants.MaxResultsNum.AUTHOR_PAPERS.getValue();
@@ -336,13 +337,13 @@ public class NavigationMaster {
             public void run() {
                 //cancelButtonClicked();
                 displayMaster.getThreads().add(this);
-                final int start = q.num_results; 
+                final int start = q.num_results;
                 //Query q1 = new Query.Builder("").flag(q.flag).ID(q.ID)
                 //                .numResult(numResults).startResult(numResults).build();
                 logger.debug("Start : " + q.start_result + " Num :" + q.num_results);
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
                 if (queryResult instanceof AuthorResult) {
-                    UiUtils.displayQueryCompleteInfoMessage(q.flag, q.start_result+queryResult.getNumContents(),name);
+                    UiUtils.displayQueryCompleteInfoMessage(q.flag, q.start_result + queryResult.getNumContents(), name);
                     displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), q, queryResult);
                     //renderProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), q, (Author) queryResult.getContents());
                 } else {
@@ -354,8 +355,8 @@ public class NavigationMaster {
         };
         thread.start();
     }
-    
-    public void metricPaperTableMoreButtonClicked(final PaperCollection paperCollection,final Query q,final JButton button) {
+
+    public void metricPaperTableMoreButtonClicked(final PaperCollection paperCollection, final Query q, final JButton button) {
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         final int numResults = q.num_results;
         final String name = displayMaster.getQueryName();
@@ -364,16 +365,15 @@ public class NavigationMaster {
             public void run() {
                 //cancelButtonClicked();
                 displayMaster.getThreads().add(this);
-                final int start = q.num_results; 
+                final int start = q.num_results;
                 ContentRenderer contentRenderer = mainFrame.getRegularDisplayPanel().getDataVisualizationPanel()
-                            .getContentDisplayPanel().getCentralContentDisplayPanel();
+                        .getContentDisplayPanel().getCentralContentDisplayPanel();
                 logger.debug("Start : " + q.start_result + " Num :" + q.num_results);
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
-                if (queryResult != null) 
-                {
-                    UiUtils.displayQueryCompleteInfoMessage(q.flag, q.start_result+queryResult.getNumContents(),name);
+                if (queryResult != null) {
+                    UiUtils.displayQueryCompleteInfoMessage(q.flag, q.start_result + queryResult.getNumContents(), name);
                     Journal journ = (Journal) queryResult.getContents();
-                    displayMaster.getRenderMaster().renderJournal(contentRenderer, q,journ);
+                    displayMaster.getRenderMaster().renderJournal(contentRenderer, q, journ);
                     journ.setPaperCollection(paperCollection);
                     displayMaster.getRenderMaster().renderJournalProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), q, journ);
                 } else {
@@ -452,5 +452,18 @@ public class NavigationMaster {
         if (displayMaster.getCitationListHistory().isCurrentPositionLast()) {
             mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().hideNextButton();
         }
+    }
+
+    public void displayGraphSelected(Paper selectedPaper) {
+        final Paper myPaper = selectedPaper;
+        new Thread() {
+            @Override
+            public void run() {
+                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getGraphViewPanel().setPaper(myPaper);
+                
+                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().flipToGraphDisplayPanel();
+            }
+        }.start();
+
     }
 }

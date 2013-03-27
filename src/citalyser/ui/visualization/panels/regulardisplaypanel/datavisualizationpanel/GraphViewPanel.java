@@ -69,16 +69,18 @@ public class GraphViewPanel extends javax.swing.JPanel {
         this.jLabel1 = jLabel1;
     }
 
-    public void setPaper(Paper paper) {
+    public boolean setPaper(Paper paper) {
         graphHistory = new GraphHistory();
-
         cg = new CreateGraph(paper, this);
+        
         jPanel1.removeAll();
         jButton1.setVisible(false);
         jButton2.setVisible(false);
         jPanel1.setLayout(new BorderLayout());
         jPanel1.add(cg.getVisualizationViewer(), BorderLayout.CENTER);
         cg.getVisualizationViewer().setSize(new Dimension(jPanel1.getWidth(), jPanel1.getHeight()));
+        return true;
+        
 
     }
     private DisplayMaster displayMaster;
