@@ -86,7 +86,7 @@ public class HttpConnection {
      * @param url The url from which content to be fetched
      * @return The html response content of the connected url
      */
-    public static String getPage(String url) {
+    public static String getUrlText(String url) {
         HttpURLConnection connection = null;
         logger.info("Getting URL Text for : " + url);
         int responseCode = 0;
@@ -111,7 +111,7 @@ public class HttpConnection {
                             updateProxyList(proxies,i);
                         /* Saving the html content */
                         DataInputStream response = new DataInputStream(connection.getInputStream());
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(response));
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(response),15000);
                         StringBuffer urlResponse= new StringBuffer();
                         String line;
                         while ((line = reader.readLine()) != null){
@@ -144,7 +144,7 @@ public class HttpConnection {
         return null;
     }
     
-    public static String getUrlText(String urlstr)
+    public static String getUrlPage(String urlstr)
     {
     	HttpResponse response;
         HttpEntity entity;

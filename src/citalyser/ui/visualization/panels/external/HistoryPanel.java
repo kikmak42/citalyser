@@ -5,7 +5,12 @@
 package citalyser.ui.visualization.panels.external;
 
 import citalyser.model.query.Query;
+import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.utils.UiUtils;
 import java.util.HashMap;
+import java.util.Set;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -16,33 +21,35 @@ public class HistoryPanel extends javax.swing.JPanel {
     /**
      * Creates new form HistoryPanel
      */
+    private HashMap<String,Query> historyMap;
+    private DisplayMaster displayMaster;
     public HistoryPanel() {
         initComponents();
     }
-    
+     public void setDisplayMaster(DisplayMaster displayMaster) {
+        this.displayMaster = displayMaster;
+    }
     public void displayHistory(HashMap<String,Query> hm)
     {
-        
+        this.historyMap = hm;
+        jTable1.setModel(getTableModel(hm));
     }
     
-    private void getTableModel(HashMap<String,Query> hm)
+    private TableModel getTableModel(HashMap<String,Query> hm)
     {
-  /*      final String[] columnNames = {"Query String", "Time"};
-        Object[][] data = new Object[papers.size()][columnNames.length];
-        for (int i = 0; i < papers.size(); i++) {
-            int year = papers.get(i).getYear();
-            String yearstr;
-            if(year == 0)
-                yearstr = "Any";
-            else
-                yearstr = Integer.toString(papers.get(i).getYear());
-            data[i][0] = new Integer(i + 1);
-            data[i][1] = papers.get(i).getTitle();
-            data[i][2] = yearstr;
-            data[i][3] = new Integer(papers.get(i).getNumCites());
-            data[i][4] = convertToString(papers.get(i).getAuthors());
-            data[i][5] = papers.get(i).getJournalString();
+        final String[] columnNames = {"S. No","Query String", "Time"};
+        Object[][] data = new Object[hm.keySet().size()][columnNames.length];
+        Set<String> keys = hm.keySet();
+        int i = 0;
+        for(String query : keys)
+        {
+            data[i][0] = i+1;
+            data[i][1] = query;
+            Query q = hm.get(query);
+            data[i][1] = q.timestamp;
+            i++;
         }
+        
         TableModel tableModel = new DefaultTableModel(data, columnNames) {
 
             @Override
@@ -65,7 +72,6 @@ public class HistoryPanel extends javax.swing.JPanel {
         };
 
         return tableModel;
-*/
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -98,9 +104,19 @@ public class HistoryPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         okbtn.setText("OK");
+        okbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                okbtnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -127,6 +143,22 @@ public class HistoryPanel extends javax.swing.JPanel {
                 .addGap(0, 11, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        if (jTable1.rowAtPoint(evt.getPoint()) > -1) {
+            int selectedRowIndex = jTable1.convertRowIndexToModel(jTable1.rowAtPoint(evt.getPoint()));
+            String searchQuery = (String)jTable1.getModel().getValueAt(selectedRowIndex, 1); 
+            Query q = this.historyMap.get(searchQuery); 
+            UiUtils.displayQueryStartInfoMessage(q.flag, searchQuery);
+            displayMaster.getSearchMaster().fetchResults(q, 20,q.num_results);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void okbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_okbtnMouseClicked
+        this.setVisible(false);
+    }//GEN-LAST:event_okbtnMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel historytitlelbl;
     private javax.swing.JScrollPane jScrollPane1;
