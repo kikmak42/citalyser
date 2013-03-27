@@ -65,6 +65,13 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
             hideMoreButton();
         else
             this.showMoreButton();
+        /* Set the sorter for the table*/
+        List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
+        if(q.sort_flag == 0)
+            sortKeys.add(new RowSorter.SortKey(3, SortOrder.DESCENDING));
+        else
+            sortKeys.add(new RowSorter.SortKey(2, SortOrder.DESCENDING));
+        jTable1.getRowSorter().setSortKeys(sortKeys);
         
         if (jTable1.getModel().getRowCount() == 0) {
             disabledRow = -1;
@@ -87,12 +94,6 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
             this.paperCollection = paperCollection;
         }
         logger.debug("Query sort flag : " + q.sort_flag);
-        List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
-        if(q.sort_flag == 0)
-            sortKeys.add(new RowSorter.SortKey(3, SortOrder.DESCENDING));
-        else
-            sortKeys.add(new RowSorter.SortKey(2, SortOrder.DESCENDING));
-        jTable1.getRowSorter().setSortKeys(sortKeys);
         
         jTable1.getColumnModel().getColumn(0).setMaxWidth(33);
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(250);
