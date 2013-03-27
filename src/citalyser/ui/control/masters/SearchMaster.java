@@ -1,6 +1,7 @@
 package citalyser.ui.control.masters;
 
 import citalyser.Constants;
+import citalyser.Main;
 import citalyser.model.Author;
 import citalyser.model.query.Query;
 import citalyser.model.query.QueryHandler;
@@ -305,6 +306,7 @@ public class SearchMaster {
                 }
             }
         }
+        Main.historyHandler.addQuery(q);
         UiUtils.displayQueryStartInfoMessage(q.flag, searchQuery);
         fetchResults(q, maxResults, numResults);
     }

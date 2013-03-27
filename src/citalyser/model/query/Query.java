@@ -54,24 +54,24 @@ public class Query{
     
     public static class Builder {
         private QueryType flag;
-        private String name;
+        private String name = "";
         private String ID;
-        private String after_author;
-        private String max_year;
-        private String min_year;
+        private String after_author = "";
+        private String max_year = "";
+        private String min_year = "";
         private int start_result;
         private int num_results;
         private int sort_flag;
         private boolean h_idx;
         private boolean i_idx;
-        private String url;
-        private String allwords;
-        private String exactphrase;
-        private String atleastoneofthese;
-        private String exceptthese;
-        private String occurwhere;
-        private String authors;
-        private String publishedat;
+        private String url = "";
+        private String allwords = "";
+        private String exactphrase = "";
+        private String atleastoneofthese = "";
+        private String exceptthese = "";
+        private String occurwhere = "";
+        private String authors = "";
+        private String publishedat = "";
         
         public Builder(String name) {
             this.name = name;

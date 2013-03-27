@@ -32,16 +32,23 @@ public class HeaderPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel4 = new javax.swing.JPanel();
         modeSelector = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        sourceSelector = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         searchPanel = new citalyser.ui.visualization.panels.common.SearchPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
         settingsButton = new javax.swing.JButton();
-        sourceSelector = new javax.swing.JButton();
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -111,9 +118,81 @@ public class HeaderPanel extends javax.swing.JPanel {
         add(jPanel4);
 
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 150, 150)));
+        jPanel7.setLayout(new java.awt.BorderLayout());
+
+        sourceSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/2nd_toggle buttons_2a.png"))); // NOI18N
+        sourceSelector.setBorder(null);
+        sourceSelector.setBorderPainted(false);
+        sourceSelector.setContentAreaFilled(false);
+        sourceSelector.setFocusPainted(false);
+        sourceSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sourceSelectorActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(sourceSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(sourceSelector, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel7.add(jPanel2, java.awt.BorderLayout.WEST);
 
         jPanel1.setLayout(new java.awt.BorderLayout());
         jPanel1.add(searchPanel, java.awt.BorderLayout.CENTER);
+
+        jPanel7.add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        jPanel9.setMaximumSize(new java.awt.Dimension(20, 20));
+        jPanel9.setMinimumSize(new java.awt.Dimension(20, 20));
+        jPanel9.setPreferredSize(new java.awt.Dimension(50, 111));
+        jPanel9.setLayout(new java.awt.GridBagLayout());
+
+        jButton1.setBackground(new java.awt.Color(255, 0, 0));
+        jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setMaximumSize(new java.awt.Dimension(35, 35));
+        jButton1.setOpaque(true);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 35;
+        gridBagConstraints.ipady = 35;
+        gridBagConstraints.insets = new java.awt.Insets(11, 10, 0, 2);
+        jPanel9.add(jButton1, gridBagConstraints);
+
+        jButton2.setBackground(new java.awt.Color(255, 255, 0));
+        jButton2.setBorder(null);
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.setMaximumSize(new java.awt.Dimension(35, 35));
+        jButton2.setOpaque(true);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 35;
+        gridBagConstraints.ipady = 35;
+        gridBagConstraints.insets = new java.awt.Insets(18, 10, 11, 2);
+        jPanel9.add(jButton2, gridBagConstraints);
+
+        jPanel3.add(jPanel9, java.awt.BorderLayout.WEST);
+
+        jPanel8.setPreferredSize(new java.awt.Dimension(111, 109));
 
         settingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/settingButton.png"))); // NOI18N
         settingsButton.setBorder(null);
@@ -127,42 +206,26 @@ public class HeaderPanel extends javax.swing.JPanel {
             }
         });
 
-        sourceSelector.setIcon(new javax.swing.ImageIcon(getClass().getResource("/citalyser/ui/visualization/resources/2nd_toggle buttons_2a.png"))); // NOI18N
-        sourceSelector.setBorder(null);
-        sourceSelector.setBorderPainted(false);
-        sourceSelector.setContentAreaFilled(false);
-        sourceSelector.setFocusPainted(false);
-        sourceSelector.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sourceSelectorActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(sourceSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 548, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(settingsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(settingsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
-                .addGap(11, 11, 11))
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(sourceSelector, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                .addComponent(settingsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
         );
+
+        jPanel3.add(jPanel8, java.awt.BorderLayout.CENTER);
+
+        jPanel7.add(jPanel3, java.awt.BorderLayout.EAST);
 
         add(jPanel7);
     }// </editor-fold>//GEN-END:initComponents
@@ -264,11 +327,17 @@ public class HeaderPanel extends javax.swing.JPanel {
     private boolean metric = true;
     private boolean authorSearchMode = true;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JButton modeSelector;
     private citalyser.ui.visualization.panels.common.SearchPanel searchPanel;
     private javax.swing.JButton settingsButton;

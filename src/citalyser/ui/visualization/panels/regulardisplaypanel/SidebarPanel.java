@@ -61,8 +61,10 @@ public class SidebarPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jSplitPane1 = new javax.swing.JSplitPane();
-        authorListPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel();
         advancedSearchPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AdvancedSearchPanel();
+        jPanel1 = new javax.swing.JPanel();
+        authorListPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel();
+        jPanel2 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(-6710785,true));
         setLayout(new java.awt.BorderLayout());
@@ -71,14 +73,23 @@ public class SidebarPanel extends javax.swing.JPanel {
         jSplitPane1.setDividerSize(0);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setOpaque(false);
-        jSplitPane1.setRightComponent(authorListPanel);
-        jSplitPane1.setLeftComponent(advancedSearchPanel);
+        jSplitPane1.setTopComponent(advancedSearchPanel);
+
+        jPanel1.setLayout(new java.awt.CardLayout());
+        jPanel1.add(authorListPanel, "card2");
+
+        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel1.add(jPanel2, "card3");
+
+        jSplitPane1.setRightComponent(jPanel1);
 
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AdvancedSearchPanel advancedSearchPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel authorListPanel;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
  public void clearAll() {

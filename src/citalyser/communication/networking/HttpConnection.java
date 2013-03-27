@@ -22,6 +22,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
+
 //import org.apache.http.HttpEntity;
 //import org.apache.http.HttpHost;
 //import org.apache.http.HttpResponse;
@@ -63,11 +64,11 @@ public class HttpConnection {
 
         connection = (HttpURLConnection) (uri.toURL().openConnection(proxy));
         //connection.setInstanceFollowRedirects(true);
-        connection.setDoInput(true);
-        connection.setDoOutput(false);
+        //connection.setDoInput(true);
+        //connection.setDoOutput(false);
         connection.setConnectTimeout(Constants.SERVER_READOUT_TIME);
         connection.setRequestMethod("GET");
-        connection.setRequestProperty("Content-Type", "text/html; charset=ISO-8859-1");
+        //connection.setRequestProperty("Content-Type", "text/html; charset=ISO-8859-1");
         connection.setRequestProperty("User-Agent", agentname);
         return connection;
     }
