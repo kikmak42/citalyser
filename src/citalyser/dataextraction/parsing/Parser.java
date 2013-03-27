@@ -609,7 +609,7 @@ public class Parser {
             university = university.split("</a>")[2].split("Cited|<form|<input")[0];
 
             details = item.text();
-            // logger.debug("!@#$%^&*:"+university.substring(6));
+            logger.debug("!@#$%^&*:"+university.substring(6));
             // logger.debug("\n@@@@:" + item.select("a.cit-dark-large-link").outerHtml());
             imglink = Constants.SCHOLAR_BASE_URL + item.select("img").get(0).attr("src");
             Elements links = item.select("a.cit-dark-large-link");
