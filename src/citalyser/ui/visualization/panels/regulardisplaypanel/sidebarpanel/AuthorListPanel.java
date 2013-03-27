@@ -28,13 +28,10 @@ public class AuthorListPanel extends javax.swing.JPanel {
     public AuthorListPanel() {
         initComponents();
     }
-    
-    public void setList(ArrayList<String>authors){
-        
-        
-        int i=0;
+
+    public void setList(ArrayList<String> authors) {
         DefaultListModel list = new DefaultListModel();
-        for(i=0;i<authors.size();i++){
+        for (int i = 0; i < authors.size(); i++) {
             JCheckBox jCheckBox = new JCheckBox();
             jCheckBox.setText(authors.get(i));
             jCheckBox.setSelected(true);
@@ -48,12 +45,11 @@ public class AuthorListPanel extends javax.swing.JPanel {
         jList1.setModel(list);
     }
 
-
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
     }
-    
     private DisplayMaster displayMaster;
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,28 +59,14 @@ public class AuthorListPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<javax.swing.JCheckBox>();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<javax.swing.JCheckBox>();
 
         setLayout(new java.awt.BorderLayout());
-
-        jScrollPane1.setBorder(null);
-
-        jList1.setBackground(new java.awt.Color(157, 157, 255));
-        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jList1MouseClicked(evt);
-            }
-        });
-        jList1.setCellRenderer(new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.authorlistpanel.AuthorListCellRenderer());
-        jScrollPane1.setViewportView(jList1);
-
-        add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
@@ -106,6 +88,20 @@ public class AuthorListPanel extends javax.swing.JPanel {
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
+
+        jScrollPane1.setBorder(null);
+
+        jList1.setBackground(new java.awt.Color(157, 157, 255));
+        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
+        jList1.setCellRenderer(new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.authorlistpanel.AuthorListCellRenderer());
+        jScrollPane1.setViewportView(jList1);
+
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
@@ -116,7 +112,6 @@ public class AuthorListPanel extends javax.swing.JPanel {
         }
         jList1.repaint();
     }//GEN-LAST:event_jList1MouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList<javax.swing.JCheckBox> jList1;
@@ -131,6 +126,6 @@ public class AuthorListPanel extends javax.swing.JPanel {
     }
 
     public void clear() {
-    //    jList1.removeAll();
+        //    jList1.removeAll();
     }
 }

@@ -87,16 +87,16 @@ public class CollapsibleListDisplayPanel extends javax.swing.JPanel {
     }
 
     public void previousButtonClicked(java.awt.event.MouseEvent evt) {
-        displayMaster.citationListPrevious();
+        displayMaster.getNavigationMaster().citationListPreviousButtonClicked();
     }
 
     public void nextButtonClicked(java.awt.event.MouseEvent evt) {
-        displayMaster.citationListNext();
+        displayMaster.getNavigationMaster().citationListNextButtonClicked();
     }
 
     public void moreButtonClicked(java.awt.event.MouseEvent evt) {
         //displayMaster.displayStatusMessage("More Button Pressed");
-        displayMaster.citationListMoreButtonClicked(entityCount, jLabel5);
+        displayMaster.getNavigationMaster().citationListMoreButtonClicked(entityCount, jLabel5);
     }
 
     public void addCollapsibleListEntityPanel(CollapsibleListEntityPanel collapsibleListEntityPanel) {
