@@ -27,6 +27,17 @@ public class LoadingDisplayPanel extends javax.swing.JPanel {
         remove(jLabel1);
         setLayout(new BorderLayout());
         add(jLabel1, java.awt.BorderLayout.CENTER);
+        jLabel1.setVisible(true);
+    }
+    
+    public void startLoading()
+    {
+        jLabel1.setVisible(true);
+    }
+    
+    public void stopLoading()
+    {
+        jLabel1.setVisible(false); 
     }
 
     /** This method is called from within the constructor to

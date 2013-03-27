@@ -406,6 +406,7 @@ public class DisplayMaster {
                         UiUtils.displayQueryEmptyMessage(contentRenderer, q.flag, myJournal.getName());
                     }
                 } else {
+                    UiUtils.displayResultNullMessage(q.flag,myJournal.getName());
                     Main.getDisplayController().displayErrorMessage("Unknown Error while Fetching Journal Papers.");
                 }
             }
@@ -443,6 +444,9 @@ public class DisplayMaster {
                     renderProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), q, (Author) queryResult.getContents());
                     mainFrame.getRegularDisplayPanel().getSidebarPanel().getAuthorListPanel().displayAuthors(((Author)(queryResult.getContents())).getPaperCollection());
                 } else {
+                    UiUtils.displayResultNullMessage(q.flag, authorName);
+                    mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().stopLoading();
+                    mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel().stopLoading();
                     //Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Author Details.");
                 }
             }

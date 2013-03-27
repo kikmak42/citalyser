@@ -142,7 +142,6 @@ public class SearchMaster {
                     
                     currResult = QueryHandler.getInstance().getQueryResult(q);
                     if (currResult == null) {
-                        logger.debug("Curr Result is null");
                         break;
                     }
                     
@@ -175,14 +174,22 @@ public class SearchMaster {
                         break;
                 }
                 // Query Completed. 
-                /* Update the search panel*/
-                mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(true);
-                /* If no results, show EmptyResult Message */
-                if(recvCount == 0) {
-                    UiUtils.displayQueryEmptyMessage(dataContentRenderer,q.flag, searchQuery);
+                if(globalResult == null)
+                {
+                    /* Show Loading sign in the central panel*/
+                    mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().stopLoading();
+                    UiUtils.displayResultNullMessage(q.flag, searchQuery);
                 }
-                /* Show Query Completion Message*/
-                UiUtils.displayQueryCompleteInfoMessage(q.flag,recvCount,searchQuery);
+                else{
+                    /* Update the search panel*/
+                    mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().setButtonEnabled(true);
+                    /* If no results, show EmptyResult Message */
+                    if(recvCount == 0) {
+                        UiUtils.displayQueryEmptyMessage(dataContentRenderer,q.flag, searchQuery);
+                    }
+                    /* Show Query Completion Message*/
+                    UiUtils.displayQueryCompleteInfoMessage(q.flag,recvCount,searchQuery);
+                }
             }
         };
         thread.start();

@@ -183,6 +183,11 @@ public class LowerDetailsDisplayPanel extends javax.swing.JPanel implements Cont
     }
 
     @Override
+    public void stopLoading() {
+        loadingDisplayPanel.stopLoading();
+    }
+    
+    @Override
     public void clearAll() {
         gridDisplayPanel.clear();
         tableDisplayPanel.clear();

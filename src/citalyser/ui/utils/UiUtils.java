@@ -219,6 +219,38 @@ public class UiUtils {
         contentRenderer.displayMessage(result);
     }
 
+    public static void displayResultNullMessage(QueryType qtype,String searchQuery)
+    {
+        String result;
+        switch (qtype) {
+            case GEN_AUTH:
+                result = "Could not fetch papers with authors matching '" + searchQuery + "' from Google Scholar...";
+                break;
+            case GEN_JOURN:
+                result = "Could not fetch papers with publications matching '" + searchQuery + "' from Google Scholar...";
+                break;
+            case MET_AUTH:
+                result = "Could not fetch results for Authors matching '" + searchQuery + "'...";
+                break;
+            case MET_JOURN:
+                result = "Could not fetch publications matching '" + searchQuery + " '...";
+                break;
+            case AUTH_PROF:
+                result = "Could not fetch papers of Author : " + searchQuery + "...";
+                break;
+            case JOURN_PROF:
+                result = "Could not fetch papers of Journal : " + searchQuery + "...";
+                break;
+            case CITATIONS_LIST:
+            case CITATIONS_LIST_METRIC:
+                Main.getDisplayController().displayInfoMessage("");
+                return;
+            default:
+                result = "";
+        }
+        Main.getDisplayController().displayInfoMessage(result);
+    }
+    
     public static void displayGraph(final JLabel jLabel, final Map<Integer, Integer> map1, final int width, final int height) {
         StringBuilder yearall = new StringBuilder();
         StringBuilder citall = new StringBuilder();
