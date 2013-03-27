@@ -234,4 +234,8 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
             return true;
         }
     }
+
+    public boolean isYearEmpty() {
+        return yearRangePanel.isYearEmpty();
+    }
 }

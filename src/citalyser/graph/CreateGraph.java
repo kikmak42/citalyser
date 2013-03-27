@@ -110,6 +110,7 @@ public class CreateGraph {
         //sgv
         layout = new SpringLayout<>(sgv.g2);
         layouttop = new AggregateLayout<>(layout);
+        if(q!=null){
         PaperCollection pc = ((PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q)).getContents();
         populateGraph(generateGraphObject.getNodeArray(pc));
 
@@ -204,6 +205,10 @@ public class CreateGraph {
 //        frame.setSize(600, 600);
 //        frame.setVisible(true);
         //panel.setVisible(true);
+        
+        
+        }
+        
 
     }
 
