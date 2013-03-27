@@ -94,7 +94,7 @@ class PopupGraphMousePlugin extends AbstractPopupGraphMousePlugin implements Mou
                     public void actionPerformed(ActionEvent e) {
                         //System.out.println("person added");
 
-                        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(pickV.citationurl).numResult(20).build();
+                        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(pickV.citationurl).numResult(gvp.getSlider().getValue()).build();
                         PaperCollectionResult queriedPapercollection = (PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q);
                         if (queriedPapercollection != null) {
                             createGraph.nullResultFlag = false;
@@ -131,7 +131,7 @@ class PopupGraphMousePlugin extends AbstractPopupGraphMousePlugin implements Mou
                 public void actionPerformed(ActionEvent e) {
                     System.out.println("person added");
 
-                    Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(pickV.citationurl).numResult(20).build();
+                    Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(pickV.citationurl).numResult(gvp.getSlider().getValue()).build();
                     PaperCollectionResult queriedPapercollection = (PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q);
                     if (queriedPapercollection != null) {
                         createGraph.nullResultFlag = false;
@@ -158,9 +158,6 @@ class PopupGraphMousePlugin extends AbstractPopupGraphMousePlugin implements Mou
             });
 
             popup.setLocation(e.getPoint());
-
-            logger.debug(
-                    "##:" + e.getX() + "@@:" + e.getY());
             popup.show(createGraph.vv, e.getX(), e.getY());
 
 
