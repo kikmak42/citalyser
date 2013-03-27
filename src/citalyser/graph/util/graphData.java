@@ -32,7 +32,12 @@ public class graphData {
     public nodeInfo getbaseNode(Paper paper) {
         nodeInfo g = new nodeInfo();
         g.Title = paper.getTitle();
-        g.EntireInfo = "<html><head></head><body><B>" + paper.getTitle() + "</B><br>" + paper.getInfo() + "</body></html>";
+        g.EntireInfo = "<html><head></head><body><B>" + paper.getTitle() + "</B><br>";
+        if (paper.getInfo()==null) {
+            g.EntireInfo += "</body></html>";
+        } else {
+            g.EntireInfo += paper.getInfo() + "</body></html>";
+        }
         g.id = this.id;
         g.citationurl = paper.getcitedByUrl();
         this.id += 1;
@@ -46,7 +51,12 @@ public class graphData {
         for (Paper paper : p.getPapers()) {
             nodeInfo g = new nodeInfo();
             g.Title = paper.getTitle();
-            g.EntireInfo = "<html><head></head><body><B>" + paper.getTitle() + "</B><br>" + paper.getInfo() + "</body></html>";
+            g.EntireInfo = "<html><head></head><body><B>" + paper.getTitle() + "</B><br>";
+            if (paper.getInfo().equals(null)) {
+                g.EntireInfo += "</body></html>";
+            } else {
+                g.EntireInfo += paper.getInfo() + "</body></html>";
+            }
             //logger.debug("@#$%:" + paper.getInfo());
             g.nocitation = paper.getNumCites();
             g.id = this.id;

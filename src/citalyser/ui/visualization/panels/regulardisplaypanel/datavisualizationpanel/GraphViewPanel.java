@@ -19,6 +19,7 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JSlider;
 
 /**
  *
@@ -52,6 +53,10 @@ public class GraphViewPanel extends javax.swing.JPanel {
         return jLabel2;
     }
 
+    public JSlider getSlider() {
+        return slider;
+    }
+
     public JButton getjButton1() {
         return jButton1;
     }
@@ -65,8 +70,12 @@ public class GraphViewPanel extends javax.swing.JPanel {
     }
 
     public void setPaper(Paper paper) {
+        graphHistory = new GraphHistory();
+
         cg = new CreateGraph(paper, this);
         jPanel1.removeAll();
+        jButton1.setVisible(false);
+        jButton2.setVisible(false);
         jPanel1.setLayout(new BorderLayout());
         jPanel1.add(cg.getVisualizationViewer(), BorderLayout.CENTER);
         cg.getVisualizationViewer().setSize(new Dimension(jPanel1.getWidth(), jPanel1.getHeight()));
@@ -96,7 +105,7 @@ public class GraphViewPanel extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        jSlider1 = new javax.swing.JSlider();
+        slider = new javax.swing.JSlider();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(150, 150, 150)));
         setLayout(new java.awt.BorderLayout());
@@ -171,16 +180,16 @@ public class GraphViewPanel extends javax.swing.JPanel {
 
         jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jSlider1.setForeground(new java.awt.Color(0, 0, 0));
-        jSlider1.setMajorTickSpacing(1);
-        jSlider1.setMaximum(20);
-        jSlider1.setMinimum(1);
-        jSlider1.setOrientation(javax.swing.JSlider.VERTICAL);
-        jSlider1.setPaintLabels(true);
-        jSlider1.setPaintTicks(true);
-        jSlider1.setSnapToTicks(true);
-        jSlider1.setValue(10);
-        jPanel7.add(jSlider1);
+        slider.setForeground(new java.awt.Color(0, 0, 0));
+        slider.setMajorTickSpacing(1);
+        slider.setMaximum(20);
+        slider.setMinimum(1);
+        slider.setOrientation(javax.swing.JSlider.VERTICAL);
+        slider.setPaintLabels(true);
+        slider.setPaintTicks(true);
+        slider.setSnapToTicks(true);
+        slider.setValue(10);
+        jPanel7.add(slider);
 
         jPanel6.add(jPanel7, java.awt.BorderLayout.LINE_START);
 
@@ -242,6 +251,6 @@ public class GraphViewPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JSlider jSlider1;
+    private javax.swing.JSlider slider;
     // End of variables declaration//GEN-END:variables
 }

@@ -84,14 +84,43 @@ class PopupGraphMousePlugin extends AbstractPopupGraphMousePlugin implements Mou
         System.out.println("GraphElementAccessor!");
 
         final nodeInfo pickV = pickSupport.getVertex(createGraph.vv.getGraphLayout(), ivp.getX(), ivp.getY());
-        System.out.println("!@#$%^&*");
+//        System.out.println("!@#$%^&*");
         if (pickV != null) {
-            System.out.println(pickV.id);
+            //System.out.println(pickV.id);
 
-            popup.add(new AbstractAction("Fetch this node's citations\nFetch 20 citations") {
+            if (pickV.id == createGraph.baseNode.id) {
+                popup.add(new AbstractAction("Fetch More Citations") {
+                    public void actionPerformed(ActionEvent e) {
+                        //System.out.println("person added");
+
+                        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(pickV.citationurl).numResult(gvp.getSlider().getValue()).build();
+                        PaperCollection pc = ((PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q)).getContents();
+                        if (pickV.nocitation != 0) {
+                            createGraph.baseNode = pickV;
+
+                            createGraph.addToGraph(createGraph.generateGraphObject.getNodeArray(pc));
+                            createGraph.layouttop.setGraph(createGraph.sgv.g2);
+                            gvp.getjLabel1().setText("<html>" + pickV.Title);
+
+                            gvp.getGraphHistory().addnodeInfo(pickV);
+                            gvp.getjLabel2().setText(gvp.getGraphHistory().getnodeList());
+                            gvp.getjButton2().setVisible(false);
+                            gvp.getjButton1().setVisible(true);
+                            createGraph.vv.repaint();
+                        } else {
+                            Main.getDisplayController().displayErrorMessage("Zero Citaions for this paper");
+                        }
+                    }
+                });
+            }
+
+
+
+            popup.add(new AbstractAction("Fetch Citations") {
                 public void actionPerformed(ActionEvent e) {
                     System.out.println("person added");
-                    Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(pickV.citationurl).numResult(20).build();
+
+                    Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(pickV.citationurl).numResult(gvp.getSlider().getValue()).build();
                     PaperCollection pc = ((PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q)).getContents();
                     if (pickV.nocitation != 0) {
                         createGraph.baseNode = pickV;
@@ -108,7 +137,6 @@ class PopupGraphMousePlugin extends AbstractPopupGraphMousePlugin implements Mou
                     } else {
                         Main.getDisplayController().displayErrorMessage("Zero Citaions for this paper");
                     }
-
                 }
             });
 
