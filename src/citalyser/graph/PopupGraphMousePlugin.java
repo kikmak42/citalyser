@@ -11,6 +11,7 @@ import citalyser.model.query.Query;
 import citalyser.model.query.QueryHandler;
 import citalyser.model.query.QueryType;
 import citalyser.model.query.queryresult.PaperCollectionResult;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.GraphViewPanel;
 import edu.uci.ics.jung.visualization.control.GraphMousePlugin;
 
 /**
@@ -44,10 +45,13 @@ class PopupGraphMousePlugin extends AbstractPopupGraphMousePlugin implements Mou
 
     static Logger logger = Logger.getLogger(PopupGraphMousePlugin.class.getName());
     private CreateGraph createGraph;
+    private GraphViewPanel gvp;
 
-    public PopupGraphMousePlugin(CreateGraph createGraph) {
+    public PopupGraphMousePlugin(CreateGraph createGraph, GraphViewPanel gvp) {
         this.createGraph = createGraph;
+        this.gvp = gvp;
     }
+    
 
     public CreateGraph getCreateGraph() {
         return createGraph;
@@ -94,6 +98,7 @@ class PopupGraphMousePlugin extends AbstractPopupGraphMousePlugin implements Mou
                     if (pickV.nocitation != 0) {
                         createGraph.populateGraph(createGraph.generateGraphObject.getNodeArray(pc));
                         createGraph.layout.setGraph(createGraph.sgv.g2);
+                        gvp.getjLabel1().setText("<html>"+pickV.Title);
                         createGraph.vv.repaint();
                     } else {
                         Main.getDisplayController().displayErrorMessage("Zero Citaions for this paper");

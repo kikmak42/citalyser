@@ -21,6 +21,7 @@ import citalyser.model.query.QueryType;
 import citalyser.model.query.queryresult.PaperCollectionResult;
 import citalyser.ui.DisplayController;
 import citalyser.ui.control.DisplayControllerImpl;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.GraphViewPanel;
 import citalyser.util.Config;
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.algorithms.layout.AggregateLayout;
@@ -97,29 +98,7 @@ public class CreateGraph {
         return displayController;
     }
 
-    public static void main(String args[]) {
-
-        PropertyConfigurator.configure("log4j.properties");
-
-        /* initialise the software */
-        Initialiser.init();
-
-        /* Load the Config File*/
-        Config.init(settingsDirectory);
-        displayController = new DisplayControllerImpl();
-        displayController.initializeDisplay();
-        Paper paper = new Paper();
-        paper.setTitle("Removal of Cr (VI) from aqueous solution: Electrocoagulation vs chemical coagulation");
-        Author a = new Author("AK Golder");
-        ArrayList<Author> arr = new ArrayList<>();
-        arr.add(a);
-        paper.setAuthors(arr);
-        paper.setInfo("AK Golder");
-        paper.setCitedByUrl("http://scholar.google.co.in/scholar?cites=1547993743289210385&as_sdt=2005&sciodt=0,5&hl=en");
-        CreateGraph cg = new CreateGraph(paper);
-    }
-
-    public CreateGraph(Paper paper) {
+    public CreateGraph(Paper paper, GraphViewPanel gvp) {
         generateGraphObject = new graphData();
         this.baseNode = generateGraphObject.getbaseNode(paper);
         Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(this.baseNode.citationurl).numResult(20).build();
@@ -189,6 +168,7 @@ public class CreateGraph {
         //  AnimatedPickingGraphMousePlugin am = new AnimatedPickingGraphMousePlugin();
 
         vv.getPickedVertexState();
+        gvp.getjLabel1().setText("<html>"+this.baseNode.Title);
 
         DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
         gm.add(new AnimatedPickingGraphMousePlugin());
@@ -198,7 +178,7 @@ public class CreateGraph {
         //gm.add(null)
         gm.add(new PickingGraphMousePlugin());
         // gm.add(new TranslatingGraphMousePlugin(MouseEvent.BUTTON3_MASK));
-        gm.add(new PopupGraphMousePlugin(this));
+        gm.add(new PopupGraphMousePlugin(this, gvp));
         // gm.add(new ScalingGraphMousePlugin(new CrossoverScalingControl(), 0, 1 / 1.1f, 1.1f));
         // gm.add(new TranslatingGraphMousePlugin(MouseEvent.BUTTON1_MASK));
         gm.add(new ScalingGraphMousePlugin(new CrossoverScalingControl(), 0, 1.1f, 0.9f));

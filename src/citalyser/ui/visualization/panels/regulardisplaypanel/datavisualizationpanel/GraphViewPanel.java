@@ -16,6 +16,7 @@ import citalyser.ui.control.DisplayMaster;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
+import javax.swing.JLabel;
 
 /**
  *
@@ -31,8 +32,17 @@ public class GraphViewPanel extends javax.swing.JPanel {
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
     }
+
+    public JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public void setjLabel1(JLabel jLabel1) {
+        this.jLabel1 = jLabel1;
+    }
+    
     public void setPaper(Paper paper) {
-        CreateGraph cg = new CreateGraph(paper);
+        CreateGraph cg = new CreateGraph(paper,this);
         jPanel1.removeAll();
         jPanel1.setLayout(new BorderLayout());
         jPanel1.add(cg.getVisualizationViewer(), BorderLayout.CENTER);
@@ -52,7 +62,6 @@ public class GraphViewPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -61,17 +70,18 @@ public class GraphViewPanel extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jSlider1 = new javax.swing.JSlider();
 
         setLayout(new java.awt.BorderLayout());
-
-        jPanel1.setLayout(new java.awt.BorderLayout());
-        add(jPanel1, java.awt.BorderLayout.CENTER);
 
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
         jPanel3.setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Paper title");
         jPanel3.add(jLabel1, java.awt.BorderLayout.CENTER);
@@ -104,6 +114,26 @@ public class GraphViewPanel extends javax.swing.JPanel {
         jPanel2.add(jPanel4);
 
         add(jPanel2, java.awt.BorderLayout.PAGE_START);
+
+        jPanel6.setLayout(new java.awt.BorderLayout());
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+        jPanel6.add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.PAGE_AXIS));
+
+        jSlider1.setMaximum(20);
+        jSlider1.setMinimum(1);
+        jSlider1.setOrientation(javax.swing.JSlider.VERTICAL);
+        jSlider1.setPaintLabels(true);
+        jSlider1.setPaintTicks(true);
+        jSlider1.setSnapToTicks(true);
+        jSlider1.setValue(10);
+        jPanel7.add(jSlider1);
+
+        jPanel6.add(jPanel7, java.awt.BorderLayout.LINE_START);
+
+        add(jPanel6, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -120,5 +150,8 @@ public class GraphViewPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JSlider jSlider1;
     // End of variables declaration//GEN-END:variables
 }
