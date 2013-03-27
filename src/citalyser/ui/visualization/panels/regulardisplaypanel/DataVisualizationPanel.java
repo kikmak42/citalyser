@@ -55,18 +55,6 @@ public class DataVisualizationPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.CardLayout());
         add(contentDisplayPanel, "card3");
-
-        javax.swing.GroupLayout graphViewPanelLayout = new javax.swing.GroupLayout(graphViewPanel);
-        graphViewPanel.setLayout(graphViewPanelLayout);
-        graphViewPanelLayout.setHorizontalGroup(
-            graphViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 657, Short.MAX_VALUE)
-        );
-        graphViewPanelLayout.setVerticalGroup(
-            graphViewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 657, Short.MAX_VALUE)
-        );
-
         add(graphViewPanel, "card3");
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
