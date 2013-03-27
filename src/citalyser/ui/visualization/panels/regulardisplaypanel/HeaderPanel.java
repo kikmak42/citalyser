@@ -165,7 +165,7 @@ public class HeaderPanel extends javax.swing.JPanel {
         jButton1.setBackground(new java.awt.Color(59, 89, 157));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Help");
+        jButton1.setText("History");
         jButton1.setBorder(null);
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
@@ -189,7 +189,7 @@ public class HeaderPanel extends javax.swing.JPanel {
         jButton2.setBackground(new java.awt.Color(59, 89, 157));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("About");
+        jButton2.setText("Help");
         jButton2.setBorder(null);
         jButton2.setBorderPainted(false);
         jButton2.setContentAreaFilled(false);
