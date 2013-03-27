@@ -4,10 +4,12 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel;
 
+import citalyser.Main;
 import citalyser.model.query.Query;
 import citalyser.model.query.QueryType;
 import citalyser.ui.control.DisplayMaster;
 import java.awt.CardLayout;
+import java.net.URLEncoder;
 
 /**
  *
@@ -207,8 +209,13 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Query q = new Query.Builder("").flag(QueryType.GEN_JOURN).sortFlag(false).maxYear(jTextField7.getText()).minYear(jTextField8.getText()).build();
+        try{
+        Query q = new Query.Builder("").flag(QueryType.ADV_SRCH).sortFlag(false).maxYear(jTextField7.getText()).minYear(jTextField8.getText()).allWords(URLEncoder.encode(jTextField1.getText(),"ISO-8859-1")).exactPhrase(URLEncoder.encode(jTextField3.getText(),"ISO-8859-1")).atleastOneOfThese(URLEncoder.encode(jTextField4.getText(),"ISO-8859-1")).exceptThese(URLEncoder.encode(jTextField5.getText(),"ISO-8859-1")).occurWhere(URLEncoder.encode((String)jComboBox1.getSelectedItem(),"ISO-8859-1")).authorS(URLEncoder.encode(jTextField2.getText(),"ISO-8859-1")).publishedAt(URLEncoder.encode(jTextField6.getText(),"ISO-8859-1")).build();
         displayMaster.getSearchMaster().fetchResults(q, 20, displayMaster.getNumberOfResults());
+        }catch(Exception ex){
+            Main.getDisplayController().displayErrorMessage("Invalid format of input string");
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
     private DisplayMaster displayMaster;
     // Variables declaration - do not modify//GEN-BEGIN:variables

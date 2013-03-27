@@ -205,7 +205,9 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel impleme
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         if (jTable1.rowAtPoint(evt.getPoint()) > -1) {
             disabledRow = jTable1.rowAtPoint(evt.getPoint());
-            Paper clickedPaper = paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint()));
+            int selectedRowIndex = jTable1.convertRowIndexToModel(jTable1.rowAtPoint(evt.getPoint()));
+            int serialno = (Integer)jTable1.getModel().getValueAt(selectedRowIndex, 0) - 1; 
+            Paper clickedPaper = paperCollection.getPapers().get(serialno);
             if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
                 if (jTable1.rowAtPoint(evt.getPoint()) != disabledRow) {
                     if(clickedPaper.getNumCites() > 0) {

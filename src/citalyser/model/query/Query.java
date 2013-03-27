@@ -20,12 +20,14 @@ public class Query{
     public boolean h_idx;
     public boolean i_idx;
     public String url;
+    public long timestamp;
     public String allwords;
     public String exactphrase;
     public String atleastoneofthese;
     public String exceptthese;
     public String occurwhere;
     public String publishedat;
+    public String authors;
     
 
     private Query(Builder builder) {
@@ -45,6 +47,7 @@ public class Query{
         atleastoneofthese=builder.atleastoneofthese;
         exceptthese=builder.exceptthese;
         occurwhere=builder.occurwhere;
+        authors=builder.authors;
         publishedat=builder.publishedat;
         
     }
@@ -67,6 +70,7 @@ public class Query{
         private String atleastoneofthese;
         private String exceptthese;
         private String occurwhere;
+        private String authors;
         private String publishedat;
         
         public Builder(String name) {
@@ -151,6 +155,11 @@ public class Query{
         
         public Builder occurWhere(String ow){
             this.occurwhere=ow;
+            return this;
+        }
+        
+        public Builder authorS(String a){
+            this.authors=a;
             return this;
         }
         
