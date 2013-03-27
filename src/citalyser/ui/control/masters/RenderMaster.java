@@ -118,17 +118,17 @@ public class RenderMaster {
         if (papercollection != null) {
             contentRenderer.clearAll();
             if (papercollection.getPapers() == null) {
-                contentRenderer.displayMessage("Could not fetch journal result");
+                contentRenderer.displayMessage("Could not fetch result");
             } else {
                 if (papercollection.getPapers().isEmpty()) {
-                    contentRenderer.displayMessage("Could not fetch journal result");
+                    contentRenderer.displayMessage("Could not fetch result");
                 } else {
                     contentRenderer.getProfileDisplayPanel().displayGeneralProfile(query,papercollection);
                     contentRenderer.flipToProfileDisplayPanel();
                 }
             }
         } else {
-            contentRenderer.displayMessage("Could not fetch journal result");
+            contentRenderer.displayMessage("Could not fetch result");
         }
     }
 

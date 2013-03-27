@@ -10,6 +10,8 @@ import citalyser.ui.model.CitationListHistory;
 
 import citalyser.ui.visualization.MainFrame;
 import citalyser.ui.visualization.panels.ExternalPanel;
+import citalyser.ui.visualization.panels.HistoryPanel;
+import citalyser.ui.visualization.panels.common.SearchPanel;
 import citalyser.ui.visualization.panels.external.AbstractDisplayPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -31,6 +33,7 @@ public class DisplayMaster {
     private javax.swing.JDialog settingsDialog, abstractDialog;
     private ExternalPanel extraPanel;
     private AbstractDisplayPanel abstractDisplayPanel;
+    private HistoryPanel historyPanel;
     private SettingsMaster settingsMaster;
     private SearchMaster searchMaster;
     private RenderMaster renderMaster;
@@ -49,6 +52,8 @@ public class DisplayMaster {
         mainFrame.setDisplayMaster(this);
         mainFrame.setVisible(true);
         extraPanel = new ExternalPanel();
+        historyPanel = new HistoryPanel();
+        historyPanel.setDisplayMaster(this);
         abstractDisplayPanel = new AbstractDisplayPanel();
         extraPanel.setDisplayMaster(this);
         settingsMaster = new SettingsMaster(extraPanel);
