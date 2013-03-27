@@ -46,13 +46,13 @@ public class MainFrame extends javax.swing.JFrame {
         regularDisplayPanel = new citalyser.ui.visualization.panels.RegularDisplayPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Citalyser 0.3");
+        setTitle("Citalyser 1.0");
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
-            }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
         addWindowListener(new java.awt.event.WindowAdapter() {
