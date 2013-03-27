@@ -722,4 +722,8 @@ public class DisplayMaster {
     public void showArticleSearch(boolean value) {
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(value);
     }
+
+    public void generalSearch(String all, String exact, String atleast, String without) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 }
