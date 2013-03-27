@@ -87,20 +87,35 @@ public class PaperCollection implements Serializable {
     
     public ArrayList<Integer> getAuthorPos(ArrayList<String> auth) {
         ArrayList<Integer> retPos = new ArrayList<>();
-        for (String eachAuthor : auth) {
-            int i=0;
-            for (String au : this.uniqueAuthorList) {
-                if(auth.equals(au)) {
-                    retPos.add(i);
+        ArrayList<Paper> p = this.papers;
+        //ArrayList<String> author = new ArrayList<>();
+        int count = 0;
+        for (Paper paper : p) {
+            for (Author authr : paper.getAuthors()) {
+                if (auth.contains(authr.getName())) {
+                    if(!retPos.contains(count))retPos.add(count);
                 }
-                i++;
             }
+            count++;
         }
         return retPos;
     }
     public ArrayList<Integer> getAuthorPos(String auth) {
         ArrayList<Integer> retPos = new ArrayList<>();
-        
+        ArrayList<Paper> p = this.papers;
+        //ArrayList<String> author = new ArrayList<>();
+        int count = 0;
+        for (Paper paper : p) {
+            for (Author authr : paper.getAuthors()) {
+                if (auth.equals(authr.getName())) {
+                    if(!retPos.contains(count))retPos.add(count);
+                }
+            }
+            count++;
+        }
+        //this.uniqueAuthorList = new ArrayList<>(new HashSet<>(author));
+        //return uniqueAuthorList;
+        /*
             int i=0;
             for (String au : this.uniqueAuthorList) {
                 if(auth.equals(au)) {
@@ -108,7 +123,7 @@ public class PaperCollection implements Serializable {
                 }
                 i++;
             }
-        
+        */
         return retPos;
     }
 
