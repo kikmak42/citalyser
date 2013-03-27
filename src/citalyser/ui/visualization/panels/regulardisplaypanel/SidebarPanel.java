@@ -35,6 +35,7 @@ public class SidebarPanel extends javax.swing.JPanel {
 
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
+        authorListPanel.setDisplayMaster(displayMaster);
     }
     
     private DisplayMaster displayMaster;

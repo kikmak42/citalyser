@@ -284,5 +284,18 @@ public class PaperCollection implements Serializable {
         //TODO:
         return total_citations;
     }
+
+    public double getAvgCitationPerYear() {
+        int citations = getTotalNumberOfCitations();
+        Map<Integer, Integer> map1 = getCitationForYear();
+        int yearmin=99999999,yearmax=0;
+         for(Map.Entry<Integer, Integer> entry : map1.entrySet()){
+            if(yearmin>entry.getKey()) 
+                yearmin=entry.getKey();
+             if(yearmax<entry.getKey())
+                 yearmax=entry.getKey();
+         }
+         return citations/(yearmax-yearmin);
+    }
     
 }

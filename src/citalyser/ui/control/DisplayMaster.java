@@ -376,7 +376,7 @@ public class DisplayMaster {
         final Journal myJournal = journal;
         logger.debug("2345::::"+myJournal.getH5index());
         this.query_name = journal.getName();
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.75);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(true);
         Thread thread = new Thread() {
             @Override
@@ -509,7 +509,7 @@ public class DisplayMaster {
     /* This method is not used anywhere. Deprecated.*/
 
     public void renderGeneralProfile(ContentRenderer contentRenderer, Query query, PaperCollection papercollection) {
-        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.75);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().flipToUpperDetailsDisplayPanel();
         if(query.flag == QueryType.GEN_JOURN){
             mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(true);
