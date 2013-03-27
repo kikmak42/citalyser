@@ -5,6 +5,8 @@
 
 package citalyser.util;
 
+import citalyser.Constants;
+import citalyser.model.UrlComposer;
 import citalyser.model.query.QueryType;
 import citalyser.util.CProxy;
 import java.io.File;
@@ -81,5 +83,34 @@ public class CommonUtils {
             return QueryType.CITATIONS_LIST_METRIC;
         else 
             return QueryType.CITATIONS_LIST;
+    }
+    
+    public static int getMaxResultsByQueryType(QueryType q)
+    {
+        switch(q)
+        {
+            case GEN_AUTH: 
+                return Constants.MaxResultsNum.GENERAL_LIST.getValue();
+            case GEN_JOURN:
+                return Constants.MaxResultsNum.GENERAL_LIST.getValue();
+            case MET_AUTH:
+                return Constants.MaxResultsNum.AUTHOR_LIST.getValue();
+            case MET_JOURN:
+                return Constants.MaxResultsNum.JOURNAL_LIST.getValue();
+            case AUTH_PROF:
+                return Constants.MaxResultsNum.AUTHOR_PAPERS.getValue();
+            case JOURN_PROF:
+                return Constants.MaxResultsNum.METRICS_JOURNAL_PAPERS.getValue();
+            case IMAGE_FROM_LINK:
+                return 0;
+            case CITATIONS_LIST:
+                return Constants.MaxResultsNum.GENERAL_LIST.getValue();
+            case CITATIONS_LIST_METRIC:
+                return Constants.MaxResultsNum.GENERAL_LIST.getValue();
+            case ADV_SRCH:
+                return Constants.MaxResultsNum.GENERAL_LIST.getValue();
+            default : 
+                return 0;
+        }
     }
 }

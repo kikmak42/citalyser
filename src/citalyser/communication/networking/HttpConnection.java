@@ -111,7 +111,7 @@ public class HttpConnection {
                             updateProxyList(proxies,i);
                         /* Saving the html content */
                         DataInputStream response = new DataInputStream(connection.getInputStream());
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(response),15000);
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(response));
                         StringBuffer urlResponse= new StringBuffer();
                         String line;
                         while ((line = reader.readLine()) != null){

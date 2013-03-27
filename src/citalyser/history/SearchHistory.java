@@ -1,4 +1,4 @@
-package citalyser.ui.model.history;
+package citalyser.history;
 
 import citalyser.Main;
 import citalyser.model.query.Query;
@@ -24,7 +24,7 @@ public class SearchHistory {
         historyMap = loadHistory();
     }
 
-    private void addQuery(Query query) {
+    public void addQuery(Query query) {
         query.timestamp = System.currentTimeMillis()/1000;
         historyMap.put(query.name, query);
         savehistory();

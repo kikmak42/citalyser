@@ -2,6 +2,7 @@ package citalyser;
 
 //import citalyser.networking.hall;
 import citalyser.graph.CreateGraph;
+import citalyser.history.SearchHistory;
 import citalyser.model.Author;
 import citalyser.model.Paper;
 import citalyser.util.Config;
@@ -19,6 +20,7 @@ public class Main {
     public static File settingsDirectory;
     public static File CacheDirectory;
     private static DisplayController displayController;
+    public static SearchHistory historyHandler;
 
     public static DisplayController getDisplayController() {
         return displayController;
@@ -34,6 +36,9 @@ public class Main {
         
         /* Load the Config File*/
         Config.init(settingsDirectory);
+        
+        /* Load Search History in memory*/
+        historyHandler = new SearchHistory();
         
         displayController = new DisplayControllerImpl();
         displayController.initializeDisplay();

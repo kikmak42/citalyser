@@ -2,13 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package citalyser.ui.visualization.panels.external;
+package citalyser.ui.visualization.panels;
 
 import citalyser.model.query.Query;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.utils.UiUtils;
+import citalyser.util.CommonUtils;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -46,7 +53,15 @@ public class HistoryPanel extends javax.swing.JPanel {
             data[i][0] = i+1;
             data[i][1] = query;
             Query q = hm.get(query);
-            data[i][1] = q.timestamp;
+            /* Get the date*/
+            DateFormat format = new SimpleDateFormat("MMddyyHHmmss");
+            String dateStr = "";
+            try {
+                Date date = format.parse(Long.toString(q.timestamp));
+            } catch (ParseException ex) {
+                dateStr = "";
+            }
+            data[i][1] = dateStr;
             i++;
         }
         
@@ -150,7 +165,7 @@ public class HistoryPanel extends javax.swing.JPanel {
             String searchQuery = (String)jTable1.getModel().getValueAt(selectedRowIndex, 1); 
             Query q = this.historyMap.get(searchQuery); 
             UiUtils.displayQueryStartInfoMessage(q.flag, searchQuery);
-            displayMaster.getSearchMaster().fetchResults(q, 20,q.num_results);
+            displayMaster.getSearchMaster().fetchResults(q, CommonUtils.getMaxResultsByQueryType(q.flag),q.num_results);
             this.setVisible(false);
         }
     }//GEN-LAST:event_jTable1MouseClicked
