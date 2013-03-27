@@ -207,7 +207,7 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Query q = new Query.Builder("").flag(QueryType.GEN_JOURN).sortFlag(false).maxYear(jTextField7.getText()).minYear(jTextField8.getText()).allWords(jTextField1.getText()).exactPhrase(jTextField3.getText()).atleastOneOfThese(jTextField4.getText()).exceptThese(jTextField5.getText()).occurWhere((String)jComboBox1.getSelectedItem()).authorS(jTextField2.getText()).publishedAt(jTextField6.getText()).build();
+        Query q = new Query.Builder("").flag(QueryType.ADV_SRCH).sortFlag(false).maxYear(jTextField7.getText()).minYear(jTextField8.getText()).allWords(jTextField1.getText()).exactPhrase(jTextField3.getText()).atleastOneOfThese(jTextField4.getText()).exceptThese(jTextField5.getText()).occurWhere((String)jComboBox1.getSelectedItem()).authorS(jTextField2.getText()).publishedAt(jTextField6.getText()).build();
         displayMaster.getSearchMaster().fetchResults(q, 20, displayMaster.getNumberOfResults());
     }//GEN-LAST:event_jButton1ActionPerformed
     private DisplayMaster displayMaster;
