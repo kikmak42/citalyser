@@ -6,17 +6,11 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel;
 
 import citalyser.model.PaperCollection;
 import citalyser.ui.control.DisplayMaster;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 
 /**
  *
@@ -46,6 +40,7 @@ public class AuthorListPanel extends javax.swing.JPanel {
            
         }
         jList1.setModel(list);
+        displayMaster.showArticleSearch(false);
     }
 
     public void setDisplayMaster(DisplayMaster displayMaster) {

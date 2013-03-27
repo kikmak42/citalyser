@@ -162,11 +162,16 @@ public class HeaderPanel extends javax.swing.JPanel {
         jPanel9.setPreferredSize(new java.awt.Dimension(50, 111));
         jPanel9.setLayout(new java.awt.GridBagLayout());
 
-        jButton1.setBackground(new java.awt.Color(255, 0, 0));
+        jButton1.setBackground(new java.awt.Color(59, 89, 157));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Help");
         jButton1.setBorder(null);
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
+        jButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton1.setMaximumSize(new java.awt.Dimension(35, 35));
+        jButton1.setMinimumSize(new java.awt.Dimension(1, 1));
         jButton1.setOpaque(true);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -176,11 +181,16 @@ public class HeaderPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(11, 10, 0, 2);
         jPanel9.add(jButton1, gridBagConstraints);
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 0));
+        jButton2.setBackground(new java.awt.Color(59, 89, 157));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("About");
         jButton2.setBorder(null);
         jButton2.setBorderPainted(false);
         jButton2.setContentAreaFilled(false);
+        jButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2.setMaximumSize(new java.awt.Dimension(35, 35));
+        jButton2.setMinimumSize(new java.awt.Dimension(1, 1));
         jButton2.setOpaque(true);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
