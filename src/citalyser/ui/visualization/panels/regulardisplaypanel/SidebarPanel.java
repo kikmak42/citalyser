@@ -36,6 +36,17 @@ public class SidebarPanel extends javax.swing.JPanel {
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
         authorListPanel.setDisplayMaster(displayMaster);
+        advancedSearchPanel.setDisplayMaster(displayMaster);
+    }
+
+    public void showArticleSearch(boolean value) {
+        if (value) {
+            advancedSearchPanel.show();
+            jSplitPane1.setDividerLocation(149);
+        } else {
+            advancedSearchPanel.hide();
+            jSplitPane1.setDividerLocation(23);
+        }
     }
     
     private DisplayMaster displayMaster;
