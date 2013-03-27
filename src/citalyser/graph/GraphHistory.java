@@ -78,11 +78,11 @@ public class GraphHistory {
     public String getnodeList() {
         String list = "";
         int i=0;
-        while(i<=basenodes.size()-2){
+        while(i<=currentnodeInfoPosition-2){
             list+=((basenodes.get(i).Title.split(" ")[0])+"=>");
             i++;
         }
-            list+=((basenodes.get(basenodes.size()-1).Title.split(" ")[0]));
+            list+=((basenodes.get(currentnodeInfoPosition-1).Title.split(" ")[0]));
         return list;
     }
 
