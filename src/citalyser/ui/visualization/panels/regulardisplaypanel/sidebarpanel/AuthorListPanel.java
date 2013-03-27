@@ -39,8 +39,8 @@ public class AuthorListPanel extends javax.swing.JPanel {
             jCheckBox.setText(authors.get(i));
             jCheckBox.setSelected(true);
             jCheckBox.setPreferredSize(new Dimension(100, 20));
-            jCheckBox.setBackground(new Color(255, 255, 255, 128));
-            jCheckBox.setBorder(new LineBorder(new Color(0, 0, 0, 0), 2));
+            jCheckBox.setBorder(new EmptyBorder(5, 2, 2, 5));
+            jCheckBox.setBorderPainted(true);
             list.add(i, jCheckBox);
             //list.addElement(authors.get(i));          
 
@@ -89,6 +89,7 @@ public class AuthorListPanel extends javax.swing.JPanel {
         } else {
             jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).setSelected(true);
         }
+        jList1.repaint();
     }//GEN-LAST:event_jList1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
