@@ -103,4 +103,12 @@ public class YearRangePanel extends javax.swing.JPanel {
     private javax.swing.JTextField maxYearTextField;
     private javax.swing.JTextField minYearTextField;
     // End of variables declaration//GEN-END:variables
+
+    public boolean isYearEmpty() {
+        if (minYearTextField.getText().trim().equals("") && maxYearTextField.getText().trim().equals("")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
