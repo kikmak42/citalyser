@@ -101,6 +101,7 @@ public class DisplayMaster {
 
     public void searchKeyPressed(SearchPanel searchPanel, char key) {
         searchMaster.searchKeyPressed(searchPanel, key);
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
     }
 
     public void settingsButtonPressed() {
@@ -137,6 +138,7 @@ public class DisplayMaster {
 
     public void searchButtonClicked(SearchPanel searchPanel) {
         searchMaster.searchButtonClicked(searchPanel);
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
     }
 
     public void settingsSaveAndClose() {
@@ -260,6 +262,7 @@ public class DisplayMaster {
     }
 
     public void cancelButtonClicked() {
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         synchronized (threads) {
             for (Thread thread : threads) {
                 if (thread != null) {
@@ -282,6 +285,7 @@ public class DisplayMaster {
 
     /* This method is invoked to fetch the citations of a paper from google Scholar*/
     public void tableClicked(Paper paper) {
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
         final Paper myPaper = paper;
         /* Initialise the citation panel */
@@ -331,6 +335,7 @@ public class DisplayMaster {
     /* This method is invoked to fetch the citations of a metric paper from google Metrics*/
 
     public void metricTableClicked(Paper paper) {
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true,0.5);
         final Paper myPaper = paper;
@@ -375,6 +380,7 @@ public class DisplayMaster {
     }
 
     public void tableClicked(Journal journal) {
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         final Journal myJournal = journal;
         logger.debug("2345::::"+myJournal.getH5index());
         this.query_name = journal.getName();
@@ -411,6 +417,7 @@ public class DisplayMaster {
     }
 
     public void authorGridEntityClicked(Author author) {
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
 
         final String authorName = author.getName();
         final String myId = author.getId();
@@ -444,6 +451,7 @@ public class DisplayMaster {
     }
     
     public void citationListClicked(Paper paper) {
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
         final Paper myPaper = paper;
         citationListHistory.addPaper(paper);
@@ -532,6 +540,7 @@ public class DisplayMaster {
     }
 
     public void citationListPrevious() {
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         if (!citationListHistory.isCurrentPositionFirst()) {
             mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
             mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().showNextButton();
@@ -565,6 +574,7 @@ public class DisplayMaster {
     }
 
     public void citationListNext() {
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
 
         if (!citationListHistory.isCurrentPositionLast()) {
             mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
@@ -598,6 +608,7 @@ public class DisplayMaster {
     }
 
     public void citationListMoreButtonClicked(int startMarker, final JLabel jLabel) {
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         final Paper myPaper = citationListHistory.getCurrentPaper();
         final int startMarker1 = startMarker;
         new Thread() {
@@ -635,11 +646,13 @@ public class DisplayMaster {
     public void setDisplayPreview(boolean selected) {
         showPaperPreview = selected;
     }
+    
     public SearchMaster getSearchMaster() {
         return searchMaster;
     }
     
     public void authorPaperTableMoreButtonClicked(final Query q, final JButton button) {
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         final int numResults = Constants.MaxResultsNum.AUTHOR_PAPERS.getValue();
         final String name = this.query_name;
         Thread thread = new Thread() {
@@ -667,6 +680,7 @@ public class DisplayMaster {
     }
     
     public void metricPaperTableMoreButtonClicked(final PaperCollection paperCollection,final Query q,final JButton button) {
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         final int numResults = q.num_results;
         final String name = this.query_name;
         Thread thread = new Thread() {
@@ -703,5 +717,9 @@ public class DisplayMaster {
     public void displayGraph(Paper selectedPaper) {
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getGraphViewPanel().setPaper(selectedPaper);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().flipToGraphDisplayPanel();
+    }
+
+    public void showArticleSearch(boolean value) {
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(value);
     }
 }

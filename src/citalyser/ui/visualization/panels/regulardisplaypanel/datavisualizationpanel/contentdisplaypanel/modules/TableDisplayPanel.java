@@ -168,14 +168,17 @@ public class TableDisplayPanel extends javax.swing.JPanel {
         if (isPaperClicked) {
             UiUtils.openInBrowser(selectedPaper.getUrl());
         }
+        displayMaster.showArticleSearch(false);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         tableDisplayPanelInterface.callLeftClickedEvent(point);
+        displayMaster.showArticleSearch(false);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         displayMaster.displayGraph(selectedPaper);
+        displayMaster.showArticleSearch(false);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
