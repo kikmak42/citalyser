@@ -287,6 +287,7 @@ public class DisplayMaster {
         /* Initialise the citation panel */
         citationListHistory.clear();
         citationListHistory.addPaper(paper);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().hideNextButton();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel()
                 .getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel()
                 .initPanel(citationListHistory.getCurrentPosition(), myPaper.getTitle());
@@ -336,6 +337,7 @@ public class DisplayMaster {
         /* initialise the citation panel and history*/
         citationListHistory.clear();
         citationListHistory.addPaper(paper);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().hideNextButton();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel()
                 .getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel()
                 .initPanel(citationListHistory.getCurrentPosition(), myPaper.getTitle());
@@ -445,6 +447,7 @@ public class DisplayMaster {
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().clearAll();
         final Paper myPaper = paper;
         citationListHistory.addPaper(paper);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().hideNextButton();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().showPreviousButton();
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().getCollapsibleListDisplayPanel().addListTitle(citationListHistory.getCurrentPosition(), myPaper.getTitle());
         new Thread() {
