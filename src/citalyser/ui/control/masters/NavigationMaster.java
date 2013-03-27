@@ -62,7 +62,8 @@ public class NavigationMaster {
     }
 
     /**
-     * This method is invoked to fetch the citations of a paper from google Scholar
+     * This method is invoked to fetch the citations of a paper from google
+     * Scholar
      */
     public void tableClicked(Paper paper) {
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
@@ -460,8 +461,29 @@ public class NavigationMaster {
             @Override
             public void run() {
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getGraphViewPanel().setPaper(myPaper);
-                
                 mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().flipToGraphDisplayPanel();
+            }
+        }.start();
+
+    }
+    
+    public void gotoGraphPrev(Paper selectedPaper) {
+        
+        new Thread() {
+            @Override
+            public void run() {
+                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getGraphViewPanel().gotoPrevious();
+            }
+        }.start();
+
+    }
+    
+    public void gotoGraphNext(Paper selectedPaper) {
+        
+        new Thread() {
+            @Override
+            public void run() {
+                mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getGraphViewPanel().gotoNext();
             }
         }.start();
 

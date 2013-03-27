@@ -199,6 +199,10 @@ public class GraphViewPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void gotoPrevious(){
         if (!graphHistory.isCurrentPositionFirst()) {
             cg.populateOnPrevNext(graphHistory.gotoPreviousnodeInfo());
             cg.layouttop.setGraph(cg.sgv.g2);
@@ -214,10 +218,8 @@ public class GraphViewPanel extends javax.swing.JPanel {
         if (graphHistory.isCurrentPositionFirst()) {
             jButton1.setVisible(false);
         }
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    }
+    public void gotoNext() {
         if (!graphHistory.isCurrentPositionLast()) {
             cg.populateOnPrevNext(graphHistory.gotoNextnodeInfo());
             cg.layouttop.setGraph(cg.sgv.g2);
@@ -232,8 +234,16 @@ public class GraphViewPanel extends javax.swing.JPanel {
 
         if (graphHistory.isCurrentPositionLast()) {
             jButton2.setVisible(false);
+        }
+    }
+    
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+    }
+        /*
         }    }//GEN-LAST:event_jButton2ActionPerformed
-
+*/
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         displayMaster.showContentDisplyPanel();
     }//GEN-LAST:event_jButton3ActionPerformed
