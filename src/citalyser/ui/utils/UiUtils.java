@@ -233,7 +233,7 @@ public class UiUtils {
              
          }
         citall.substring(0, citall.length()-1);
-        url="http://www.google.com/chart?chs=675x290&cht=bvs&chf=bg,s,e8f4f7&chco=1111cc&chbh=r,2.0,0.0&chxt=x,y&chxr=1,0,766,766&chd=t:"+citall+"&chxl=0:"+yearall;
+        url="http://www.google.com/chart?chs="+width+"x"+height+"&cht=bvs&chf=bg,s,e8f4f7&chco=1111cc&chbh=r,2.0,0.0&chxt=x,y&chxr=1,0,766,766&chd=t:"+citall+"&chxl=0:"+yearall;
         displayImage(jLabel, url, width, height);
     }
     
