@@ -259,7 +259,7 @@ public class DisplayMaster {
     }
 
     public void clearCitationHistory() {
-        //  citationListHistory.clear();
+        citationListHistory.clear();
     }
 
     public void setDisplayPreview(boolean selected) {
