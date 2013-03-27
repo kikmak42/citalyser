@@ -89,6 +89,7 @@ public class CreateGraph {
     public JPanel panel;
     public JFrame frame;
     public nodeInfo baseNode;
+    public boolean nullResultFlag;
     public graphData generateGraphObject;
     public static File settingsDirectory;
     public static File CacheDirectory;
@@ -103,114 +104,81 @@ public class CreateGraph {
         this.baseNode = generateGraphObject.getbaseNode(paper);
         gvp.getGraphHistory().addnodeInfo(this.baseNode);
         gvp.getjLabel2().setText(gvp.getGraphHistory().getnodeList());
-        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(this.baseNode.citationurl).numResult(20).build();
-//        QueryHandler.getInstance().getQueryResult(q);
-//        generateGraphObject.getNodeArray(((PaperCollectionResult)QueryHandler.getInstance().getQueryResult(q)).getContents());
         sgv = new SimpleGraphView2(); // This builds the graph
-        //sgv
         layout = new SpringLayout<>(sgv.g2);
         layouttop = new AggregateLayout<>(layout);
-        PaperCollection pc = ((PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q)).getContents();
-        populateGraph(generateGraphObject.getNodeArray(pc));
-
-// Layout<V, E>, BasicVisualizationServer<V,E>
         layout.setSize(new Dimension(600, 600));
         layout.setGraph(sgv.g2);
         layouttop.setSize(new Dimension(600, 600));
         layouttop.setGraph(sgv.g2);
         vv = new VisualizationViewer<>(layouttop);
-
         vv.setPreferredSize(new Dimension(350, 350));
-// Setup up a new vertex to paint transformer...
-        Transformer<nodeInfo, Paint> vertexPaint;
-        vertexPaint = new Transformer<nodeInfo, Paint>() {
-            public Paint transform(nodeInfo i) {
-                return new Color(255, 255, 128, 128);
+        Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(this.baseNode.citationurl).numResult(20).build();
 
-            }
-        };
-        // Set up a new stroke Transformer for the edges
+        PaperCollectionResult queriedPapercollection = (PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q);
+        if (queriedPapercollection != null) {
+            nullResultFlag = false;
+            PaperCollection pc = (queriedPapercollection.getContents());
+            populateGraph(generateGraphObject.getNodeArray(pc));
 
-        Transformer<nodeInfo, String> vertextrans =
-                new Transformer<nodeInfo, String>() {
-                    @Override
-                    public String transform(nodeInfo i) {
-                        return i.Title.split(" ")[0];
-                    }
-                };
+            Transformer<nodeInfo, Paint> vertexPaint;
+            vertexPaint = new Transformer<nodeInfo, Paint>() {
+                public Paint transform(nodeInfo i) {
+                    return new Color(255, 255, 128, 128);
 
-        Transformer<nodeInfo, String> vt =
-                new Transformer<nodeInfo, String>() {
-                    @Override
-                    public String transform(nodeInfo i) {
-                        return i.EntireInfo;
-                    }
-                };
-        Transformer<nodeInfo, Shape> shapetrans =
-                new Transformer<nodeInfo, Shape>() {
-                    @Override
-                    public Shape transform(nodeInfo i) {
-                        return new Rectangle(150, 20);
-                    }
-                };
+                }
+            };
+            // Set up a new stroke Transformer for the edges
 
+            Transformer<nodeInfo, String> vertextrans =
+                    new Transformer<nodeInfo, String>() {
+                        @Override
+                        public String transform(nodeInfo i) {
+                            return i.Title.split(" ")[0];
+                        }
+                    };
 
+            Transformer<nodeInfo, String> vt =
+                    new Transformer<nodeInfo, String>() {
+                        @Override
+                        public String transform(nodeInfo i) {
+                            return i.EntireInfo;
+                        }
+                    };
+            Transformer<nodeInfo, Shape> shapetrans =
+                    new Transformer<nodeInfo, Shape>() {
+                        @Override
+                        public Shape transform(nodeInfo i) {
+                            return new Rectangle(150, 20);
+                        }
+                    };
 
-        //vv.getRenderContext().setVertexFillPaintTransformer(vertexColor);
-        vv.getRenderContext().setVertexShapeTransformer(shapetrans);
-        //MyVerte 
-        //Font f = new Font(null, style, size)
-        // vv.getRenderContext().setVertexShapeTransformer(shapetrans);
-        // vv.getRenderContext().set
-        vv.getRenderContext().setVertexFillPaintTransformer(vertexPaint);
-        // vv.getRenderContext().setEdgeStrokeTransformer(edgeStrokeTransformer);
-        vv.getRenderContext().setVertexLabelTransformer(vertextrans);
-        //  vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
-        vv.getRenderer().getVertexLabelRenderer().setPosition(Position.CNTR);
-        //  AnimatedPickingGraphMousePlugin am = new AnimatedPickingGraphMousePlugin();
+            vv.getRenderContext().setVertexShapeTransformer(shapetrans);
+            vv.getRenderContext().setVertexFillPaintTransformer(vertexPaint);
+            vv.getRenderContext().setVertexLabelTransformer(vertextrans);
+            vv.getRenderer().getVertexLabelRenderer().setPosition(Position.CNTR);
+            vv.getPickedVertexState();
+            gvp.getjLabel1().setText("<html>" + this.baseNode.Title);
 
-        vv.getPickedVertexState();
-        gvp.getjLabel1().setText("<html>" + this.baseNode.Title);
+            DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
+            gm.add(new AnimatedPickingGraphMousePlugin());
+            gm.setMode(ModalGraphMouse.Mode.TRANSFORMING);
+            gm.add(new PickingGraphMousePlugin());
+            gm.add(new PopupGraphMousePlugin(this, gvp));
+            gm.add(new ScalingGraphMousePlugin(new CrossoverScalingControl(), 0, 1.1f, 0.9f));
+            vv.setGraphMouse(gm);
+            vv.setVertexToolTipTransformer(vt);
+            vv.setToolTipText("<html><center>Use the mouse wheel to zoom<p>Click and Drag the mouse to pan<p>Shift-click and Drag to Rotate</center></html>");
 
-        DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
-        gm.add(new AnimatedPickingGraphMousePlugin());
-        gm.setMode(ModalGraphMouse.Mode.TRANSFORMING);
-        //vv.setGraphMouse(gMouse); //Add the mouse to our Visualization-Viewer.
-        //PluggableGraphMouse pgm = new PluggableGraphMouse();   gm.add(new AnimatedPickingGraphMousePlugin());
-        //gm.add(null)
-        gm.add(new PickingGraphMousePlugin());
-        // gm.add(new TranslatingGraphMousePlugin(MouseEvent.BUTTON3_MASK));
-        gm.add(new PopupGraphMousePlugin(this, gvp));
-        // gm.add(new ScalingGraphMousePlugin(new CrossoverScalingControl(), 0, 1 / 1.1f, 1.1f));
-        // gm.add(new TranslatingGraphMousePlugin(MouseEvent.BUTTON1_MASK));
-        gm.add(new ScalingGraphMousePlugin(new CrossoverScalingControl(), 0, 1.1f, 0.9f));
+        } else {
+            nullResultFlag = true;
+        }
 
-        vv.setGraphMouse(gm);
-        vv.setVertexToolTipTransformer(vt);
-        vv.setToolTipText("<html><center>Use the mouse wheel to zoom<p>Click and Drag the mouse to pan<p>Shift-click and Drag to Rotate</center></html>");
-
-//        frame = new JFrame("Simple Graph View 2");
-//         panel = new JPanel();
-//        panel.setLayout(new BorderLayout());
-//        panel.add(vv);
-//         panel.setForeground(Color.WHITE);
-//        panel.setBackground(Color.WHITE);
-////        frame.getContentPane().setLayout(new BorderLayout());
-////        frame.getContentPane().add(panel);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.getContentPane().add(vv);
-//        frame.pack();
-//        frame.setSize(600, 600);
-//        frame.setVisible(true);
-        //panel.setVisible(true);
 
     }
 
     public void populateGraph(graphObject go) {
         go.baseInfo = this.baseNode;
-        sgv.g2 = new DirectedOrderedSparseMultigraph<nodeInfo, String>();
-
         for (nodeInfo i : go.arr) {
             sgv.g2.addVertex(i);
         }
@@ -222,8 +190,15 @@ public class CreateGraph {
     public void populateOnPrevNext(nodeInfo base) {
         this.baseNode = base;
         Query q = new Query.Builder("").flag(QueryType.CITATIONS_LIST).Url(base.citationurl).numResult(20).build();
-        PaperCollection pc = ((PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q)).getContents();
+        PaperCollectionResult queriedPapercollection = (PaperCollectionResult) QueryHandler.getInstance().getQueryResult(q);
+        if(queriedPapercollection!=null){
+        nullResultFlag = false;
+        PaperCollection pc = (queriedPapercollection.getContents());
         populateGraph(generateGraphObject.getNodeArray(pc));
+        sgv.g2 = new DirectedOrderedSparseMultigraph<nodeInfo, String>();
+        }
+        else
+            nullResultFlag = true;
     }
 
     public void addToGraph(graphObject go) {

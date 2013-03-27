@@ -179,7 +179,7 @@ public class TableDisplayPanel extends javax.swing.JPanel {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         if (selectedPaper.getNumCites() != 0) {
-            displayMaster.displayGraph(selectedPaper);
+            displayMaster.getNavigationMaster().displayGraphSelected(selectedPaper);
         }
         else
             displayMaster.displayErrorMessage("<html>Number of citations is zero<br />Unable to draw graph");

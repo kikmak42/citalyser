@@ -26,13 +26,6 @@ import edu.uci.ics.jung.graph.util.EdgeType;
 public class SimpleGraphView2 {
     public Graph<nodeInfo, String> g2 ;
     public SimpleGraphView2() {
-       
        g2 = new DirectedOrderedSparseMultigraph<nodeInfo, String>();
-       // g2.addVertex((Integer) 1);
-        
-        
-        System.out.println("The graph g2 = " + g2.toString());
-
     }
-     
 }
