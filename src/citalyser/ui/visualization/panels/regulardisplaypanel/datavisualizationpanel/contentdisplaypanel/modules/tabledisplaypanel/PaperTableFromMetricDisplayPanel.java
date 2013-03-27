@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /*
  * TableDisplayPanel.java
@@ -206,8 +202,11 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel impleme
         if (jTable1.rowAtPoint(evt.getPoint()) > -1) {
             disabledRow = jTable1.rowAtPoint(evt.getPoint());
             int selectedRowIndex = jTable1.convertRowIndexToModel(jTable1.rowAtPoint(evt.getPoint()));
+            logger.debug("Selected Row : " + selectedRowIndex);
             int serialno = (Integer)jTable1.getModel().getValueAt(selectedRowIndex, 0) - 1; 
+            logger.debug("Serial NO : " + serialno);
             Paper clickedPaper = paperCollection.getPapers().get(serialno);
+            logger.debug(clickedPaper.getTitle());
             if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
                 if (jTable1.rowAtPoint(evt.getPoint()) != disabledRow) {
                     if(clickedPaper.getNumCites() > 0) {
@@ -273,7 +272,13 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel impleme
     @Override
     public void callLeftClickedEvent(Point point) {
         if (jTable1.rowAtPoint(point) > -1) {
-            Paper clickedPaper = paperCollection.getPapers().get(jTable1.rowAtPoint(point));
+            disabledRow = jTable1.rowAtPoint(point);
+            int selectedRowIndex = jTable1.convertRowIndexToModel(jTable1.rowAtPoint(point));
+            logger.debug("Selected Row : " + selectedRowIndex);
+            int serialno = (Integer)jTable1.getModel().getValueAt(selectedRowIndex, 0) - 1; 
+            logger.debug("Serial NO : " + serialno);
+            Paper clickedPaper = paperCollection.getPapers().get(serialno);
+            logger.debug(clickedPaper.getTitle());
             if(clickedPaper.getNumCites() > 0) {
                 displayMaster.getNavigationMaster().metricTableClicked(clickedPaper);
             } else {

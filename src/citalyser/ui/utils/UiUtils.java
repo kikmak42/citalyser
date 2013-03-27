@@ -98,7 +98,7 @@ public class UiUtils {
                             g.drawImage(img.getImage(), imageStart, 0, ((int) (scale * img.getIconWidth())), myHeight, myLabel);
                         }
                         g.dispose();
-                        logger.debug("Setting image url : " + myImgSource + " at Label : " + myLabel.getToolTipText());
+                        //logger.debug("Setting image url : " + myImgSource + " at Label : " + myLabel.getToolTipText());
                         myLabel.setIcon(new ImageIcon(img1));
                     }
                 }
@@ -110,6 +110,11 @@ public class UiUtils {
     }
 
     public static void openInBrowser(String link) {
+        if(link == null || link.length() == 0)
+        {
+            Main.getDisplayController().displayErrorMessage("Link unavailable");
+            return;
+        }    
         try {
             URI uri = new URL(link).toURI();
             Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
