@@ -192,4 +192,8 @@ public class SearchPanel extends javax.swing.JPanel {
     public boolean isSortByYear() {
         return advancedSearchPanel.isSortByYear();
     }
+
+    public boolean isYearEmpty() {
+        return advancedSearchPanel.isYearEmpty();
+    }
 }
