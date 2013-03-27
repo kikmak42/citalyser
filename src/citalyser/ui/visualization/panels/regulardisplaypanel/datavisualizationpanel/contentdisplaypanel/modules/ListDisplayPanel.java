@@ -64,7 +64,7 @@ public class ListDisplayPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void citationClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_citationClicked
-        displayMaster.citationListClicked(papers.get(jList1.getSelectedIndex()));
+        displayMaster.getNavigationMaster().citationListClicked(papers.get(jList1.getSelectedIndex()));
     }//GEN-LAST:event_citationClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

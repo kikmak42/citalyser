@@ -162,7 +162,7 @@ public class JournalTableDisplayPanel extends javax.swing.JPanel implements Tabl
             if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
                 if (disabledRow != jTable1.rowAtPoint(evt.getPoint())) {
                     disabledRow = jTable1.rowAtPoint(evt.getPoint());
-                    displayMaster.tableClicked(journals.get(jTable1.rowAtPoint(evt.getPoint())));
+                    displayMaster.getNavigationMaster().tableClicked(journals.get(jTable1.rowAtPoint(evt.getPoint())));
                 }
             }
         }
@@ -184,7 +184,7 @@ public class JournalTableDisplayPanel extends javax.swing.JPanel implements Tabl
     public void callLeftClickedEvent(Point point) {
         if (jTable1.rowAtPoint(point) > -1 && disabledRow != jTable1.rowAtPoint(point)) {
             disabledRow = jTable1.rowAtPoint(point);
-            displayMaster.tableClicked(journals.get(jTable1.rowAtPoint(point)));
+            displayMaster.getNavigationMaster().tableClicked(journals.get(jTable1.rowAtPoint(point)));
         }
     }
 }

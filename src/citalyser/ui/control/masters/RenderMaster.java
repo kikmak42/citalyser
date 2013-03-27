@@ -10,8 +10,10 @@ import citalyser.model.Journal;
 import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.model.query.Query;
+import citalyser.model.query.QueryType;
 import citalyser.ui.model.ContentRenderer;
-import citalyser.ui.model.TableModelHandler;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.ContentDisplayPanel;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.griddisplaypanel.GridEntityPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.listdisplaypanel.CollapsibleListEntityPanel;
 import java.util.ArrayList;
@@ -21,6 +23,12 @@ import java.util.ArrayList;
  * @author Tanmay Patil
  */
 public class RenderMaster {
+    
+    private ContentDisplayPanel contentDisplayPanel;
+
+    public RenderMaster(ContentDisplayPanel contentDisplayPanel) {
+        this.contentDisplayPanel = contentDisplayPanel;
+    }
 
     public void render(ContentRenderer contentRenderer, Query query, ArrayList<Author> arrayList) {
         if (arrayList != null) {
@@ -80,6 +88,7 @@ public class RenderMaster {
     }
 
     public void renderAuthorProfile(ContentRenderer contentRenderer, Query query, Author author) {
+        contentDisplayPanel.displayDetailsDisplayPanel(true, 0.5);
         if (author != null) {
             contentRenderer.clearAll();
             contentRenderer.getProfileDisplayPanel().displayAuthorProfile(author);
@@ -89,15 +98,23 @@ public class RenderMaster {
         }
     }
 
-    public void renderJournalPaperCollection(ContentRenderer contentRenderer, Query query, PaperCollection paperCollection) {
-        if (paperCollection != null) {
+    public void renderJournal(ContentRenderer contentRenderer, Query query, Journal journal) {
+        if (journal.getPaperCollection() != null) {
             //contentRenderer.clearAll();
-            contentRenderer.getTableDisplayPanel().setTable(query,paperCollection, true);
+            contentRenderer.getTableDisplayPanel().setTable(query,journal.getPaperCollection(), true);
             contentRenderer.flipToTableDisplayPanel();
         }
     }
 
     public void renderGeneralProfile(ContentRenderer contentRenderer, Query query, PaperCollection papercollection) {
+        contentDisplayPanel.displayDetailsDisplayPanel(true, 0.5);
+        contentDisplayPanel.getDetailsDisplayPanel().flipToUpperDetailsDisplayPanel();
+        if(query.flag == QueryType.GEN_JOURN){
+            contentDisplayPanel.getDetailsDisplayPanel().setNameJounal(true);
+        }
+        else{
+            contentDisplayPanel.getDetailsDisplayPanel().setNameJounal(false);
+        }
         if (papercollection != null) {
             contentRenderer.clearAll();
             if (papercollection.getPapers() == null) {

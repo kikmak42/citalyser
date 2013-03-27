@@ -128,7 +128,7 @@ public class PaperDetailsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewCitationsLblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewCitationsLblMouseClicked
-        displayMaster.citationListClicked(paper);
+        displayMaster.getNavigationMaster().citationListClicked(paper);
     }//GEN-LAST:event_viewCitationsLblMouseClicked
 
     private void paperTitleLblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paperTitleLblMouseClicked

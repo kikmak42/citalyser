@@ -209,7 +209,7 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel impleme
             if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
                 if (jTable1.rowAtPoint(evt.getPoint()) != disabledRow) {
                     if(clickedPaper.getNumCites() > 0) {
-                        displayMaster.metricTableClicked(clickedPaper);
+                        displayMaster.getNavigationMaster().metricTableClicked(clickedPaper);
                     } else {
                        displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
                     }
@@ -249,7 +249,7 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel impleme
 
     private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
         showLoadingMoreButton();
-        displayMaster.metricPaperTableMoreButtonClicked(this.paperCollection,lastQuery,moreButton);
+        displayMaster.getNavigationMaster().metricPaperTableMoreButtonClicked(this.paperCollection,lastQuery,moreButton);
     }//GEN-LAST:event_moreButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -273,7 +273,7 @@ public class PaperTableFromMetricDisplayPanel extends javax.swing.JPanel impleme
         if (jTable1.rowAtPoint(point) > -1) {
             Paper clickedPaper = paperCollection.getPapers().get(jTable1.rowAtPoint(point));
             if(clickedPaper.getNumCites() > 0) {
-                displayMaster.metricTableClicked(clickedPaper);
+                displayMaster.getNavigationMaster().metricTableClicked(clickedPaper);
             } else {
                displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
             }

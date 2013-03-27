@@ -26,21 +26,6 @@ public class DisplayControllerImpl implements citalyser.ui.DisplayController {
     }
 
     @Override
-    public void addAutoCompleteSuggestions(Vector<String> suggestions) {
-        displayMaster.addAutoCompleteSuggestions(suggestions);
-    }
-
-    @Override
-    public void addAutoCompleteSuggestion(String suggestion) {
-        displayMaster.addAutoCompleteSuggestion(suggestion);
-    }
-
-    @Override
-    public void emptyAutoCompleteSuggestions() {
-        displayMaster.emptyAutoCompleteSuggestions();
-    }
-
-    @Override
     public void displayStatusMessage(String status) {
         displayMaster.displayStatusMessage(status);
     }
@@ -48,6 +33,21 @@ public class DisplayControllerImpl implements citalyser.ui.DisplayController {
     @Override
     public void displayInfoMessage(String status) {
         displayMaster.displayInfoMessage(status);
+    }
+
+    @Override
+    public void addAutoCompleteSuggestions(Vector<String> suggestions) {
+        displayMaster.getSearchMaster().addAutoCompleteSuggestions(suggestions);
+    }
+
+    @Override
+    public void addAutoCompleteSuggestion(String suggestion) {
+        displayMaster.getSearchMaster().addAutoCompleteSuggestion(suggestion);
+    }
+
+    @Override
+    public void emptyAutoCompleteSuggestions() {
+        displayMaster.getSearchMaster().emptyAutoCompleteSuggestions();
     }
 
     @Override

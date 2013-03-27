@@ -156,7 +156,7 @@ public class BasicSearchPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        displayMaster.searchButtonClicked(searchPanel);
+        displayMaster.getSearchMaster().searchButtonClicked(searchPanel);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void searchBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchBoxFocusGained
@@ -180,7 +180,7 @@ public class BasicSearchPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_searchBoxFocusLost
 
     private void searchBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBoxKeyPressed
-        displayMaster.searchKeyPressed(searchPanel, evt.getKeyChar());
+        displayMaster.getSearchMaster().searchKeyPressed(searchPanel, evt.getKeyChar());
     }//GEN-LAST:event_searchBoxKeyPressed
 
     private void searchBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBoxActionPerformed

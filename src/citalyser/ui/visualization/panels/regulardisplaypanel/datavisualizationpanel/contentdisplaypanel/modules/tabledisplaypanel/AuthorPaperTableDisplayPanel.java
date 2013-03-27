@@ -276,7 +276,7 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
 
     private void moreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreButtonActionPerformed
         showLoadingMoreButton();
-        displayMaster.authorPaperTableMoreButtonClicked(lastQuery,moreButton);
+        displayMaster.getNavigationMaster().authorPaperTableMoreButtonClicked(lastQuery,moreButton);
     }//GEN-LAST:event_moreButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -300,7 +300,7 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
         if (jTable1.rowAtPoint(point) > -1) {
             Paper clickedPaper = paperCollection.getPapers().get(jTable1.rowAtPoint(point));
             if(clickedPaper.getNumCites() > 0) {
-                displayMaster.tableClicked(clickedPaper);
+                displayMaster.getNavigationMaster().tableClicked(clickedPaper);
             } else {
                displayMaster.displayStatusMessage("Citation Count is 0 for this paper  :" + clickedPaper.getTitle());
             }
