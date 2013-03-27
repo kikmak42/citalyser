@@ -20,7 +20,7 @@ public class PaperCollection implements Serializable {
     private int h_index;
     private int i_index;
     private ArrayList<Paper> papers;
-
+    private ArrayList<String> uniqueAuthorList;
     public PaperCollection() {
         this.h_index = 0;
         this.i_index = 0;
@@ -71,18 +71,32 @@ public class PaperCollection implements Serializable {
                 }
             }
         }
-        ArrayList<String> uniqueList = new ArrayList<String>(new HashSet<String>(author));
-        return uniqueList;
+        this.uniqueAuthorList = new ArrayList<>(new HashSet<>(author));
+        return uniqueAuthorList;
     }
 
     public ArrayList<Integer> extractYears() {
         ArrayList<Paper> p = this.papers;
-        ArrayList<Integer> year = new ArrayList<Integer>();
+        ArrayList<Integer> year = new ArrayList<>();
         for (Paper paper : p) {
-            year.add(paper.getYear());
-        }
-        ArrayList<Integer> uniqueList = new ArrayList<Integer>(new HashSet<Integer>(year));
+                year.add(paper.getYear());
+            }
+        ArrayList<Integer> uniqueList = new ArrayList<Integer>(new HashSet<>(year));
         return uniqueList;
+    }
+    
+    public ArrayList<Integer> getAuthorPos(ArrayList<String> auth) {
+        ArrayList<Integer> retPos = new ArrayList<>();
+        for (String eachAuthor : auth) {
+            int i=0;
+            for (String au : this.uniqueAuthorList) {
+                if(auth.equals(au)) {
+                    retPos.add(i);
+                }
+                i++;
+            }
+        }
+        return retPos;
     }
 
     public ArrayList<Paper> extractPaperByYear(int low, int high) {

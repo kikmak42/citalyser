@@ -192,6 +192,7 @@ public class GraphViewPanel extends javax.swing.JPanel {
             cg.populateOnPrevNext(graphHistory.gotoPreviousnodeInfo());
             cg.layouttop.setGraph(cg.sgv.g2);
             cg.vv.repaint();
+            jLabel1.setText(graphHistory.getCurrentnodeInfo().Title);
             jButton2.setVisible(true);
             jLabel2.setText(graphHistory.getnodeList());
             if (graphHistory.isCurrentPositionFirst()) {
@@ -210,6 +211,7 @@ public class GraphViewPanel extends javax.swing.JPanel {
             cg.populateOnPrevNext(graphHistory.gotoNextnodeInfo());
             cg.layouttop.setGraph(cg.sgv.g2);
             cg.vv.repaint();
+            jLabel1.setText(graphHistory.getCurrentnodeInfo().Title);
             jButton1.setVisible(true);
             jLabel2.setText(graphHistory.getnodeList());
             if (graphHistory.isCurrentPositionLast()) {
