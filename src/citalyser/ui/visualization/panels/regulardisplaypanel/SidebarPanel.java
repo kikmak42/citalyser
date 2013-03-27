@@ -42,7 +42,7 @@ public class SidebarPanel extends javax.swing.JPanel {
     public void showArticleSearch(boolean value) {
         if (value) {
             advancedSearchPanel.show();
-            jSplitPane1.setDividerLocation(149);
+            jSplitPane1.setDividerLocation(256);
         } else {
             advancedSearchPanel.hide();
             jSplitPane1.setDividerLocation(23);
@@ -61,8 +61,8 @@ public class SidebarPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jSplitPane1 = new javax.swing.JSplitPane();
-        advancedSearchPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AdvancedSearchPanel();
         authorListPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel();
+        advancedSearchPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AdvancedSearchPanel();
 
         setBackground(new java.awt.Color(-6710785,true));
         setLayout(new java.awt.BorderLayout());
@@ -71,8 +71,8 @@ public class SidebarPanel extends javax.swing.JPanel {
         jSplitPane1.setDividerSize(0);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setOpaque(false);
-        jSplitPane1.setTopComponent(advancedSearchPanel);
         jSplitPane1.setRightComponent(authorListPanel);
+        jSplitPane1.setLeftComponent(advancedSearchPanel);
 
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
