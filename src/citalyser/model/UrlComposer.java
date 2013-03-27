@@ -20,13 +20,13 @@ public class UrlComposer {
         String URL = new String();
         URL =  "http://scholar.google.co.in/scholar?";
         URL +=  "start="+ q.start_result +"&";
-        URL +=  "as_q=" + q.allwords + "&" ;
-        URL +=  "as_epq=" + q.exactphrase + "&";
-        URL +=  "as_oq=" + q.atleastoneofthese + "&";
-        URL += "as_eq=" + q.exceptthese + "&";
-        URL +="as_occt=" + q.occurwhere + "&";
+        URL +=  "as_q=" + "" + "&" ;
+        URL +=  "as_epq=" + "" + "&";
+        URL +=  "as_oq=" + "" + "&";
+        URL += "as_eq=" + "" + "&";
+        URL +="as_occt=" + "" + "&";
         URL +="as_sauthors=" + query_name + "&" ; //q.name may contain spaces
-        URL +="as_publication=" + q.publishedat + "&";
+        URL +="as_publication=" + "" + "&";
         URL +="as_ylo=" + q.min_year + "&";
         URL +="as_yhi=" + q.max_year + "&";
         URL +="num=" + q.num_results + "&";
@@ -42,12 +42,12 @@ public class UrlComposer {
         String URL = new String();
         URL =  "http://scholar.google.co.in/scholar?";
         URL  +=  "start="+ q.start_result +"&";
-        URL  +=  "as_q=" + q.allwords + "&" ;
-        URL  +=  "as_epq=" + q.exactphrase + "&";
-        URL  +=  "as_oq=" + q.atleastoneofthese + "&";
-        URL += "as_eq=" + q.exceptthese + "&";
-        URL +="as_occt=" + q.occurwhere + "&";
-        URL +="as_sauthors=" + q.authors + "&" ;
+        URL  +=  "as_q=" + "" + "&" ;
+        URL  +=  "as_epq=" + "" + "&";
+        URL  +=  "as_oq=" + "" + "&";
+        URL += "as_eq=" + "" + "&";
+        URL +="as_occt=" + "" + "&";
+        URL +="as_sauthors=" + "" + "&" ;
         URL +="as_publication=" + query_name + "&";
         URL +="as_ylo=" + q.min_year + "&";
         URL +="as_yhi=" + q.max_year + "&";
