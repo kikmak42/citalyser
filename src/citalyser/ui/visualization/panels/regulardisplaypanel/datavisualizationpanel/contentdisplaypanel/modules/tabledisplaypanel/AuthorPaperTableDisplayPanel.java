@@ -225,7 +225,7 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         if (jTable1.rowAtPoint(evt.getPoint()) > -1) {
             disabledRow = jTable1.rowAtPoint(evt.getPoint());
-            Paper clickedPaper = paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint()));
+            Paper clickedPaper = paperCollection.getPapers().get(jTable1.convertRowIndexToModel(jTable1.rowAtPoint(evt.getPoint())));
             if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
             } else {
                 ((TableDisplayPanel) ((JPanel) ((JPanel) this.getParent()).getParent())).setPopUpLocation(evt.getPoint());
