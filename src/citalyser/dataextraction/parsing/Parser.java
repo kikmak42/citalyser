@@ -14,6 +14,7 @@ import citalyser.model.Journal;
 import citalyser.model.query.QueryResult;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 import org.apache.log4j.Logger;
@@ -39,7 +40,8 @@ public class Parser {
 
     //this function takes the title of a paper and the source string and returns an arraylist of authors of that paper
     /* Query Types : GEN_AUTH, GEN_JOURN */
-    public QueryResult<PaperCollection> extractGeneralQuery(String source) {
+    public QueryResult<PaperCollection> extractGeneralQuery(String source) throws IOException {
+        
         QueryResult<PaperCollection> q = new PaperCollectionResult();
         this.source = source;
         extractedPapers = new PaperCollection();
@@ -63,13 +65,13 @@ public class Parser {
 
             Elements title_section = item.select("h3>a");
             if (!title_section.isEmpty()) {
-                try{
-                Element section = title_section.get(0);//getting the first element of this array
-                String title = section.text();
-                String href = section.attr("href");
-                insertInextractedpapers.setTitle(title);
-                insertInextractedpapers.setUrl(href);
-                }catch(Exception ex){
+                try {
+                    Element section = title_section.get(0);//getting the first element of this array
+                    String title = section.text();
+                    String href = section.attr("href");
+                    insertInextractedpapers.setTitle(title);
+                    insertInextractedpapers.setUrl(href);
+                } catch (Exception ex) {
                     insertInextractedpapers.setTitle("");
                     insertInextractedpapers.setUrl("");
                 }
@@ -82,10 +84,11 @@ public class Parser {
             if (!author_section_b.isEmpty()) {
                 Element section = author_section_b.get(0);
                 String section_text = section.text();
-                if(section_text.equals(null))
+                if (section_text.equals(null)) {
                     insertInextractedpapers.setInfo(" ");
-                else
+                } else {
                     insertInextractedpapers.setInfo(section_text);
+                }
                 String[] list = section_text.split(" - … ,? | - ");
                 int len = list.length;
 
@@ -175,8 +178,8 @@ public class Parser {
 
         }
         extractedPapers.setPapers(papers);
-
         q.setContents(extractedPapers);
+        
         return q;
 
     }
@@ -612,7 +615,7 @@ public class Parser {
             university = university.split("</a>")[2].split("Cited|<form|<input")[0];
 
             details = item.text();
-           // logger.debug("!@#$%^&*:"+university.substring(6));
+            // logger.debug("!@#$%^&*:"+university.substring(6));
             // logger.debug("\n@@@@:" + item.select("a.cit-dark-large-link").outerHtml());
             imglink = Constants.SCHOLAR_BASE_URL + item.select("img").get(0).attr("src");
             Elements links = item.select("a.cit-dark-large-link");
@@ -664,10 +667,10 @@ public class Parser {
             }
         }
         journal.setName(pub_name);
-     
+
         Elements it = doc.select("ul");
-        
-        String h5="",h5m="";
+
+        String h5 = "", h5m = "";
         String[] temp = it.get(0).text().split(":");
         h5m = temp[2];
         h5 = temp[1].split(" ")[0];
@@ -713,46 +716,40 @@ public class Parser {
                                 //logger.debug("titletags set to null");
                             }
                             //this part extracts the title and the link of the publication
-                            
+
                             if (!title_tags.isEmpty()) {
                                 //logger.debug("into !titletags ");
 
                                 try {
-                                    
+
                                     title_name = title_tags.get(0).text();
                                     papr.setTitle(title_name);
-                                    
+
                                 } catch (Exception e) {
                                     title_name = "";
                                     papr.setTitle(title_name);
                                 }
-                                try{
-                                    title_link = title_tags.get(0).attr("href");                                    
+                                try {
+                                    title_link = title_tags.get(0).attr("href");
                                     papr.setUrl(title_link);
-                                }
-                                catch(Exception e){
+                                } catch (Exception e) {
                                     title_link = "";
                                     papr.setUrl(title_link);
                                 }
-                            }                           
-                           
-                            else{
-                               // logger.debug("into else part of title tags");
-                                try{
+                            } else {
+                                // logger.debug("into else part of title tags");
+                                try {
                                     Elements spans = title_section.get(0).select("span");
-                                    if(!spans.isEmpty()){
-                                        try{
+                                    if (!spans.isEmpty()) {
+                                        try {
                                             title_name = spans.get(0).text();
                                             papr.setTitle(title_name);
-                                        }
-                                        catch(Exception e){
+                                        } catch (Exception e) {
                                             title_name = "";
                                             papr.setTitle(title_name);
                                         }
                                     }
-                                   }
-                                catch(Exception e){
-                                    
+                                } catch (Exception e) {
                                 }
                             }
                         }
@@ -1002,8 +999,9 @@ public class Parser {
                             try {
                                 cited_by_count = cited_year_section.get(0).text();
                                 cited_by_tags = cited_year_section.get(0).select("a");
-                                if(cited_by_tags.isEmpty())
+                                if (cited_by_tags.isEmpty()) {
                                     throw new Exception();
+                                }
                             } catch (Exception e) {
                                 cited_by_count = "0";
                                 cited_by_link = "";

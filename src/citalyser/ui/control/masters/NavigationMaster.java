@@ -197,7 +197,6 @@ public class NavigationMaster {
         cancelButtonClicked();
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
         final Journal myJournal = journal;
-        logger.debug("2345::::" + myJournal.getH5index());
         displayMaster.setQueryName(journal.getName());
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().displayDetailsDisplayPanel(true, 0.5);
         mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().setNameJounal(true);

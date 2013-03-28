@@ -96,12 +96,14 @@ public class CacheHandler {
         if (cacheResult != null) {
             logger.info("Getting GEN_AUTH - Cache hit");
             PaperCollectionResult q = (PaperCollectionResult) cacheResult;
+            
             return q;
         } else {
             logger.info("Getting GEN_AUTH - Cache miss.");
             QueryResult q = manager.getAuthorPapersFromScholar(queryUrl);
             setObject(q, queryUrl);
             logger.debug(q);
+           
             return q;
         }
     }
