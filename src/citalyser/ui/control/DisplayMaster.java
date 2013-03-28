@@ -294,4 +294,8 @@ public class DisplayMaster {
             Main.getDisplayController().displayErrorMessage("Could not open Help file.");
         }
     }
+
+    public boolean checkIfSortByCitations() {
+        return mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().isSortByCitations();
+    }
 }

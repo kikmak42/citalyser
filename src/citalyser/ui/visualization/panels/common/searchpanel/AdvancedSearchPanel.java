@@ -241,4 +241,8 @@ public class AdvancedSearchPanel extends javax.swing.JPanel {
     public boolean isYearEmpty() {
         return yearRangePanel.isYearEmpty();
     }
+
+    public boolean isSortByCitations() {
+        return !isSortByYear();
+    }
 }

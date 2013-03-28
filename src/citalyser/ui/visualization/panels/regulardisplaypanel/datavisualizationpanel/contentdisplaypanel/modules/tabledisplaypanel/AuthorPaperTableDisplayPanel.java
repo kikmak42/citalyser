@@ -67,7 +67,7 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
             this.showMoreButton();
         /* Set the sorter for the table*/
         List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
-        if(q.sort_flag == 0)
+        if(displayMaster.checkIfSortByCitations())
             sortKeys.add(new RowSorter.SortKey(3, SortOrder.DESCENDING));
         else
             sortKeys.add(new RowSorter.SortKey(2, SortOrder.DESCENDING));
