@@ -5,6 +5,7 @@
 package citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel;
 
 import citalyser.model.PaperCollection;
+import citalyser.model.query.QueryResult;
 import citalyser.ui.control.DisplayMaster;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -127,9 +128,15 @@ public class AuthorListPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    public void displayAuthors(PaperCollection paperCollection) {
-        setList(paperCollection.extractAuthors());
-        this.paperCollection = paperCollection;
+    public void displayAuthors(QueryResult result) {
+        if(result == null)
+            return;
+        PaperCollection paperCollection = result.getPaperCollection();
+        if(paperCollection!=null)
+        {
+            setList(paperCollection.extractAuthors());
+            this.paperCollection = paperCollection;
+        }
     }
 
     public void clear() {

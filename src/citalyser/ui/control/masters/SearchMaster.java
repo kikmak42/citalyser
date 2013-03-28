@@ -124,7 +124,8 @@ public class SearchMaster {
         //Thread thread = new Thread() {
         displayMaster.getExecutorService().submit(new Runnable() {
             @Override
-            public void run() {
+            public void run() 
+            {
                 String searchQuery = q.name;
                 QueryResult globalResult = null, currResult;
                 int totalCount = numResults;
@@ -169,9 +170,9 @@ public class SearchMaster {
 
                     }
                     //-----------------------------------------------------------------------------------------
-                    if (Thread.interrupted()) {
+                    /*if (Thread.interrupted()) {
                         break;
-                    }
+                    }*/
                     mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateProgressBar((recvCount * 100) / totalCount);
                     displayMaster.getQueryResultRenderingHandler().render(dataContentRenderer, q, currResult);
                     displayMaster.getQueryResultRenderingHandler().renderProfile(profileContentRenderer, q, globalResult);
@@ -183,8 +184,6 @@ public class SearchMaster {
                 }
                 /* Update the search panel*/
                 mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryComplete();
-                mainFrame.getRegularDisplayPanel().getSidebarPanel().getAuthorListPanel().displayAuthors(((PaperCollection) (globalResult.getContents())));
-
                 // Query Completed. 
                 if (globalResult == null) {
                     //Result is null
@@ -192,6 +191,7 @@ public class SearchMaster {
                     mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().stopLoading();
                     UiUtils.displayResultNullMessage(q.flag, searchQuery);
                 } else {
+                    mainFrame.getRegularDisplayPanel().getSidebarPanel().getAuthorListPanel().displayAuthors(globalResult);
                     /* If no results, show EmptyResult Message */
                     if (recvCount == 0) {
                         UiUtils.displayQueryEmptyMessage(dataContentRenderer, q.flag, searchQuery);

@@ -4,6 +4,7 @@
  */
 package citalyser.model.query;
 
+import citalyser.model.PaperCollection;
 import java.io.Serializable;
 
 /**
@@ -17,5 +18,6 @@ public abstract class QueryResult<T> implements Serializable{
     abstract public T getContents();
     abstract public void appendContents(T t);
     abstract public int getNumContents();
+    abstract public PaperCollection getPaperCollection();
 
 }
