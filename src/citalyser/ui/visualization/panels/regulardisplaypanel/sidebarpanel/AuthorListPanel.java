@@ -4,9 +4,11 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel;
 
+import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.model.query.QueryResult;
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.TableDisplayPanelInterface;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -22,12 +24,14 @@ public class AuthorListPanel extends javax.swing.JPanel {
 
     private PaperCollection paperCollection;
     private ArrayList<Integer> rowNumbers;
+    private TableDisplayPanelInterface tableDisplayPanelInterface;
 
     /**
      * Creates new form AuthorListPanel
      */
     public AuthorListPanel() {
         initComponents();
+        jList1.setModel(new DefaultListModel<JCheckBox>());
         rowNumbers = new ArrayList<>();
         paperCollection = new PaperCollection();
     }
@@ -36,14 +40,12 @@ public class AuthorListPanel extends javax.swing.JPanel {
         if (authors == null || authors.size() == 0) {
             return;
         }
-        jLabel1.setText("Check Authors to Highlight Papers");
-        jLabel1.setBackground(new Color(59, 89, 152));
         DefaultListModel list = new DefaultListModel();
         int j = 0;
         for (int i = 0; i < authors.size(); i++) {
-            System.out.println(authors.get(i));
+          //  System.out.println(authors.get(i));
             if (authors.get(i).length() != 0) {
-                System.out.println("[" + authors.get(i) + "]");
+          //      System.out.println("[" + authors.get(i) + "]");
                 JCheckBox jCheckBox = new JCheckBox();
                 jCheckBox.setText(authors.get(i));
                 jCheckBox.setSelected(false);
@@ -62,6 +64,11 @@ public class AuthorListPanel extends javax.swing.JPanel {
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
     }
+
+    public void setTableDisplayPanelInterface(TableDisplayPanelInterface tableDisplayPanelInterface) {
+        this.tableDisplayPanelInterface = tableDisplayPanelInterface;
+    }
+    
     
     private DisplayMaster displayMaster;
 
@@ -124,10 +131,11 @@ public class AuthorListPanel extends javax.swing.JPanel {
             jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).setSelected(false);
             //displayMaster.displayStatusMessage("Unticked : " + jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
             ArrayList<Integer> rows = paperCollection.getAuthorPos(jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
-            displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getTableDisplayPanel().getPaperTableDisplayPanel().filterTableDeselect(rows);
+            
+            displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getTableDisplayPanel().getAuthorPaperTableDisplayPanel().filterTableDeselect(rows);
             int i = 0, count = 0;
             for(i=0; i<jList1.getModel().getSize(); i++){                
-                if(jList1.getModel().getElementAt(i).isSelected()) displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getTableDisplayPanel().getPaperTableDisplayPanel().filterTableSelect(paperCollection.getAuthorPos(jList1.getModel().getElementAt(i).getText()));                
+                if(jList1.getModel().getElementAt(i).isSelected()) displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getTableDisplayPanel().getAuthorPaperTableDisplayPanel().filterTableSelect(paperCollection.getAuthorPos(jList1.getModel().getElementAt(i).getText()));                
             }
             
             for (i = 0; i < jList1.getSelectedIndices().length; i++) {
@@ -138,7 +146,7 @@ public class AuthorListPanel extends javax.swing.JPanel {
             jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).setSelected(true);
             //displayMaster.displayStatusMessage("Ticked : " + jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
             ArrayList<Integer> rows = paperCollection.getAuthorPos(jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
-            displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getTableDisplayPanel().getPaperTableDisplayPanel().filterTableSelect(rows);
+            displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getTableDisplayPanel().getAuthorPaperTableDisplayPanel().filterTableSelect(rows);
             for (int i : rows) {
                 rowNumbers.set(i, rowNumbers.get(i) + 1);
 
@@ -172,15 +180,45 @@ public class AuthorListPanel extends javax.swing.JPanel {
 
     public void clear() {
         try {
-            DefaultListModel tm = (DefaultListModel) jList1.getModel();
+            DefaultListModel<JCheckBox> tm = (DefaultListModel<JCheckBox>) jList1.getModel();
             tm.removeAllElements();
-            paperCollection.removePaper();
+            paperCollection = new PaperCollection();
+//            for (Paper paper : paperCollection.getPapers()) {
+//                paperCollection.removePaper();
+//            }
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
+    
+    public void append(ArrayList<String> strings, PaperCollection paperCollection) {
+        for (Paper paper : paperCollection.getPapers()) {
+            this.paperCollection.addPaper(paper);
+        }
+        appendList(strings);
+    }    
 
     public void setPaperCollection(PaperCollection paperCollection) {
         this.paperCollection = paperCollection;
+    }
+
+    private void appendList(ArrayList<String> authors) {
+        
+        for (int i = 0; i < authors.size(); i++) {
+            System.out.println(authors.get(i));
+            if (authors.get(i).length() != 0) {
+                System.out.println("[" + authors.get(i) + "]");
+                JCheckBox jCheckBox = new JCheckBox();
+                jCheckBox.setText(authors.get(i));
+                jCheckBox.setSelected(false);
+                jCheckBox.setPreferredSize(new Dimension(100, 20));
+                jCheckBox.setBorder(new EmptyBorder(5, 2, 2, 5));
+                jCheckBox.setBorderPainted(true);
+                ((DefaultListModel<JCheckBox>) jList1.getModel()).addElement(jCheckBox);
+                //list.addElement(authors.get(i));
+            }
+        }
+        jList1.repaint();
     }
 }

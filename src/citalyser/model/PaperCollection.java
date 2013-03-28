@@ -24,7 +24,8 @@ public class PaperCollection implements Serializable {
     public PaperCollection() {
         this.h_index = 0;
         this.i_index = 0;
-        this.papers = null;
+        this.papers = new ArrayList<>();
+        uniqueAuthorList = new ArrayList<>();
     }
 
     public int getHIndex() {

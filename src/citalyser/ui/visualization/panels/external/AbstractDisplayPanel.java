@@ -34,9 +34,11 @@ public class AbstractDisplayPanel extends javax.swing.JPanel {
         if (paper.getAbstract() != null) {
             jLabel1.setBackground(new Color(0, 0, 0, 180));
             jLabel1.setText("<html>" + paper.getAbstract());
+            getParent().getParent().getParent().getParent().setSize(new Dimension(403, 117));
         } else {
 //            this.remove(jLabel1);
 //            jLabel1.setVisible(false);
+            jLabel1.setText("");
             jLabel1.setBackground(new Color(0, 0, 0, 0));
             getParent().getParent().getParent().getParent().setSize(new Dimension(403, 60));
             //System.out.println(getParent().getParent().getParent().getParent());
