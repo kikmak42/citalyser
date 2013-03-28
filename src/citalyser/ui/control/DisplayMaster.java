@@ -283,4 +283,8 @@ public class DisplayMaster {
     public void setDisplayPreview(boolean selected) {
         showPaperPreview = selected;
     }
+
+    public void openHelpFile() {
+        
+    }
 }
