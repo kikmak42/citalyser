@@ -16,7 +16,7 @@ public class UrlComposer {
     public static String getGenAuthUrl(Query q)
     {
         String query_name = q.name;
-        //query_name = query_name.replaceAll(" ", "+");
+        query_name = query_name.replaceAll("%2B", "+");
         String URL = new String();
         URL =  "http://scholar.google.co.in/scholar?";
         URL +=  "start="+ q.start_result +"&";
@@ -131,6 +131,7 @@ public class UrlComposer {
             q.max_year = "";
         try{
             q.name = URLEncoder.encode(q.name,"ISO-8859-1");
+            q.name= q.name.replaceAll("%2B", "+");
             return q;
         }catch(Exception ex){
             logger.error("Error encoding URI : " + ex.getMessage());

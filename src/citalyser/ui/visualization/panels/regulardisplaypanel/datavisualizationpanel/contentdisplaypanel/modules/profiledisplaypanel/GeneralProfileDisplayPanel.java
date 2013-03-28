@@ -35,7 +35,7 @@ public class GeneralProfileDisplayPanel extends javax.swing.JPanel {
 
     public void displayGeneral(Query q,PaperCollection papercollection) {
 
-        jLabel3.setText("Result for : "+q.name.replace("%2B", " ").toUpperCase());
+        jLabel3.setText("Result for : "+q.name.replace("+", " ").toUpperCase());
         UiUtils.displayGraph(jLabel2, papercollection.getCitationForYear(),475,90);
         jLabel5.setText("H - Index : " + papercollection.getHIndex());
         jLabel6.setText("i10 - median : " + papercollection.getIIndex());

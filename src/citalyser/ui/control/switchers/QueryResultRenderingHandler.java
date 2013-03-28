@@ -62,11 +62,13 @@ public class QueryResultRenderingHandler {
         } else if (queryResult instanceof JournalListResult) {
             //displayMaster.renderJournalMetrics(contentRenderer, query, (ArrayList<Journal>) queryResult.getContents());
         } else if (queryResult instanceof JournalResult) {
+
             displayMaster.getRenderMaster().renderJournalProfile(contentRenderer, query, (Journal) queryResult.getContents());
         } else if (queryResult instanceof PaperCollectionResult) {
             //Render table
-            displayMaster.getRenderMaster().renderGeneralProfile(contentRenderer, query, (PaperCollection) queryResult.getContents());
-
+            PaperCollection pc = (PaperCollection) queryResult.getContents();
+            
+            displayMaster.getRenderMaster().renderGeneralProfile(contentRenderer, query,pc );
         } else {
             //Main.getDisplayController().displayErrorMessage("Oops!! Something went Wrong.We are sorry for your inconvenience.");
         }

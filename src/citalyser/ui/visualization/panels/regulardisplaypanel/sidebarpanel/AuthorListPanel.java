@@ -8,6 +8,7 @@ import citalyser.model.Paper;
 import citalyser.model.PaperCollection;
 import citalyser.model.query.QueryResult;
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.TableDisplayPanelInterface;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class AuthorListPanel extends javax.swing.JPanel {
 
     private PaperCollection paperCollection;
     private ArrayList<Integer> rowNumbers;
+    private TableDisplayPanelInterface tableDisplayPanelInterface;
 
     /**
      * Creates new form AuthorListPanel
@@ -41,9 +43,9 @@ public class AuthorListPanel extends javax.swing.JPanel {
         DefaultListModel list = new DefaultListModel();
         int j = 0;
         for (int i = 0; i < authors.size(); i++) {
-            System.out.println(authors.get(i));
+          //  System.out.println(authors.get(i));
             if (authors.get(i).length() != 0) {
-                System.out.println("[" + authors.get(i) + "]");
+          //      System.out.println("[" + authors.get(i) + "]");
                 JCheckBox jCheckBox = new JCheckBox();
                 jCheckBox.setText(authors.get(i));
                 jCheckBox.setSelected(false);
@@ -62,6 +64,11 @@ public class AuthorListPanel extends javax.swing.JPanel {
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
     }
+
+    public void setTableDisplayPanelInterface(TableDisplayPanelInterface tableDisplayPanelInterface) {
+        this.tableDisplayPanelInterface = tableDisplayPanelInterface;
+    }
+    
     
     private DisplayMaster displayMaster;
 
@@ -124,7 +131,7 @@ public class AuthorListPanel extends javax.swing.JPanel {
             jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).setSelected(false);
             //displayMaster.displayStatusMessage("Unticked : " + jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
             ArrayList<Integer> rows = paperCollection.getAuthorPos(jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
-            System.out.println("Array Size : " + rows.size());
+            
             displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getTableDisplayPanel().getAuthorPaperTableDisplayPanel().filterTableDeselect(rows);
             int i = 0, count = 0;
             for(i=0; i<jList1.getModel().getSize(); i++){                

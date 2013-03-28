@@ -143,8 +143,9 @@ public class SearchMaster {
                     }
 
                     q.start_result = start;
-                    q.num_results = Math.min(count, totalCount - start);
 
+                    q.num_results = Math.min(count, totalCount - start);
+                
                     currResult = QueryHandler.getInstance().getQueryResult(q);
                     if (currResult == null) {
                         logger.debug("Current result is null");
@@ -154,9 +155,10 @@ public class SearchMaster {
                     if (start == 0) {
                         globalResult = currResult;
                     } else {
+                      
                         globalResult.appendContents(currResult.getContents());
                     }
-
+                  
                     recvCount += currResult.getNumContents();
 
                     /* Hack for further fetching of results in case of Author Grid*/
@@ -179,6 +181,7 @@ public class SearchMaster {
                     start += count;
                     /* Results have finished . No need to fetch more results.*/
                     if (recvCount < start) {
+                  
                         break;
                     }
                 }
@@ -229,12 +232,12 @@ public class SearchMaster {
 
         }
 
-        if (!searchPanel.getMaxYear().equals("")&&!searchPanel.getMinYear().equals("")) {
-            if(Integer.parseInt(searchPanel.getMaxYear()) < Integer.parseInt(searchPanel.getMinYear())){
+        if (!searchPanel.getMaxYear().equals("") && !searchPanel.getMinYear().equals("")) {
+            if (Integer.parseInt(searchPanel.getMaxYear()) < Integer.parseInt(searchPanel.getMinYear())) {
                 String str = searchPanel.getMaxYear();
                 searchPanel.setMaxYear(Integer.parseInt(searchPanel.getMinYear()));
                 searchPanel.setMinYear(Integer.parseInt(str));
-            } 
+            }
         }
 
 

@@ -62,7 +62,7 @@ public class RenderMaster {
             //contentRenderer.clearAll();
             contentRenderer.getTableDisplayPanel().setTable(query,author.getPaperCollection());
             contentRenderer.flipToTableDisplayPanel();
-            sidebarPanel.displayAuthorList(author.getPaperCollection().extractAuthors(), author.getPaperCollection());            
+            sidebarPanel.displayAuthorList(author.getPaperCollection().extractAuthors(), author.getPaperCollection(),contentRenderer.getTableDisplayPanel().getAuthorPaperTableDisplayPanel());            
         } else {
             Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Author Profile.");
             //contentRenderer.displayMessage("Could not fetch author papers result");
@@ -72,7 +72,7 @@ public class RenderMaster {
     public void render(ContentRenderer contentRenderer, Query query, PaperCollection paperCollection) {
         contentRenderer.getTableDisplayPanel().setTable(query,paperCollection);
         contentRenderer.flipToTableDisplayPanel();
-        sidebarPanel.displayAuthorList(paperCollection.extractAuthors(), paperCollection);
+        sidebarPanel.displayAuthorList(paperCollection.extractAuthors(), paperCollection,contentRenderer.getTableDisplayPanel().getAuthorPaperTableDisplayPanel());
     }
 
     public void renderCitationsList(ContentRenderer contentRenderer, Query query, ArrayList<Paper> papers) {
