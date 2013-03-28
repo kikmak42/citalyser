@@ -122,7 +122,7 @@ public class AuthorListPanel extends javax.swing.JPanel {
             ArrayList<Integer> rows = paperCollection.getAuthorPos(jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
             displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getTableDisplayPanel().getPaperTableDisplayPanel().filterTableSelect(rows);
             for(int i:rows){
-                rowNumbers.set(i,rowNumbers.get(i)+1);
+                    rowNumbers.set(i,rowNumbers.get(i));
             }
         }
         jList1.repaint();
