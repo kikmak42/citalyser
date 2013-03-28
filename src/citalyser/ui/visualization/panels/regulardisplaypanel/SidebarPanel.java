@@ -42,7 +42,7 @@ public class SidebarPanel extends javax.swing.JPanel {
     public void showArticleSearch(boolean value) {
         if (value) {
             advancedSearchPanel.show();
-            jSplitPane1.setDividerLocation(256);
+            jSplitPane1.setDividerLocation(278);
         } else {
             advancedSearchPanel.hide();
             jSplitPane1.setDividerLocation(23);
