@@ -18,9 +18,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.io.IOException;
 import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
 import javax.swing.JDialog;
 import org.apache.log4j.Logger;
 
@@ -285,6 +287,11 @@ public class DisplayMaster {
     }
 
     public void openHelpFile() {
-        
+        try {
+            Runtime.getRuntime().exec("hh.exe citalyser.chm");
+        } catch (IOException ex) {
+            logger.error("Error opening Help file.");
+            Main.getDisplayController().displayErrorMessage("Could not open Help file.");
+        }
     }
 }
