@@ -81,7 +81,6 @@ public class SearchMaster {
                 }
             }
         }
-        mainFrame.getRegularDisplayPanel().getSidebarPanel().clearAll();
     }
 
     public void addAutoCompleteSuggestions(Vector<String> suggestions) {

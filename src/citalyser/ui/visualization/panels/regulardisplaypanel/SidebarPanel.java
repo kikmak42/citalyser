@@ -61,8 +61,7 @@ public class SidebarPanel extends javax.swing.JPanel {
     }
 
     public void displayAuthorList(ArrayList<String> strings, PaperCollection paperCollection) {
-        authorListPanel.setPaperCollection(paperCollection);
-        authorListPanel.setList(strings);
+        authorListPanel.append(strings, paperCollection);
         showAuthorListPanel(true);
     }
     

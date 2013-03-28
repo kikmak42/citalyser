@@ -17,6 +17,7 @@ import citalyser.model.query.Query;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.model.TableModelHandler;
 import citalyser.ui.utils.UiUtils;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.JournalPaperTableDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.JournalTableDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.AuthorPaperTableDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.PaperTableFromMetricDisplayPanel;
@@ -52,7 +53,7 @@ public class TableDisplayPanel extends javax.swing.JPanel {
         paperTableFromMetricDisplayPanel.setDisplayMaster(displayMaster);
     }
 
-    public AuthorPaperTableDisplayPanel getPaperTableDisplayPanel() {
+    public AuthorPaperTableDisplayPanel getAuthorPaperTableDisplayPanel() {
         return authorPaperTableDisplayPanel;
     }
 
@@ -62,6 +63,10 @@ public class TableDisplayPanel extends javax.swing.JPanel {
 
     public PaperTableFromMetricDisplayPanel getPaperTableFromMetricDisplayPanel() {
         return paperTableFromMetricDisplayPanel;
+    }
+
+    public JournalPaperTableDisplayPanel getJournalPaperTableDisplayPanel() {
+        return journalPaperTableDisplayPanel;
     }
 
     public void flipToAuthorPaperTableDisplayPanel() {

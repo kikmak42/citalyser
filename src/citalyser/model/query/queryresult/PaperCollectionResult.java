@@ -13,9 +13,8 @@ import java.io.Serializable;
  * @author KRISHNA
  */
 public class PaperCollectionResult extends QueryResult<PaperCollection> implements Serializable {
+
     private PaperCollection paper_collection;
-    
-    
 
 //    @Override
 //    void setContents(PaperCollectionResult e) {
@@ -26,23 +25,22 @@ public class PaperCollectionResult extends QueryResult<PaperCollection> implemen
 //    PaperCollectionResult getContents() {
 //        return this.paper_collection;
 //    }
-
     @Override
     public void setContents(PaperCollection e) {
-        this.paper_collection=e;
+        this.paper_collection = e;
     }
 
     @Override
     public PaperCollection getContents() {
         return this.paper_collection;
     }
-    
+
     @Override
-    public void appendContents(PaperCollection p){
-        
+    public void appendContents(PaperCollection p) {
     }
-     @Override
-    public int getNumContents(){
+
+    @Override
+    public int getNumContents() {
         return this.paper_collection.getPapers().size();
     }
 }
