@@ -3,6 +3,7 @@ package citalyser.ui.control.masters;
 import citalyser.Constants;
 import citalyser.Main;
 import citalyser.model.Author;
+import citalyser.model.PaperCollection;
 import citalyser.model.query.Query;
 import citalyser.model.query.QueryHandler;
 import citalyser.model.query.QueryResult;
@@ -60,6 +61,7 @@ public class SearchMaster {
 
     public void searchButtonClicked(SearchPanel searchPanel) {
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().showAuthorListPanel(false);
         if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
             if (!searchPanel.getSearchString().equals(" Enter Your Search Query Here") && !searchPanel.getSearchString().equals("")) {
                 handleUserQuery(searchPanel);
@@ -79,6 +81,7 @@ public class SearchMaster {
                 }
             }
         }
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().clearAll();
     }
 
     public void addAutoCompleteSuggestions(Vector<String> suggestions) {
@@ -122,7 +125,8 @@ public class SearchMaster {
         //Thread thread = new Thread() {
         displayMaster.getExecutorService().submit(new Runnable() {
             @Override
-            public void run() {
+            public void run() 
+            {
                 String searchQuery = q.name;
                 QueryResult globalResult = null, currResult;
                 int totalCount = numResults;
@@ -169,9 +173,9 @@ public class SearchMaster {
 
                     }
                     //-----------------------------------------------------------------------------------------
-                    if (Thread.interrupted()) {
+                    /*if (Thread.interrupted()) {
                         break;
-                    }
+                    }*/
                     mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateProgressBar((recvCount * 100) / totalCount);
                     displayMaster.getQueryResultRenderingHandler().render(dataContentRenderer, q, currResult);
                     displayMaster.getQueryResultRenderingHandler().renderProfile(profileContentRenderer, q, globalResult);
@@ -184,7 +188,6 @@ public class SearchMaster {
                 }
                 /* Update the search panel*/
                 mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryComplete();
-
                 // Query Completed. 
                 if (globalResult == null) {
                     //Result is null
@@ -192,6 +195,7 @@ public class SearchMaster {
                     mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().stopLoading();
                     UiUtils.displayResultNullMessage(q.flag, searchQuery);
                 } else {
+                    //mainFrame.getRegularDisplayPanel().getSidebarPanel().getAuthorListPanel().displayAuthors(globalResult);
                     /* If no results, show EmptyResult Message */
                     if (recvCount == 0) {
                         UiUtils.displayQueryEmptyMessage(dataContentRenderer, q.flag, searchQuery);

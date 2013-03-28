@@ -7,6 +7,7 @@ package citalyser.model.query.queryresult;
 import citalyser.model.query.QueryResult;
 import citalyser.model.Journal;
 import citalyser.model.Paper;
+import citalyser.model.PaperCollection;
 import java.io.Serializable;
 import java.util.ArrayList;
 

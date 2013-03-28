@@ -10,9 +10,12 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel;
 
+import citalyser.model.PaperCollection;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AdvancedSearchPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel;
+import java.awt.CardLayout;
+import java.util.ArrayList;
 
 /**
  *
@@ -42,11 +45,25 @@ public class SidebarPanel extends javax.swing.JPanel {
     public void showArticleSearch(boolean value) {
         if (value) {
             advancedSearchPanel.show();
-            jSplitPane1.setDividerLocation(256);
+            jSplitPane1.setDividerLocation(278);
         } else {
             advancedSearchPanel.hide();
             jSplitPane1.setDividerLocation(23);
         }
+    }
+
+    public void showAuthorListPanel(boolean value) {
+        if (value) {
+            ((CardLayout) jPanel1.getLayout()).last(jPanel1);
+        } else {
+            ((CardLayout) jPanel1.getLayout()).first(jPanel1);
+        }
+    }
+
+    public void displayAuthorList(ArrayList<String> strings, PaperCollection paperCollection) {
+        authorListPanel.setPaperCollection(paperCollection);
+        authorListPanel.setList(strings);
+        showAuthorListPanel(true);
     }
     
     private DisplayMaster displayMaster;
@@ -63,8 +80,8 @@ public class SidebarPanel extends javax.swing.JPanel {
         jSplitPane1 = new javax.swing.JSplitPane();
         advancedSearchPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AdvancedSearchPanel();
         jPanel1 = new javax.swing.JPanel();
-        authorListPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel();
         jPanel2 = new javax.swing.JPanel();
+        authorListPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel();
 
         setBackground(new java.awt.Color(-6710785,true));
         setLayout(new java.awt.BorderLayout());
@@ -76,10 +93,22 @@ public class SidebarPanel extends javax.swing.JPanel {
         jSplitPane1.setTopComponent(advancedSearchPanel);
 
         jPanel1.setLayout(new java.awt.CardLayout());
-        jPanel1.add(authorListPanel, "card2");
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 255));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 230, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 183, Short.MAX_VALUE)
+        );
+
         jPanel1.add(jPanel2, "card3");
+        jPanel1.add(authorListPanel, "card2");
 
         jSplitPane1.setRightComponent(jPanel1);
 
@@ -92,8 +121,11 @@ public class SidebarPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
- public void clearAll() {
+ 
+    public void clearAll() {
         authorListPanel.clear();
+        showArticleSearch(false);
+        showAuthorListPanel(false);
         displayMaster.clearCitationHistory();
         System.gc();
     }

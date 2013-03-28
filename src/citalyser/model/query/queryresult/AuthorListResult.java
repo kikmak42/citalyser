@@ -6,6 +6,7 @@ package citalyser.model.query.queryresult;
 
 import citalyser.model.query.QueryResult;
 import citalyser.model.Author;
+import citalyser.model.PaperCollection;
 import java.io.Serializable;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;

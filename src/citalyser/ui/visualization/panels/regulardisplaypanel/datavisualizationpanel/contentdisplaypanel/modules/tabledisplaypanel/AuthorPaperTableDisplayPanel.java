@@ -102,7 +102,22 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
         jTable1.repaint();
         //displayMaster.renderGeneralProfile(displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), this.paperCollection);
     }
-
+    public void filterTableSelect(ArrayList<Integer> columnsIndex) {
+        int c = 0;
+        for (int i : columnsIndex) {
+            jTable1.setRowSelectionAllowed(true);
+            jTable1.addRowSelectionInterval(i, i);
+        
+       } 
+    }
+public void filterTableDeselect(ArrayList<Integer> columnsIndex) {
+        int c = 0;
+        for (int i : columnsIndex) {
+            jTable1.setRowSelectionAllowed(true);
+            jTable1.removeRowSelectionInterval(i, i);
+            
+       } 
+    }
     public void showMoreButton() {
         moreButton.setVisible(true);
     }
@@ -172,7 +187,7 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
         jTable1.setGridColor(new java.awt.Color(204, 204, 255));
         jTable1.setIntercellSpacing(new java.awt.Dimension(4, 5));
         jTable1.setRowHeight(25);
-        jTable1.setSelectionBackground(new java.awt.Color(50, 93, 167));
+        jTable1.setSelectionBackground(new java.awt.Color(59, 89, 152));
         jTable1.setShowVerticalLines(false);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -239,12 +254,13 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
         if (jTable1.rowAtPoint(evt.getPoint()) > -1) {
             
             disabledRow = jTable1.rowAtPoint(evt.getPoint());
-            int selectedRowIndex = jTable1.convertRowIndexToModel(jTable1.rowAtPoint(evt.getPoint()));
+            /*int selectedRowIndex = jTable1.convertRowIndexToModel(jTable1.rowAtPoint(evt.getPoint()));
             logger.debug("Selected row index : " + selectedRowIndex);
             int serialno = (Integer)jTable1.getModel().getValueAt(selectedRowIndex, 0) - 1; 
             logger.debug("Serial no : " + serialno);
             Paper clickedPaper = paperCollection.getPapers().get(serialno);
-            logger.debug("Fetching citations for paper : " + clickedPaper.getTitle());
+            logger.debug("Fetching citations for paper : " + clickedPaper.getTitle());*/
+            Paper clickedPaper = getSelectedPaper(disabledRow);
             if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
             } else {
                 ((TableDisplayPanel) ((JPanel) ((JPanel) this.getParent()).getParent())).setPopUpLocation(evt.getPoint());
@@ -256,8 +272,9 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
 
     private void jTable1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseEntered
         previousRow = jTable1.rowAtPoint(evt.getPoint());
+        Paper p = getSelectedPaper(previousRow);
         if (previousRow > -1) {
-            displayMaster.showPaperInfo(paperCollection.getPapers().get(previousRow), new Point(evt.getLocationOnScreen().x + 10, evt.getLocationOnScreen().y + 10));
+            displayMaster.showPaperInfo(getSelectedPaper(previousRow), new Point(evt.getLocationOnScreen().x + 10, evt.getLocationOnScreen().y + 10));
         }
     }//GEN-LAST:event_jTable1MouseEntered
 
@@ -272,7 +289,7 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
         int currentRow = jTable1.rowAtPoint(evt.getPoint());
         if (currentRow > -1) {
             if (currentRow != previousRow) {
-                displayMaster.showPaperInfo(paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint())), new Point(evt.getLocationOnScreen().x + 10, evt.getLocationOnScreen().y + 10));
+                displayMaster.showPaperInfo(getSelectedPaper(jTable1.rowAtPoint(evt.getPoint())), new Point(evt.getLocationOnScreen().x + 10, evt.getLocationOnScreen().y + 10));
             } else {
                 displayMaster.movePaperInfoTo(new Point(evt.getLocationOnScreen().x + 10, evt.getLocationOnScreen().y + 10));
             }
@@ -305,13 +322,13 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
     public void callLeftClickedEvent(Point point) {
         if (jTable1.rowAtPoint(point) > -1) {
         disabledRow = jTable1.rowAtPoint(point);
-        int selectedRowIndex = jTable1.convertRowIndexToModel(jTable1.rowAtPoint(point));
-        logger.debug("Selected row index : " + selectedRowIndex);
+        /*logger.debug("Selected row index : " + selectedRowIndex);
         int serialno = (Integer)jTable1.getModel().getValueAt(selectedRowIndex, 0) - 1; 
         logger.debug("Serial no : " + serialno);
         Paper clickedPaper = paperCollection.getPapers().get(serialno);
+        */
+        Paper clickedPaper = getSelectedPaper(disabledRow);
         logger.debug("Fetching citations for paper : " + clickedPaper.getTitle());
-        
         if(clickedPaper.getNumCites() > 0) {
             displayMaster.getNavigationMaster().tableClicked(clickedPaper);
         } else {
@@ -323,5 +340,17 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
     @Override
     public boolean isMetric() {
         return false;
+    }
+    
+    private Paper getSelectedPaper(int index)
+    {
+        int rowindex = jTable1.convertRowIndexToModel(index);
+        //logger.debug("Rowindex : " + rowindex);
+        int serialno = (Integer)jTable1.getModel().getValueAt(rowindex, 0) - 1; 
+        //logger.debug("Serial No : " + serialno);
+        Paper paper = paperCollection.getPapers().get(serialno);
+        //logger.debug("Title : " + paper.getTitle());
+        //logger.debug("---------------------------------------------------------------");
+        return paper;
     }
 }

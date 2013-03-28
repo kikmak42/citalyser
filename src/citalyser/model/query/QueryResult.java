@@ -4,6 +4,7 @@
  */
 package citalyser.model.query;
 
+import citalyser.model.PaperCollection;
 import java.io.Serializable;
 
 /**

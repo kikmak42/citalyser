@@ -4,6 +4,7 @@
  */
 package citalyser.model.query.queryresult;
 
+import citalyser.model.PaperCollection;
 import citalyser.model.query.QueryResult;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
