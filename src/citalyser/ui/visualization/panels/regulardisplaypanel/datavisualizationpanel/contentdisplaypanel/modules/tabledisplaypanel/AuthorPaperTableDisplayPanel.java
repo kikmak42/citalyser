@@ -187,7 +187,7 @@ public void filterTableDeselect(ArrayList<Integer> columnsIndex) {
         jTable1.setGridColor(new java.awt.Color(204, 204, 255));
         jTable1.setIntercellSpacing(new java.awt.Dimension(4, 5));
         jTable1.setRowHeight(25);
-        jTable1.setSelectionBackground(new java.awt.Color(50, 93, 167));
+        jTable1.setSelectionBackground(new java.awt.Color(59, 89, 152));
         jTable1.setShowVerticalLines(false);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

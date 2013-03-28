@@ -53,7 +53,7 @@
             </Property>
             <Property name="rowHeight" type="int" value="25"/>
             <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="a7" green="5d" red="32" type="rgb"/>
+              <Color blue="98" green="59" red="3b" type="rgb"/>
             </Property>
             <Property name="showVerticalLines" type="boolean" value="false"/>
           </Properties>
