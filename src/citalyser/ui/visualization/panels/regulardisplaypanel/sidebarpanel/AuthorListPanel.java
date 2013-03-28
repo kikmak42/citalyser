@@ -31,6 +31,8 @@ public class AuthorListPanel extends javax.swing.JPanel {
     }
 
     public void setList(ArrayList<String> authors) {
+        if(authors == null || authors.size() == 0)
+            return ;
         DefaultListModel list = new DefaultListModel();
         for (int i = 0; i < authors.size(); i++) {
             if (authors.get(i) != "") {

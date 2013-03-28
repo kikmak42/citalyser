@@ -73,8 +73,8 @@ public class SidebarPanel extends javax.swing.JPanel {
         jSplitPane1 = new javax.swing.JSplitPane();
         advancedSearchPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AdvancedSearchPanel();
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
         authorListPanel = new citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel();
+        jPanel2 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(-6710785,true));
         setLayout(new java.awt.BorderLayout());
@@ -86,10 +86,10 @@ public class SidebarPanel extends javax.swing.JPanel {
         jSplitPane1.setTopComponent(advancedSearchPanel);
 
         jPanel1.setLayout(new java.awt.CardLayout());
+        jPanel1.add(authorListPanel, "card2");
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 255));
         jPanel1.add(jPanel2, "card3");
-        jPanel1.add(authorListPanel, "card2");
 
         jSplitPane1.setRightComponent(jPanel1);
 

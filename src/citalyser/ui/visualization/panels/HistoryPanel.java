@@ -59,12 +59,13 @@ public class HistoryPanel extends javax.swing.JPanel {
             Query q = hm.get(query);
             /* Get the date*/
             logger.debug("Timestamp : " + q.timestamp);
-            DateFormat format = new SimpleDateFormat("MMddyyHHmmss");
+            
+            
             String dateStr = "";
             try {
-                Date date = format.parse(Long.toString(q.timestamp*1000));
-                dateStr = date.toString();
-            } catch (ParseException ex) {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy' 'HH:MM:ss:S");
+                dateStr = simpleDateFormat.format(q.timestamp*1000);
+            } catch (Exception ex) {
                 logger.error("Error Converting timestamp : " + ex.getMessage());;
                 dateStr = "";
             }
@@ -141,9 +142,13 @@ public class HistoryPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setToolTipText("Click to Run Query");
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTable1MouseEntered(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -178,6 +183,10 @@ public class HistoryPanel extends javax.swing.JPanel {
             displayMaster.hideHistoryPanel();
         }
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTable1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseEntered
+
+    }//GEN-LAST:event_jTable1MouseEntered
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel historytitlelbl;
