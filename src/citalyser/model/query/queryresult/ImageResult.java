@@ -36,9 +36,4 @@ public class ImageResult extends QueryResult<ImageIcon> implements Serializable 
     public void appendContents(ImageIcon t) {
         logger.debug("Not Supported yet.");
     }
-
-    @Override
-    public PaperCollection getPaperCollection() {
-        return null;
-    }
 }
