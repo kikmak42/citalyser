@@ -23,11 +23,10 @@ import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
-import java.util.logging.Level;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import org.apache.log4j.Logger;
-import sun.misc.JavaxSecurityAuthKerberosAccess;
+
 
 /**
  *
