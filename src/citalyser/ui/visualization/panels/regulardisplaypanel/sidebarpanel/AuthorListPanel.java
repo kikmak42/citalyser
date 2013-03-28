@@ -141,6 +141,7 @@ public class AuthorListPanel extends javax.swing.JPanel {
             displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getTableDisplayPanel().getPaperTableDisplayPanel().filterTableSelect(rows);
             for (int i : rows) {
                 rowNumbers.set(i, rowNumbers.get(i) + 1);
+
             }
         }
         jList1.repaint();
