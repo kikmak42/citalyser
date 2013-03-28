@@ -4,6 +4,7 @@
  */
 package citalyser.model.query.queryresult;
 
+import citalyser.model.PaperCollection;
 import citalyser.model.query.QueryResult;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
@@ -34,5 +35,10 @@ public class ImageResult extends QueryResult<ImageIcon> implements Serializable 
     @Override
     public void appendContents(ImageIcon t) {
         logger.debug("Not Supported yet.");
+    }
+
+    @Override
+    public PaperCollection getPaperCollection() {
+        return null;
     }
 }

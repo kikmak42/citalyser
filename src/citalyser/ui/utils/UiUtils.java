@@ -302,4 +302,5 @@ public class UiUtils {
         url = "http://www.google.com/chart?chs=" + width + "x" + height + "&cht=bvs&chf=bg,s,e8f4f7&chco=1111cc&chbh=r,2.0,0.0&chxt=x,y&chxr=1,0," + citmax + "," + citmax + "&chd=t:" + cite + "&chxl=0:" + yearall;
         displayImage(jLabel, url, width, height);
     }
+    
 }

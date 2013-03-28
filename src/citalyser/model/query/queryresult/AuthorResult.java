@@ -46,4 +46,9 @@ public class AuthorResult extends QueryResult<Author> implements Serializable{
             p.add(temp.get(i));
         }
     }
+
+    @Override
+    public PaperCollection getPaperCollection() {
+        return this.author.getPaperCollection();
+    }
 }

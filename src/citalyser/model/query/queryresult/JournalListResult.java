@@ -40,4 +40,9 @@ public class JournalListResult extends QueryResult<ArrayList<Journal>> implement
     public int getNumContents(){
         return this.journalList.size();
     }
+
+    @Override
+    public PaperCollection getPaperCollection() {
+        return null;
+    }
 }

@@ -215,16 +215,21 @@ public class NavigationMaster {
                         .numResult(Constants.MaxResultsNum.METRICS_JOURNAL_PAPERS.getValue()).build();
                 UiUtils.displayQueryStartInfoMessage(q.flag, myJournal.getName());
                 QueryResult queryResult = QueryHandler.getInstance().getQueryResult(q);
-                if (queryResult != null) {
+                if (queryResult != null) 
+                {
                     ContentRenderer contentRenderer = mainFrame.getRegularDisplayPanel().getDataVisualizationPanel()
                             .getContentDisplayPanel().getCentralContentDisplayPanel();
                     UiUtils.displayQueryCompleteInfoMessage(q.flag, queryResult.getNumContents(), myJournal.getName());
                     int numResults = queryResult.getNumContents();
-                    if (numResults > 0) {
+                    if (numResults > 0) 
+                    {
                         Journal journ = (Journal) queryResult.getContents();
                         displayMaster.getRenderMaster().renderJournal(contentRenderer, q, journ);
                         displayMaster.getRenderMaster().renderJournalProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), q, journ);
-                    } else {
+                        mainFrame.getRegularDisplayPanel().getSidebarPanel().getAuthorListPanel().displayAuthors(queryResult);
+                    } 
+                    else 
+                    {
                         UiUtils.displayQueryEmptyMessage(contentRenderer, q.flag, myJournal.getName());
                     }
                 } else {
@@ -271,7 +276,7 @@ public class NavigationMaster {
                     UiUtils.displayQueryCompleteInfoMessage(q.flag, queryResult.getNumContents(), authorName);
                     displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), q, queryResult);
                     displayMaster.getRenderMaster().renderAuthorProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), q, (Author) queryResult.getContents());
-                    mainFrame.getRegularDisplayPanel().getSidebarPanel().getAuthorListPanel().displayAuthors(((Author) (queryResult.getContents())).getPaperCollection());
+                    mainFrame.getRegularDisplayPanel().getSidebarPanel().getAuthorListPanel().displayAuthors(queryResult);
                 } else {
                     UiUtils.displayResultNullMessage(q.flag, authorName);
                     mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().stopLoading();
