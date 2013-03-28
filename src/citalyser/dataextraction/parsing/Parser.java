@@ -40,7 +40,7 @@ public class Parser {
 
     //this function takes the title of a paper and the source string and returns an arraylist of authors of that paper
     /* Query Types : GEN_AUTH, GEN_JOURN */
-    public QueryResult<PaperCollection> extractGeneralQuery(String source) throws IOException {
+    public QueryResult<PaperCollection> extractGeneralQuery(String source){
         
         QueryResult<PaperCollection> q = new PaperCollectionResult();
         this.source = source;
