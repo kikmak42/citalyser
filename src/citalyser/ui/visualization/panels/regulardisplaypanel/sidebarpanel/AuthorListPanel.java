@@ -31,6 +31,8 @@ public class AuthorListPanel extends javax.swing.JPanel {
     }
 
     public void setList(ArrayList<String> authors) {
+        if(authors == null || authors.size() == 0)
+            return ;
         jLabel1.setText("Check Authors to Highlight Papers");
         jLabel1.setBackground(new Color(59,89,152));
         DefaultListModel list = new DefaultListModel();

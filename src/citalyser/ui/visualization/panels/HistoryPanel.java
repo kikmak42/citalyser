@@ -142,9 +142,13 @@ public class HistoryPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setToolTipText("Click to Run Query");
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTable1MouseEntered(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -179,6 +183,10 @@ public class HistoryPanel extends javax.swing.JPanel {
             displayMaster.hideHistoryPanel();
         }
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTable1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseEntered
+
+    }//GEN-LAST:event_jTable1MouseEntered
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel historytitlelbl;
