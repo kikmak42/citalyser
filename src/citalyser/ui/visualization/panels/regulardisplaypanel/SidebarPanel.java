@@ -10,6 +10,7 @@
  */
 package citalyser.ui.visualization.panels.regulardisplaypanel;
 
+import citalyser.model.PaperCollection;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AdvancedSearchPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel;
@@ -59,7 +60,8 @@ public class SidebarPanel extends javax.swing.JPanel {
         }
     }
 
-    public void displayAuthorList(ArrayList<String> strings) {
+    public void displayAuthorList(ArrayList<String> strings, PaperCollection paperCollection) {
+        authorListPanel.setPaperCollection(paperCollection);
         authorListPanel.setList(strings);
         showAuthorListPanel(true);
     }

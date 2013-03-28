@@ -178,4 +178,8 @@ public class AuthorListPanel extends javax.swing.JPanel {
         }
 
     }
+
+    public void setPaperCollection(PaperCollection paperCollection) {
+        this.paperCollection = paperCollection;
+    }
 }
