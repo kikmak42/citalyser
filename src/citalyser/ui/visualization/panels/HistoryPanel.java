@@ -59,12 +59,13 @@ public class HistoryPanel extends javax.swing.JPanel {
             Query q = hm.get(query);
             /* Get the date*/
             logger.debug("Timestamp : " + q.timestamp);
-            DateFormat format = new SimpleDateFormat("MMddyyHHmmss");
+            
+            
             String dateStr = "";
             try {
-                Date date = format.parse(Long.toString(q.timestamp*1000));
-                dateStr = date.toString();
-            } catch (ParseException ex) {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy' 'HH:MM:ss:S");
+                dateStr = simpleDateFormat.format(q.timestamp*1000);
+            } catch (Exception ex) {
                 logger.error("Error Converting timestamp : " + ex.getMessage());;
                 dateStr = "";
             }
