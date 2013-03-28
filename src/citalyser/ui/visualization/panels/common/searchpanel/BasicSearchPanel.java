@@ -95,6 +95,7 @@ public class BasicSearchPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
 
+        setOpaque(false);
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
         searchBox.setForeground(new java.awt.Color(102, 102, 102));
