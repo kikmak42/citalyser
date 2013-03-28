@@ -197,6 +197,11 @@ public class HeaderPanel extends javax.swing.JPanel {
         jButton2.setMaximumSize(new java.awt.Dimension(35, 35));
         jButton2.setMinimumSize(new java.awt.Dimension(1, 1));
         jButton2.setOpaque(true);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -297,6 +302,10 @@ public class HeaderPanel extends javax.swing.JPanel {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         displayMaster.showHistoryPanel();
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        displayMaster.openHelpFile();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public SearchPanel getSearchPanel() {
         return searchPanel;

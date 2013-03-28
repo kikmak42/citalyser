@@ -271,7 +271,7 @@ public class NavigationMaster {
                     UiUtils.displayQueryCompleteInfoMessage(q.flag, queryResult.getNumContents(), authorName);
                     displayMaster.getQueryResultRenderingHandler().render(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel(), q, queryResult);
                     displayMaster.getRenderMaster().renderAuthorProfile(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), q, (Author) queryResult.getContents());
-                    mainFrame.getRegularDisplayPanel().getSidebarPanel().getAuthorListPanel().displayAuthors(((Author) (queryResult.getContents())).getPaperCollection());
+                    mainFrame.getRegularDisplayPanel().getSidebarPanel().getAuthorListPanel().displayAuthors(queryResult);
                 } else {
                     UiUtils.displayResultNullMessage(q.flag, authorName);
                     mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().stopLoading();

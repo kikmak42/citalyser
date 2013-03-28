@@ -6,6 +6,7 @@ package citalyser.model.query.queryresult;
 
 import citalyser.model.query.QueryResult;
 import citalyser.model.Author;
+import citalyser.model.PaperCollection;
 import java.io.Serializable;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;
@@ -49,5 +50,10 @@ public class AuthorListResult extends QueryResult<ArrayList<Author>> implements 
     public void appendContents(ArrayList<Author> a){
         for(Author author : a)
             this.authorList.add(author);
+    }
+
+    @Override
+    public PaperCollection getPaperCollection() {
+        return null;
     }
 }

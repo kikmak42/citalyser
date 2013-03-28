@@ -54,7 +54,7 @@ public class ResultCountPanel extends javax.swing.JPanel {
 
         numResults.setColumns(4);
         numResults.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        numResults.setText("100");
+        numResults.setText("40");
         numResults.setMinimumSize(new java.awt.Dimension(6, 15));
         numResults.setPreferredSize(new java.awt.Dimension(38, 15));
         numResults.getDocument().addDocumentListener( new DocumentListener()

@@ -254,12 +254,13 @@ public void filterTableDeselect(ArrayList<Integer> columnsIndex) {
         if (jTable1.rowAtPoint(evt.getPoint()) > -1) {
             
             disabledRow = jTable1.rowAtPoint(evt.getPoint());
-            int selectedRowIndex = jTable1.convertRowIndexToModel(jTable1.rowAtPoint(evt.getPoint()));
+            /*int selectedRowIndex = jTable1.convertRowIndexToModel(jTable1.rowAtPoint(evt.getPoint()));
             logger.debug("Selected row index : " + selectedRowIndex);
             int serialno = (Integer)jTable1.getModel().getValueAt(selectedRowIndex, 0) - 1; 
             logger.debug("Serial no : " + serialno);
             Paper clickedPaper = paperCollection.getPapers().get(serialno);
-            logger.debug("Fetching citations for paper : " + clickedPaper.getTitle());
+            logger.debug("Fetching citations for paper : " + clickedPaper.getTitle());*/
+            Paper clickedPaper = getSelectedPaper(disabledRow);
             if (evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
             } else {
                 ((TableDisplayPanel) ((JPanel) ((JPanel) this.getParent()).getParent())).setPopUpLocation(evt.getPoint());
@@ -271,8 +272,9 @@ public void filterTableDeselect(ArrayList<Integer> columnsIndex) {
 
     private void jTable1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseEntered
         previousRow = jTable1.rowAtPoint(evt.getPoint());
+        Paper p = getSelectedPaper(previousRow);
         if (previousRow > -1) {
-            displayMaster.showPaperInfo(paperCollection.getPapers().get(previousRow), new Point(evt.getLocationOnScreen().x + 10, evt.getLocationOnScreen().y + 10));
+            displayMaster.showPaperInfo(getSelectedPaper(previousRow), new Point(evt.getLocationOnScreen().x + 10, evt.getLocationOnScreen().y + 10));
         }
     }//GEN-LAST:event_jTable1MouseEntered
 
@@ -287,7 +289,7 @@ public void filterTableDeselect(ArrayList<Integer> columnsIndex) {
         int currentRow = jTable1.rowAtPoint(evt.getPoint());
         if (currentRow > -1) {
             if (currentRow != previousRow) {
-                displayMaster.showPaperInfo(paperCollection.getPapers().get(jTable1.rowAtPoint(evt.getPoint())), new Point(evt.getLocationOnScreen().x + 10, evt.getLocationOnScreen().y + 10));
+                displayMaster.showPaperInfo(getSelectedPaper(jTable1.rowAtPoint(evt.getPoint())), new Point(evt.getLocationOnScreen().x + 10, evt.getLocationOnScreen().y + 10));
             } else {
                 displayMaster.movePaperInfoTo(new Point(evt.getLocationOnScreen().x + 10, evt.getLocationOnScreen().y + 10));
             }
@@ -320,13 +322,13 @@ public void filterTableDeselect(ArrayList<Integer> columnsIndex) {
     public void callLeftClickedEvent(Point point) {
         if (jTable1.rowAtPoint(point) > -1) {
         disabledRow = jTable1.rowAtPoint(point);
-        int selectedRowIndex = jTable1.convertRowIndexToModel(jTable1.rowAtPoint(point));
-        logger.debug("Selected row index : " + selectedRowIndex);
+        /*logger.debug("Selected row index : " + selectedRowIndex);
         int serialno = (Integer)jTable1.getModel().getValueAt(selectedRowIndex, 0) - 1; 
         logger.debug("Serial no : " + serialno);
         Paper clickedPaper = paperCollection.getPapers().get(serialno);
+        */
+        Paper clickedPaper = getSelectedPaper(disabledRow);
         logger.debug("Fetching citations for paper : " + clickedPaper.getTitle());
-        
         if(clickedPaper.getNumCites() > 0) {
             displayMaster.getNavigationMaster().tableClicked(clickedPaper);
         } else {
@@ -338,5 +340,17 @@ public void filterTableDeselect(ArrayList<Integer> columnsIndex) {
     @Override
     public boolean isMetric() {
         return false;
+    }
+    
+    private Paper getSelectedPaper(int index)
+    {
+        int rowindex = jTable1.convertRowIndexToModel(index);
+        //logger.debug("Rowindex : " + rowindex);
+        int serialno = (Integer)jTable1.getModel().getValueAt(rowindex, 0) - 1; 
+        //logger.debug("Serial No : " + serialno);
+        Paper paper = paperCollection.getPapers().get(serialno);
+        //logger.debug("Title : " + paper.getTitle());
+        //logger.debug("---------------------------------------------------------------");
+        return paper;
     }
 }
