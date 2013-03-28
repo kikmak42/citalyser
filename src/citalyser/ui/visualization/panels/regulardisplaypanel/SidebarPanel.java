@@ -12,6 +12,7 @@ package citalyser.ui.visualization.panels.regulardisplaypanel;
 
 import citalyser.model.PaperCollection;
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.TableDisplayPanelInterface;
 import citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AdvancedSearchPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel;
 import java.awt.CardLayout;
@@ -60,10 +61,12 @@ public class SidebarPanel extends javax.swing.JPanel {
         }
     }
 
-    public void displayAuthorList(ArrayList<String> strings, PaperCollection paperCollection) {
+    public void displayAuthorList(ArrayList<String> strings, PaperCollection paperCollection,TableDisplayPanelInterface displayPanelInterface) {
         authorListPanel.setPaperCollection(paperCollection);
+        authorListPanel.setTableDisplayPanelInterface(displayPanelInterface);
         authorListPanel.setList(strings);
         showAuthorListPanel(true);
+        
     }
     
     private DisplayMaster displayMaster;
