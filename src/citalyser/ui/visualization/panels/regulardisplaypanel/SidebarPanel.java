@@ -13,6 +13,7 @@ package citalyser.ui.visualization.panels.regulardisplaypanel;
 import citalyser.ui.control.DisplayMaster;
 import citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AdvancedSearchPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel;
+import java.awt.CardLayout;
 
 /**
  *
@@ -48,6 +49,15 @@ public class SidebarPanel extends javax.swing.JPanel {
             jSplitPane1.setDividerLocation(23);
         }
     }
+
+    public void showAuthorListPanel(boolean value) {
+        if (value) {
+            ((CardLayout) jPanel1.getLayout()).first(jPanel1);
+        } else {
+            ((CardLayout) jPanel1.getLayout()).last(jPanel1);
+        }
+    }
+
     
     private DisplayMaster displayMaster;
 
@@ -92,7 +102,8 @@ public class SidebarPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
- public void clearAll() {
+ 
+    public void clearAll() {
         authorListPanel.clear();
         displayMaster.clearCitationHistory();
         System.gc();

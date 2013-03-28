@@ -62,6 +62,7 @@ public class AuthorListPanel extends javax.swing.JPanel {
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
     }
+    
     private DisplayMaster displayMaster;
 
     /**
@@ -84,10 +85,11 @@ public class AuthorListPanel extends javax.swing.JPanel {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setBackground(new java.awt.Color(157, 157, 255));
+        jLabel1.setBackground(new java.awt.Color(59, 89, 152));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Check Authors to Highlight Papers");
         jLabel1.setOpaque(true);
         jLabel1.setPreferredSize(new java.awt.Dimension(181, 20));
         jPanel1.add(jLabel1, java.awt.BorderLayout.CENTER);
@@ -168,8 +170,6 @@ public class AuthorListPanel extends javax.swing.JPanel {
     }
 
     public void clear() {
-        jLabel1.setText("");
-        jLabel1.setBackground(new Color(157, 157, 255));
         try {
             DefaultListModel tm = (DefaultListModel) jList1.getModel();
             tm.removeAllElements();
