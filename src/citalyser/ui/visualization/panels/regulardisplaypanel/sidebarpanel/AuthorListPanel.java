@@ -41,9 +41,9 @@ public class AuthorListPanel extends javax.swing.JPanel {
         DefaultListModel list = new DefaultListModel();
         int j = 0;
         for (int i = 0; i < authors.size(); i++) {
-            System.out.println(authors.get(i));
+          //  System.out.println(authors.get(i));
             if (authors.get(i).length() != 0) {
-                System.out.println("[" + authors.get(i) + "]");
+          //      System.out.println("[" + authors.get(i) + "]");
                 JCheckBox jCheckBox = new JCheckBox();
                 jCheckBox.setText(authors.get(i));
                 jCheckBox.setSelected(false);
