@@ -38,8 +38,7 @@ public class AuthorListPanel extends javax.swing.JPanel {
             jCheckBox.setBorder(new EmptyBorder(5, 2, 2, 5));
             jCheckBox.setBorderPainted(true);
             list.add(i, jCheckBox);
-            //list.addElement(authors.get(i));          
-
+            //list.addElement(authors.get(i));
         }
         jList1.setModel(list);
         displayMaster.showArticleSearch(false);
@@ -109,7 +108,6 @@ public class AuthorListPanel extends javax.swing.JPanel {
             displayMaster.displayStatusMessage("Unticked : " + jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
             ArrayList<Integer> columns = paperCollection.getAuthorPos(jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
             displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getTableDisplayPanel().getPaperTableDisplayPanel().filterTableDeselect(columns);
-
         } else {
             jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).setSelected(true);
             displayMaster.displayStatusMessage("Ticked : " + jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
