@@ -25,6 +25,8 @@ import java.util.ArrayList;
 public class SidebarPanel extends javax.swing.JPanel {
 
     /** Creates new form SidebarPanel */
+    private boolean value = false;
+    
     public SidebarPanel() {
         initComponents();
     }
@@ -44,6 +46,7 @@ public class SidebarPanel extends javax.swing.JPanel {
     }
 
     public void showArticleSearch(boolean value) {
+        this.value = value;
         if (value) {
             advancedSearchPanel.show();
             jSplitPane1.setDividerLocation(278);
@@ -88,9 +91,14 @@ public class SidebarPanel extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         jSplitPane1.setBorder(null);
+        jSplitPane1.setDividerLocation(23);
         jSplitPane1.setDividerSize(0);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        jSplitPane1.setOpaque(false);
+        jSplitPane1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jSplitPane1PropertyChange(evt);
+            }
+        });
         jSplitPane1.setTopComponent(advancedSearchPanel);
 
         jPanel1.setLayout(new java.awt.CardLayout());
@@ -105,7 +113,7 @@ public class SidebarPanel extends javax.swing.JPanel {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 183, Short.MAX_VALUE)
+            .addGap(0, 437, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel2, "card3");
@@ -115,6 +123,15 @@ public class SidebarPanel extends javax.swing.JPanel {
 
         add(jSplitPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jSplitPane1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jSplitPane1PropertyChange
+        if (value) {
+            jSplitPane1.setDividerLocation(278);
+        } else {
+            jSplitPane1.setDividerLocation(23);
+        }
+    }//GEN-LAST:event_jSplitPane1PropertyChange
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AdvancedSearchPanel advancedSearchPanel;
     private citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel.AuthorListPanel authorListPanel;

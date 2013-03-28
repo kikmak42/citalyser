@@ -43,6 +43,10 @@ public class NavigationMaster {
 
     public void cancelButtonClicked() {
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().stopLoading();
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel().stopLoading();
+        mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getLowerDetailsDisplayPanel().stopLoading();
+        mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryComplete();
         /*synchronized (displayMaster.getThreads()) {
         for (Thread thread : displayMaster.getThreads()) {
         if (thread != null) {

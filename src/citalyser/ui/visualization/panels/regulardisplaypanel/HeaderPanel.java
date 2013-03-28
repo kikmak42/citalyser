@@ -159,7 +159,7 @@ public class HeaderPanel extends javax.swing.JPanel {
 
         jPanel9.setMaximumSize(new java.awt.Dimension(20, 20));
         jPanel9.setMinimumSize(new java.awt.Dimension(20, 20));
-        jPanel9.setPreferredSize(new java.awt.Dimension(50, 111));
+        jPanel9.setPreferredSize(new java.awt.Dimension(60, 111));
         jPanel9.setLayout(new java.awt.GridBagLayout());
 
         jButton1.setBackground(new java.awt.Color(59, 89, 157));
@@ -170,9 +170,10 @@ public class HeaderPanel extends javax.swing.JPanel {
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
         jButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButton1.setMaximumSize(new java.awt.Dimension(35, 35));
+        jButton1.setMaximumSize(new java.awt.Dimension(50, 35));
         jButton1.setMinimumSize(new java.awt.Dimension(1, 1));
         jButton1.setOpaque(true);
+        jButton1.setPreferredSize(new java.awt.Dimension(50, 15));
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
@@ -181,22 +182,23 @@ public class HeaderPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 35;
+        gridBagConstraints.ipadx = 50;
         gridBagConstraints.ipady = 35;
         gridBagConstraints.insets = new java.awt.Insets(11, 10, 0, 2);
         jPanel9.add(jButton1, gridBagConstraints);
 
         jButton2.setBackground(new java.awt.Color(59, 89, 157));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Help");
         jButton2.setBorder(null);
         jButton2.setBorderPainted(false);
         jButton2.setContentAreaFilled(false);
         jButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButton2.setMaximumSize(new java.awt.Dimension(35, 35));
+        jButton2.setMaximumSize(new java.awt.Dimension(50, 35));
         jButton2.setMinimumSize(new java.awt.Dimension(1, 1));
         jButton2.setOpaque(true);
+        jButton2.setPreferredSize(new java.awt.Dimension(50, 15));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -205,7 +207,7 @@ public class HeaderPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 35;
+        gridBagConstraints.ipadx = 50;
         gridBagConstraints.ipady = 35;
         gridBagConstraints.insets = new java.awt.Insets(18, 10, 11, 2);
         jPanel9.add(jButton2, gridBagConstraints);
