@@ -3,6 +3,7 @@ package citalyser.ui.control.masters;
 import citalyser.Constants;
 import citalyser.Main;
 import citalyser.model.Author;
+import citalyser.model.PaperCollection;
 import citalyser.model.query.Query;
 import citalyser.model.query.QueryHandler;
 import citalyser.model.query.QueryResult;
@@ -79,6 +80,7 @@ public class SearchMaster {
                 }
             }
         }
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().clearAll();
     }
 
     public void addAutoCompleteSuggestions(Vector<String> suggestions) {
@@ -181,6 +183,7 @@ public class SearchMaster {
                 }
                 /* Update the search panel*/
                 mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel().updateOnQueryComplete();
+                mainFrame.getRegularDisplayPanel().getSidebarPanel().getAuthorListPanel().displayAuthors(((PaperCollection) (globalResult.getContents())));
 
                 // Query Completed. 
                 if (globalResult == null) {
