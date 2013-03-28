@@ -46,9 +46,4 @@ public class JournalResult extends QueryResult<Journal> implements Serializable 
             return 0;
         }
     }
-
-    @Override
-    public PaperCollection getPaperCollection() {
-        return this.journal.getPaperCollection();
-    }
 }

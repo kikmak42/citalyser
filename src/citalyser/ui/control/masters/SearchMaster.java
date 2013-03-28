@@ -61,6 +61,7 @@ public class SearchMaster {
 
     public void searchButtonClicked(SearchPanel searchPanel) {
         mainFrame.getRegularDisplayPanel().getSidebarPanel().showArticleSearch(false);
+        mainFrame.getRegularDisplayPanel().getSidebarPanel().showAuthorListPanel(false);
         if (searchPanel.equals(mainFrame.getRegularDisplayPanel().getHeaderPanel().getSearchPanel())) {
             if (!searchPanel.getSearchString().equals(" Enter Your Search Query Here") && !searchPanel.getSearchString().equals("")) {
                 handleUserQuery(searchPanel);
@@ -191,7 +192,7 @@ public class SearchMaster {
                     mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().stopLoading();
                     UiUtils.displayResultNullMessage(q.flag, searchQuery);
                 } else {
-                    mainFrame.getRegularDisplayPanel().getSidebarPanel().getAuthorListPanel().displayAuthors(globalResult);
+                    //mainFrame.getRegularDisplayPanel().getSidebarPanel().getAuthorListPanel().displayAuthors(globalResult);
                     /* If no results, show EmptyResult Message */
                     if (recvCount == 0) {
                         UiUtils.displayQueryEmptyMessage(dataContentRenderer, q.flag, searchQuery);

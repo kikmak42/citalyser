@@ -62,7 +62,7 @@ public class DisplayMaster {
         settingsMaster = new SettingsMaster(extraPanel);
         searchMaster = new SearchMaster(this);
         navigationMaster = new NavigationMaster(mainFrame, this);
-        renderMaster = new RenderMaster(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel());
+        renderMaster = new RenderMaster(mainFrame.getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel(), mainFrame.getRegularDisplayPanel().getSidebarPanel());
         abstractDialog = new JDialog(mainFrame);
         abstractDialog.setUndecorated(true);
         abstractDialog.setFocusable(false);

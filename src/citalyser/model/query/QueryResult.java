@@ -18,6 +18,5 @@ public abstract class QueryResult<T> implements Serializable{
     abstract public T getContents();
     abstract public void appendContents(T t);
     abstract public int getNumContents();
-    abstract public PaperCollection getPaperCollection();
 
 }

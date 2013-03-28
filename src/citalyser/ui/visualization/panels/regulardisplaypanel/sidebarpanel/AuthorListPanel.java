@@ -137,7 +137,7 @@ public class AuthorListPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    public void displayAuthors(QueryResult result) {
+    /*public void displayAuthors(QueryResult result) {
         if (result == null) {
             return;
         }
@@ -150,7 +150,7 @@ public class AuthorListPanel extends javax.swing.JPanel {
             }
             displayMaster.showArticleSearch(false);
         }
-    }
+    }*/
 
     public void clear() {
         try {

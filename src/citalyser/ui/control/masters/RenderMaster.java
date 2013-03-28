@@ -12,6 +12,7 @@ import citalyser.model.PaperCollection;
 import citalyser.model.query.Query;
 import citalyser.model.query.QueryType;
 import citalyser.ui.model.ContentRenderer;
+import citalyser.ui.visualization.panels.regulardisplaypanel.SidebarPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.ContentDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.DetailsDisplayPanel;
 import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.griddisplaypanel.GridEntityPanel;
@@ -25,9 +26,11 @@ import java.util.ArrayList;
 public class RenderMaster {
     
     private ContentDisplayPanel contentDisplayPanel;
+    private SidebarPanel sidebarPanel;
 
-    public RenderMaster(ContentDisplayPanel contentDisplayPanel) {
+    public RenderMaster(ContentDisplayPanel contentDisplayPanel, SidebarPanel sidebarPanel) {
         this.contentDisplayPanel = contentDisplayPanel;
+        this.sidebarPanel = sidebarPanel;
     }
 
     public void render(ContentRenderer contentRenderer, Query query, ArrayList<Author> arrayList) {
@@ -59,6 +62,7 @@ public class RenderMaster {
             //contentRenderer.clearAll();
             contentRenderer.getTableDisplayPanel().setTable(query,author.getPaperCollection());
             contentRenderer.flipToTableDisplayPanel();
+            sidebarPanel.displayAuthorList(author.getPaperCollection().extractAuthors());            
         } else {
             Main.getDisplayController().displayErrorMessage("Unknown Error while fetching Author Profile.");
             //contentRenderer.displayMessage("Could not fetch author papers result");
@@ -68,7 +72,7 @@ public class RenderMaster {
     public void render(ContentRenderer contentRenderer, Query query, PaperCollection paperCollection) {
         contentRenderer.getTableDisplayPanel().setTable(query,paperCollection);
         contentRenderer.flipToTableDisplayPanel();
-        
+        sidebarPanel.displayAuthorList(paperCollection.extractAuthors());
     }
 
     public void renderCitationsList(ContentRenderer contentRenderer, Query query, ArrayList<Paper> papers) {

@@ -51,9 +51,4 @@ public class AuthorListResult extends QueryResult<ArrayList<Author>> implements 
         for(Author author : a)
             this.authorList.add(author);
     }
-
-    @Override
-    public PaperCollection getPaperCollection() {
-        return null;
-    }
 }
