@@ -7,6 +7,7 @@ package citalyser.ui.visualization.panels.regulardisplaypanel.sidebarpanel;
 import citalyser.model.PaperCollection;
 import citalyser.model.query.QueryResult;
 import citalyser.ui.control.DisplayMaster;
+import citalyser.ui.visualization.panels.regulardisplaypanel.datavisualizationpanel.contentdisplaypanel.modules.tabledisplaypanel.TableDisplayPanelInterface;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class AuthorListPanel extends javax.swing.JPanel {
 
     private PaperCollection paperCollection;
     private ArrayList<Integer> rowNumbers;
+    private TableDisplayPanelInterface tableDisplayPanelInterface;
 
     /**
      * Creates new form AuthorListPanel
@@ -62,6 +64,11 @@ public class AuthorListPanel extends javax.swing.JPanel {
     public void setDisplayMaster(DisplayMaster displayMaster) {
         this.displayMaster = displayMaster;
     }
+
+    public void setTableDisplayPanelInterface(TableDisplayPanelInterface tableDisplayPanelInterface) {
+        this.tableDisplayPanelInterface = tableDisplayPanelInterface;
+    }
+    
     
     private DisplayMaster displayMaster;
 
@@ -124,6 +131,7 @@ public class AuthorListPanel extends javax.swing.JPanel {
             jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).setSelected(false);
             //displayMaster.displayStatusMessage("Unticked : " + jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
             ArrayList<Integer> rows = paperCollection.getAuthorPos(jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
+            
             displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getTableDisplayPanel().getPaperTableDisplayPanel().filterTableDeselect(rows);
             int i = 0, count = 0;
             for(i=0; i<jList1.getModel().getSize(); i++){                
