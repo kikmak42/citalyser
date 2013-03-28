@@ -102,7 +102,22 @@ public class AuthorPaperTableDisplayPanel extends javax.swing.JPanel implements 
         jTable1.repaint();
         //displayMaster.renderGeneralProfile(displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getDetailsDisplayPanel().getUpperDetailsDisplayPanel(), this.paperCollection);
     }
-
+    public void filterTableSelect(ArrayList<Integer> columnsIndex) {
+        int c = 0;
+        for (int i : columnsIndex) {
+            jTable1.setRowSelectionAllowed(true);
+            jTable1.addRowSelectionInterval(i, i);
+        
+       } 
+    }
+public void filterTableDeselect(ArrayList<Integer> columnsIndex) {
+        int c = 0;
+        for (int i : columnsIndex) {
+            jTable1.setRowSelectionAllowed(true);
+            jTable1.removeRowSelectionInterval(i, i);
+            
+       } 
+    }
     public void showMoreButton() {
         moreButton.setVisible(true);
     }

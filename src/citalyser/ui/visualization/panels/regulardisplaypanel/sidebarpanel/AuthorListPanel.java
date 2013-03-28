@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
  * @author kaushik
  */
 public class AuthorListPanel extends javax.swing.JPanel {
+
     private PaperCollection paperCollection;
 
     /**
@@ -27,17 +28,18 @@ public class AuthorListPanel extends javax.swing.JPanel {
     }
 
     public void setList(ArrayList<String> authors) {
+        jLabel1.setText("Check Authors to Highlight Papers");
         DefaultListModel list = new DefaultListModel();
         for (int i = 0; i < authors.size(); i++) {
             JCheckBox jCheckBox = new JCheckBox();
             jCheckBox.setText(authors.get(i));
-            jCheckBox.setSelected(true);
+            jCheckBox.setSelected(false);
             jCheckBox.setPreferredSize(new Dimension(100, 20));
             jCheckBox.setBorder(new EmptyBorder(5, 2, 2, 5));
             jCheckBox.setBorderPainted(true);
             list.add(i, jCheckBox);
             //list.addElement(authors.get(i));          
-           
+
         }
         jList1.setModel(list);
         displayMaster.showArticleSearch(false);
@@ -72,7 +74,6 @@ public class AuthorListPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Uncheck Authors to Hide Papers");
         jLabel1.setOpaque(true);
         jLabel1.setPreferredSize(new java.awt.Dimension(181, 20));
         jPanel1.add(jLabel1, java.awt.BorderLayout.CENTER);
@@ -105,12 +106,15 @@ public class AuthorListPanel extends javax.swing.JPanel {
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         if (jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).isSelected()) {
             jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).setSelected(false);
-            displayMaster.displayStatusMessage("Unticked : "+jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
-            System.out.println(paperCollection.getAuthorPos(jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText()));
-      
+            displayMaster.displayStatusMessage("Unticked : " + jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
+            ArrayList<Integer> columns = paperCollection.getAuthorPos(jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
+            displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getTableDisplayPanel().getPaperTableDisplayPanel().filterTableDeselect(columns);
+
         } else {
             jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).setSelected(true);
-            displayMaster.displayStatusMessage("Ticked : "+jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
+            displayMaster.displayStatusMessage("Ticked : " + jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
+            ArrayList<Integer> columns = paperCollection.getAuthorPos(jList1.getModel().getElementAt(jList1.locationToIndex(evt.getPoint())).getText());
+            displayMaster.getMainFrame().getRegularDisplayPanel().getDataVisualizationPanel().getContentDisplayPanel().getCentralContentDisplayPanel().getTableDisplayPanel().getPaperTableDisplayPanel().filterTableSelect(columns);
         }
         jList1.repaint();
     }//GEN-LAST:event_jList1MouseClicked
@@ -129,6 +133,13 @@ public class AuthorListPanel extends javax.swing.JPanel {
     }
 
     public void clear() {
-        //    jList1.removeAll();
+        jLabel1.setText("");
+        try {
+            DefaultListModel tm = (DefaultListModel) jList1.getModel();
+            tm.removeAllElements();
+            paperCollection.removePaper();
+        } catch (Exception e) {
+        }
+
     }
 }
